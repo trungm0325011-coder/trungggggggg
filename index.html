@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Máy tính phương trình bậc 4 – TrungSite</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at 20% 20%, #6c63ff, #20232a 70%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+    }
+
+    h1 {
+      margin-top: 25px;
+      font-size: 26px;
+      font-weight: 700;
+      text-shadow: 0 0 10px #4f5cff;
+    }
+
+    p {
+      margin: 0;
+      opacity: 0.85;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      height: 75vh;
+      border-radius: 18px;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 0 40px rgba(79, 92, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+      position: relative;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 18px;
+    }
+
+    .footer {
+      margin-top: 15px;
+      font-size: 12px;
+      opacity: 0.6;
+    }
+
+    .glow {
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(120, 120, 255, 0.4), transparent 70%);
+      filter: blur(40px);
+    }
+  </style>
+</head>
+<body>
+  <h1>Máy tính phương trình bậc 4</h1>
+  <p>Trang nhúng từ TrungSite – Giải phương trình dạng ax⁴ + bx³ + cx² + dx + e = 0</p>
+
+  <div class="container">
+    <div class="glow"></div>
+    <iframe 
+      src="https://trungdeptrai.github.io/TrungSite/ptb4/"
+      title="Máy tính phương trình bậc 4 - TrungSite"
+      loading="lazy"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="footer">
+    © 2025 TrungSite | 
+    <a href="https://trungdeptrai.github.io/TrungSite/ptb4/" 
+       style="color:#aaccff;text-decoration:none;">Mở bản gốc</a>
+  </div>
+</body>
+</html>
