@@ -42,6 +42,58 @@
       --ring: 0 0 0 4px rgba(255,59,59,.12);
       --glass: blur(12px);
     }
+/* ===== CV PREVIEW ===== */
+.cv-preview{
+  position: relative;
+  width: 100%;
+  height: 520px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.03);
+}
+
+.cv-preview-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(.92);
+  transition: transform .3s ease, filter .3s ease;
+}
+
+.cv-preview:hover .cv-preview-img{
+  transform: scale(1.02);
+  filter: brightness(1);
+}
+
+.cv-overlay{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.25),
+    rgba(0,0,0,.55)
+  );
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+
+.cv-preview:hover .cv-overlay{
+  opacity: 1;
+}
+
+.cv-overlay span{
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 15px;
+  color: #fff;
+  background: linear-gradient(135deg, #ff3b3b, #ffd54a);
+  box-shadow: 0 10px 40px rgba(0,0,0,.5);
+}
 
     /* Light mode */
     [data-theme="light"]{
@@ -684,7 +736,13 @@ Các câu nói này không chỉ mang lại cảm hứng mà còn khuyến khíc
           </div>
 
           <div class="muted2" style="margin-top:12px; font-weight:800; font-size:12px; line-height:1.7">
-            ✅ <span data-i18n="note1">Nếu bạn bị 404 như trước, nguyên nhân là link còn trỏ “assets/”. Bản này đã loại bỏ hoàn toàn.</span>
+            ✅ <span data-i18n="note1">"Don’t cry because it’s over, smile because it happened." – Dr. Seuss
+"You only live once, but if you do it right, once is enough." – Mae West
+"Life is 10% what happens to us and 90% how we react to it." – Dennis P. Kimbro
+"Success is not final, failure is not fatal: It is the courage to continue that counts." – Winston Churchill
+"In the middle of every difficulty lies opportunity." – Albert Einstein
+Những câu châm ngôn này không chỉ mang lại động lực cho bạn mà còn giúp bạn hiểu thêm về thế giới xung quanh và bản thân mình. Hãy tìm kiếm những câu châm ngôn phù hợp với những điều bạn đang trải qua và áp dụng chúng vào cuộc sống hàng ngày để mang lại sự lạc quan và thành công. 
+6.</span>
           </div>
         </div>
 
@@ -984,8 +1042,21 @@ Các câu nói này không chỉ mang lại cảm hứng mà còn khuyến khíc
 
         <div class="card pad">
           <h3 style="margin:0 0 10px; font-size:15px" data-i18n="cvView">Xem CV ngay trên trang</h3>
-          <div class="iframeBox">
-            <iframe title="CV_Trung.pdf" src="CV_Trung.pdf" loading="lazy"></iframe>
+
+            <div class="cv-preview">
+  <a href="CV_Trung.pdf" target="_blank" title="Click để mở CV PDF">
+    <img
+      src="CV_preview.jpg"
+      alt="Xem nhanh CV Trần Quốc Trung"
+      class="cv-preview-img"
+      loading="lazy"
+    >
+    <div class="cv-overlay">
+      <span>👁️ Xem CV (PDF)</span>
+    </div>
+  </a>
+</div>
+
           </div>
         </div>
       </div>
