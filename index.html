@@ -1,468 +1,271 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trần Quốc Trung — Portfolio</title>
-  <meta name="description" content="Portfolio của Trần Quốc Trung — Thú y, AI, và phát triển ứng dụng." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trần Quốc Trung — Portfolio</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg: #070A10;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.08);
-      --line: rgba(255,255,255,.12);
-      --text: rgba(255,255,255,.90);
-      --muted: rgba(255,255,255,.65);
-      --gold:#F59E0B;
-      --red:#EF4444;
-      --radius: 20px;
-      --shadow: 0 22px 55px rgba(0,0,0,.45);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(1200px 700px at 10% 12%, rgba(245,158,11,.18), transparent 60%),
-        radial-gradient(900px 600px at 85% 20%, rgba(239,68,68,.14), transparent 55%),
-        radial-gradient(900px 700px at 55% 90%, rgba(59,130,246,.10), transparent 60%),
-        var(--bg);
-      overflow-x:hidden;
-    }
-    a{color:inherit}
-    .container{width:min(1120px, 92vw); margin:0 auto; padding: 26px 0 64px;}
+<style>
+:root{
+  --bg:#070a10;
+  --card:rgba(255,255,255,.06);
+  --line:rgba(255,255,255,.14);
+  --text:rgba(255,255,255,.92);
+  --muted:rgba(255,255,255,.65);
+  --accent1:#f59e0b;
+  --accent2:#ef4444;
+}
 
-    /* TOP NAV */
-    .topbar{
-      position: sticky; top:0; z-index:99;
-      background: linear-gradient(to bottom, rgba(7,10,16,.86), rgba(7,10,16,.30));
-      backdrop-filter: blur(16px);
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    .topbar-inner{
-      width:min(1120px, 92vw);
-      margin:0 auto;
-      padding: 12px 0;
-      display:flex; align-items:center; justify-content:space-between; gap:16px;
-    }
-    .brand{display:flex; align-items:center; gap:12px; min-width:280px;}
-    .avatar-nav{
-      width:80px; height:80px; border-radius:50%;
-      object-fit:cover;
-      border: 3px solid rgba(255,255,255,.18);
-      box-shadow: 0 14px 28px rgba(0,0,0,.55);
-      background: rgba(255,255,255,.06);
-    }
-    .brand-title{display:flex; flex-direction:column; gap:2px;}
-    .brand-title .name{font-weight:900; letter-spacing:.2px; font-size:16px; line-height:1.1;}
-    .brand-title .tag{font-size:12.5px; color:var(--muted)}
-    .navlinks{display:flex; gap:10px; flex-wrap:wrap; justify-content:center;}
-    .navlinks a{
-      text-decoration:none;
-      padding: 9px 12px;
-      border-radius: 14px;
-      font-size:13px;
-      color: rgba(255,255,255,.78);
-      transition: .15s ease;
-    }
-    .navlinks a:hover{
-      background: rgba(255,255,255,.08);
-      color: rgba(255,255,255,.92);
-      transform: translateY(-1px);
-    }
-    .actions{display:flex; gap:10px; min-width:280px; justify-content:flex-end;}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding: 11px 14px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.92);
-      text-decoration:none;
-      font-weight:800; font-size:13px;
-      transition: .15s ease;
-      user-select:none;
-    }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.22);}
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(245,158,11,.95), rgba(239,68,68,.78));
-      color: rgba(10,10,10,.92);
-      box-shadow: 0 16px 35px rgba(239,68,68,.22);
-      border-color: rgba(255,255,255,.10);
-    }
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:
+    radial-gradient(1000px 600px at 10% 10%,rgba(245,158,11,.18),transparent 60%),
+    radial-gradient(900px 600px at 90% 20%,rgba(239,68,68,.14),transparent 60%),
+    var(--bg);
+  color:var(--text);
+}
 
-    /* CARDS */
-    .card{
-      background: var(--card);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-    .card::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(700px 220px at 15% 20%, rgba(245,158,11,.22), transparent 62%),
-        radial-gradient(620px 260px at 90% 20%, rgba(239,68,68,.16), transparent 62%);
-      opacity:.9;
-      pointer-events:none;
-    }
-    .card > *{position:relative; z-index:1;}
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:32px 16px 80px;
+}
 
-    /* HERO */
-    .hero{
-      margin-top: 22px;
-      display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 16px;
-      align-items: stretch;
-    }
-    .hero-main{padding: 26px;}
-    .pill{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      font-weight:800; font-size:12px;
-      color: rgba(255,255,255,.82);
-    }
-    .dot{width:10px; height:10px; border-radius:50%; background: linear-gradient(135deg, var(--gold), var(--red)); box-shadow:0 0 0 4px rgba(245,158,11,.12);}
-    .hero-title{
-      margin: 14px 0 8px;
-      font-size: clamp(32px, 4vw, 48px);
-      font-weight: 900;
-      letter-spacing:-.9px;
-      line-height:1.05;
-    }
-    .hero-title .nick{
-      display:block;
-      margin-top: 6px;
-      font-size: clamp(18px, 2.2vw, 26px);
-      font-weight: 900;
-      color: transparent;
-      background: linear-gradient(135deg, rgba(245,158,11,.98), rgba(239,68,68,.90));
-      -webkit-background-clip:text; background-clip:text;
-    }
-    .lead{
-      margin: 10px 0 16px;
-      color: rgba(255,255,255,.78);
-      line-height:1.7;
-      font-size: 14.8px;
-    }
+/* ===== HEADER ===== */
+header{
+  position:sticky;
+  top:0;
+  backdrop-filter:blur(16px);
+  background:rgba(7,10,16,.8);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  z-index:10;
+}
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 16px;
+  gap:12px;
+}
 
-    /* BIG AVATAR IN HERO */
-    .hero-profile{
-      display:flex; gap:16px; align-items:center;
-      margin-top: 12px;
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
-    }
-    .avatar-hero{
-      width:140px; height:140px; border-radius:50%;
-      object-fit:cover;
-      border: 3px solid rgba(255,255,255,.18);
-      box-shadow: 0 18px 38px rgba(0,0,0,.55);
-      background: rgba(255,255,255,.06);
-      flex: 0 0 auto;
-    }
-    .hero-profile .miniinfo b{display:block; font-size:14px; margin-bottom:6px;}
-    .hero-profile .miniinfo span{display:block; font-size:13px; color: rgba(255,255,255,.70); line-height:1.5;}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.avatar{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid rgba(255,255,255,.25);
+  box-shadow:0 12px 32px rgba(0,0,0,.6);
+}
+.brand-text b{font-size:16px}
+.brand-text span{
+  display:block;
+  font-size:13px;
+  color:var(--muted);
+}
 
-    /* CONTACT + QR */
-    .contact-area{
-      margin-top: 16px;
-      display:grid;
-      grid-template-columns: 1fr 240px;
-      gap: 14px;
-      align-items: stretch;
-    }
-    .contact-box{
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
-    }
-    .contact-box h3{margin:0 0 10px; font-size:15px; font-weight:900;}
-    .contact-actions{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;}
-    .icon-btn{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      text-decoration:none;
-      font-weight:900; font-size:13px;
-      transition:.15s ease;
-    }
-    .icon-btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.22);}
-    .gmail{color:#ffb4b4}
-    .facebook{color:#8ab4ff}
-    .zalo{color:#7cf1c5}
-    .contact-text{
-      font-size: 13px;
-      color: rgba(255,255,255,.72);
-      line-height:1.6;
-    }
+nav a{
+  margin:0 8px;
+  text-decoration:none;
+  color:var(--muted);
+  font-size:14px;
+}
+nav a:hover{color:#fff}
 
-    .qr-box{
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      gap:10px;
-      text-align:center;
-    }
-    #qrcode{
-      display:inline-block;
-      padding: 12px;
-      background:#fff;
-      border-radius: 16px;
-      box-shadow: 0 14px 28px rgba(0,0,0,.45);
-    }
-    .qr-box small{color: rgba(255,255,255,.68); line-height:1.35;}
+/* ===== HERO ===== */
+.hero{
+  margin-top:24px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:32px;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+}
 
-    /* RIGHT PANEL */
-    .hero-side{padding: 18px; display:flex; flex-direction:column; gap:12px;}
-    .mini{
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
-    }
-    .mini h4{margin:0 0 6px; font-size:14px; font-weight:900;}
-    .mini p{margin:0; font-size:13px; color: rgba(255,255,255,.70); line-height:1.5;}
+.hero h1{
+  margin:12px 0 6px;
+  font-size:42px;
+  line-height:1.1;
+}
+.hero h1 span{
+  display:block;
+  background:linear-gradient(135deg,var(--accent1),var(--accent2));
+  -webkit-background-clip:text;
+  color:transparent;
+  font-size:28px;
+  font-weight:800;
+}
 
-    /* SECTIONS */
-    .section{
-      margin-top: 16px;
-      padding: 22px;
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
-    }
-    .section h2{margin:0 0 8px; font-size:18px; font-weight:900;}
-    .section .sub{margin:0 0 14px; color: rgba(255,255,255,.68); font-size:13.5px; line-height:1.55;}
-    .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px;}
-    .item{
-      padding: 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      transition:.15s ease;
-    }
-    .item:hover{transform: translateY(-2px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.16);}
-    .item b{display:block; margin-bottom:6px;}
-    .item span{display:block; color: rgba(255,255,255,.68); font-size:13px; line-height:1.5;}
+.hero p{
+  max-width:680px;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:15px;
+}
 
-    footer{margin-top: 24px; text-align:center; color: rgba(255,255,255,.55); font-size:12.5px;}
+/* ===== CONTACT + QR ===== */
+.contact{
+  margin-top:48px;
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:40px;
+}
 
-    /* RESPONSIVE */
-    @media (max-width: 980px){
-      .hero{grid-template-columns:1fr;}
-      .actions,.brand{min-width:auto}
-      .topbar-inner{flex-wrap:wrap; justify-content:center;}
-      .contact-area{grid-template-columns:1fr;}
-      .grid{grid-template-columns:1fr;}
-      .avatar-nav{width:66px;height:66px;}
-      .avatar-hero{width:120px;height:120px;}
-    }
-  </style>
+.contact h2{
+  margin-top:0;
+  font-size:24px;
+}
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+  margin-top:24px;
+}
+
+.contact-card{
+  padding:24px;
+  border-radius:24px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);
+  text-decoration:none;
+  color:#fff;
+  transition:.25s;
+}
+.contact-card:hover{
+  transform:translateY(-6px) scale(1.02);
+  background:rgba(255,255,255,.14);
+}
+
+.contact-card b{font-size:16px}
+.contact-card span{
+  display:block;
+  margin-top:6px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* QR */
+.qr{
+  margin-top:36px;
+  text-align:center;
+}
+#qrcode{
+  display:inline-block;
+  padding:18px;
+  background:#fff;
+  border-radius:22px;
+  box-shadow:0 20px 40px rgba(0,0,0,.55);
+}
+.qr p{
+  margin-top:12px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* FOOTER */
+footer{
+  margin-top:60px;
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero h1{font-size:34px}
+  .avatar{width:76px;height:76px}
+}
+</style>
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <!-- Ảnh: đặt tại assets/avatar.jpg -->
-        <img class="avatar-nav" src="assets/avatar.jpg" alt="Avatar Trần Quốc Trung">
-        <div class="brand-title">
-          <div class="name">Trần Quốc Trung</div>
-          <div class="tag">Veterinary • A.I • Apps</div>
-        </div>
-      </div>
 
-      <nav class="navlinks">
-        <a href="#gioi-thieu">Giới thiệu</a>
-        <a href="#du-an">Dự án</a>
-        <a href="#ky-nang">Kỹ năng</a>
-        <a href="#lien-he">Liên hệ</a>
-      </nav>
-
-      <div class="actions">
-        <a class="btn" href="https://github.com/trungm0325011" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn primary" href="#lien-he">Contact</a>
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <img src="assets/avatar.jpg" class="avatar" alt="Tran Quoc Trung">
+      <div class="brand-text">
+        <b>Trần Quốc Trung</b>
+        <span>Veterinary • AI • Apps</span>
       </div>
     </div>
-  </header>
 
-  <main class="container">
-    <section class="hero">
-      <div class="card hero-main">
-        <div class="pill"><span class="dot"></span> Portfolio cá nhân</div>
+    <nav>
+      <a href="#contact">Liên hệ</a>
+    </nav>
+  </div>
+</header>
 
-        <div class="hero-title">
-          Trần Quốc Trung
-          <span class="nick">(Trungdapchai)</span>
-        </div>
+<div class="container">
 
-        <p class="lead">
-          Xin chào! Mình đang học <b>Thạc sĩ Thú y</b> tại <b>Đại học Cần Thơ</b>, quan tâm <b>AI trong thú y</b> và
-          <b>phát triển ứng dụng</b>. Mình cũng đang vận hành cửa hàng <b>thuốc thú y & thức ăn chăn nuôi</b> tại quê nhà.
-        </p>
+<section class="hero">
+  <h1>
+    Trần Quốc Trung
+    <span>(Gnurt)</span>
+  </h1>
 
-        <!-- Avatar lớn trong hero -->
-        <div class="hero-profile">
-          <img class="avatar-hero" src="assets/avatar.jpg" alt="Avatar lớn Trần Quốc Trung">
-          <div class="miniinfo">
-            <b>Thông tin nhanh</b>
-            <span>🎓 Thạc sĩ Thú y — Đại học Cần Thơ</span>
-            <span>📍 Cần Thơ, Việt Nam</span>
-            <span>🧠 AI hỗ trợ chẩn đoán • Hồ sơ bệnh án • Tư vấn thú y</span>
-          </div>
-        </div>
+  <p>
+    Xin chào! Mình đang học <b>Thạc sĩ Thú y</b> tại <b>Đại học Cần Thơ</b>,
+    quan tâm <b>AI trong thú y</b> và <b>phát triển ứng dụng</b>.
+    Mình cũng đang vận hành cửa hàng thuốc thú y & thức ăn chăn nuôi tại quê nhà.
+  </p>
+</section>
 
-        <!-- CONTACT + QR (đảm bảo có) -->
-        <div class="contact-area" id="lien-he">
-          <div class="contact-box">
-            <h3>📌 Liên hệ & Kết nối</h3>
+<section class="contact" id="contact">
+  <h2>📞 Liên hệ trực tiếp</h2>
 
-            <div class="contact-actions">
-              <a class="icon-btn gmail" href="mailto:trungm0325011@gstudent.ctu.edu.vn">📧 Gmail</a>
-              <a class="icon-btn facebook" href="https://www.facebook.com/tran.quoc.trung" target="_blank" rel="noopener">📘 Facebook</a>
-              <a class="icon-btn zalo" href="https://zalo.me/0945350772" target="_blank" rel="noopener">💬 Zalo</a>
-              <a class="btn" href="assets/Trung-CV.pdf" download>⬇️ Tải CV</a>
-            </div>
+  <div class="contact-grid">
+    <a class="contact-card" href="mailto:trungm0325011@gstudent.ctu.edu.vn">
+      <b>📧 Email</b>
+      <span>trungm0325011@gstudent.ctu.edu.vn</span>
+    </a>
 
-            <div class="contact-text">
-              <b>Email:</b> trungm0325011@gstudent.ctu.edu.vn <br>
-              <b>Zalo:</b> 0945350772 <br>
-              <b>Facebook:</b> Tran Quoc Trung
-            </div>
-          </div>
+    <a class="contact-card" href="https://zalo.me/0945350772" target="_blank">
+      <b>💬 Zalo</b>
+      <span>0945 350 772</span>
+    </a>
 
-          <div class="qr-box">
-            <div id="qrcode"></div>
-            <small>📱 Scan QR để mở website<br>chia sẻ nhanh cho nhà tuyển dụng</small>
-          </div>
-        </div>
-      </div>
+    <a class="contact-card" href="https://www.facebook.com/tran.quoc.trung" target="_blank">
+      <b>📘 Facebook</b>
+      <span>Tran Quoc Trung</span>
+    </a>
+  </div>
 
-      <aside class="card hero-side">
-        <div class="mini">
-          <h4>✅ Điểm mạnh</h4>
-          <p>Ngắn gọn • Rõ ràng • Chuyên nghiệp</p>
-        </div>
-        <div class="mini">
-          <h4>🎯 Mục tiêu</h4>
-          <p>Kết hợp Thú y + Công nghệ để tạo giải pháp hữu ích cho cộng đồng.</p>
-        </div>
-        <div class="mini">
-          <h4>⚡ Gợi ý</h4>
-          <p>Hãy scan QR để lưu web vào điện thoại.</p>
-        </div>
-      </aside>
-    </section>
+  <div class="qr">
+    <div id="qrcode"></div>
+    <p>Quét QR để mở website của tôi</p>
+  </div>
+</section>
 
-    <section id="gioi-thieu" class="section">
-      <h2>Giới thiệu</h2>
-      <p class="sub">
-        Mình tập trung xây dựng các giải pháp ứng dụng trong thú y: quản lý phòng khám, hỗ trợ chẩn đoán, theo dõi bệnh án,
-        và công cụ tư vấn chăm sóc thú cưng.
-      </p>
+<footer>
+  © 2025 Trần Quốc Trung • Built with GitHub Pages
+</footer>
 
-      <div class="grid">
-        <div class="item">
-          <b>🔬 Hướng nghiên cứu</b>
-          <span>AI trong thú y, dữ liệu bệnh án, phân tích triệu chứng, hỗ trợ quyết định lâm sàng.</span>
-        </div>
-        <div class="item">
-          <b>🏪 Kinh nghiệm thực tế</b>
-          <span>Vận hành cửa hàng thuốc thú y & thức ăn chăn nuôi, tư vấn chăm sóc và phòng bệnh.</span>
-        </div>
-        <div class="item">
-          <b>🧩 Ứng dụng</b>
-          <span>Tạo sản phẩm “dễ dùng – đáng tin – hữu ích” cho bác sĩ thú y và người nuôi.</span>
-        </div>
-      </div>
-    </section>
+</div>
 
-    <section id="du-an" class="section">
-      <h2>Dự án</h2>
-      <p class="sub">Bạn thay tên dự án thật vào đây (mình để khung sẵn cho đẹp).</p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+new QRCode(document.getElementById("qrcode"),{
+  text:window.location.href,
+  width:180,
+  height:180,
+  colorDark:"#000",
+  colorLight:"#fff",
+  correctLevel:QRCode.CorrectLevel.H
+});
+</script>
 
-      <div class="grid">
-        <div class="item">
-          <b>📱 App thú y / quản lý</b>
-          <span>Mô tả: mục tiêu, tính năng chính, kết quả.</span>
-        </div>
-        <div class="item">
-          <b>🧠 AI hỗ trợ chẩn đoán</b>
-          <span>Mô tả: dữ liệu, cách làm, output, hướng phát triển.</span>
-        </div>
-        <div class="item">
-          <b>🌐 Website / Tool</b>
-          <span>Mô tả: giải quyết vấn đề gì, công nghệ gì.</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="ky-nang" class="section">
-      <h2>Kỹ năng</h2>
-      <p class="sub">Chỉnh lại theo đúng kỹ năng của bạn nhé.</p>
-
-      <div class="grid">
-        <div class="item">
-          <b>💻 Công nghệ</b>
-          <span>HTML/CSS • JavaScript • Git/GitHub • (thêm framework bạn dùng)</span>
-        </div>
-        <div class="item">
-          <b>🧪 Thú y</b>
-          <span>Chẩn đoán cơ bản • Phòng bệnh • Tư vấn chăm sóc • Quản lý bệnh án</span>
-        </div>
-        <div class="item">
-          <b>🗣️ Ngoại ngữ</b>
-          <span>Tiếng Anh (đang luyện B1/B2)</span>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      © <span id="year"></span> Trần Quốc Trung — Portfolio • Cập nhật: <span id="updated"></span>
-    </footer>
-  </main>
-
-  <!-- QR library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-    document.getElementById("updated").textContent = new Date().toLocaleDateString("vi-VN");
-
-    // TẠO QR CHẮC CHẮN HIỆN: dùng đúng URL website đang mở
-    new QRCode(document.getElementById("qrcode"), {
-      text: window.location.href,
-      width: 150,
-      height: 150,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H
-    });
-  </script>
 </body>
 </html>
