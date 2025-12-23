@@ -3,40 +3,62 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trần Quốc Trung — Portfolio</title>
-  <meta name="description" content="Portfolio cá nhân của Trần Quốc Trung: Thú y • AI • Ứng dụng • Dự án • CV." />
+  <title>Trần Quốc Trung — Professional Portfolio</title>
+  <meta name="description" content="Portfolio chuyên nghiệp: Thú y • AI • Ứng dụng • Dự án • CV • Liên hệ • QR" />
 
-  <!-- Open Graph (chia sẻ Facebook/Zalo đẹp) -->
-  <meta property="og:title" content="Trần Quốc Trung — Portfolio" />
-  <meta property="og:description" content="Thú y • AI • Ứng dụng • Dự án • CV" />
+  <!-- SEO / Social -->
+  <meta property="og:title" content="Trần Quốc Trung — Professional Portfolio" />
+  <meta property="og:description" content="Thú y • AI • Ứng dụng • Dự án • CV • Liên hệ • QR" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="avatar.jpg" />
 
-  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- QR library (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 
   <style>
     :root{
       --bg: #070A10;
+      --bg2:#05070c;
       --panel: rgba(255,255,255,.06);
       --panel2: rgba(255,255,255,.08);
       --line: rgba(255,255,255,.12);
       --txt: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.68);
       --muted2: rgba(255,255,255,.56);
-      --brand: #ff3b3b;   /* đỏ */
-      --brand2:#ffd54a;   /* vàng */
+      --brand: #ff3b3b;     /* đỏ */
+      --brand2:#ffd54a;     /* vàng */
+      --blue:#6aa6ff;
       --ok:#36d399;
+      --warn:#fbbf24;
+      --bad:#fb7185;
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius: 18px;
       --radius2: 24px;
-      --max: 1120px;
+      --max: 1160px;
+      --ring: 0 0 0 4px rgba(255,59,59,.12);
+      --glass: blur(12px);
+    }
+
+    /* Light mode */
+    [data-theme="light"]{
+      --bg:#f6f7fb;
+      --bg2:#ffffff;
+      --panel: rgba(0,0,0,.04);
+      --panel2: rgba(0,0,0,.06);
+      --line: rgba(0,0,0,.10);
+      --txt: rgba(0,0,0,.88);
+      --muted: rgba(0,0,0,.64);
+      --muted2: rgba(0,0,0,.52);
+      --shadow: 0 18px 60px rgba(0,0,0,.14);
+      --ring: 0 0 0 4px rgba(255,59,59,.18);
     }
 
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
@@ -45,26 +67,28 @@
         radial-gradient(1000px 500px at 15% 10%, rgba(255,59,59,.18), transparent 55%),
         radial-gradient(900px 500px at 80% 15%, rgba(255,213,74,.14), transparent 60%),
         radial-gradient(700px 500px at 40% 85%, rgba(74,144,255,.10), transparent 55%),
-        linear-gradient(180deg, #05070c 0%, #070A10 100%);
+        linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
       overflow-x:hidden;
     }
 
     a{color:inherit; text-decoration:none}
     img{max-width:100%; display:block}
+    button{font-family:inherit}
 
-    /* Utilities */
+    /* Layout */
     .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
-    .grid{display:grid; gap:18px}
+    .grid{display:grid; gap:16px}
     .card{
       background:linear-gradient(180deg, var(--panel) 0%, rgba(255,255,255,.04) 100%);
       border:1px solid var(--line);
       border-radius:var(--radius);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      backdrop-filter: var(--glass);
     }
-    .card.pad{padding:18px}
+    .pad{padding:18px}
     .muted{color:var(--muted)}
     .muted2{color:var(--muted2)}
+
     .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:8px 12px;
@@ -72,7 +96,7 @@
       border:1px solid var(--line);
       background:rgba(255,255,255,.04);
       color:var(--muted);
-      font-weight:600;
+      font-weight:700;
       font-size:13px;
       white-space:nowrap;
     }
@@ -89,79 +113,97 @@
       border-bottom:1px solid rgba(255,255,255,.08);
       backdrop-filter: blur(10px);
     }
+    [data-theme="light"] header{
+      background:rgba(255,255,255,.75);
+      border-bottom:1px solid rgba(0,0,0,.08);
+    }
     .nav{
       display:flex; align-items:center; justify-content:space-between;
-      padding:12px 0;
-      gap:14px;
+      padding:10px 0;
+      gap:12px;
     }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    .brand-badge{
-      width:34px; height:34px; border-radius:12px;
+    .brandWrap{display:flex; align-items:center; gap:10px}
+    .brandBadge{
+      width:36px; height:36px; border-radius:14px;
       display:grid; place-items:center;
       background:linear-gradient(135deg, rgba(255,59,59,.22), rgba(255,213,74,.18));
       border:1px solid rgba(255,255,255,.14);
-      box-shadow:0 14px 40px rgba(0,0,0,.35);
+      box-shadow:0 14px 40px rgba(0,0,0,.18);
+      flex:0 0 auto;
     }
-    .brand-badge span{
+    .brandBadge span{
       font-weight:900;
       background:linear-gradient(135deg, var(--brand), var(--brand2));
       -webkit-background-clip:text;
       background-clip:text;
       color:transparent;
+      letter-spacing:.4px;
     }
-    .nav a{
+    .brandTitle{font-weight:900; font-size:14px; line-height:1.15}
+    .brandSub{font-weight:700; font-size:12px; color:var(--muted2)}
+    .navLinks{
+      display:flex; align-items:center; gap:6px;
+      flex-wrap:wrap; justify-content:flex-end;
+    }
+    .navLinks a{
       color:var(--muted);
-      font-weight:700;
-      font-size:13px;
-      padding:10px 12px;
+      font-weight:800;
+      font-size:12.5px;
+      padding:9px 10px;
       border-radius:12px;
       border:1px solid transparent;
     }
-    .nav a:hover{
+    .navLinks a:hover{
       color:var(--txt);
       border-color:rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+    }
+    .navLinks a.active{
+      color:var(--txt);
+      border-color:rgba(255,59,59,.22);
+      background:linear-gradient(135deg, rgba(255,59,59,.16), rgba(255,213,74,.10));
+    }
+
+    /* Top actions */
+    .actions{display:flex; align-items:center; gap:8px}
+    .iconBtn{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:40px; height:40px;
+      border-radius:14px;
+      border:1px solid var(--line);
       background:rgba(255,255,255,.04);
+      cursor:pointer;
+      transition:.18s ease;
+      user-select:none;
     }
-    .nav-links{
-      display:flex; align-items:center; gap:6px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
+    .iconBtn:hover{transform:translateY(-1px); background:rgba(255,255,255,.06)}
+    .iconBtn:focus{outline:none; box-shadow:var(--ring)}
+    .kbd{font-weight:900; font-size:12px; opacity:.9}
 
     /* Hero */
-    .hero{padding:26px 0 18px}
-    .hero-grid{
-      grid-template-columns: 1.15fr .85fr;
-      align-items:stretch;
-    }
-    .hero-left{padding:22px}
-    .hero-right{padding:22px}
-
+    .hero{padding:20px 0 10px}
+    .heroGrid{grid-template-columns: 1.12fr .88fr; align-items:stretch}
     .headline{
-      font-size:40px;
-      line-height:1.08;
-      margin:10px 0 12px;
-      letter-spacing:-.6px;
+      font-size:42px; line-height:1.06; margin:10px 0 12px;
+      letter-spacing:-.8px;
+    }
+    .grad{
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
     }
     .sub{
       font-size:15px;
-      line-height:1.65;
+      line-height:1.7;
       color:var(--muted);
-      margin:0 0 16px;
-      max-width:64ch;
+      margin:0 0 14px;
+      max-width:70ch;
     }
-    .cta{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:14px;
-    }
+    .metaRow{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 6px}
 
     /* Buttons */
+    .cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       gap:10px;
@@ -170,167 +212,381 @@
       border:1px solid rgba(255,255,255,.14);
       background:rgba(255,255,255,.05);
       color:var(--txt);
-      font-weight:800;
+      font-weight:900;
       font-size:14px;
-      min-width:170px;
+      min-width:190px;
       cursor:pointer;
       transition:.18s ease;
       user-select:none;
     }
+    [data-theme="light"] .btn{border-color: rgba(0,0,0,.12)}
     .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.07)}
-    .btn-primary{
+    .btnPrimary{
       border-color: rgba(255,59,59,.35);
       background:linear-gradient(135deg, rgba(255,59,59,.25), rgba(255,213,74,.14));
     }
-    .btn-primary:hover{
+    .btnPrimary:hover{
       background:linear-gradient(135deg, rgba(255,59,59,.32), rgba(255,213,74,.18));
     }
-    .btn-ghost{
-      min-width:170px;
-    }
-    .btn small{font-weight:700; color:var(--muted); display:block; font-size:11px; margin-top:2px}
     .btn .ico{
-      width:26px; height:26px; border-radius:10px;
+      width:28px; height:28px; border-radius:12px;
       display:grid; place-items:center;
       background:rgba(255,255,255,.07);
       border:1px solid rgba(255,255,255,.12);
     }
+    .btn small{display:block; margin-top:2px; font-size:11px; color:var(--muted); font-weight:800}
 
-    /* Big avatar (to rõ) */
-    .avatar-wrap{
-      display:grid;
-      gap:12px;
-      align-content:start;
-    }
+    /* Avatar big */
     .avatar{
       width:100%;
-      aspect-ratio: 1 / 1;  /* vuông, nổi bật */
+      aspect-ratio: 1 / 1; /* to rõ */
       border-radius: var(--radius2);
       border:1px solid rgba(255,255,255,.16);
       overflow:hidden;
       background:rgba(255,255,255,.04);
       position:relative;
-      box-shadow: 0 24px 80px rgba(0,0,0,.55);
+      box-shadow: 0 24px 90px rgba(0,0,0,.35);
     }
-    .avatar img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      transform: scale(1.03);
-    }
+    .avatar img{width:100%; height:100%; object-fit:cover; transform: scale(1.03)}
     .avatar::after{
       content:"";
       position:absolute; inset:0;
-      background: radial-gradient(600px 300px at 30% 10%, rgba(255,59,59,.18), transparent 55%),
-                  radial-gradient(600px 320px at 80% 20%, rgba(255,213,74,.12), transparent 55%);
+      background:
+        radial-gradient(600px 320px at 30% 10%, rgba(255,59,59,.18), transparent 55%),
+        radial-gradient(640px 340px at 80% 20%, rgba(255,213,74,.12), transparent 55%);
       mix-blend-mode: overlay;
       pointer-events:none;
     }
 
-    .mini-info{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
+    .miniGrid{display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:12px}
     .mini{
-      border:1px solid rgba(255,255,255,.12);
+      border:1px solid var(--line);
       border-radius:16px;
-      padding:12px 12px;
+      padding:12px;
       background:rgba(255,255,255,.04);
     }
     .mini b{display:block; font-size:13px}
-    .mini span{color:var(--muted); font-size:12px}
+    .mini span{color:var(--muted); font-size:12px; line-height:1.45}
 
     /* Sections */
-    section{padding:10px 0 18px}
-    .section-title{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-      margin:6px 0 12px;
-    }
-    .section-title h2{
-      margin:0;
-      font-size:18px;
-      letter-spacing:-.2px;
-    }
-
-    /* Two columns content */
-    .content-grid{
-      grid-template-columns: 1fr 1fr;
-    }
-
-    /* Lists */
+    section{padding:10px 0 14px}
+    .titleRow{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin:4px 0 12px}
+    .titleRow h2{margin:0; font-size:18px; letter-spacing:-.2px}
+    .split2{grid-template-columns: 1fr 1fr}
+    .split3{grid-template-columns: 1fr 1fr 1fr}
     .list{display:grid; gap:12px}
     .item{
       padding:14px;
       border-radius:16px;
-      border:1px solid rgba(255,255,255,.12);
+      border:1px solid var(--line);
       background:rgba(255,255,255,.04);
     }
     .item h3{margin:0 0 6px; font-size:14px}
     .item p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
-    .meta{
-      display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;
+    .tagRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+
+    /* Stats */
+    .stats{display:grid; grid-template-columns: repeat(4, 1fr); gap:12px}
+    .stat{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      border-radius:18px;
+      padding:14px;
+    }
+    .stat .num{font-size:22px; font-weight:900}
+    .stat .lbl{color:var(--muted2); font-size:12px; font-weight:800; margin-top:4px}
+
+    /* Timeline */
+    .timeline{display:grid; gap:12px}
+    .tItem{
+      display:grid;
+      grid-template-columns: 140px 1fr;
+      gap:12px;
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+    }
+    .tDate{font-weight:900; color:var(--muted2); font-size:12px; letter-spacing:.6px; text-transform:uppercase}
+    .tTitle{font-weight:900; font-size:14px; margin:0}
+    .tDesc{margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.6}
+
+    /* Skills bars */
+    .bars{display:grid; gap:10px}
+    .bar{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:12px;
+      background:rgba(255,255,255,.04);
+    }
+    .barTop{display:flex; justify-content:space-between; gap:10px; font-weight:900; font-size:13px}
+    .meter{
+      height:10px; border-radius:999px; background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      margin-top:10px;
+    }
+    .fill{
+      height:100%;
+      border-radius:999px;
+      background:linear-gradient(90deg, rgba(255,59,59,.85), rgba(255,213,74,.85));
+      width:0%;
+      transition: width .6s ease;
     }
 
-    /* Contact */
-    .contact-grid{
-      grid-template-columns: 1.1fr .9fr;
-      align-items:stretch;
+    /* Projects filters */
+    .controls{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .input, .select{
+      padding:11px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--txt);
+      font-weight:800;
+      font-size:13px;
+      min-width:220px;
+      outline:none;
     }
-    .contact-row{
+    .select{min-width:180px}
+    .projGrid{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px}
+    .proj{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      padding:14px;
+      display:grid; gap:10px;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+    .proj:hover{transform: translateY(-2px); background:rgba(255,255,255,.06)}
+    .projTop{display:flex; justify-content:space-between; gap:10px}
+    .badge{
+      font-size:11px;
+      font-weight:900;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .badge.red{border-color: rgba(255,59,59,.25)}
+    .badge.yellow{border-color: rgba(255,213,74,.25)}
+    .badge.blue{border-color: rgba(106,166,255,.25)}
+    .proj h3{margin:0; font-size:14px}
+    .proj p{margin:0; color:var(--muted); font-size:13px; line-height:1.55}
+    .projFooter{display:flex; justify-content:space-between; gap:10px; align-items:center; margin-top:2px}
+    .linkMini{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      font-weight:900;
+      font-size:12px;
+    }
+
+    /* Modal */
+    .overlay{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:99;
+    }
+    .overlay.show{display:flex}
+    .modal{
+      width:min(920px, 100%);
+      border-radius:22px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, var(--panel2), var(--panel));
+      box-shadow: 0 30px 120px rgba(0,0,0,.6);
+      overflow:hidden;
+    }
+    .modalHead{
+      padding:14px 14px;
+      display:flex; justify-content:space-between; gap:10px; align-items:center;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .modalHead b{font-weight:900}
+    .modalBody{padding:14px}
+    .closeBtn{
+      width:42px; height:42px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      cursor:pointer;
+      font-weight:900;
+    }
+    .closeBtn:hover{background:rgba(255,255,255,.06)}
+
+    /* CV */
+    .iframeBox{
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(255,255,255,.03);
+    }
+    iframe{width:100%; height:560px; border:0}
+
+    /* Gallery */
+    .gal{display:grid; grid-template-columns: repeat(4, 1fr); gap:10px}
+    .ph{
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(255,255,255,.04);
+      cursor:pointer;
+      position:relative;
+      aspect-ratio: 4 / 3;
+    }
+    .ph img{width:100%; height:100%; object-fit:cover; transform:scale(1.02)}
+    .ph::after{
+      content:"";
+      position:absolute; inset:0;
+      background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,.45));
+      pointer-events:none;
+    }
+    .ph span{
+      position:absolute; left:12px; bottom:10px;
+      font-weight:900; font-size:12px;
+      color:rgba(255,255,255,.92);
+      text-shadow:0 8px 30px rgba(0,0,0,.55);
+    }
+
+    /* Blog */
+    .posts{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px}
+    .post{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      padding:14px;
+      display:grid; gap:10px;
+    }
+    .post .date{font-size:11px; font-weight:900; color:var(--muted2); letter-spacing:.6px; text-transform:uppercase}
+    .post h3{margin:0; font-size:14px}
+    .post p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
+
+    /* FAQ */
+    details{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      padding:12px 14px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      list-style:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{margin:10px 0 0; color:var(--muted); line-height:1.65; font-size:13px}
+
+    /* Contact */
+    .contactGrid{grid-template-columns: 1.12fr .88fr}
+    .row{
       display:grid;
       grid-template-columns: 120px 1fr;
       gap:10px;
       padding:12px 0;
       border-top:1px dashed rgba(255,255,255,.12);
     }
-    .contact-row:first-child{border-top:none}
-    .label{color:var(--muted2); font-weight:800; font-size:12px; text-transform:uppercase; letter-spacing:.8px}
-    .value{color:var(--txt); font-weight:700}
+    .row:first-child{border-top:none}
+    .label{color:var(--muted2); font-weight:900; font-size:12px; text-transform:uppercase; letter-spacing:.8px}
+    .value{font-weight:800}
     .value a{
       display:inline-flex; align-items:center; gap:8px;
       padding:8px 10px;
       border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
+      border:1px solid var(--line);
       background:rgba(255,255,255,.04);
       margin-right:8px;
       margin-top:6px;
     }
     .value a:hover{background:rgba(255,255,255,.06)}
-    .small-note{margin-top:10px; color:var(--muted); font-size:12px; line-height:1.6}
+    .copyBtn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      cursor:pointer;
+      font-weight:900;
+      font-size:12px;
+      margin-top:6px;
+    }
+    .copyBtn:hover{background:rgba(255,255,255,.06)}
+    .formGrid{display:grid; gap:10px}
+    .textarea{min-height:120px; resize:vertical}
+
+    /* Toast */
+    .toast{
+      position:fixed; right:16px; bottom:16px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.65);
+      color:rgba(255,255,255,.92);
+      font-weight:900;
+      display:none;
+      z-index:120;
+      backdrop-filter: blur(10px);
+      max-width: 320px;
+    }
+    [data-theme="light"] .toast{
+      background:rgba(255,255,255,.85);
+      color:rgba(0,0,0,.88);
+    }
+    .toast.show{display:block}
+
+    /* Back to top */
+    .topBtn{
+      position:fixed;
+      left:16px;
+      bottom:16px;
+      width:46px; height:46px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      display:none;
+      place-items:center;
+      cursor:pointer;
+      z-index:120;
+      font-weight:900;
+      backdrop-filter: blur(10px);
+    }
+    .topBtn.show{display:grid}
+    .topBtn:hover{background:rgba(255,255,255,.08)}
 
     /* Footer */
-    footer{
-      padding:26px 0 34px;
-      color:var(--muted2);
-      font-size:12px;
-    }
+    footer{padding:22px 0 34px; color:var(--muted2); font-size:12px}
     .foot{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; flex-wrap:wrap;
       border-top:1px solid rgba(255,255,255,.10);
       padding-top:14px;
     }
 
     /* Responsive */
-    @media (max-width: 980px){
-      .hero-grid{grid-template-columns: 1fr}
-      .content-grid{grid-template-columns: 1fr}
-      .contact-grid{grid-template-columns: 1fr}
-      .headline{font-size:34px}
-      .btn{min-width: 160px}
-      .mini-info{grid-template-columns:1fr 1fr}
+    @media (max-width: 1040px){
+      .heroGrid{grid-template-columns: 1fr}
+      .split2{grid-template-columns: 1fr}
+      .split3{grid-template-columns: 1fr}
+      .contactGrid{grid-template-columns: 1fr}
+      .projGrid{grid-template-columns: 1fr 1fr}
+      .posts{grid-template-columns: 1fr 1fr}
+      .gal{grid-template-columns: 1fr 1fr}
+      .stats{grid-template-columns: 1fr 1fr}
     }
-    @media (max-width: 520px){
-      .headline{font-size:30px}
-      .mini-info{grid-template-columns:1fr}
-      .nav-links a{padding:9px 10px}
+    @media (max-width: 560px){
+      .headline{font-size:32px}
+      .miniGrid{grid-template-columns:1fr}
+      .projGrid{grid-template-columns: 1fr}
+      .posts{grid-template-columns: 1fr}
+      .row{grid-template-columns: 1fr}
+      .actions{display:none} /* gọn */
     }
   </style>
 </head>
@@ -340,189 +596,313 @@
   <header>
     <div class="wrap">
       <div class="nav">
-        <div class="brand" aria-label="Brand">
-          <div class="brand-badge" aria-hidden="true"><span>VS</span></div>
+        <div class="brandWrap">
+          <div class="brandBadge" aria-hidden="true"><span>VS</span></div>
           <div>
-            <div style="font-size:14px; font-weight:900;">Trần Quốc Trung</div>
-            <div class="muted2" style="font-size:12px; font-weight:700;">Veterinary • AI • App Developer</div>
+            <div class="brandTitle">Trần Quốc Trung</div>
+            <div class="brandSub" data-i18n="role">Veterinary • AI • App Builder</div>
           </div>
         </div>
 
-        <nav class="nav-links" aria-label="Navigation">
-          <a href="#about">Giới thiệu</a>
-          <a href="#skills">Kỹ năng</a>
-          <a href="#projects">Dự án</a>
-          <a href="#cv">CV</a>
-          <a href="#contact">Liên hệ</a>
+        <nav class="navLinks" aria-label="Navigation">
+          <a href="#home" class="active" data-spy>Home</a>
+          <a href="#about" data-spy>About</a>
+          <a href="#highlights" data-spy>Highlights</a>
+          <a href="#skills" data-spy>Skills</a>
+          <a href="#timeline" data-spy>Timeline</a>
+          <a href="#projects" data-spy>Projects</a>
+          <a href="#cv" data-spy>CV</a>
+          <a href="#gallery" data-spy>Gallery</a>
+          <a href="#blog" data-spy>Blog</a>
+          <a href="#qr" data-spy>QR</a>
+          <a href="#faq" data-spy>FAQ</a>
+          <a href="#contact" data-spy>Contact</a>
         </nav>
+
+        <div class="actions" aria-label="Actions">
+          <button class="iconBtn" id="btnTheme" title="Đổi giao diện (Light/Dark)"><span class="kbd">☀️</span></button>
+          <button class="iconBtn" id="btnLang" title="Đổi ngôn ngữ (VI/EN)"><span class="kbd">VI</span></button>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <main class="wrap">
+  <main class="wrap" id="home">
+    <!-- HERO -->
     <section class="hero">
-      <div class="grid hero-grid">
-        <!-- Left -->
-        <div class="card hero-left">
-          <div class="pill"><span class="dot"></span> Online • Sẵn sàng hợp tác</div>
+      <div class="grid heroGrid">
+        <div class="card pad">
+          <div class="pill"><span class="dot"></span> <span data-i18n="status">Online • Sẵn sàng hợp tác</span></div>
+
           <h1 class="headline">
-            Portfolio cá nhân — <span style="background:linear-gradient(135deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent;">Trung</span>
+            <span data-i18n="hello">Xin chào, tôi là</span> <span class="grad">Trần Quốc Trung</span>.
           </h1>
-          <p class="sub">
-            Tôi là <b>Trần Quốc Trung</b> (Cần Thơ) — định hướng phát triển trong <b>Thú y</b>, ứng dụng <b>AI</b> và xây dựng
-            các sản phẩm <b>App/Web</b>. Trang này giúp bạn xem nhanh thông tin, kỹ năng, dự án và tải CV.
+
+          <p class="sub" data-i18n="heroDesc">
+            Tôi xây dựng portfolio này để giới thiệu rõ ràng về bản thân, kỹ năng, dự án và CV.
+            File <b>avatar.jpg</b> và <b>CV_Trung.pdf</b> được đặt cùng cấp với <b>index.html</b> (không dùng thư mục assets).
           </p>
 
-          <div class="meta">
-            <span class="pill">🐾 Thú y</span>
-            <span class="pill">🤖 AI ứng dụng</span>
-            <span class="pill">📱 Mobile App</span>
+          <div class="metaRow">
+            <span class="pill">🐾 Veterinary</span>
+            <span class="pill">🤖 AI</span>
+            <span class="pill">📱 App/Web</span>
             <span class="pill">🌍 English</span>
+            <span class="pill">📍 Cần Thơ</span>
           </div>
 
           <div class="cta">
-            <a class="btn btn-primary" href="#cv">
+            <a class="btn btnPrimary" href="#cv">
               <span class="ico">📄</span>
               <span>
-                Xem & Tải CV
-                <small>File: CV_Trung.pdf</small>
+                <span data-i18n="btnCV">Xem & Tải CV</span>
+                <small>CV_Trung.pdf</small>
               </span>
             </a>
-
-            <a class="btn btn-ghost" href="#contact">
-              <span class="ico">☎️</span>
+            <a class="btn" href="#projects">
+              <span class="ico">🧩</span>
               <span>
-                Liên hệ nhanh
-                <small>Email • Zalo • Facebook</small>
+                <span data-i18n="btnProjects">Xem dự án</span>
+                <small data-i18n="btnProjectsSub">Filter • Search • Modal</small>
               </span>
             </a>
+            <button class="btn" id="btnShare">
+              <span class="ico">🔗</span>
+              <span>
+                <span data-i18n="btnShare">Chia sẻ link</span>
+                <small data-i18n="btnShareSub">Copy URL nhanh</small>
+              </span>
+            </button>
           </div>
 
-          <div class="small-note">
-            ✅ Lưu ý: File <b>avatar.jpg</b> và <b>CV_Trung.pdf</b> đang được đọc trực tiếp từ cùng thư mục với <b>index.html</b> (không dùng <b>assets</b>).
-          </div>
-        </div>
-
-        <!-- Right (Avatar big) -->
-        <div class="card hero-right">
-          <div class="avatar-wrap">
-            <div class="avatar" title="avatar.jpg">
-              <img src="avatar.jpg" alt="Avatar của Trần Quốc Trung" loading="eager">
-            </div>
-
-            <div class="mini-info">
-              <div class="mini">
-                <b>Vị trí</b>
-                <span>Cần Thơ, Việt Nam</span>
-              </div>
-              <div class="mini">
-                <b>Lĩnh vực</b>
-                <span>Veterinary • AI • App</span>
-              </div>
-              <div class="mini">
-                <b>Trạng thái</b>
-                <span>Đang học & làm</span>
-              </div>
-              <div class="mini">
-                <b>Tài liệu</b>
-                <span>CV PDF • Portfolio</span>
-              </div>
-            </div>
+          <div class="muted2" style="margin-top:12px; font-weight:800; font-size:12px; line-height:1.7">
+            ✅ <span data-i18n="note1">Nếu bạn bị 404 như trước, nguyên nhân là link còn trỏ “assets/”. Bản này đã loại bỏ hoàn toàn.</span>
           </div>
         </div>
 
+        <div class="card pad">
+          <div class="avatar" title="avatar.jpg">
+            <img src="avatar.jpg" alt="Avatar Trung" loading="eager">
+          </div>
+
+          <div class="miniGrid">
+            <div class="mini">
+              <b data-i18n="mini1t">Vị trí</b>
+              <span data-i18n="mini1d">Cần Thơ, Việt Nam</span>
+            </div>
+            <div class="mini">
+              <b data-i18n="mini2t">Mục tiêu</b>
+              <span data-i18n="mini2d">Ứng dụng AI & xây sản phẩm hữu ích</span>
+            </div>
+            <div class="mini">
+              <b data-i18n="mini3t">Tài liệu</b>
+              <span data-i18n="mini3d">CV PDF • Portfolio • QR</span>
+            </div>
+            <div class="mini">
+              <b data-i18n="mini4t">Ưu tiên</b>
+              <span data-i18n="mini4d">Ổn định • Bảo mật • Trải nghiệm</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- About -->
+    <!-- ABOUT -->
     <section id="about">
-      <div class="section-title">
-        <h2>Giới thiệu</h2>
-        <span class="muted2" style="font-weight:700;">Tổng quan nhanh</span>
+      <div class="titleRow">
+        <h2 data-i18n="aboutTitle">Giới thiệu chuyên nghiệp</h2>
+        <span class="muted2" style="font-weight:800" data-i18n="aboutRight">Tổng quan rõ ràng</span>
       </div>
 
-      <div class="grid content-grid">
+      <div class="grid split2">
         <div class="card pad">
-          <h3 style="margin:0 0 8px; font-size:15px;">Tôi là ai?</h3>
-          <p class="muted" style="margin:0; line-height:1.75;">
-            Tôi tập trung vào <b>ứng dụng công nghệ</b> trong lĩnh vực <b>Thú y</b> và xây dựng sản phẩm số.
-            Mục tiêu của tôi là tạo ra những giải pháp thực tế: dễ dùng, ổn định, bảo mật và hữu ích cho cộng đồng.
+          <h3 style="margin:0 0 8px; font-size:15px" data-i18n="aboutMeT">Tôi là ai?</h3>
+          <p class="muted" style="margin:0; line-height:1.75" data-i18n="aboutMeD">
+            Tôi theo hướng kết hợp giữa kiến thức Thú y và công nghệ để tạo ra giải pháp thực tế.
+            Tôi ưu tiên làm việc có hệ thống, dễ mở rộng, rõ ràng và trình bày chuyên nghiệp.
           </p>
-          <div class="meta" style="margin-top:12px;">
-            <span class="pill">Tư duy sản phẩm</span>
-            <span class="pill">Kỷ luật & bền bỉ</span>
-            <span class="pill">Học nhanh</span>
+
+          <div class="tagRow">
+            <span class="pill" data-i18n="tag1">Tư duy hệ thống</span>
+            <span class="pill" data-i18n="tag2">Tối ưu trải nghiệm</span>
+            <span class="pill" data-i18n="tag3">Kỷ luật & bền bỉ</span>
           </div>
         </div>
 
         <div class="card pad">
-          <h3 style="margin:0 0 8px; font-size:15px;">Tôi mang lại gì?</h3>
+          <h3 style="margin:0 0 8px; font-size:15px" data-i18n="valueT">Giá trị tôi mang lại</h3>
+
           <div class="list">
             <div class="item">
-              <h3>✅ Tư duy hệ thống</h3>
-              <p>Thiết kế luồng tính năng rõ ràng, ưu tiên trải nghiệm người dùng, dễ mở rộng.</p>
+              <h3 data-i18n="value1t">✅ Tối ưu rõ ràng</h3>
+              <p data-i18n="value1d">Thiết kế nội dung dễ đọc, cấu trúc rõ ràng, link CV/QR hoạt động đúng.</p>
             </div>
             <div class="item">
-              <h3>✅ Tính thực tế</h3>
-              <p>Chọn giải pháp phù hợp điều kiện vận hành, tối ưu hiệu suất và độ ổn định.</p>
+              <h3 data-i18n="value2t">✅ Tính chuyên nghiệp</h3>
+              <p data-i18n="value2d">Giao diện “portfolio chuẩn”, có filter/search, modal, blog, gallery, QR generator.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Skills -->
+    <!-- HIGHLIGHTS + STATS -->
+    <section id="highlights">
+      <div class="titleRow">
+        <h2 data-i18n="hlTitle">Highlights</h2>
+        <span class="muted2" style="font-weight:800" data-i18n="hlRight">Thông tin nổi bật</span>
+      </div>
+
+      <div class="grid split2">
+        <div class="card pad">
+          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="statsT">Thống kê nhanh</h3>
+          <div class="stats">
+            <div class="stat">
+              <div class="num" id="s1">0</div>
+              <div class="lbl" data-i18n="s1">Dự án demo</div>
+            </div>
+            <div class="stat">
+              <div class="num" id="s2">0</div>
+              <div class="lbl" data-i18n="s2">Chủ đề AI thú y</div>
+            </div>
+            <div class="stat">
+              <div class="num" id="s3">0</div>
+              <div class="lbl" data-i18n="s3">Bài viết</div>
+            </div>
+            <div class="stat">
+              <div class="num" id="s4">0</div>
+              <div class="lbl" data-i18n="s4">Chứng chỉ</div>
+            </div>
+          </div>
+
+          <div class="muted2" style="margin-top:12px; font-weight:800; font-size:12px; line-height:1.7">
+            * <span data-i18n="statsNote">Số liệu có thể chỉnh trong phần JS cuối file.</span>
+          </div>
+        </div>
+
+        <div class="card pad">
+          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="focusT">Trọng tâm</h3>
+          <div class="list">
+            <div class="item">
+              <h3 data-i18n="focus1t">📌 Thú y + Công nghệ</h3>
+              <p data-i18n="focus1d">Tập trung tính ứng dụng, tối ưu vận hành, triển khai dễ.</p>
+            </div>
+            <div class="item">
+              <h3 data-i18n="focus2t">📌 Trình bày chuyên nghiệp</h3>
+              <p data-i18n="focus2d">Website có cấu trúc rõ, UX tốt, có tính năng đầy đủ như web doanh nghiệp.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
     <section id="skills">
-      <div class="section-title">
-        <h2>Kỹ năng</h2>
-        <span class="muted2" style="font-weight:700;">Tóm tắt năng lực</span>
+      <div class="titleRow">
+        <h2 data-i18n="skillsTitle">Kỹ năng</h2>
+        <span class="muted2" style="font-weight:800" data-i18n="skillsRight">Thanh đánh giá + mô tả</span>
       </div>
 
-      <div class="grid content-grid">
+      <div class="grid split2">
         <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px;">Chuyên môn</h3>
+          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="skillsCore">Năng lực cốt lõi</h3>
+          <div class="bars" id="bars">
+            <div class="bar" data-pct="78">
+              <div class="barTop"><span data-i18n="b1">Veterinary Fundamentals</span><span>78%</span></div>
+              <div class="meter"><div class="fill"></div></div>
+            </div>
+            <div class="bar" data-pct="72">
+              <div class="barTop"><span data-i18n="b2">AI Tools & Workflow</span><span>72%</span></div>
+              <div class="meter"><div class="fill"></div></div>
+            </div>
+            <div class="bar" data-pct="70">
+              <div class="barTop"><span data-i18n="b3">Web UI / GitHub Pages</span><span>70%</span></div>
+              <div class="meter"><div class="fill"></div></div>
+            </div>
+            <div class="bar" data-pct="64">
+              <div class="barTop"><span data-i18n="b4">English Communication</span><span>64%</span></div>
+              <div class="meter"><div class="fill"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card pad">
+          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="skillsMore">Kỹ năng bổ sung</h3>
           <div class="list">
             <div class="item">
-              <h3>🐾 Thú y</h3>
-              <p>Kiến thức nền tảng, thực hành và định hướng nghiên cứu/ứng dụng.</p>
-              <div class="meta">
-                <span class="pill">Chẩn đoán</span>
-                <span class="pill">Phòng bệnh</span>
-                <span class="pill">Điều trị</span>
-              </div>
+              <h3 data-i18n="sm1t">🧠 Tư duy hệ thống</h3>
+              <p data-i18n="sm1d">Tách module rõ, đặt tên chuẩn, link đúng đường dẫn, tránh lỗi 404.</p>
             </div>
             <div class="item">
-              <h3>🤖 AI ứng dụng</h3>
-              <p>Ứng dụng AI trong phân tích, tra cứu tri thức, hỗ trợ ra quyết định.</p>
-              <div class="meta">
-                <span class="pill">AI tools</span>
-                <span class="pill">Prompting</span>
-                <span class="pill">Workflow</span>
+              <h3 data-i18n="sm2t">🧩 Thiết kế trải nghiệm</h3>
+              <p data-i18n="sm2d">Filter/search dự án, modal, CTA rõ, nút copy nhanh, QR generator.</p>
+            </div>
+            <div class="item">
+              <h3 data-i18n="sm3t">🛡️ Chất lượng & ổn định</h3>
+              <p data-i18n="sm3d">Ưu tiên website chạy mượt, responsive, cấu trúc chuyên nghiệp.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline">
+      <div class="titleRow">
+        <h2 data-i18n="tlTitle">Timeline</h2>
+        <span class="muted2" style="font-weight:800" data-i18n="tlRight">Học tập • Công việc • Dự án</span>
+      </div>
+
+      <div class="grid split2">
+        <div class="card pad">
+          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="tlExp">Kinh nghiệm / Hành trình</h3>
+          <div class="timeline">
+            <div class="tItem">
+              <div class="tDate">2024–2025</div>
+              <div>
+                <p class="tTitle" data-i18n="t1t">Nâng cấp học thuật</p>
+                <p class="tDesc" data-i18n="t1d">Tập trung kiến thức chuyên ngành và tài liệu chuẩn, trình bày khoa học.</p>
+              </div>
+            </div>
+            <div class="tItem">
+              <div class="tDate">2025</div>
+              <div>
+                <p class="tTitle" data-i18n="t2t">Portfolio / Web cá nhân</p>
+                <p class="tDesc" data-i18n="t2d">Xây web chuyên nghiệp: CV PDF, QR, dự án, blog, gallery, contact.</p>
+              </div>
+            </div>
+            <div class="tItem">
+              <div class="tDate">2025+</div>
+              <div>
+                <p class="tTitle" data-i18n="t3t">Ứng dụng AI thực tế</p>
+                <p class="tDesc" data-i18n="t3d">Ứng dụng AI hỗ trợ học tập, tra cứu, chuẩn hóa quy trình và hiệu suất.</p>
               </div>
             </div>
           </div>
         </div>
 
         <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px;">Kỹ năng số</h3>
+          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="certTitle">Chứng chỉ / Thành tựu</h3>
           <div class="list">
             <div class="item">
-              <h3>📱 App/Web</h3>
-              <p>Xây dựng giao diện, tối ưu trải nghiệm, triển khai trên GitHub Pages.</p>
-              <div class="meta">
-                <span class="pill">HTML/CSS</span>
-                <span class="pill">UI Layout</span>
-                <span class="pill">Deploy</span>
+              <h3>🏅 <span data-i18n="c1t">English Practice</span></h3>
+              <p data-i18n="c1d">Luyện viết, luyện nói, tăng từ vựng, trình bày chuẩn.</p>
+              <div class="tagRow">
+                <span class="pill">B1/B2</span><span class="pill">Writing</span><span class="pill">Speaking</span>
               </div>
             </div>
             <div class="item">
-              <h3>🌍 Tiếng Anh</h3>
-              <p>Giao tiếp & luyện viết, sử dụng trong công việc và học thuật.</p>
-              <div class="meta">
-                <span class="pill">Speaking</span>
-                <span class="pill">Writing</span>
-                <span class="pill">Vocabulary</span>
+              <h3>🏅 <span data-i18n="c2t">AI Tools in Vet</span></h3>
+              <p data-i18n="c2d">Tổng hợp công cụ AI: chẩn đoán, quản lý bệnh án, hỗ trợ tư vấn.</p>
+              <div class="tagRow">
+                <span class="pill">SignalPET</span><span class="pill">Digitail</span><span class="pill">CoVet</span>
+              </div>
+            </div>
+            <div class="item">
+              <h3>🏅 <span data-i18n="c3t">Web Deployment</span></h3>
+              <p data-i18n="c3d">Deploy GitHub Pages đúng cấu trúc, không lỗi assets/404.</p>
+              <div class="tagRow">
+                <span class="pill">GitHub Pages</span><span class="pill">Responsive</span><span class="pill">SEO</span>
               </div>
             </div>
           </div>
@@ -530,190 +910,851 @@
       </div>
     </section>
 
-    <!-- Projects -->
+    <!-- PROJECTS (Filter + Search + Modal) -->
     <section id="projects">
-      <div class="section-title">
-        <h2>Dự án</h2>
-        <span class="muted2" style="font-weight:700;">Một số hướng phát triển</span>
+      <div class="titleRow">
+        <h2 data-i18n="projTitle">Dự án</h2>
+        <span class="muted2" style="font-weight:800" data-i18n="projRight">Filter • Search • Modal</span>
       </div>
 
-      <div class="grid content-grid">
-        <div class="card pad">
-          <div class="list">
-            <div class="item">
-              <h3>📌 Portfolio cá nhân</h3>
-              <p>Website giới thiệu bản thân + CV PDF + liên hệ nhanh (Email, Zalo, Facebook).</p>
-              <div class="meta">
-                <span class="pill">GitHub Pages</span>
-                <span class="pill">1 file index.html</span>
-              </div>
-            </div>
-            <div class="item">
-              <h3>📌 Ứng dụng ghi chú/nhật ký</h3>
-              <p>Xây dựng các tính năng viết bài, lưu trữ, bảo vệ, giao diện đẹp và ổn định.</p>
-              <div class="meta">
-                <span class="pill">Mobile</span>
-                <span class="pill">UI/UX</span>
-              </div>
-            </div>
-          </div>
+      <div class="card pad">
+        <div class="controls">
+          <input class="input" id="q" placeholder="Tìm dự án (vd: AI, web, thú y)..." />
+          <select class="select" id="cat">
+            <option value="all">Tất cả</option>
+            <option value="vet">Thú y</option>
+            <option value="ai">AI</option>
+            <option value="web">Web</option>
+            <option value="app">App</option>
+          </select>
+          <button class="btn" style="min-width:170px" id="btnReset"><span class="ico">🧽</span><span>Làm mới</span></button>
         </div>
 
-        <div class="card pad">
-          <div class="list">
-            <div class="item">
-              <h3>📌 AI trong thú y</h3>
-              <p>Tổng hợp công cụ AI, hỗ trợ học thuật và ứng dụng thực tế tại phòng khám/cửa hàng.</p>
-              <div class="meta">
-                <span class="pill">Knowledge</span>
-                <span class="pill">Tools</span>
-              </div>
-            </div>
-            <div class="item">
-              <h3>📌 Phát triển cộng đồng</h3>
-              <p>Kết nối học tập, chia sẻ kinh nghiệm và tài nguyên cho người quan tâm đến Thú y & AI.</p>
-              <div class="meta">
-                <span class="pill">Content</span>
-                <span class="pill">Community</span>
-              </div>
-            </div>
-          </div>
+        <div style="height:12px"></div>
+
+        <div class="projGrid" id="projGrid"></div>
+
+        <div class="muted2" style="margin-top:12px; font-weight:800; font-size:12px; line-height:1.7">
+          * <span data-i18n="projHint">Nhấp vào 1 dự án để mở modal chi tiết.</span>
         </div>
       </div>
     </section>
 
     <!-- CV -->
     <section id="cv">
-      <div class="section-title">
-        <h2>CV</h2>
-        <span class="muted2" style="font-weight:700;">Hiển thị rõ + tải nhanh</span>
+      <div class="titleRow">
+        <h2 data-i18n="cvTitle">CV</h2>
+        <span class="muted2" style="font-weight:800" data-i18n="cvRight">Rõ ràng • Xem trực tiếp • Tải nhanh</span>
       </div>
 
-      <div class="grid content-grid">
+      <div class="grid split2">
         <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px;">Tải CV</h3>
-          <p class="muted" style="margin:0 0 14px; line-height:1.7;">
-            CV của bạn nằm cùng thư mục với <b>index.html</b> và có tên chính xác: <b>CV_Trung.pdf</b>.
-            Nhấn nút bên dưới để mở hoặc tải.
+          <h3 style="margin:0 0 10px; font-size:15px">CV_Trung.pdf</h3>
+          <p class="muted" style="margin:0 0 14px; line-height:1.7" data-i18n="cvDesc">
+            CV nằm cùng thư mục với index.html (không có assets). Nhấn nút để mở hoặc tải.
           </p>
 
           <div class="cta">
-            <a class="btn btn-primary" href="CV_Trung.pdf" target="_blank" rel="noopener">
+            <a class="btn btnPrimary" href="CV_Trung.pdf" target="_blank" rel="noopener">
               <span class="ico">⬇️</span>
-              <span>
-                Mở / Tải CV
-                <small>CV_Trung.pdf</small>
-              </span>
+              <span><span data-i18n="openCV">Mở / Tải CV</span><small>CV_Trung.pdf</small></span>
             </a>
-
-            <a class="btn btn-ghost" href="CV_Trung.pdf" download>
+            <a class="btn" href="CV_Trung.pdf" download>
               <span class="ico">💾</span>
-              <span>
-                Tải về máy
-                <small>Download trực tiếp</small>
-              </span>
+              <span><span data-i18n="downloadCV">Tải về máy</span><small data-i18n="downloadCVSub">Download trực tiếp</small></span>
             </a>
+            <button class="btn" id="btnPrint">
+              <span class="ico">🖨️</span>
+              <span><span data-i18n="printCV">In CV</span><small data-i18n="printCVSub">Mở rồi in</small></span>
+            </button>
           </div>
 
-          <div class="small-note">
-            Nếu bạn thấy lỗi 404: kiểm tra đúng tên file (<b>CV_Trung.pdf</b>) và đã <b>Commit + Push</b> lên GitHub.
+          <div class="muted2" style="margin-top:12px; font-weight:800; font-size:12px; line-height:1.7">
+            ✅ <span data-i18n="cvNote">Nếu 404: kiểm tra đúng tên file (phân biệt HOA/thường) và đã commit + push.</span>
           </div>
         </div>
 
         <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px;">Xem CV ngay trên trang</h3>
-          <p class="muted" style="margin:0 0 12px; line-height:1.7;">
-            Nếu trình duyệt chặn hiển thị PDF, bạn vẫn có thể bấm “Mở/Tải CV” ở bên trái.
-          </p>
-
-          <div style="border:1px solid rgba(255,255,255,.12); border-radius:16px; overflow:hidden; background:rgba(255,255,255,.03)">
-            <iframe
-              title="CV_Trung.pdf"
-              src="CV_Trung.pdf"
-              style="width:100%; height:520px; border:0;"
-              loading="lazy">
-            </iframe>
+          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="cvView">Xem CV ngay trên trang</h3>
+          <div class="iframeBox">
+            <iframe title="CV_Trung.pdf" src="CV_Trung.pdf" loading="lazy"></iframe>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact">
-      <div class="section-title">
-        <h2>Liên hệ</h2>
-        <span class="muted2" style="font-weight:700;">Mail • Zalo • Facebook</span>
+    <!-- GALLERY -->
+    <section id="gallery">
+      <div class="titleRow">
+        <h2 data-i18n="galTitle">Gallery</h2>
+        <span class="muted2" style="font-weight:800" data-i18n="galRight">Modal ảnh • Responsive</span>
       </div>
 
-      <div class="grid contact-grid">
-        <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px;">Thông tin liên hệ</h3>
+      <div class="card pad">
+        <div class="gal" id="gal"></div>
+        <div class="muted2" style="margin-top:12px; font-weight:800; font-size:12px; line-height:1.7">
+          * <span data-i18n="galHint">Bạn có thể thay ảnh bằng link thật (hoặc upload ảnh vào repo).</span>
+        </div>
+      </div>
+    </section>
 
-          <!-- Bạn thay dữ liệu thật vào các chỗ (CHỈ CẦN SỬA 3 DÒNG) -->
-          <div class="contact-row">
+    <!-- BLOG -->
+    <section id="blog">
+      <div class="titleRow">
+        <h2 data-i18n="blogTitle">Blog mini</h2>
+        <span class="muted2" style="font-weight:800" data-i18n="blogRight">Bài viết • Gợi ý nội dung</span>
+      </div>
+
+      <div class="card pad">
+        <div class="posts" id="posts"></div>
+      </div>
+    </section>
+
+    <!-- QR (Generate QR) -->
+    <section id="qr">
+      <div class="titleRow">
+        <h2 data-i18n="qrTitle">QR</h2>
+        <span class="muted2" style="font-weight:800" data-i18n="qrRight">Tạo QR ngay trên web</span>
+      </div>
+
+      <div class="grid split2">
+        <div class="card pad">
+          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="qrMake">Tạo QR chia sẻ</h3>
+
+          <div class="formGrid">
+            <input class="input" id="qrText" placeholder="Dán link website / Facebook / Zalo / Email..." />
+            <div class="controls">
+              <button class="btn btnPrimary" style="min-width:180px" id="btnQR">
+                <span class="ico">🔳</span><span data-i18n="qrBtn">Tạo QR</span>
+              </button>
+              <button class="btn" style="min-width:180px" id="btnQRUrl">
+                <span class="ico">🌐</span><span data-i18n="qrSite">QR Website</span>
+              </button>
+              <button class="btn" style="min-width:180px" id="btnQRVCF">
+                <span class="ico">👤</span><span data-i18n="qrVcard">QR Danh thiếp</span>
+              </button>
+            </div>
+
+            <div class="muted2" style="font-weight:800; font-size:12px; line-height:1.7">
+              ✅ <span data-i18n="qrNote">QR Website: lấy URL hiện tại. QR Danh thiếp: tạo vCard (cần bạn nhập thông tin thật ở phần Contact).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card pad">
+          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="qrResult">Kết quả QR</h3>
+          <div style="display:grid; place-items:center; padding:12px; border-radius:18px; border:1px solid var(--line); background:rgba(255,255,255,.03)">
+            <div id="qrBox"></div>
+          </div>
+          <div class="muted2" style="margin-top:10px; font-weight:800; font-size:12px; line-height:1.7" id="qrCaption">
+            (Chưa tạo QR)
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="titleRow">
+        <h2 data-i18n="faqTitle">FAQ</h2>
+        <span class="muted2" style="font-weight:800" data-i18n="faqRight">Câu hỏi thường gặp</span>
+      </div>
+
+      <div class="grid split2">
+        <div class="card pad">
+          <div class="list">
+            <details open>
+              <summary data-i18n="f1q">Vì sao trước đây bị lỗi 404 CV?</summary>
+              <p data-i18n="f1a">Do link vẫn trỏ “assets/” nhưng bạn đã xóa thư mục assets. Bản này dùng đường dẫn trực tiếp: CV_Trung.pdf.</p>
+            </details>
+            <details>
+              <summary data-i18n="f2q">GitHub có phân biệt chữ hoa thường không?</summary>
+              <p data-i18n="f2a">Có. “CV_Trung.pdf” khác “cv_trung.pdf”. Phải đúng y hệt tên file.</p>
+            </details>
+            <details>
+              <summary data-i18n="f3q">Muốn thay ảnh/giữ đẹp thì làm sao?</summary>
+              <p data-i18n="f3a">Chỉ cần thay file avatar.jpg bằng ảnh mới (giữ đúng tên) rồi commit + push.</p>
+            </details>
+          </div>
+        </div>
+
+        <div class="card pad">
+          <div class="list">
+            <details>
+              <summary data-i18n="f4q">Có thể thêm nhiều trang (multi-page) không?</summary>
+              <p data-i18n="f4a">Được. Nhưng hiện tại bạn yêu cầu 1 file duy nhất, nên Lisa làm kiểu “20 trang nội dung” trong 1 trang cuộn.</p>
+            </details>
+            <details>
+              <summary data-i18n="f5q">Muốn form gửi tin nhắn hoạt động thật thì sao?</summary>
+              <p data-i18n="f5a">GitHub Pages không có backend. Bạn có thể dùng Google Form, Formspree, hoặc email mailto như ở đây.</p>
+            </details>
+            <details>
+              <summary data-i18n="f6q">Làm sao kiểm tra nhanh đã deploy chưa?</summary>
+              <p data-i18n="f6a">Mở link trực tiếp: /avatar.jpg và /CV_Trung.pdf. Nếu mở được là OK.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="titleRow">
+        <h2 data-i18n="ctTitle">Liên hệ</h2>
+        <span class="muted2" style="font-weight:800" data-i18n="ctRight">Email • Zalo • Facebook</span>
+      </div>
+
+      <div class="grid contactGrid">
+        <div class="card pad">
+          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="ctInfo">Thông tin liên hệ</h3>
+
+          <!-- ✅ CHỈ CẦN SỬA 3 GIÁ TRỊ: EMAIL / ZALO / FACEBOOK -->
+          <div class="row">
             <div class="label">Email</div>
-            <div class="value">
-              <a href="mailto:yourmail@gmail.com" title="Gửi email">📧 yourmail@gmail.com</a>
+            <div class="value" id="emailWrap">
+              <a id="emailLink" href="mailto:yourmail@gmail.com">📧 <span id="emailText">yourmail@gmail.com</span></a>
+              <button class="copyBtn" data-copy="#emailText">Copy</button>
             </div>
           </div>
 
-          <div class="contact-row">
+          <div class="row">
             <div class="label">Zalo</div>
-            <div class="value">
-              <a href="https://zalo.me/0" target="_blank" rel="noopener" title="Mở Zalo link">💬 zalo.me/0</a>
-              <div class="muted2" style="font-size:12px; margin-top:6px;">
-                (Hãy thay số 0 bằng số điện thoại/Zalo link của bạn)
+            <div class="value" id="zaloWrap">
+              <a id="zaloLink" href="https://zalo.me/0" target="_blank" rel="noopener">💬 <span id="zaloText">zalo.me/0</span></a>
+              <button class="copyBtn" data-copy="#zaloText">Copy</button>
+              <div class="muted2" style="font-size:12px; margin-top:6px; font-weight:800">
+                * Thay số 0 bằng số/ID Zalo của bạn (hoặc link chính xác).
               </div>
             </div>
           </div>
 
-          <div class="contact-row">
+          <div class="row">
             <div class="label">Facebook</div>
-            <div class="value">
-              <a href="https://facebook.com/yourprofile" target="_blank" rel="noopener" title="Mở Facebook">🔵 facebook.com/yourprofile</a>
+            <div class="value" id="fbWrap">
+              <a id="fbLink" href="https://facebook.com/yourprofile" target="_blank" rel="noopener">🔵 <span id="fbText">facebook.com/yourprofile</span></a>
+              <button class="copyBtn" data-copy="#fbText">Copy</button>
             </div>
           </div>
 
-          <div class="small-note">
-            ✅ Mẹo: Khi bạn thay đúng link, người khác bấm là mở được ngay.
-            GitHub Pages không bắt buộc bạn công khai số điện thoại nếu bạn không muốn.
+          <div class="muted2" style="margin-top:12px; font-weight:800; font-size:12px; line-height:1.7">
+            ✅ <span data-i18n="ctNote">Bạn có thể dùng QR Danh thiếp ở phần QR sau khi nhập đúng email/zalo/facebook.</span>
           </div>
         </div>
 
         <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px;">Trạng thái & ghi chú</h3>
-          <div class="list">
-            <div class="item">
-              <h3>🟢 Đang sẵn sàng kết nối</h3>
-              <p>Nhắn qua Email/Zalo/Facebook để trao đổi công việc, dự án hoặc học thuật.</p>
-            </div>
-            <div class="item">
-              <h3>🔒 Bảo mật</h3>
-              <p>Nếu bạn muốn ẩn số điện thoại, chỉ dùng Email và link Facebook là đủ.</p>
-            </div>
-            <div class="item">
-              <h3>📌 Deploy GitHub Pages</h3>
-              <p>Nhớ Commit + Push, chờ 30–60 giây, rồi kiểm tra lại đường dẫn.</p>
-            </div>
+          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="ctForm">Gửi tin nhắn (mailto)</h3>
+          <p class="muted" style="margin:0 0 12px; line-height:1.7" data-i18n="ctFormDesc">
+            Form này sẽ mở ứng dụng email của bạn để gửi. GitHub Pages không có backend sẵn.
+          </p>
+
+          <div class="formGrid">
+            <input class="input" id="name" placeholder="Tên của bạn..." />
+            <input class="input" id="subject" placeholder="Chủ đề..." />
+            <textarea class="input textarea" id="message" placeholder="Nội dung..."></textarea>
+
+            <button class="btn btnPrimary" id="btnMail">
+              <span class="ico">✉️</span>
+              <span><span data-i18n="sendMail">Gửi email</span><small data-i18n="sendMailSub">Mở Gmail/Outlook</small></span>
+            </button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
     <footer>
-      <div class="wrap">
-        <div class="foot">
-          <div>© <span id="y"></span> Trần Quốc Trung. All rights reserved.</div>
-          <div class="muted2">Built with HTML • CSS • GitHub Pages</div>
-        </div>
+      <div class="foot">
+        <div>© <span id="y"></span> Trần Quốc Trung. All rights reserved.</div>
+        <div class="muted2">Single-file Professional Portfolio • GitHub Pages</div>
       </div>
     </footer>
   </main>
 
+  <!-- Back to top -->
+  <button class="topBtn" id="topBtn" title="Lên đầu">↑</button>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">Copied!</div>
+
+  <!-- MODAL -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modalHead">
+        <b id="mTitle">Title</b>
+        <button class="closeBtn" id="mClose" aria-label="Close">✕</button>
+      </div>
+      <div class="modalBody" id="mBody"></div>
+    </div>
+  </div>
+
   <script>
-    // Year
+    /********************
+     * 0) CONFIG (SỬA NHANH)
+     ********************/
+    // ✅ Sửa 3 thông tin thật của bạn ở đây (đỡ phải tìm trong HTML)
+    const CONTACT = {
+      email: "yourmail@gmail.com",
+      zalo:  "https://zalo.me/0",
+      facebook: "https://facebook.com/yourprofile"
+    };
+
+    // ✅ Số liệu highlights
+    const STATS = { projects: 12, ai_topics: 18, posts: 6, certs: 3 };
+
+    /********************
+     * 1) INIT BASIC
+     ********************/
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Apply contact
+    function applyContact(){
+      const emailLink = document.getElementById("emailLink");
+      const emailText = document.getElementById("emailText");
+      emailLink.href = "mailto:" + CONTACT.email;
+      emailText.textContent = CONTACT.email;
+
+      const zaloLink = document.getElementById("zaloLink");
+      const zaloText = document.getElementById("zaloText");
+      zaloLink.href = CONTACT.zalo;
+      zaloText.textContent = CONTACT.zalo.replace(/^https?:\/\//,"");
+
+      const fbLink = document.getElementById("fbLink");
+      const fbText = document.getElementById("fbText");
+      fbLink.href = CONTACT.facebook;
+      fbText.textContent = CONTACT.facebook.replace(/^https?:\/\//,"");
+    }
+    applyContact();
+
+    // Animate stats
+    function animateNumber(el, to){
+      let cur = 0;
+      const step = Math.max(1, Math.floor(to/40));
+      const t = setInterval(()=>{
+        cur += step;
+        if(cur >= to){ cur = to; clearInterval(t); }
+        el.textContent = cur;
+      }, 18);
+    }
+    animateNumber(document.getElementById("s1"), STATS.projects);
+    animateNumber(document.getElementById("s2"), STATS.ai_topics);
+    animateNumber(document.getElementById("s3"), STATS.posts);
+    animateNumber(document.getElementById("s4"), STATS.certs);
+
+    /********************
+     * 2) THEME TOGGLE
+     ********************/
+    const btnTheme = document.getElementById("btnTheme");
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    btnTheme.querySelector(".kbd").textContent = (savedTheme === "light") ? "🌙" : "☀️";
+
+    btnTheme.addEventListener("click", ()=>{
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = (cur === "dark") ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+      btnTheme.querySelector(".kbd").textContent = (next === "light") ? "🌙" : "☀️";
+      toast(next === "light" ? "Light mode" : "Dark mode");
+    });
+
+    /********************
+     * 3) LANGUAGE TOGGLE (VI/EN)
+     ********************/
+    const btnLang = document.getElementById("btnLang");
+    const dict = {
+      vi: {
+        role:"Veterinary • AI • App Builder",
+        status:"Online • Sẵn sàng hợp tác",
+        hello:"Xin chào, tôi là",
+        heroDesc:"Tôi xây dựng portfolio này để giới thiệu rõ ràng về bản thân, kỹ năng, dự án và CV. File avatar.jpg và CV_Trung.pdf đặt cùng cấp với index.html (không dùng thư mục assets).",
+        btnCV:"Xem & Tải CV", btnProjects:"Xem dự án", btnProjectsSub:"Filter • Search • Modal",
+        btnShare:"Chia sẻ link", btnShareSub:"Copy URL nhanh",
+        note1:"Nếu bạn bị 404 như trước, nguyên nhân là link còn trỏ “assets/”. Bản này đã loại bỏ hoàn toàn.",
+        aboutTitle:"Giới thiệu chuyên nghiệp", aboutRight:"Tổng quan rõ ràng",
+        aboutMeT:"Tôi là ai?", aboutMeD:"Tôi theo hướng kết hợp giữa kiến thức Thú y và công nghệ để tạo ra giải pháp thực tế. Tôi ưu tiên làm việc có hệ thống, dễ mở rộng, rõ ràng và trình bày chuyên nghiệp.",
+        valueT:"Giá trị tôi mang lại",
+        value1t:"✅ Tối ưu rõ ràng", value1d:"Thiết kế nội dung dễ đọc, cấu trúc rõ ràng, link CV/QR hoạt động đúng.",
+        value2t:"✅ Tính chuyên nghiệp", value2d:"Giao diện “portfolio chuẩn”, có filter/search, modal, blog, gallery, QR generator.",
+        tag1:"Tư duy hệ thống", tag2:"Tối ưu trải nghiệm", tag3:"Kỷ luật & bền bỉ",
+        hlTitle:"Highlights", hlRight:"Thông tin nổi bật",
+        statsT:"Thống kê nhanh",
+        s1:"Dự án demo", s2:"Chủ đề AI thú y", s3:"Bài viết", s4:"Chứng chỉ",
+        statsNote:"Số liệu có thể chỉnh trong phần JS cuối file.",
+        focusT:"Trọng tâm",
+        focus1t:"📌 Thú y + Công nghệ", focus1d:"Tập trung tính ứng dụng, tối ưu vận hành, triển khai dễ.",
+        focus2t:"📌 Trình bày chuyên nghiệp", focus2d:"Website có cấu trúc rõ, UX tốt, có tính năng đầy đủ như web doanh nghiệp.",
+        skillsTitle:"Kỹ năng", skillsRight:"Thanh đánh giá + mô tả",
+        skillsCore:"Năng lực cốt lõi", skillsMore:"Kỹ năng bổ sung",
+        b1:"Nền tảng Thú y", b2:"AI Tools & Workflow", b3:"Web UI / GitHub Pages", b4:"Giao tiếp tiếng Anh",
+        sm1t:"🧠 Tư duy hệ thống", sm1d:"Tách module rõ, đặt tên chuẩn, link đúng đường dẫn, tránh lỗi 404.",
+        sm2t:"🧩 Thiết kế trải nghiệm", sm2d:"Filter/search dự án, modal, CTA rõ, nút copy nhanh, QR generator.",
+        sm3t:"🛡️ Chất lượng & ổn định", sm3d:"Ưu tiên website chạy mượt, responsive, cấu trúc chuyên nghiệp.",
+        tlTitle:"Timeline", tlRight:"Học tập • Công việc • Dự án",
+        tlExp:"Kinh nghiệm / Hành trình",
+        t1t:"Nâng cấp học thuật", t1d:"Tập trung kiến thức chuyên ngành và tài liệu chuẩn, trình bày khoa học.",
+        t2t:"Portfolio / Web cá nhân", t2d:"Xây web chuyên nghiệp: CV PDF, QR, dự án, blog, gallery, contact.",
+        t3t:"Ứng dụng AI thực tế", t3d:"Ứng dụng AI hỗ trợ học tập, tra cứu, chuẩn hóa quy trình và hiệu suất.",
+        certTitle:"Chứng chỉ / Thành tựu",
+        c1t:"Luyện tiếng Anh", c1d:"Luyện viết, luyện nói, tăng từ vựng, trình bày chuẩn.",
+        c2t:"AI trong thú y", c2d:"Tổng hợp công cụ AI: chẩn đoán, quản lý bệnh án, hỗ trợ tư vấn.",
+        c3t:"Triển khai Web", c3d:"Deploy GitHub Pages đúng cấu trúc, không lỗi assets/404.",
+        projTitle:"Dự án", projRight:"Filter • Search • Modal", projHint:"Nhấp vào 1 dự án để mở modal chi tiết.",
+        cvTitle:"CV", cvRight:"Rõ ràng • Xem trực tiếp • Tải nhanh",
+        cvDesc:"CV nằm cùng thư mục với index.html (không có assets). Nhấn nút để mở hoặc tải.",
+        openCV:"Mở / Tải CV", downloadCV:"Tải về máy", downloadCVSub:"Download trực tiếp",
+        printCV:"In CV", printCVSub:"Mở rồi in",
+        cvNote:"Nếu 404: kiểm tra đúng tên file (phân biệt HOA/thường) và đã commit + push.",
+        cvView:"Xem CV ngay trên trang",
+        galTitle:"Gallery", galRight:"Modal ảnh • Responsive", galHint:"Bạn có thể thay ảnh bằng link thật (hoặc upload ảnh vào repo).",
+        blogTitle:"Blog mini", blogRight:"Bài viết • Gợi ý nội dung",
+        qrTitle:"QR", qrRight:"Tạo QR ngay trên web", qrMake:"Tạo QR chia sẻ", qrBtn:"Tạo QR", qrSite:"QR Website", qrVcard:"QR Danh thiếp",
+        qrNote:"QR Website: lấy URL hiện tại. QR Danh thiếp: tạo vCard (cần bạn nhập thông tin thật ở phần Contact).",
+        qrResult:"Kết quả QR",
+        faqTitle:"FAQ", faqRight:"Câu hỏi thường gặp",
+        f1q:"Vì sao trước đây bị lỗi 404 CV?", f1a:"Do link vẫn trỏ “assets/” nhưng bạn đã xóa thư mục assets. Bản này dùng đường dẫn trực tiếp: CV_Trung.pdf.",
+        f2q:"GitHub có phân biệt chữ hoa thường không?", f2a:"Có. “CV_Trung.pdf” khác “cv_trung.pdf”. Phải đúng y hệt tên file.",
+        f3q:"Muốn thay ảnh/giữ đẹp thì làm sao?", f3a:"Chỉ cần thay file avatar.jpg bằng ảnh mới (giữ đúng tên) rồi commit + push.",
+        f4q:"Có thể thêm nhiều trang (multi-page) không?", f4a:"Được. Nhưng hiện tại bạn yêu cầu 1 file duy nhất, nên Lisa làm kiểu “20 trang nội dung” trong 1 trang cuộn.",
+        f5q:"Muốn form gửi tin nhắn hoạt động thật thì sao?", f5a:"GitHub Pages không có backend. Bạn có thể dùng Google Form, Formspree, hoặc email mailto như ở đây.",
+        f6q:"Làm sao kiểm tra nhanh đã deploy chưa?", f6a:"Mở link trực tiếp: /avatar.jpg và /CV_Trung.pdf. Nếu mở được là OK.",
+        ctTitle:"Liên hệ", ctRight:"Email • Zalo • Facebook",
+        ctInfo:"Thông tin liên hệ",
+        ctNote:"Bạn có thể dùng QR Danh thiếp ở phần QR sau khi nhập đúng email/zalo/facebook.",
+        ctForm:"Gửi tin nhắn (mailto)", ctFormDesc:"Form này sẽ mở ứng dụng email của bạn để gửi. GitHub Pages không có backend sẵn.",
+        sendMail:"Gửi email", sendMailSub:"Mở Gmail/Outlook",
+      },
+      en: {
+        role:"Veterinary • AI • App Builder",
+        status:"Online • Open to collaborate",
+        hello:"Hi, I'm",
+        heroDesc:"I built this portfolio to present my profile, skills, projects, and CV clearly. Files avatar.jpg and CV_Trung.pdf are placed next to index.html (no assets folder).",
+        btnCV:"View & Download CV", btnProjects:"View projects", btnProjectsSub:"Filter • Search • Modal",
+        btnShare:"Share link", btnShareSub:"Quick copy URL",
+        note1:"If you previously got 404, it was because your links still pointed to “assets/”. This version removes it completely.",
+        aboutTitle:"Professional introduction", aboutRight:"Clear overview",
+        aboutMeT:"Who am I?", aboutMeD:"I combine Veterinary knowledge and technology to build practical solutions. I prefer structured work, scalability, clarity, and professional presentation.",
+        valueT:"What I deliver",
+        value1t:"✅ Clarity first", value1d:"Readable structure, clean layout, working CV/QR links.",
+        value2t:"✅ Professional features", value2d:"Portfolio-grade UI with filters/search, modal, blog, gallery, QR generator.",
+        tag1:"System thinking", tag2:"UX-focused", tag3:"Disciplined",
+        hlTitle:"Highlights", hlRight:"Key points",
+        statsT:"Quick stats",
+        s1:"Demo projects", s2:"AI vet topics", s3:"Posts", s4:"Certificates",
+        statsNote:"You can edit numbers in the JS config at the bottom.",
+        focusT:"Focus areas",
+        focus1t:"📌 Vet + Tech", focus1d:"Practical use-cases, optimized operations, easy deployment.",
+        focus2t:"📌 Professional presentation", focus2d:"Clean structure, strong UX, business-like features.",
+        skillsTitle:"Skills", skillsRight:"Skill bars + description",
+        skillsCore:"Core skills", skillsMore:"Additional skills",
+        b1:"Veterinary Fundamentals", b2:"AI Tools & Workflow", b3:"Web UI / GitHub Pages", b4:"English Communication",
+        sm1t:"🧠 System thinking", sm1d:"Clean structure, proper naming, correct paths, avoid 404.",
+        sm2t:"🧩 UX design", sm2d:"Project filter/search, modal, clear CTA, quick copy, QR generator.",
+        sm3t:"🛡️ Quality", sm3d:"Fast, responsive, professional structure.",
+        tlTitle:"Timeline", tlRight:"Study • Work • Projects",
+        tlExp:"Experience / Journey",
+        t1t:"Academic improvement", t1d:"Professional formatting, structured knowledge, scientific writing style.",
+        t2t:"Portfolio website", t2d:"Professional web: CV PDF, QR, projects, blog, gallery, contact.",
+        t3t:"Real-world AI usage", t3d:"AI to support learning, lookup, standardize workflows and productivity.",
+        certTitle:"Certificates / Achievements",
+        c1t:"English practice", c1d:"Writing, speaking, vocabulary and presentation improvements.",
+        c2t:"AI in veterinary", c2d:"Curating AI tools for diagnosis, records, and assistance.",
+        c3t:"Web deployment", c3d:"GitHub Pages deployment with correct structure (no assets/404).",
+        projTitle:"Projects", projRight:"Filter • Search • Modal", projHint:"Click a project to open details modal.",
+        cvTitle:"CV", cvRight:"Clear • Embedded • Fast download",
+        cvDesc:"The CV is located next to index.html (no assets). Click buttons to open/download.",
+        openCV:"Open / Download CV", downloadCV:"Download file", downloadCVSub:"Direct download",
+        printCV:"Print CV", printCVSub:"Open then print",
+        cvNote:"If you see 404: verify exact filename (case-sensitive) and commit + push.",
+        cvView:"Preview CV on page",
+        galTitle:"Gallery", galRight:"Image modal • Responsive", galHint:"Replace with your real images or upload to the repo.",
+        blogTitle:"Mini blog", blogRight:"Content ideas",
+        qrTitle:"QR", qrRight:"Generate QR on-page", qrMake:"Generate sharing QR", qrBtn:"Generate QR", qrSite:"Website QR", qrVcard:"vCard QR",
+        qrNote:"Website QR uses current URL. vCard uses your contact values from config.",
+        qrResult:"QR result",
+        faqTitle:"FAQ", faqRight:"Frequently asked questions",
+        f1q:"Why did I get 404 for CV before?", f1a:"Because your link still pointed to “assets/” but the folder was deleted. This uses direct path: CV_Trung.pdf.",
+        f2q:"Is GitHub case-sensitive?", f2a:"Yes. “CV_Trung.pdf” is different from “cv_trung.pdf”. Keep exact filename.",
+        f3q:"How to update avatar easily?", f3a:"Replace avatar.jpg with a new image (keep the same name) then commit + push.",
+        f4q:"Can I make it multi-page?", f4a:"Yes. But you asked for a single file; this is “20 pages worth of sections” in one scroll page.",
+        f5q:"Can the contact form send messages directly?", f5a:"GitHub Pages has no backend by default. Use Google Form, Formspree, or mailto.",
+        f6q:"How to verify deployment quickly?", f6a:"Open direct links: /avatar.jpg and /CV_Trung.pdf. If they load, you're good.",
+        ctTitle:"Contact", ctRight:"Email • Zalo • Facebook",
+        ctInfo:"Contact info",
+        ctNote:"You can generate a vCard QR after you update email/zalo/facebook in config.",
+        ctForm:"Send message (mailto)", ctFormDesc:"This opens your email client to send. GitHub Pages has no backend by default.",
+        sendMail:"Send email", sendMailSub:"Open Gmail/Outlook",
+      }
+    };
+
+    let lang = localStorage.getItem("lang") || "vi";
+    function applyLang(){
+      btnLang.querySelector(".kbd").textContent = lang.toUpperCase();
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const key = el.getAttribute("data-i18n");
+        if(dict[lang] && dict[lang][key]){
+          el.innerHTML = dict[lang][key];
+        }
+      });
+    }
+    applyLang();
+
+    btnLang.addEventListener("click", ()=>{
+      lang = (lang === "vi") ? "en" : "vi";
+      localStorage.setItem("lang", lang);
+      applyLang();
+      toast(lang === "vi" ? "Đã chuyển: Tiếng Việt" : "Switched: English");
+    });
+
+    /********************
+     * 4) SHARE / COPY / TOAST
+     ********************/
+    const toastEl = document.getElementById("toast");
+    function toast(msg){
+      toastEl.textContent = msg;
+      toastEl.classList.add("show");
+      setTimeout(()=> toastEl.classList.remove("show"), 1600);
+    }
+
+    document.getElementById("btnShare").addEventListener("click", async ()=>{
+      const url = location.href.split("#")[0];
+      try{
+        await navigator.clipboard.writeText(url);
+        toast("Copied URL ✅");
+      }catch(e){
+        toast("Copy failed. Select & copy manually.");
+      }
+    });
+
+    document.querySelectorAll("[data-copy]").forEach(btn=>{
+      btn.addEventListener("click", async ()=>{
+        const sel = btn.getAttribute("data-copy");
+        const el = document.querySelector(sel);
+        if(!el) return;
+        try{
+          await navigator.clipboard.writeText(el.textContent.trim());
+          toast("Copied ✅");
+        }catch(e){
+          toast("Copy failed");
+        }
+      });
+    });
+
+    /********************
+     * 5) PROJECTS (Filter/Search/Modal)
+     ********************/
+    const PROJECTS = [
+      {id:1, title:"Portfolio Professional (Single-file)", cat:"web", badge:"web", badgeClass:"blue",
+        desc:"Trang portfolio 1 file: CV PDF, QR, Filter/Search, Modal, Blog, Gallery, Contact.",
+        details:["Không dùng assets/","Responsive chuẩn","Copy/Share nhanh","QR generator + vCard"]},
+      {id:2, title:"AI Tools for Veterinary", cat:"ai", badge:"ai", badgeClass:"yellow",
+        desc:"Tổng hợp công cụ AI hỗ trợ thú y: chẩn đoán, bệnh án, tư vấn, workflow.",
+        details:["Danh sách tool","Use-case thực tế","Gợi ý triển khai"]},
+      {id:3, title:"Vet Knowledge Notes", cat:"vet", badge:"vet", badgeClass:"red",
+        desc:"Hệ thống hóa ghi chú học thuật thú y, trình bày theo dạng dễ ôn tập.",
+        details:["Phân mục rõ","Từ vựng chuyên ngành","Tài liệu tham khảo"]},
+      {id:4, title:"Simple Web App (Deploy GitHub Pages)", cat:"web", badge:"deploy", badgeClass:"blue",
+        desc:"Chuẩn hóa deploy web: đúng đường dẫn, không lỗi case-sensitive, không 404.",
+        details:["Checklist deploy","Test URL trực tiếp","Best practices"]},
+      {id:5, title:"English Practice Tracker", cat:"app", badge:"app", badgeClass:"yellow",
+        desc:"Theo dõi luyện viết/nói: mục tiêu ngày/tuần, từ vựng, điểm tiến bộ.",
+        details:["Daily plan","Vocabulary list","Progress view"]},
+      {id:6, title:"Clinic Workflow Template", cat:"vet", badge:"vet", badgeClass:"red",
+        desc:"Khung quy trình cho phòng khám/cửa hàng: tiếp nhận, khám, điều trị, theo dõi.",
+        details:["Form mẫu","Checklist an toàn","Tối ưu vận hành"]},
+      {id:7, title:"QR Contact Kit", cat:"web", badge:"qr", badgeClass:"blue",
+        desc:"Tạo QR cho website, facebook, zalo, email, danh thiếp vCard.",
+        details:["QR website","QR vCard","Tùy biến nội dung"]},
+      {id:8, title:"Project Library Layout", cat:"web", badge:"ui", badgeClass:"blue",
+        desc:"Bố cục card UI: thống kê, timeline, section headings chuẩn portfolio.",
+        details:["Cards + grid","Modal pattern","Mobile-first"]},
+      {id:9, title:"AI Prompt Templates", cat:"ai", badge:"ai", badgeClass:"yellow",
+        desc:"Prompt mẫu cho học tập và công việc: tóm tắt, so sánh, checklist, Q&A.",
+        details:["Prompt library","Use-case cụ thể","Mẫu ngắn gọn"]},
+      {id:10, title:"Vet Case Study Format", cat:"vet", badge:"vet", badgeClass:"red",
+        desc:"Khung viết case study: triệu chứng, chẩn đoán phân biệt, điều trị, theo dõi.",
+        details:["Template chuẩn","Đầu mục rõ","Dễ dùng"]},
+      {id:11, title:"Personal Branding Pack", cat:"web", badge:"brand", badgeClass:"blue",
+        desc:"Bộ nhận diện: màu sắc, typography, CTA, cấu trúc thông tin.",
+        details:["Màu đỏ-vàng","Font Inter","CTA rõ ràng"]},
+      {id:12, title:"Content Plan (Blog/Posts)", cat:"web", badge:"content", badgeClass:"yellow",
+        desc:"Kế hoạch nội dung: bài viết ngắn, chủ đề AI thú y, chia sẻ học tập.",
+        details:["6 bài mẫu","Lịch đăng","Gợi ý tiêu đề"]},
+    ];
+
+    const grid = document.getElementById("projGrid");
+    const q = document.getElementById("q");
+    const cat = document.getElementById("cat");
+    const btnReset = document.getElementById("btnReset");
+
+    function renderProjects(){
+      const query = (q.value || "").trim().toLowerCase();
+      const c = cat.value;
+      const filtered = PROJECTS.filter(p=>{
+        const okCat = (c === "all") ? true : p.cat === c;
+        const okQ = !query ? true : (p.title.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query));
+        return okCat && okQ;
+      });
+
+      grid.innerHTML = filtered.map(p=>`
+        <div class="proj" data-id="${p.id}">
+          <div class="projTop">
+            <span class="badge ${p.badgeClass}">${p.badge.toUpperCase()}</span>
+            <span class="badge">${p.cat.toUpperCase()}</span>
+          </div>
+          <h3>${p.title}</h3>
+          <p>${p.desc}</p>
+          <div class="projFooter">
+            <span class="muted2" style="font-weight:900; font-size:12px;">Click for details</span>
+            <span class="linkMini">Open →</span>
+          </div>
+        </div>
+      `).join("");
+
+      // Click events
+      grid.querySelectorAll(".proj").forEach(el=>{
+        el.addEventListener("click", ()=>{
+          const id = Number(el.getAttribute("data-id"));
+          const p = PROJECTS.find(x=>x.id===id);
+          if(!p) return;
+          openModal(p.title, `
+            <div class="list">
+              <div class="item">
+                <h3>Overview</h3>
+                <p>${p.desc}</p>
+              </div>
+              <div class="item">
+                <h3>Key points</h3>
+                <ul style="margin:8px 0 0; padding-left:18px; color:var(--muted); line-height:1.75; font-weight:700; font-size:13px">
+                  ${p.details.map(d=>`<li>${d}</li>`).join("")}
+                </ul>
+              </div>
+              <div class="item">
+                <h3>Category</h3>
+                <p><b>${p.cat.toUpperCase()}</b> • Badge: <b>${p.badge.toUpperCase()}</b></p>
+              </div>
+            </div>
+          `);
+        });
+      });
+    }
+    renderProjects();
+    q.addEventListener("input", renderProjects);
+    cat.addEventListener("change", renderProjects);
+    btnReset.addEventListener("click", ()=>{
+      q.value=""; cat.value="all"; renderProjects(); toast("Reset ✅");
+    });
+
+    /********************
+     * 6) MODAL
+     ********************/
+    const overlay = document.getElementById("overlay");
+    const mClose = document.getElementById("mClose");
+    const mTitle = document.getElementById("mTitle");
+    const mBody = document.getElementById("mBody");
+
+    function openModal(title, html){
+      mTitle.textContent = title;
+      mBody.innerHTML = html;
+      overlay.classList.add("show");
+      overlay.setAttribute("aria-hidden","false");
+    }
+    function closeModal(){
+      overlay.classList.remove("show");
+      overlay.setAttribute("aria-hidden","true");
+    }
+    mClose.addEventListener("click", closeModal);
+    overlay.addEventListener("click", (e)=>{
+      if(e.target === overlay) closeModal();
+    });
+    window.addEventListener("keydown", (e)=>{
+      if(e.key === "Escape") closeModal();
+    });
+
+    /********************
+     * 7) GALLERY (Demo images)
+     ********************/
+    const GALLERY = [
+      {title:"Workspace", src:"https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=70"},
+      {title:"Veterinary", src:"https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=1200&q=70"},
+      {title:"AI / Tech", src:"https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1200&q=70"},
+      {title:"Learning", src:"https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=70"},
+      {title:"Nature", src:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=70"},
+      {title:"Teamwork", src:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=70"},
+      {title:"Clinic", src:"https://images.unsplash.com/photo-1580281657527-47f249e8f064?auto=format&fit=crop&w=1200&q=70"},
+      {title:"Presentation", src:"https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=70"},
+    ];
+    const gal = document.getElementById("gal");
+    gal.innerHTML = GALLERY.map((g,i)=>`
+      <div class="ph" data-i="${i}">
+        <img src="${g.src}" alt="${g.title}" loading="lazy">
+        <span>${g.title}</span>
+      </div>
+    `).join("");
+    gal.querySelectorAll(".ph").forEach(el=>{
+      el.addEventListener("click", ()=>{
+        const i = Number(el.getAttribute("data-i"));
+        const g = GALLERY[i];
+        openModal("Gallery • " + g.title, `
+          <div class="item" style="margin-bottom:12px">
+            <p class="muted" style="margin:0">Bạn có thể thay ảnh demo bằng ảnh thật (upload vào repo) và chỉnh src trong mảng GALLERY ở JS.</p>
+          </div>
+          <div style="border-radius:18px; overflow:hidden; border:1px solid var(--line)">
+            <img src="${g.src}" alt="${g.title}" style="width:100%; height:auto;">
+          </div>
+        `);
+      });
+    });
+
+    /********************
+     * 8) BLOG (Demo posts)
+     ********************/
+    const POSTS = [
+      {date:"2025-01-01", title:"AI trong thú y: bắt đầu từ đâu?", desc:"Gợi ý lộ trình: công cụ, use-case, cách ghi chú và triển khai thực tế."},
+      {date:"2025-01-15", title:"Cách viết báo cáo/case study thú y chuẩn", desc:"Mẫu khung: triệu chứng, chẩn đoán phân biệt, điều trị, theo dõi, kết luận."},
+      {date:"2025-02-02", title:"Tối ưu GitHub Pages: tránh lỗi 404", desc:"Checklist: tên file, case-sensitive, đường dẫn đúng, test trực tiếp /avatar.jpg và /CV.pdf."},
+      {date:"2025-02-20", title:"Portfolio chuyên nghiệp: những phần cần có", desc:"Hero + CV + Projects + Contact + QR + Blog + Gallery + Timeline."},
+      {date:"2025-03-10", title:"Từ vựng tiếng Anh chuyên ngành thú y", desc:"Tổng hợp từ vựng + cách dùng trong văn bản học thuật và giao tiếp."},
+      {date:"2025-03-30", title:"Kỷ luật học tập: 30 phút mỗi ngày", desc:"Cách chia nhỏ mục tiêu để tiến bộ đều và tránh bỏ cuộc."},
+    ];
+    const posts = document.getElementById("posts");
+    posts.innerHTML = POSTS.map(p=>`
+      <div class="post">
+        <div class="date">${p.date}</div>
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+        <button class="linkMini" style="justify-content:center; cursor:pointer" data-open="${p.title}">Read more →</button>
+      </div>
+    `).join("");
+    posts.querySelectorAll("[data-open]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const title = btn.getAttribute("data-open");
+        const p = POSTS.find(x=>x.title===title);
+        openModal("Blog • " + title, `
+          <div class="item">
+            <h3>${p.title}</h3>
+            <p>${p.desc}</p>
+            <div class="tagRow">
+              <span class="pill">Notes</span>
+              <span class="pill">Tips</span>
+              <span class="pill">Action plan</span>
+            </div>
+          </div>
+          <div class="item" style="margin-top:12px">
+            <h3>Quick template</h3>
+            <p class="muted" style="margin:0">Bạn có thể thay nội dung bài viết bằng bài thật của bạn ngay trong mảng POSTS (JS).</p>
+          </div>
+        `);
+      });
+    });
+
+    /********************
+     * 9) QR GENERATOR
+     ********************/
+    const qrBox = document.getElementById("qrBox");
+    const qrCaption = document.getElementById("qrCaption");
+    let qr;
+
+    function makeQR(text){
+      qrBox.innerHTML = "";
+      qr = new QRCode(qrBox, {
+        text,
+        width: 220,
+        height: 220,
+        colorDark : "#111111",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+      });
+      qrCaption.textContent = "QR: " + text;
+      toast("QR created ✅");
+    }
+
+    document.getElementById("btnQR").addEventListener("click", ()=>{
+      const text = (document.getElementById("qrText").value || "").trim();
+      if(!text){ toast("Nhập nội dung để tạo QR"); return; }
+      makeQR(text);
+    });
+
+    document.getElementById("btnQRUrl").addEventListener("click", ()=>{
+      const url = location.href.split("#")[0];
+      makeQR(url);
+    });
+
+    document.getElementById("btnQRVCF").addEventListener("click", ()=>{
+      // vCard basic
+      const vcf =
+`BEGIN:VCARD
+VERSION:3.0
+FN:Tran Quoc Trung
+EMAIL:${CONTACT.email}
+URL:${location.href.split("#")[0]}
+X-SOCIALPROFILE;type=facebook:${CONTACT.facebook}
+NOTE:Veterinary • AI • App Builder
+END:VCARD`;
+      makeQR(vcf);
+    });
+
+    /********************
+     * 10) PRINT CV
+     ********************/
+    document.getElementById("btnPrint").addEventListener("click", ()=>{
+      window.open("CV_Trung.pdf", "_blank", "noopener");
+      toast("Opened CV for printing ✅");
+    });
+
+    /********************
+     * 11) SEND MAIL (mailto)
+     ********************/
+    document.getElementById("btnMail").addEventListener("click", ()=>{
+      const name = (document.getElementById("name").value || "").trim();
+      const subject = (document.getElementById("subject").value || "").trim();
+      const message = (document.getElementById("message").value || "").trim();
+
+      const sub = encodeURIComponent(subject ? `[Portfolio] ${subject}` : "[Portfolio] Message");
+      const body = encodeURIComponent(
+        `Name: ${name}\n\nMessage:\n${message}\n\n---\nSent from portfolio page`
+      );
+      const mail = `mailto:${CONTACT.email}?subject=${sub}&body=${body}`;
+      window.location.href = mail;
+    });
+
+    /********************
+     * 12) NAV SPY + BACK TO TOP
+     ********************/
+    const topBtn = document.getElementById("topBtn");
+    topBtn.addEventListener("click", ()=> window.scrollTo({top:0, behavior:"smooth"}));
+
+    const links = Array.from(document.querySelectorAll(".navLinks a[data-spy]"));
+    const sections = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+
+    function onScroll(){
+      const y = window.scrollY || document.documentElement.scrollTop;
+      topBtn.classList.toggle("show", y > 600);
+
+      let idx = 0;
+      for(let i=0;i<sections.length;i++){
+        const s = sections[i];
+        const top = s.offsetTop - 120;
+        if(y >= top) idx = i;
+      }
+      links.forEach(a=>a.classList.remove("active"));
+      if(links[idx]) links[idx].classList.add("active");
+    }
+    window.addEventListener("scroll", onScroll, {passive:true});
+    onScroll();
+
+    /********************
+     * 13) SKILL BARS animate when visible
+     ********************/
+    const barEls = document.querySelectorAll(".bar");
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const pct = e.target.getAttribute("data-pct");
+          const fill = e.target.querySelector(".fill");
+          fill.style.width = pct + "%";
+        }
+      });
+    }, {threshold: 0.25});
+    barEls.forEach(b=>io.observe(b));
   </script>
 </body>
 </html>
