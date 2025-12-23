@@ -42,6 +42,20 @@
       --ring: 0 0 0 4px rgba(255,59,59,.12);
       --glass: blur(12px);
     }
+    .qrImg{
+  width: 220px;
+  max-width: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  padding: 10px;
+}
+.qrRow{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
 /* ===== CV PREVIEW ===== */
 .cv-preview{
   position: relative;
@@ -1091,7 +1105,28 @@ Những câu châm ngôn này không chỉ mang lại động lực cho bạn m�
 
     <!-- QR (Generate QR) -->
     <section id="qr">
-      <div class="titleRow">
+      <div class="<div class="grid2">
+  <div class="card pad">
+    <h3 style="margin:0 0 10px;font-size:15px">QR Website</h3>
+    <img class="qrImg" id="qrSite" alt="QR Website">
+    <div class="muted2" id="qrSiteText" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card pad">
+    <h3 style="margin:0 0 10px;font-size:15px">QR Liên hệ</h3>
+    <div class="qrRow">
+      <div>
+        <div class="muted2">Facebook</div>
+        <img class="qrImg" id="qrFb" alt="QR Facebook">
+      </div>
+      <div>
+        <div class="muted2">Zalo</div>
+        <img class="qrImg" id="qrZalo" alt="QR Zalo">
+      </div>
+    </div>
+  </div>
+</div>
+">
         <h2 data-i18n="qrTitle">QR</h2>
         <span class="muted2" style="font-weight:800" data-i18n="qrRight">Tạo QR ngay trên web</span>
       </div>
@@ -1835,5 +1870,19 @@ END:VCARD`;
     }, {threshold: 0.25});
     barEls.forEach(b=>io.observe(b));
   </script>
-</body>
+</body> <script>
+  const SITE_URL = "https://trungm0325011-coder.github.io/trungggggggg";
+  const FB_URL   = "https://www.facebook.com/langtukid94/";
+  const ZALO_URL = "https://zalo.me/0945350772";
+
+  const qr = (text) =>
+    "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(text);
+
+  document.getElementById("qrSite").src = qr(SITE_URL);
+  document.getElementById("qrSiteText").textContent = SITE_URL;
+
+  document.getElementById("qrFb").src = qr(FB_URL);
+  document.getElementById("qrZalo").src = qr(ZALO_URL);
+</script>
+
 </html>
