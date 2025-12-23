@@ -1,25 +1,457 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trần Quốc Trung (Trungdapchai) — Personal Website</title>
-  <meta name="description" content="Website cá nhân giao diện đẹp của Trần Quốc Trung (Trungdapchai)." />
-  <meta name="theme-color" content="#ff3344" />
+  <title>Trần Quốc Trung — Portfolio</title>
+  <meta name="description" content="Website cá nhân của Trần Quốc Trung — Thú y, AI, và phát triển ứng dụng." />
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #070A10;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --line: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.88);
+      --muted: rgba(255,255,255,.65);
+      --brand: #F6C445;   /* vàng */
+      --brand2: #E64545;  /* đỏ */
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(230,69,69,.18), transparent 60%),
+        radial-gradient(1000px 600px at 85% 20%, rgba(246,196,69,.14), transparent 55%),
+        radial-gradient(900px 600px at 50% 100%, rgba(120,175,255,.10), transparent 55%),
+        var(--bg);
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .wrap{
+      width:min(1050px, 92vw);
+      margin: 0 auto;
+      padding: 28px 0 80px;
+    }
+
+    /* Topbar */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: rgba(7,10,16,.55);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar .inner{
+      width:min(1050px, 92vw);
+      margin: 0 auto;
+      padding: 14px 0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(230,69,69,.95), rgba(246,196,69,.95));
+      box-shadow: 0 10px 24px rgba(230,69,69,.18);
+      display:grid; place-items:center;
+      color:#111;
+      font-weight:900;
+    }
+    .nav{
+      display:flex; gap:18px; align-items:center;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .nav a{ padding:10px 10px; border-radius: 12px; }
+    .nav a:hover{ background: rgba(255,255,255,.06); color: var(--text); }
+
+    .cta{
+      display:flex; gap:10px; align-items:center;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      transition: transform .15s ease, background .15s ease, border .15s ease;
+      user-select:none;
+      cursor:pointer;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.16); }
+    .btn.primary{
+      border: none;
+      background: linear-gradient(135deg, rgba(230,69,69,.95), rgba(246,196,69,.92));
+      color:#151515;
+    }
+    .btn.primary:hover{ transform: translateY(-1px) scale(1.01); }
+
+    /* Hero */
+    .hero{
+      margin-top: 28px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .card{
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero-left{
+      padding: 26px 26px 22px;
+      position: relative;
+      overflow:hidden;
+    }
+    .hero-left:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 260px at 20% 15%, rgba(230,69,69,.18), transparent 60%),
+                  radial-gradient(600px 220px at 85% 25%, rgba(246,196,69,.16), transparent 55%);
+      pointer-events:none;
+    }
+    .hero-left > *{ position:relative; }
+
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 12px;
+      margin-bottom: 14px;
+      width: fit-content;
+    }
+    .dot{
+      width: 8px; height: 8px; border-radius: 99px;
+      background: var(--brand);
+      box-shadow: 0 0 0 4px rgba(246,196,69,.15);
+    }
+
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(26px, 3vw, 40px);
+      letter-spacing: -0.6px;
+      line-height: 1.15;
+    }
+    .subtitle{
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+    .hero-actions{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 14px;
+    }
+
+    .hero-right{
+      padding: 18px;
+      display:flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .mini{
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .mini h3{
+      margin:0 0 6px;
+      font-size: 14px;
+      color: rgba(255,255,255,.84);
+      letter-spacing: .2px;
+    }
+    .mini p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+
+    /* Sections */
+    .section{
+      margin-top: 18px;
+      padding: 22px;
+    }
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+    .section-head span{
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .project{
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      transition: transform .15s ease, background .15s ease, border .15s ease;
+      min-height: 150px;
+    }
+    .project:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.16);
+    }
+    .project .tag{
+      display:inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #131313;
+      background: linear-gradient(135deg, rgba(246,196,69,.95), rgba(255,255,255,.65));
+      margin-bottom: 10px;
+    }
+    .project h3{ margin:0 0 8px; font-size: 16px; }
+    .project p{ margin:0 0 12px; color: var(--muted); font-size: 13.5px; line-height: 1.65; }
+    .project .links{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:auto;
+    }
+    .link{
+      font-size: 13px;
+      color: rgba(255,255,255,.82);
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    .link:hover{ background: rgba(255,255,255,.06); }
+
+    /* Footer */
+    footer{
+      margin-top: 22px;
+      padding: 20px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: 1fr; }
+      .nav{ display:none; } /* nhỏ thì ẩn nav cho gọn */
+    }
+  </style>
 </head>
-<body style="font-family:Arial, sans-serif; background:#0b0d13; color:white; text-align:center; padding:40px;">
-  <h1 style="color:#ffd166;">Trần Quốc Trung (Trungdapchai)</h1>
-  <p>Xin chào! Đây là website cá nhân của Trungdapchai — nơi chia sẻ về học tập, công nghệ và thú y.</p>
-  <p>Hiện đang học Thạc sĩ Thú y tại Đại học Cần Thơ, đam mê AI và phát triển ứng dụng di động.</p>
-  <hr style="border:1px solid #ff3344; margin:40px auto; width:60%;">
-  <h2>Dự án nổi bật</h2>
-  <ul style="list-style:none; padding:0;">
-    <li>📘 MyDiaryApp – Ứng dụng nhật ký song ngữ, bảo vệ PIN</li>
-    <li>🌏 VinaSocial – Mạng xã hội tích cực, thân thiện</li>
-    <li>🐾 PetWorld – Thế giới thú cưng, chia sẻ mẹo và chăm sóc</li>
-  </ul>
-  <hr style="border:1px solid #ff3344; margin:40px auto; width:60%;">
-  <p>📧 Liên hệ: <a href="mailto:you@example.com" style="color:#ffd166;">you@example.com</a></p>
-  <p>© 2025 Trần Quốc Trung (Trungdapchai)</p>
+
+<body>
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="inner">
+      <div class="brand">
+        <div class="logo">T</div>
+        <div>
+          <div style="font-size:14px;">Trần Quốc Trung</div>
+          <div style="font-size:12px; color: var(--muted); font-weight:600;">Veterinary • AI • Apps</div>
+        </div>
+      </div>
+
+      <div class="nav">
+        <a href="#about">Giới thiệu</a>
+        <a href="#projects">Dự án</a>
+        <a href="#skills">Kỹ năng</a>
+        <a href="#contact">Liên hệ</a>
+      </div>
+
+      <div class="cta">
+        <!-- Đổi link GitHub của bạn ở đây -->
+        <a class="btn" href="https://github.com/trungm0325011-coder" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn primary" href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="card hero-left">
+        <div class="pill"><span class="dot"></span> Portfolio cá nhân</div>
+        <h1>Trần Quốc Trung <span style="color: var(--brand);">(Trungdapchai)</span></h1>
+        <p class="subtitle">
+          Xin chào! Mình đang học Thạc sĩ Thú y tại Đại học Cần Thơ, quan tâm <b>AI trong thú y</b> và <b>phát triển ứng dụng</b>.
+          Mình cũng đang vận hành cửa hàng thuốc thú y & thức ăn chăn nuôi tại quê nhà.
+        </p>
+
+        <div class="hero-actions">
+          <!-- Đổi email của bạn -->
+          <a class="btn primary" href="mailto:you@example.com">✉️ Gửi Email</a>
+          <!-- Nếu chưa có CV thì để # -->
+          <a class="btn" href="#" onclick="alert('Bạn có thể upload CV.pdf lên repo rồi đổi link ở đây nhé!'); return false;">⬇️ Tải CV</a>
+          <a class="btn" href="#projects">🚀 Xem dự án</a>
+        </div>
+      </div>
+
+      <div class="card hero-right">
+        <div class="mini">
+          <h3>🎓 Học tập</h3>
+          <p>Thạc sĩ Thú y — Đại học Cần Thơ</p>
+        </div>
+        <div class="mini">
+          <h3>🧠 Mối quan tâm</h3>
+          <p>AI hỗ trợ chẩn đoán • Hồ sơ bệnh án • Tư vấn thú y</p>
+        </div>
+        <div class="mini">
+          <h3>📍 Khu vực</h3>
+          <p>Cần Thơ, Việt Nam</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- About -->
+    <section id="about" class="card section">
+      <div class="section-head">
+        <h2>Giới thiệu</h2>
+        <span>Ngắn gọn • rõ ràng • chuyên nghiệp</span>
+      </div>
+      <p style="margin:0; color: var(--muted); line-height:1.8;">
+        Mục tiêu của mình là kết hợp kiến thức <b>Thú y</b> và <b>Công nghệ</b> để tạo ra các giải pháp hữu ích:
+        quản lý phòng khám, hỗ trợ chẩn đoán, giáo dục chăm sóc thú cưng, và ứng dụng di động phục vụ cộng đồng.
+      </p>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="card section">
+      <div class="section-head">
+        <h2>Dự án nổi bật</h2>
+        <span>3 dự án tiêu biểu</span>
+      </div>
+
+      <div class="grid">
+        <div class="project">
+          <div class="tag">App</div>
+          <h3>MyDiaryApp</h3>
+          <p>Ứng dụng nhật ký song ngữ, có PIN bảo vệ, lưu trữ bài viết và trải nghiệm cá nhân.</p>
+          <div class="links">
+            <a class="link" href="#" onclick="alert('Bạn gắn link repo/demopage vào đây nhé!'); return false;">Repo</a>
+            <a class="link" href="#" onclick="alert('Nếu có demo online, bạn gắn link tại đây.'); return false;">Demo</a>
+          </div>
+        </div>
+
+        <div class="project">
+          <div class="tag">Social</div>
+          <h3>VinaSocial</h3>
+          <p>Mạng xã hội tích cực: đăng bài, tương tác, QR chia sẻ, ưu tiên nội dung giáo dục & du lịch.</p>
+          <div class="links">
+            <a class="link" href="#" onclick="alert('Bạn gắn link repo vào đây nhé!'); return false;">Repo</a>
+            <a class="link" href="#" onclick="alert('Bạn có thể tạo trang giới thiệu tính năng / landing page.'); return false;">Landing</a>
+          </div>
+        </div>
+
+        <div class="project">
+          <div class="tag">Pets</div>
+          <h3>PetWorld</h3>
+          <p>Thế giới thú cưng: chia sẻ kiến thức, chăm sóc chó mèo, và cộng đồng yêu thú cưng.</p>
+          <div class="links">
+            <a class="link" href="#" onclick="alert('Gắn link repo PetWorld ở đây.'); return false;">Repo</a>
+            <a class="link" href="#" onclick="alert('Có thể thêm mục blog/chia sẻ kiến thức thú y.'); return false;">Blog</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="card section">
+      <div class="section-head">
+        <h2>Kỹ năng</h2>
+        <span>Những gì bạn đang làm tốt</span>
+      </div>
+      <div class="grid">
+        <div class="project">
+          <h3>🐾 Thú y</h3>
+          <p>Kiến thức bệnh truyền nhiễm, chăm sóc thú cưng, thực hành và ứng dụng thực tế tại địa phương.</p>
+        </div>
+        <div class="project">
+          <h3>🤖 AI trong thú y</h3>
+          <p>Khám phá công cụ AI hỗ trợ chẩn đoán, quản lý dữ liệu bệnh án, tư vấn và triage.</p>
+        </div>
+        <div class="project">
+          <h3>📱 App development</h3>
+          <p>React Native/Expo (định hướng), UI/UX cơ bản, xây dựng sản phẩm theo từng tính năng.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="card section">
+      <div class="section-head">
+        <h2>Liên hệ</h2>
+        <span>Điền thông tin thật của bạn</span>
+      </div>
+
+      <div class="grid">
+        <div class="project">
+          <h3>📧 Email</h3>
+          <p><a class="link" href="mailto:you@example.com">you@example.com</a></p>
+        </div>
+        <div class="project">
+          <h3>🐙 GitHub</h3>
+          <p><a class="link" href="https://github.com/trungm0325011-coder" target="_blank" rel="noopener">github.com/trungm0325011-coder</a></p>
+        </div>
+        <div class="project">
+          <h3>🌐 Facebook / Zalo</h3>
+          <p><a class="link" href="#" onclick="alert('Dán link Facebook/Zalo của bạn vào đây'); return false;">Thêm link</a></p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="y"></span> Trần Quốc Trung (Trungdapchai)</div>
+      <div style="opacity:.9;">Built with GitHub Pages</div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
