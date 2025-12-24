@@ -2032,7 +2032,11 @@ const MORE_UK_US_BILLION = [
     }
     renderPlaylist();
 
-    // default track: Last Christmas
+ // ✅ FIX: chọn Last Christmas nếu có, không thì bài đầu tiên
+const defaultIdx = MEDIA.findIndex(
+  x => (x.title || "").toLowerCase().includes("last christmas")
+);
+setActiveTrack(defaultIdx >= 0 ? defaultIdx : 0);
     setActiveTrack(2);
 
     // Controls
