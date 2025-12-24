@@ -1943,17 +1943,42 @@ END:VCARD`;
     let loop = false;
     let currentItem = null;
 
-    // ✅ Playlist: 3 bài nhạc bạn yêu cầu + 2 video English mẫu (bạn thay videoId được)
-    const MEDIA = [
-      // ENGLISH (Bạn có thể thay videoId)
-      { type:"ENGLISH", title:"English Listening • Short Story (Replace ID)", meta:"ENGLISH", desc:"Video English mẫu — thay videoId theo ý bạn.", videoId:"QbD2v2a-8I0" },
-      { type:"ENGLISH", title:"English Speaking • Shadowing (Replace ID)", meta:"ENGLISH", desc:"Video shadowing mẫu — thay videoId theo ý bạn.", videoId:"wE-4o2Qk0tw" },
+  /********************
+ * MEDIA PLAYLIST (FULL)
+ ********************/
+const MEDIA = [
+  // ===== YOUR ORIGINAL SONGS =====
+  { type:"MUSIC", title:"Last Christmas — Wham!", meta:"UK/US MUSIC", desc:"Last Christmas.", videoId:"E8gmARGvPlI" },
+  { type:"MUSIC", title:"Mistletoe — Justin Bieber", meta:"UK/US MUSIC", desc:"Mistletoe.", videoId:"LUjn3RpkcKY" },
+  { type:"MUSIC", title:"death bed — Powfu ft. beabadoobee", meta:"UK/US MUSIC", desc:"death bed (coffee for your head).", videoId:"jJPMnTXl63E" },
 
-      // MUSIC UK/US ✅
-      { type:"MUSIC", title:"Last Christmas — Wham!", meta:"UK/US MUSIC", desc:"Bài bạn yêu cầu: Last Christmas.", videoId:"E8gmARGvPlI" },
-      { type:"MUSIC", title:"Mistletoe — Justin Bieber", meta:"UK/US MUSIC", desc:"Bài bạn yêu cầu: Mistletoe.", videoId:"LUjn3RpkcKY" },
-      { type:"MUSIC", title:"death bed — Powfu ft. beabadoobee", meta:"UK/US MUSIC", desc:"Bài bạn yêu cầu: death bed (coffee for your head).", videoId:"jJPMnTXl63E" },
-    ];
+  // ===== UK/US BILLION VIEW SONGS =====
+  { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"JGwWNGJdvx8" },
+  { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"RgKAFK5djSk" },
+  { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"OPf0YbXqDm0" },
+  { type:"MUSIC", title:"Sorry — Justin Bieber", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"fRh_vgS2dFE" },
+  { type:"MUSIC", title:"Roar — Katy Perry", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"CevxZvSJLk8" },
+  { type:"MUSIC", title:"Dark Horse — Katy Perry ft. Juicy J", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"0KSOMA3QBU0" },
+  { type:"MUSIC", title:"Sugar — Maroon 5", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"09R8_2nJtjg" },
+  { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"hT_nvWreIhg" },
+  { type:"MUSIC", title:"Hello — Adele", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"YQHsXMglC9A" },
+  { type:"MUSIC", title:"Thinking Out Loud — Ed Sheeran", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"lp-EO5I60KA" },
+  { type:"MUSIC", title:"Perfect — Ed Sheeran", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"2Vv-BfVoq4g" },
+  { type:"MUSIC", title:"Shake It Off — Taylor Swift", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"nfWlot6h_JM" },
+  { type:"MUSIC", title:"Blank Space — Taylor Swift", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"e-ORhEE9VVg" },
+  { type:"MUSIC", title:"Chandelier — Sia", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"2vjPBrBU-TM" },
+  { type:"MUSIC", title:"Lean On — Major Lazer & DJ Snake ft. MØ", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"YqeW9_5kURI" },
+  { type:"MUSIC", title:"Love Me Like You Do — Ellie Goulding", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"AJtDXIazrMo" },
+  { type:"MUSIC", title:"Can't Stop the Feeling! — Justin Timberlake", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"ru0K8uYEZWw" },
+  { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"aJOTlE1K90k" },
+  { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"7wtfhZwyrcc" },
+  { type:"MUSIC", title:"Thunder — Imagine Dragons", meta:"UK/US • 1B+", desc:"Official MV.", videoId:"fKopy74weus" },
+
+  // ===== BIGBANG (YOU REQUESTED) =====
+  { type:"MUSIC", title:"Let Me Hear Your Voice — BIGBANG", meta:"BIGBANG", desc:"KOEWOKIKASETE.", videoId:"UIwz5Oz8gU4" },
+  { type:"MUSIC", title:"Lies (거짓말) — BIGBANG", meta:"BIGBANG", desc:"BIGBANG - LIES M/V.", videoId:"2Cv3phvP8Ro" },
+];
+
 
     function ytEmbedUrl(videoId){
       const params = new URLSearchParams();
@@ -2005,8 +2030,11 @@ END:VCARD`;
     }
     renderPlaylist();
 
-    // default track: Last Christmas
-    setActiveTrack(2);
+   // ✅ FIX: chọn Last Christmas nếu có, không thì bài đầu tiên
+const defaultIdx = MEDIA.findIndex(
+  x => (x.title || "").toLowerCase().includes("last christmas")
+);
+setActiveTrack(defaultIdx >= 0 ? defaultIdx : 0);;
 
     // Controls
     const apState = document.getElementById("apState");
