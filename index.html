@@ -683,7 +683,7 @@
           <a href="#cv" data-spy>CV</a>
           <a href="#gallery" data-spy>Gallery</a>
           <a href="#blog" data-spy>Blog</a>
-
+          <a href="#diary" data-spy>Diary</a> 
           <!-- ✅ NEW -->
           <a href="#blog" data-spy>Blog</a>
           <!-- ✅ NEW: DIARY -->
@@ -1222,6 +1222,93 @@
     </section>
 
     <!-- QR -->
+    <!-- ✅ DIARY -->
+<section id="diary">
+  <div class="titleRow">
+    <h2>Diary</h2>
+    <span class="muted2" style="font-weight:800">Write • Edit • Delete • Offline + Online</span>
+  </div>
+
+  <div class="grid split2">
+    <!-- LEFT: Editor -->
+    <div class="card pad">
+      <h3 style="margin:0 0 10px; font-size:15px">✍️ Write diary</h3>
+
+      <div class="formGrid">
+        <input class="input" id="dTitle" placeholder="Tiêu đề..." />
+        <textarea class="input textarea" id="dContent" placeholder="Nội dung nhật ký..."></textarea>
+
+        <div class="controls">
+          <select class="select" id="dVisibility" style="min-width:220px">
+            <option value="private">🔒 Private</option>
+            <option value="public">🌍 Public</option>
+          </select>
+
+          <button class="btn btnPrimary" id="btnDiarySave" type="button" style="min-width:200px">
+            <span class="ico">💾</span><span>Lưu bài</span>
+          </button>
+
+          <button class="btn" id="btnDiaryCancel" type="button" style="min-width:200px; display:none">
+            <span class="ico">↩️</span><span>Hủy sửa</span>
+          </button>
+        </div>
+
+        <div class="muted2" style="margin-top:10px; font-weight:800; font-size:12px; line-height:1.7">
+          * Public hiển thị trên web; Private chỉ lưu nội bộ máy bạn (offline) hoặc cloud (khi login).
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Entries + Online Sync -->
+    <div class="card pad">
+      <h3 style="margin:0 0 10px; font-size:15px">📚 Your entries</h3>
+
+      <!-- Online box -->
+      <div class="item" style="margin-bottom:12px">
+        <h3 style="margin:0 0 8px">🌐 Online Sync</h3>
+
+        <div class="controls" style="margin-bottom:10px">
+          <span class="pill" id="syncState">MODE: OFFLINE</span>
+          <button class="miniBtn" id="btnSyncNow" type="button">🔄 Sync now</button>
+        </div>
+
+        <div class="formGrid" id="authBox">
+          <input class="input" id="authEmail" placeholder="Email..." />
+          <input class="input" id="authPass" type="password" placeholder="Password..." />
+          <div class="controls">
+            <button class="btn btnPrimary" id="btnLogin" type="button" style="min-width:200px">
+              <span class="ico">🔐</span><span>Login</span>
+            </button>
+            <button class="btn" id="btnRegister" type="button" style="min-width:200px">
+              <span class="ico">🆕</span><span>Register</span>
+            </button>
+            <button class="btn" id="btnLogout" type="button" style="min-width:200px; display:none">
+              <span class="ico">🚪</span><span>Logout</span>
+            </button>
+          </div>
+
+          <div class="muted2" style="font-weight:800; font-size:12px; line-height:1.7">
+            ✅ Offline luôn dùng được. Login để đồng bộ Cloud (đổi máy vẫn còn).
+          </div>
+        </div>
+      </div>
+
+      <!-- Search + filter -->
+      <div class="controls" style="margin-bottom:10px">
+        <input class="input" id="dSearch" placeholder="Tìm trong nhật ký..." style="min-width:260px" />
+        <select class="select" id="dFilter">
+          <option value="all">Tất cả</option>
+          <option value="private">Private</option>
+          <option value="public">Public</option>
+        </select>
+      </div>
+
+      <!-- List -->
+      <div class="list" id="diaryList"></div>
+    </div>
+  </div>
+</section>
+
     <section id="qr">
       <div class="titleRow">
         <h2 data-i18n="qrTitle">QR</h2>
