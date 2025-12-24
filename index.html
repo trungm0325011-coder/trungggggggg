@@ -420,46 +420,19 @@
     }
     .closeBtn:hover{background:rgba(255,255,255,.06)}
 
-    /* CV PREVIEW */
-    .cv-preview{
-      position: relative;
-      width: 100%;
-      height: 520px;
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
+    /* CV PREVIEW (IFRAME) ✅ */
+    .iframeBox{
+      width:100%;
+      height:520px;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
     }
-    .cv-preview-img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(.92);
-      transition: transform .3s ease, filter .3s ease;
-    }
-    .cv-preview:hover .cv-preview-img{
-      transform: scale(1.02);
-      filter: brightness(1);
-    }
-    .cv-overlay{
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55));
-      opacity: 0;
-      transition: opacity .25s ease;
-    }
-    .cv-preview:hover .cv-overlay{opacity: 1;}
-    .cv-overlay span{
-      padding: 14px 20px;
-      border-radius: 14px;
-      font-weight: 800;
-      font-size: 15px;
-      color: #fff;
-      background: linear-gradient(135deg, #ff3b3b, #ffd54a);
-      box-shadow: 0 10px 40px rgba(0,0,0,.5);
+    .iframeBox iframe{
+      width:100%;
+      height:100%;
+      border:0;
     }
 
     /* Gallery */
@@ -722,9 +695,7 @@
             </button>
           </div>
 
-          <div class="muted2" style="margin-top:12px; font-weight:800; font-size:12px; line-height:1.7">
-            ✅ <span data-i18n="note1"> Chúng ta có thể gặp nhiều thất bại nhưng chúng ta không được bị đánh bại – Maya AngelouTất cả những sự khó khăn thường là để chuẩn bị cho những người bình thường một số phận phi thường – C.S. LewisNếu bạn muốn trở nên kỳ quặc khác người, hãy tự tin khi làm điều đó (If you’re going to be weird, be confident about it) – Matt HoganBí mật của cuộc sống là ngã bảy lần và đứng dậy tám lần – trích Nhà Giả Kim | Paulo Coelho.</span>
-          </div>
+          <!-- ✅ ĐÃ XÓA: block note dài (theo yêu cầu) -->
         </div>
 
         <div class="card pad">
@@ -996,10 +967,9 @@
 
       <div class="grid split2">
         <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px">CV_Trung.pdf</h3>
-          <p class="muted" style="margin:0 0 14px; line-height:1.7" data-i18n="cvDesc">
-            CV nằm cùng thư mục với index.html (không có assets). Nhấn nút để mở hoặc tải.
-          </p>
+          <h3 style="margin:0 0 10px; font-size:15px">CV</h3>
+
+          <!-- ✅ ĐÃ XÓA: cvDesc theo yêu cầu -->
 
           <div class="cta">
             <a class="btn btnPrimary" href="CV_Trung.pdf" target="_blank" rel="noopener">
@@ -1016,18 +986,19 @@
             </button>
           </div>
 
-          <div class="muted2" style="margin-top:12px; font-weight:800; font-size:12px; line-height:1.7">
-            ✅ <span data-i18n="cvNote">Nếu 404: kiểm tra đúng tên file (phân biệt HOA/thường) và đã commit + push.</span>
-          </div>
+          <!-- ✅ ĐÃ XÓA: dòng ✅ cvNote (theo yêu cầu) -->
         </div>
 
         <div class="card pad">
           <h3 style="margin:0 0 10px; font-size:15px" data-i18n="cvView">Xem CV ngay trên trang</h3>
-          <div class="cv-preview">
-            <a href="CV_Trung.pdf" target="_blank" rel="noopener" title="Click để mở CV PDF">
-              <img src="CV_preview.jpg" alt="Xem nhanh CV Trần Quốc Trung" class="cv-preview-img" loading="lazy">
-              <div class="cv-overlay"><span>👁️ Xem CV (PDF)</span></div>
-            </a>
+
+          <!-- ✅ FIX: bỏ CV_preview.jpg, thay iframe xem trực tiếp PDF -->
+          <div class="iframeBox">
+            <iframe src="CV_Trung.pdf#view=FitH" title="CV Preview"></iframe>
+          </div>
+
+          <div class="muted2" style="margin-top:10px; font-weight:800; font-size:12px; line-height:1.7">
+            * Tip: Nếu iframe không hiện trên một số trình duyệt, bấm nút “Mở / Tải CV”.
           </div>
         </div>
       </div>
@@ -1331,7 +1302,8 @@
     });
 
     /********************
-     * 3) LANGUAGE TOGGLE (VI/EN) - giữ gọn, vẫn chạy
+     * 3) LANGUAGE TOGGLE (VI/EN)
+     * ✅ ĐÃ BỎ note1 để tránh hiện lại dòng note cũ
      ********************/
     const btnLang = document.getElementById("btnLang");
     const dict = {
@@ -1344,13 +1316,14 @@
         btnProjectsSub:"Filter • Search • Modal",
         btnShare:"Chia sẻ link",
         btnShareSub:"Copy URL nhanh",
-        note1:"Nếu bạn bị 404 như trước, nguyên nhân là link còn trỏ “assets/”. Bản này đã loại bỏ hoàn toàn.",
+
         aboutTitle:"Giới thiệu chuyên nghiệp", aboutRight:"Tổng quan rõ ràng",
         aboutMeT:"Tôi là ai?", aboutMeD:"Tôi theo hướng kết hợp giữa kiến thức Thú y và công nghệ để tạo ra giải pháp thực tế. Tôi ưu tiên làm việc có hệ thống, dễ mở rộng, rõ ràng và trình bày chuyên nghiệp.",
         valueT:"Giá trị tôi mang lại",
         value1t:"✅ Tối ưu rõ ràng", value1d:"Thiết kế nội dung dễ đọc, cấu trúc rõ ràng, link CV/QR hoạt động đúng.",
         value2t:"✅ Tính chuyên nghiệp", value2d:"Giao diện “portfolio chuẩn”, có filter/search, modal, blog, gallery, QR generator.",
         tag1:"Tư duy hệ thống", tag2:"Tối ưu trải nghiệm", tag3:"Kỷ luật & bền bỉ",
+
         hlTitle:"Highlights", hlRight:"Thông tin nổi bật",
         statsT:"Thống kê nhanh",
         s1:"Dự án demo", s2:"Chủ đề AI thú y", s3:"Bài viết", s4:"Chứng chỉ",
@@ -1358,33 +1331,39 @@
         focusT:"Trọng tâm",
         focus1t:"📌 Thú y + Công nghệ", focus1d:"Tập trung tính ứng dụng, tối ưu vận hành, triển khai dễ.",
         focus2t:"📌 Trình bày chuyên nghiệp", focus2d:"Website có cấu trúc rõ, UX tốt, có tính năng đầy đủ như web doanh nghiệp.",
+
         skillsTitle:"Kỹ năng", skillsRight:"Thanh đánh giá + mô tả",
         skillsCore:"Năng lực cốt lõi", skillsMore:"Kỹ năng bổ sung",
         b1:"Nền tảng Thú y", b2:"AI Tools & Workflow", b3:"Web UI / GitHub Pages", b4:"Giao tiếp tiếng Anh",
         sm1t:"🧠 Tư duy hệ thống", sm1d:"Tách module rõ, đặt tên chuẩn, link đúng đường dẫn, tránh lỗi 404.",
         sm2t:"🧩 Thiết kế trải nghiệm", sm2d:"Filter/search dự án, modal, CTA rõ, nút copy nhanh, QR generator.",
         sm3t:"🛡️ Chất lượng & ổn định", sm3d:"Ưu tiên website chạy mượt, responsive, cấu trúc chuyên nghiệp.",
+
         tlTitle:"Timeline", tlRight:"Học tập • Công việc • Dự án",
         tlExp:"Kinh nghiệm / Hành trình",
         t1t:"Nâng cấp học thuật", t1d:"Tập trung kiến thức chuyên ngành và tài liệu chuẩn, trình bày khoa học.",
         t2t:"Portfolio / Web cá nhân", t2d:"Xây web chuyên nghiệp: CV PDF, QR, dự án, blog, gallery, contact.",
         t3t:"Ứng dụng AI thực tế", t3d:"Ứng dụng AI hỗ trợ học tập, tra cứu, chuẩn hóa quy trình và hiệu suất.",
+
         certTitle:"Chứng chỉ / Thành tựu",
         c1t:"Luyện tiếng Anh", c1d:"Luyện viết, luyện nói, tăng từ vựng, trình bày chuẩn.",
         c2t:"AI trong thú y", c2d:"Tổng hợp công cụ AI: chẩn đoán, quản lý bệnh án, hỗ trợ tư vấn.",
         c3t:"Triển khai Web", c3d:"Deploy GitHub Pages đúng cấu trúc, không lỗi assets/404.",
+
         projTitle:"Dự án", projRight:"Filter • Search • Modal", projHint:"Nhấp vào 1 dự án để mở modal chi tiết.",
+
         cvTitle:"CV", cvRight:"Rõ ràng • Xem trực tiếp • Tải nhanh",
-        cvDesc:"CV nằm cùng thư mục với index.html (không có assets). Nhấn nút để mở hoặc tải.",
         openCV:"Mở / Tải CV", downloadCV:"Tải về máy", downloadCVSub:"Download trực tiếp",
         printCV:"In CV", printCVSub:"Mở rồi in",
-        cvNote:"Nếu 404: kiểm tra đúng tên file (phân biệt HOA/thường) và đã commit + push.",
         cvView:"Xem CV ngay trên trang",
+
         galTitle:"Gallery", galRight:"Modal ảnh • Responsive", galHint:"Bạn có thể thay ảnh bằng link thật (hoặc upload ảnh vào repo).",
         blogTitle:"Blog mini", blogRight:"Bài viết • Gợi ý nội dung",
+
         qrTitle:"QR", qrRight:"Tạo QR ngay trên web", qrMake:"Tạo QR chia sẻ", qrBtn:"Tạo QR", qrSite:"QR Website", qrVcard:"QR Danh thiếp",
         qrNote:"QR Website: lấy URL hiện tại. QR Danh thiếp: tạo vCard theo Contact.",
         qrResult:"Kết quả QR",
+
         faqTitle:"FAQ", faqRight:"Câu hỏi thường gặp",
         f1q:"Vì sao trước đây bị lỗi 404 CV?", f1a:"Do link vẫn trỏ “assets/” nhưng bạn đã xóa thư mục assets. Bản này dùng đường dẫn trực tiếp: CV_Trung.pdf.",
         f2q:"GitHub có phân biệt chữ hoa thường không?", f2a:"Có. “CV_Trung.pdf” khác “cv_trung.pdf”. Phải đúng y hệt tên file.",
@@ -1392,6 +1371,7 @@
         f4q:"Có thể thêm nhiều trang (multi-page) không?", f4a:"Được. Nhưng hiện tại bạn yêu cầu 1 file duy nhất, nên làm kiểu “nhiều section” trong 1 trang cuộn.",
         f5q:"Muốn form gửi tin nhắn hoạt động thật thì sao?", f5a:"GitHub Pages không có backend. Bạn có thể dùng Google Form, Formspree, hoặc email mailto.",
         f6q:"Làm sao kiểm tra nhanh đã deploy chưa?", f6a:"Mở link trực tiếp: /avatar.jpg và /CV_Trung.pdf. Nếu mở được là OK.",
+
         ctTitle:"Liên hệ", ctRight:"Email • Zalo • Facebook",
         ctInfo:"Thông tin liên hệ",
         ctNote:"Bạn có thể dùng QR Danh thiếp ở phần QR sau khi nhập đúng email/zalo/facebook.",
@@ -1407,13 +1387,14 @@
         btnProjectsSub:"Filter • Search • Modal",
         btnShare:"Share link",
         btnShareSub:"Quick copy URL",
-        note1:"If you previously got 404, it was because links still pointed to “assets/”. This version removes it completely.",
+
         aboutTitle:"Professional introduction", aboutRight:"Clear overview",
         aboutMeT:"Who am I?", aboutMeD:"I combine Veterinary knowledge and technology to build practical solutions. I prefer structured work, scalability, clarity, and professional presentation.",
         valueT:"What I deliver",
         value1t:"✅ Clarity first", value1d:"Readable structure, clean layout, working CV/QR links.",
         value2t:"✅ Professional features", value2d:"Portfolio-grade UI with filters/search, modal, blog, gallery, QR generator.",
         tag1:"System thinking", tag2:"UX-focused", tag3:"Disciplined",
+
         hlTitle:"Highlights", hlRight:"Key points",
         statsT:"Quick stats",
         s1:"Demo projects", s2:"AI vet topics", s3:"Posts", s4:"Certificates",
@@ -1421,33 +1402,39 @@
         focusT:"Focus areas",
         focus1t:"📌 Vet + Tech", focus1d:"Practical use-cases, optimized operations, easy deployment.",
         focus2t:"📌 Professional presentation", focus2d:"Clean structure, strong UX, business-like features.",
+
         skillsTitle:"Skills", skillsRight:"Skill bars + description",
         skillsCore:"Core skills", skillsMore:"Additional skills",
         b1:"Veterinary Fundamentals", b2:"AI Tools & Workflow", b3:"Web UI / GitHub Pages", b4:"English Communication",
         sm1t:"🧠 System thinking", sm1d:"Clean structure, proper naming, correct paths, avoid 404.",
         sm2t:"🧩 UX design", sm2d:"Project filter/search, modal, clear CTA, quick copy, QR generator.",
         sm3t:"🛡️ Quality", sm3d:"Fast, responsive, professional structure.",
+
         tlTitle:"Timeline", tlRight:"Study • Work • Projects",
         tlExp:"Experience / Journey",
         t1t:"Academic improvement", t1d:"Professional formatting, structured knowledge, scientific writing style.",
         t2t:"Portfolio website", t2d:"Professional web: CV PDF, QR, projects, blog, gallery, contact.",
         t3t:"Real-world AI usage", t3d:"AI to support learning, lookup, standardize workflows and productivity.",
+
         certTitle:"Certificates / Achievements",
         c1t:"English practice", c1d:"Writing, speaking, vocabulary and presentation improvements.",
         c2t:"AI in veterinary", c2d:"Curating AI tools for diagnosis, records, and assistance.",
         c3t:"Web deployment", c3d:"GitHub Pages deployment with correct structure (no assets/404).",
+
         projTitle:"Projects", projRight:"Filter • Search • Modal", projHint:"Click a project to open details modal.",
+
         cvTitle:"CV", cvRight:"Clear • Embedded • Fast download",
-        cvDesc:"The CV is located next to index.html (no assets). Click buttons to open/download.",
         openCV:"Open / Download CV", downloadCV:"Download file", downloadCVSub:"Direct download",
         printCV:"Print CV", printCVSub:"Open then print",
-        cvNote:"If you see 404: verify exact filename (case-sensitive) and commit + push.",
         cvView:"Preview CV on page",
+
         galTitle:"Gallery", galRight:"Image modal • Responsive", galHint:"Replace with your real images or upload to the repo.",
         blogTitle:"Mini blog", blogRight:"Content ideas",
+
         qrTitle:"QR", qrRight:"Generate QR on-page", qrMake:"Generate sharing QR", qrBtn:"Generate QR", qrSite:"Website QR", qrVcard:"vCard QR",
         qrNote:"Website QR uses current URL. vCard uses your contact values from config.",
         qrResult:"QR result",
+
         faqTitle:"FAQ", faqRight:"Frequently asked questions",
         f1q:"Why did I get 404 for CV before?", f1a:"Because your link still pointed to “assets/” but the folder was deleted. This uses direct path: CV_Trung.pdf.",
         f2q:"Is GitHub case-sensitive?", f2a:"Yes. “CV_Trung.pdf” is different from “cv_trung.pdf”. Keep exact filename.",
@@ -1455,6 +1442,7 @@
         f4q:"Can I make it multi-page?", f4a:"Yes. But you asked for a single file; this is many sections in one scroll page.",
         f5q:"Can the contact form send messages directly?", f5a:"GitHub Pages has no backend by default. Use Google Form, Formspree, or mailto.",
         f6q:"How to verify deployment quickly?", f6a:"Open direct links: /avatar.jpg and /CV_Trung.pdf. If they load, you're good.",
+
         ctTitle:"Contact", ctRight:"Email • Zalo • Facebook",
         ctInfo:"Contact info",
         ctNote:"You can generate a vCard QR after you update email/zalo/facebook in config.",
@@ -1541,7 +1529,7 @@
         desc:"Prompt mẫu cho học tập và công việc: tóm tắt, so sánh, checklist, Q&A.",
         details:["Prompt library","Use-case cụ thể","Mẫu ngắn gọn"]},
       {id:10, title:"Vet Case Study Format", cat:"vet", badge:"vet", badgeClass:"red",
-        desc:"Khung viết case study: triệu chứng, chẩn đoán phân biệt, điều trị, theo dõi.",
+        desc:"Khung viết case study: triệu chứng, chẩn đoán phân biệt, điều trị, theo dõi, kết luận.",
         details:["Template chuẩn","Đầu mục rõ","Dễ dùng"]},
       {id:11, title:"Personal Branding Pack", cat:"web", badge:"brand", badgeClass:"blue",
         desc:"Bộ nhận diện: màu sắc, typography, CTA, cấu trúc thông tin.",
@@ -1635,7 +1623,7 @@
     });
 
     /********************
-     * 6) GALLERY
+     * 6) GALLERY ✅ FIX Clinic
      ********************/
     const GALLERY = [
       {title:"Workspace", src:"https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=70"},
@@ -1644,7 +1632,10 @@
       {title:"Learning", src:"https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=70"},
       {title:"Nature", src:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=70"},
       {title:"Teamwork", src:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=70"},
-      {title:"Clinic", src:"https://images.unsplash.com/photo-1580281657527-47f249e8f064?auto=format&fit=crop&w=1200&q=70"},
+
+      /* ✅ ĐỔI LINK Clinic (link cũ hay lỗi / load chậm) */
+      {title:"Clinic", src:"https://images.unsplash.com/photo-1580281658626-ee379f3c10a1?auto=format&fit=crop&w=1200&q=70"},
+
       {title:"Presentation", src:"https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=70"},
     ];
     const gal = document.getElementById("gal");
