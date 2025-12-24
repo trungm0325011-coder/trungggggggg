@@ -150,21 +150,54 @@
     .iframeBox iframe{width:100%; height:100%; border:0}
 
     /* ✅ Gallery 100 ảnh */
-    .galTools{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px}
-    .input{
-      padding:11px 12px; border-radius:14px; border:1px solid var(--line);
-      background:rgba(255,255,255,.04); color:var(--txt); font-weight:800; font-size:13px;
-      min-width:220px; outline:none;
-    }
-    .gal{display:grid; grid-template-columns: repeat(4, 1fr); gap:10px}
-    .ph{
-      border:1px solid var(--line); border-radius:18px; overflow:hidden;
-      background:rgba(255,255,255,.04); cursor:pointer; position:relative; aspect-ratio: 4 / 3;
-    }
-    .ph img{width:100%; height:100%; object-fit:cover; transform:scale(1.02)}
-    .ph::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,.45))}
-    .ph span{position:absolute; left:12px; bottom:10px; font-weight:900; font-size:12px; color:rgba(255,255,255,.92)}
-    .pager{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center; justify-content:space-between}
+    <script>
+/* ================================
+   🔥 GALLERY 100 FULL HD (STABLE)
+   ================================ */
+
+const GAL_KEYWORDS = [
+  "veterinary clinic","animal hospital","dog","cat","pet care",
+  "veterinarian","clinic surgery","animal care","ai technology",
+  "artificial intelligence","coding","workspace","laptop desk",
+  "teamwork","office meeting","presentation","study","books",
+  "nature road","mountain","forest","river","sunset","city night",
+  "coffee workspace","startup team","modern office","healthcare",
+  "medical clinic","research lab","technology future","coding screen"
+];
+
+// tạo 100 ảnh HD (1600px)
+const GALLERY_ALL = Array.from({ length: 100 }).map((_, i) => {
+  const kw = GAL_KEYWORDS[i % GAL_KEYWORDS.length];
+  return {
+    title: kw.toUpperCase(),
+    src: `https://source.unsplash.com/1600x1000/?${encodeURIComponent(kw)}&sig=${i}`
+  };
+});
+
+const gal = document.getElementById("gal");
+
+// render gallery
+gal.innerHTML = GALLERY_ALL.map((g, i) => `
+  <div class="ph" data-i="${i}">
+    <img src="${g.src}" alt="${g.title}" loading="lazy">
+    <span>${g.title}</span>
+  </div>
+`).join("");
+
+// click mở modal
+gal.querySelectorAll(".ph").forEach(el => {
+  el.addEventListener("click", () => {
+    const i = Number(el.dataset.i);
+    const g = GALLERY_ALL[i];
+    openModal("Gallery • " + g.title, `
+      <div style="border-radius:18px; overflow:hidden; border:1px solid var(--line)">
+        <img src="${g.src}" alt="${g.title}" style="width:100%;height:auto">
+      </div>
+    `);
+  });
+});
+</script>
+
 
     /* ✅ Media */
     .mediaGrid{grid-template-columns: 1.05fr .95fr}
