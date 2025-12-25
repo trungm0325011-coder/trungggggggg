@@ -293,12 +293,286 @@
   </style>
 </head>
 <body><!doctype html>
+  <!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Playlist PRO</title>
+
+<style>
+body{
+  margin:0;
+  background:#0b0f14;
+  color:#e9eef6;
+  font-family:system-ui,Segoe UI,Roboto,Arial
+}
+.wrap{max-width:1100px;margin:auto;padding:14px}
+h1{margin:0 0 10px;font-size:18px}
+
+.grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:12px
+}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+
+.card{
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;
+  background:rgba(255,255,255,.03)
+}
+
+/* PLAYER */
+.player{padding:12px}
+.yt{
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:12px;
+  overflow:hidden;
+  background:#000
+}
+iframe{width:100%;height:100%;border:0}
+
+.controls{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+  flex-wrap:wrap
+}
+button{
+  padding:9px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  font-weight:700;
+  cursor:pointer
+}
+button.on{
+  background:rgba(255,90,58,.18);
+  border-color:rgba(255,90,58,.45)
+}
+.now{margin-top:8px;color:#aeb8c7;font-size:13px}
+
+/* PLAYLIST */
+.playlist{padding:12px}
+.search{
+  width:100%;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  outline:none;
+  margin-bottom:10px
+}
+.scroll{
+  max-height:520px;
+  overflow:auto
+}
+.item{
+  display:grid;
+  grid-template-columns:80px 1fr;
+  gap:10px;
+  padding:8px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.02);
+  cursor:pointer;
+  margin-bottom:8px
+}
+.item:hover{background:rgba(255,255,255,.05)}
+.item.active{
+  background:linear-gradient(90deg,rgba(255,90,58,.18),rgba(255,184,74,.12));
+  border-color:rgba(255,90,58,.4)
+}
+.thumb{
+  width:80px;height:45px;
+  border-radius:8px;
+  overflow:hidden;
+  background:#000
+}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.meta b{
+  display:block;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+.meta small{color:#aeb8c7}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+<h1>🎵 PLAYLIST PRO (Search • Shuffle • Loop)</h1>
+
+<div class="grid">
+
+<!-- PLAYER -->
+<div class="card">
+  <div class="player">
+    <div class="yt">
+      <iframe id="yt"></iframe>
+    </div>
+
+    <div class="controls">
+      <button id="prev">⏮ Prev</button>
+      <button id="play">▶ Play</button>
+      <button id="next">Next ⏭</button>
+      <button id="shuffle" class="on">Shuffle</button>
+    </div>
+
+    <div class="now">NOW: <b id="now">—</b></div>
+  </div>
+</div>
+
+<!-- PLAYLIST -->
+<div class="card">
+  <div class="playlist">
+    <input id="search" class="search" placeholder="🔎 Tìm bài / ca sĩ...">
+    <div class="scroll" id="list"></div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+/* ===== 1) DÁN TOÀN BỘ BÀI VÀO ĐÂY ===== */
+const ALL = [
+  { title:"Last Christmas — Wham!", videoId:"E8gmARGvPlI" },
+  { title:"Despacito — Luis Fonsi", videoId:"kJQP7kiw5Fk" },
+  { title:"Shape of You — Ed Sheeran", videoId:"JGwWNGJdvx8" },
+  { title:"See You Again — Wiz Khalifa", videoId:"RgKAFK5djSk" },
+  // 👉 anh paste tiếp 100–200 bài ở đây
+];
+
+/* ===== CORE ===== */
+const yt = document.getElementById("yt");
+const listEl = document.getElementById("list");
+const nowEl = document.getElementById("now");
+const q = document.getElementById("search");
+
+let shuffle = true;
+let base = dedupe(ALL);
+let view = [...base];
+let curIndex = -1;
+
+function dedupe(arr){
+  const m=new Map();
+  arr.forEach(x=>!m.has(x.videoId)&&m.set(x.videoId,x));
+  return [...m.values()];
+}
+function thumb(id){return `https://img.youtube.com/vi/${id}/mqdefault.jpg`}
+function embed(id){return `https://www.youtube.com/embed/${id}?autoplay=1`}
+
+function render(){
+  listEl.innerHTML="";
+  view.forEach((s,i)=>{
+    const d=document.createElement("div");
+    d.className="item"+(i===curIndex?" active":"");
+    d.innerHTML=`
+      <div class="thumb"><img src="${thumb(s.videoId)}"></div>
+      <div class="meta">
+        <b>${s.title}</b>
+        <small>YouTube</small>
+      </div>`;
+    d.onclick=()=>play(i);
+    listEl.appendChild(d);
+  });
+}
+
+function play(i){
+  curIndex=i;
+  const s=view[curIndex];
+  yt.src=embed(s.videoId);
+  nowEl.textContent=s.title;
+  render();
+}
+
+function next(){
+  if(view.length===0) return;
+  if(shuffle){
+    let r=Math.floor(Math.random()*view.length);
+    if(r===curIndex) r=(r+1)%view.length;
+    play(r);
+  }else{
+    play((curIndex+1)%view.length); // cuộn tròn
+  }
+}
+function prev(){
+  if(view.length===0) return;
+  play((curIndex-1+view.length)%view.length);
+}
+
+/* SEARCH */
+q.oninput=()=>{
+  const k=q.value.toLowerCase();
+  view=base.filter(x=>x.title.toLowerCase().includes(k));
+  curIndex=-1;
+  render();
+};
+
+/* BUTTONS */
+document.getElementById("next").onclick=next;
+document.getElementById("prev").onclick=prev;
+document.getElementById("play").onclick=()=>{
+  if(curIndex===-1 && view.length) play(0);
+  else yt.src=embed(view[curIndex].videoId);
+};
+document.getElementById("shuffle").onclick=e=>{
+  shuffle=!shuffle;
+  e.target.classList.toggle("on",shuffle);
+};
+
+/* INIT */
+render();
+</script>
+</body>
+</html>
+
 <html lang="vi">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Media Player PRO • Playlist + Search + Lyrics</title>
   <style>
+    /* ===== MEDIA PRO (index.html addon) ===== */
+.mp-wrap{max-width:1200px;margin:auto;padding:12px}
+.mp-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.mp-title{margin:0;font-size:18px}
+.mp-sub{color:#aeb8c7;font-size:12px}
+.mp-pill{padding:7px 10px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.05);color:#aeb8c7;font-weight:900;font-size:12px;white-space:nowrap}
+
+.mp-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:12px}
+@media(max-width:980px){.mp-grid{grid-template-columns:1fr}}
+
+.mp-card{border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.03);overflow:hidden}
+.mp-head{padding:12px;border-bottom:1px solid rgba(255,255,255,.10);display:flex;justify-content:space-between;gap:10px;align-items:center;background:rgba(0,0,0,.12)}
+.mp-player{padding:12px}
+
+.mp-yt{width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.12)}
+.mp-yt iframe{width:100%;height:100%;border:0}
+
+.mp-controls{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.mp-btn{cursor:pointer;padding:9px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font-weight:800}
+.mp-btn.mp-on{background:rgba(255,90,58,.18);border-color:rgba(255,90,58,.45)}
+.mp-now{margin-top:8px;color:#aeb8c7;font-size:13px}
+
+.mp-listbox{padding:12px}
+.mp-search{width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;outline:none;margin-bottom:10px}
+.mp-scroll{max-height:560px;overflow:auto;padding-right:6px}
+
+.mp-item{display:grid;grid-template-columns:80px 1fr;gap:10px;padding:8px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);cursor:pointer;margin-bottom:8px}
+.mp-item:hover{background:rgba(255,255,255,.05)}
+.mp-item.active{background:linear-gradient(90deg,rgba(255,90,58,.18),rgba(255,184,74,.12));border-color:rgba(255,90,58,.4)}
+.mp-thumb{width:80px;height:45px;border-radius:8px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.12)}
+.mp-thumb img{width:100%;height:100%;object-fit:cover}
+.mp-meta b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mp-meta small{color:#aeb8c7}
+
     .tabs{display:flex;gap:8px;margin:12px 0}
 .tabs button{padding:10px 12px;border-radius:999px;border:1px solid #333;background:#111;color:#ddd;cursor:pointer;font-weight:800}
 .tabs button.active{background:linear-gradient(90deg,#ff5a3a,#ffb84a);color:#111;border-color:transparent}
@@ -1719,6 +1993,125 @@ startAutoTimer();
  * INIT
  */
 setTab("USUK"); // mặc định US/UK
+</script>
+<script>
+/* ===== MEDIA PRO JS (index.html addon) ===== */
+(function(){
+  // 1) DÁN TẤT CẢ BÀI CỦA ANH VÀO ĐÂY
+  // Format tối thiểu: { title:"...", videoId:"..." }
+  const ALL = [
+    { title:"Last Christmas — Wham!", videoId:"E8gmARGvPlI" },
+    { title:"Despacito — Luis Fonsi", videoId:"kJQP7kiw5Fk" },
+    { title:"Shape of You — Ed Sheeran", videoId:"JGwWNGJdvx8" },
+    { title:"See You Again — Wiz Khalifa", videoId:"RgKAFK5djSk" },
+    // 👉 Anh paste thêm danh sách của anh vào đây
+  ];
+
+  const $ = (id)=>document.getElementById(id);
+  const yt = $("mpYt");
+  const listEl = $("mpList");
+  const nowEl = $("mpNow");
+  const qEl = $("mpSearch");
+  const countEl = $("mpCount");
+  const shownEl = $("mpShown");
+  const modeEl  = $("mpMode");
+
+  let shuffle = true;
+  let base = dedupe(ALL);
+  let view = [...base];
+  let curIndex = -1;
+
+  function dedupe(arr){
+    const m = new Map();
+    (arr||[]).forEach(x=>{
+      if(!x || !x.videoId) return;
+      if(!m.has(x.videoId)) m.set(x.videoId, x);
+    });
+    return [...m.values()];
+  }
+  function thumb(id){ return `https://img.youtube.com/vi/${id}/mqdefault.jpg`; }
+  function embed(id){ return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`; }
+
+  function setBadges(){
+    countEl.textContent = base.length + " items";
+    shownEl.textContent = "Shown: " + view.length;
+    modeEl.textContent  = `Shuffle ${shuffle ? "ON" : "OFF"} • Loop ON`;
+    $("mpShuffle").classList.toggle("mp-on", shuffle);
+  }
+
+  function render(){
+    listEl.innerHTML = "";
+    view.forEach((s, i)=>{
+      const d = document.createElement("div");
+      d.className = "mp-item" + (i === curIndex ? " active" : "");
+      d.innerHTML = `
+        <div class="mp-thumb"><img src="${thumb(s.videoId)}" alt=""></div>
+        <div class="mp-meta">
+          <b title="${s.title}">${s.title}</b>
+          <small>YouTube</small>
+        </div>
+      `;
+      d.onclick = ()=>play(i);
+      listEl.appendChild(d);
+    });
+    setBadges();
+  }
+
+  function play(i){
+    if(view.length === 0) return;
+    curIndex = i;
+    const s = view[curIndex];
+    yt.src = embed(s.videoId);
+    nowEl.textContent = s.title;
+    render();
+  }
+
+  function next(){
+    if(view.length === 0) return;
+    if(curIndex === -1) return play(0);
+
+    if(shuffle){
+      let r = Math.floor(Math.random() * view.length);
+      if(view.length > 1 && r === curIndex) r = (r + 1) % view.length;
+      play(r);
+    } else {
+      play((curIndex + 1) % view.length); // cuộn tròn
+    }
+  }
+
+  function prev(){
+    if(view.length === 0) return;
+    if(curIndex === -1) return play(0);
+    play((curIndex - 1 + view.length) % view.length); // cuộn tròn
+  }
+
+  // Search realtime
+  qEl.addEventListener("input", ()=>{
+    const k = (qEl.value || "").trim().toLowerCase();
+    view = k ? base.filter(x => (x.title||"").toLowerCase().includes(k)) : [...base];
+    curIndex = -1;
+    nowEl.textContent = "—";
+    yt.src = "";
+    render();
+  });
+
+  // Buttons
+  $("mpNext").onclick = next;
+  $("mpPrev").onclick = prev;
+
+  $("mpPlay").onclick = ()=>{
+    if(curIndex === -1) return (view.length ? play(0) : null);
+    yt.src = embed(view[curIndex].videoId); // play lại
+  };
+
+  $("mpShuffle").onclick = ()=>{
+    shuffle = !shuffle;
+    setBadges();
+  };
+
+  // Init
+  render();
+})();
 </script>
 </body>
 </html>
