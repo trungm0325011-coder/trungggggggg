@@ -147,7 +147,8 @@
       border-radius:12px;
       border:1px solid transparent;
     }
-    .navLinks a:hover{
+    .navLink
+s a:hover{
       color:var(--txt);
       border-color:rgba(255,255,255,.12);
       background:rgba(255,255,255,.05);
@@ -295,7 +296,8 @@
       border-radius:18px;
       background:rgba(255,255,255,.04);
     }
-    .tDate{font-weight:900; color:var(--muted2); font-size:12px; letter-spacing:.6px; text-transform:uppercase}
+    .tDate{font-weight:900; color:var(--muted2); font-size:12px
+; letter-spacing:.6px; text-transform:uppercase}
     .tTitle{font-weight:900; font-size:14px; margin:0}
     .tDesc{margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.6}
 
@@ -454,7 +456,8 @@
     .post p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
 
     details{
-      border:1px solid var(--line);
+      border:1px
+ solid var(--line);
       border-radius:18px;
       background:rgba(255,255,255,.04);
       padding:12px 14px;
@@ -665,7 +668,8 @@
     .track{
       border:1px solid var(--line);
       border-radius:16px;
-      background:rgba(255,255,255,.04);
+      background:rgba(255,25
+5,255,.04);
       padding:12px;
       cursor:pointer;
       transition:.18s ease;
@@ -786,7 +790,8 @@
             <span class="pill">🤖 AI</span>
             <span class="pill">📱 App/Web</span>
             <span class="pill">🌍 English</span>
-            <span class="pill">📍 Cần Thơ</span>
+   
+         <span class="pill">📍 Cần Thơ</span>
             <span class="pill">🎬 Media</span>
           </div>
 
@@ -914,7 +919,8 @@
             </div>
             <div class="stat">
               <div class="num" id="s3">0</div>
-              <div class="lbl" data-i18n="s3">Bài viết</div>
+              <div class="lbl" d
+ata-i18n="s3">Bài viết</div>
             </div>
             <div class="stat">
               <div class="num" id="s4">0</div>
@@ -1029,7 +1035,8 @@
         </div>
 
         <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="certTitle">Chứng chỉ / Thành tựu</h3>
+          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="certTitle">Chứng chỉ / Thành tựu
+</h3>
           <div class="list">
             <div class="item">
               <h3>🏅 <span data-i18n="c1t">English Practice</span></h3>
@@ -1153,7 +1160,8 @@
       <div class="card pad">
         <div class="posts" id="posts"></div>
       </div>
-    </section>
+    <
+/section>
 
    <!-- MEDIA -->
 <section id="media">
@@ -1281,7 +1289,8 @@
 
       <div class="grid split2">
         <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="qrMake">Tạo QR chia sẻ</h3>
+          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="qrMake">Tạo QR chia s
+ẻ</h3>
 
           <div class="formGrid">
             <input class="input" id="qrText" placeholder="Dán link website / Facebook / Zalo / Email..." />
@@ -1389,7 +1398,8 @@
           <div class="row">
             <div class="label">Facebook</div>
             <div class="value" id="fbWrap">
-              <a id="fbLink" href="https://www.facebook.com/langtukid94/" target="_blank" rel="noopener">🔵 <span id="fbText">facebook.com/langtukid94</span></a>
+              <a id="fbLink" href="https://www.facebook.com/langtukid94/" target="_blank" rel="
+noopener">🔵 <span id="fbText">facebook.com/langtukid94</span></a>
               <button class="copyBtn" data-copy="#fbText" type="button">Copy</button>
             </div>
           </div>
@@ -1518,7 +1528,8 @@
 
     /********************
      * 3) LANGUAGE TOGGLE (VI/EN)
-     ********************/
+     ****************
+****/
     const btnLang = document.getElementById("btnLang");
     const dict = { vi:{ role:"Veterinary • AI • App Builder", status:"Online • Sẵn sàng hợp tác", hello:"Xin chào, tôi là",
       btnCV:"Xem & Tải CV", btnProjects:"Xem dự án", btnProjectsSub:"Filter • Search • Modal",
@@ -1564,7 +1575,8 @@
       sendMail:"Gửi email", sendMailSub:"Mở Gmail/Outlook"
     },
     en:{ role:"Veterinary • AI • App Builder", status:"Online • Open to collaborate", hello:"Hi, I'm",
-      btnCV:"View & Download CV", btnProjects:"View projects", btnProjectsSub:"Filter • Search • Modal",
+      btnCV:"View & Download CV", bt
+nProjects:"View projects", btnProjectsSub:"Filter • Search • Modal",
       btnShare:"Share link", btnShareSub:"Quick copy URL",
       aboutTitle:"Professional introduction", aboutRight:"Clear overview",
       aboutMeT:"Who am I?", aboutMeD:"I combine Veterinary knowledge and technology to build practical solutions. I prefer structured work, scalability, clarity, and professional presentation.",
@@ -1622,7 +1634,8 @@
     btnLang.addEventListener("click", ()=>{
       lang = (lang === "vi") ? "en" : "vi";
       localStorage.setItem("lang", lang);
-      applyLang();
+      
+applyLang();
       toast(lang === "vi" ? "Đã chuyển: Tiếng Việt" : "Switched: English");
     });
 
@@ -1718,7 +1731,8 @@
       if(e.target.id === "overlay") closeModal();
     });
     window.addEventListener("keydown", (e)=>{
-      if(e.key === "Escape") closeModal();
+      if(e.key === "Escape") closeM
+odal();
     });
 
     function renderProjects(){
@@ -1825,7 +1839,8 @@
       {date:"2025-01-01", title:"AI trong thú y: bắt đầu từ đâu?", desc:"Gợi ý lộ trình: công cụ, use-case, cách ghi chú và triển khai thực tế."},
       {date:"2025-01-15", title:"Cách viết báo cáo/case study thú y chuẩn", desc:"Mẫu khung: triệu chứng, chẩn đoán phân biệt, điều trị, theo dõi, kết luận."},
       {date:"2025-02-02", title:"Tối ưu GitHub Pages: tránh lỗi 404", desc:"Checklist: tên file, case-sensitive, đường dẫn đúng, test trực tiếp /avatar.jpg và /CV.pdf."},
-      {date:"2025-02-20", title:"Portfolio chuyên nghiệp: những phần cần có", desc:"Hero + CV + Projects + Contact + QR + Blog + Gallery + Timeline."},
+      {date:"2025-02-20", title:"Portfolio chuyên nghiệp: những phần cần có", desc:"Hero + CV + Projects + Contact + QR + Blog + Galler
+y + Timeline."},
       {date:"2025-03-10", title:"Từ vựng tiếng Anh chuyên ngành thú y", desc:"Tổng hợp từ vựng + cách dùng trong văn bản học thuật và giao tiếp."},
       {date:"2025-03-30", title:"Kỷ luật học tập: 30 phút mỗi ngày", desc:"Cách chia nhỏ mục tiêu để tiến bộ đều và tránh bỏ cuộc."},
     ];
@@ -1901,7 +1916,8 @@ const MEDIA = [
   { type:"MUSIC", title:"All About That Bass — Meghan Trainor", meta:"US/UK", desc:"Official video.", videoId:"7PCkvCPvDXk" },
   { type:"MUSIC", title:"Waka Waka — Shakira", meta:"GLOBAL", desc:"Official video.", videoId:"pRpeEdMmmQ0" },
   { type:"MUSIC", title:"Chandelier — Sia", meta:"US/UK", desc:"Official video.", videoId:"2vjPBrBU-TM" },
-  { type:"MUSIC", title:"Love The Way You Lie — Eminem ft. Rihanna", meta:"US/UK", desc:"Official video.", videoId:"uelHwf8o7_U" },
+  { type:"MUSIC", title:"Love The Way You Lie — Eminem ft. Rihanna", meta:
+"US/UK", desc:"Official video.", videoId:"uelHwf8o7_U" },
   { type:"MUSIC", title:"Let Her Go — Passenger", meta:"US/UK", desc:"Official video.", videoId:"RBumgq5yVrA" },
   { type:"MUSIC", title:"Blank Space — Taylor Swift", meta:"US/UK", desc:"Official video.", videoId:"e-ORhEE9VVg" },
   { type:"MUSIC", title:"Thunder — Imagine Dragons", meta:"US/UK", desc:"Official video.", videoId:"fKopy74weus" },
@@ -2048,7 +2064,8 @@ document.getElementById("btnLoop").addEventListener("click", ()=>{
 
 document.getElementById("btnCopyMedia").addEventListener("click", async ()=>{
   const item = MEDIA[currentIndex];
-  if(!item) return;
+  if
+(!item) return;
   const url = `https://www.youtube.com/watch?v=${item.videoId}`;
   try{
     await navigator.clipboard.writeText(url);
@@ -2195,3 +2212,4 @@ END:VCARD`;
   </script>
 </body>
 </html>
+
