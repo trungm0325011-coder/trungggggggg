@@ -20,6 +20,93 @@
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 
   <style>
+    <style>
+/* ===== MEDIA PRO UPGRADE ===== */
+.mediaProTop{
+  display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+  margin-top:10px;
+}
+.mediaSearch{
+  display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+}
+.mediaSearch .input{min-width:260px}
+.tabs{
+  display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+}
+.tabBtn{
+  padding:9px 12px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  color:var(--muted);
+  font-weight:900;
+  font-size:12.5px;
+  cursor:pointer;
+}
+.tabBtn.active{
+  color:var(--txt);
+  border-color: rgba(255,59,59,.35);
+  background:linear-gradient(135deg, rgba(255,59,59,.18), rgba(255,213,74,.10));
+}
+
+.trackPro{
+  display:grid;
+  grid-template-columns: 76px 1fr;
+  gap:12px;
+  align-items:center;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(255,255,255,.04);
+  cursor:pointer;
+  transition:.18s ease;
+}
+.trackPro:hover{transform:translateY(-1px); background:rgba(255,255,255,.06)}
+.trackPro.active{
+  border-color: rgba(255,59,59,.40);
+  background:linear-gradient(135deg, rgba(255,59,59,.18), rgba(255,213,74,.10));
+}
+.thumb{
+  width:76px; aspect-ratio:16/9; border-radius:12px; overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.04);
+}
+.thumb img{width:100%; height:100%; object-fit:cover; transform:scale(1.02)}
+.tInfo{display:grid; gap:3px}
+.tTitle{
+  font-weight:900; font-size:12.8px; line-height:1.25;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+.tMeta{color:var(--muted2); font-weight:900; font-size:11px; letter-spacing:.5px; text-transform:uppercase}
+.tDesc{color:var(--muted); font-size:12px; line-height:1.45; margin:0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+
+.smallRow{
+  display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+}
+.pillBtn{
+  padding:9px 10px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  cursor:pointer;
+  font-weight:900;
+  font-size:12px;
+}
+.pillBtn:hover{background:rgba(255,255,255,.06)}
+.pillBtn.on{
+  border-color: rgba(255,59,59,.35);
+  background:linear-gradient(135deg, rgba(255,59,59,.18), rgba(255,213,74,.10));
+}
+.hintMini{
+  margin-top:10px;
+  font-weight:800;
+  font-size:12px;
+  color:var(--muted2);
+  line-height:1.65;
+}
+/* ===== END MEDIA PRO ===== */
+</style>
+
     :root{
       --bg: #070A10;
       --bg2:#05070c;
@@ -1057,6 +1144,27 @@
     </section>
 
     <!-- MEDIA -->
+    <!-- Add inside MEDIA section (recommended: above playlist) -->
+<div class="controls" style="margin: 10px 0 12px;">
+  <select class="select" id="mediaTab" style="min-width:170px">
+    <option value="global">Global (≈1B+)</option>
+    <option value="vn">Vietnam (≈100M+)</option>
+  </select>
+
+  <input class="input" id="mediaQ" placeholder="Search title / artist..." />
+
+  <button class="btn" id="btnShuffle" type="button" style="min-width:170px">
+    <span class="ico">🎲</span><span>Random</span>
+  </button>
+</div>
+
+<div class="miniBtns" style="margin-top:10px">
+  <button class="miniBtn" id="btnLyricsVI" type="button">📄 Lyrics VI</button>
+  <button class="miniBtn" id="btnLyricsEN" type="button">🌍 Lyrics EN</button>
+  <button class="miniBtn" id="btnCopyTitle" type="button">🧾 Copy title</button>
+  <span class="chip" id="lyrHint">Lyrics links: VI ? • EN ?</span>
+</div>
+
     <section id="media">
       <div class="titleRow">
         <h2>Media (English • UK/US Music)</h2>
@@ -1107,8 +1215,33 @@
           </div>
 
           <div style="height:10px"></div>
+          <div class="controls" style="margin:10px 0 10px">
+  <input class="input" id="mediaQ" placeholder="Search song / artist..." />
+  <select class="select" id="mediaTab">
+    <option value="global">🌍 Global (1B+)</option>
+    <option value="vn">🇻🇳 Vietnam (100M+)</option>
+  </select>
+</div>
 
-          <div class="playlist" id="playlist"></div>
+<div class="playlist" id="playlist"></div>
+
+<div class="item" style="margin-top:12px">
+  <h3 style="margin:0 0 6px">📝 Lyrics (Song ngữ)</h3>
+  <p class="muted" style="margin:0">
+    Vì bản quyền, website <b>không hiển thị nguyên văn lyrics</b>. Bạn bấm để mở lời bài hát từ nguồn hợp pháp (VI/EN).
+  </p>
+
+  <div class="miniBtns" style="margin-top:10px">
+    <button class="miniBtn" id="btnLyricsVI" type="button">📄 Lyrics VI</button>
+    <button class="miniBtn" id="btnLyricsEN" type="button">📄 Lyrics EN</button>
+    <button class="miniBtn" id="btnCopyTitle" type="button">🧷 Copy title</button>
+  </div>
+
+  <div class="muted2" id="lyrHint" style="margin-top:10px; font-weight:800; font-size:12px; line-height:1.7">
+    Tip: Mỗi bài có 2 link lyricsVI / lyricsEN trong DATA.
+  </div>
+</div>
+
         </div>
       </div>
     </section>
@@ -1726,42 +1859,450 @@
     let autoplay = true;
     let loop = false;
     let currentItem = null;
+/********************
+ * 8) ✅ MEDIA PLAYER PRO (Global/VN Tabs + Search + Lyrics Links + Shuffle)
+ * NOTE:
+ * - Không nhúng lyrics text (bản quyền). Chỉ mở link lyrics.
+ * - Không cần videoId: dùng YouTube embed listType=search.
+ ********************/
+const ytPlayer = document.getElementById("ytPlayer");
+const playlistEl = document.getElementById("playlist");
+const nowTypeEl  = document.getElementById("nowType");
+const nowTitleEl = document.getElementById("nowTitle");
+const nowModeEl  = document.getElementById("nowMode");
 
-    const MEDIA = [
-      { type:"MUSIC", title:"Last Christmas — Wham!", meta:"UK/US MUSIC", desc:"Official video.", videoId:"E8gmARGvPlI" },
-      { type:"MUSIC", title:"Let Me Hear Your Voice (声をきかせて) — BIGBANG", meta:"K-POP / JP", desc:"BIGBANG Japan single.", videoId:"oQjcJBGIFsA" },
-      { type:"MUSIC", title:"Lies (거짓말) — BIGBANG", meta:"K-POP", desc:"Official MV.", videoId:"2Cv3phvP8Ro" },
-      { type:"MUSIC", title:"Despacito — Luis Fonsi ft. Daddy Yankee", meta:"GLOBAL • 8B+", desc:"Official video.", videoId:"kJQP7kiw5Fk" },
-      { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"US/UK • 6B+", desc:"Official video.", videoId:"RgKAFK5djSk" },
-      { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"US/UK • 6B+", desc:"Official video.", videoId:"JGwWNGJdvx8" },
-      { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"US/UK • 5B+", desc:"Official video.", videoId:"OPf0YbXqDm0" },
-      { type:"MUSIC", title:"Gangnam Style — PSY", meta:"GLOBAL • 5B+", desc:"Official video.", videoId:"9bZkp7q19f0" }, 
-      { type:"MUSIC", title:"Sorry — Justin Bieber", meta:"US/UK • 4B+", desc:"Official video.", videoId:"fRh_vgS2dFE" },
-      { type:"MUSIC", title:"Sugar — Maroon 5", meta:"US/UK • 4B+", desc:"Official video.", videoId:"09R8_2nJtjg" },
-      { type:"MUSIC", title:"Roar — Katy Perry", meta:"US/UK • 4B+", desc:"Official video.", videoId:"CevxZvSJLk8" },
-      { type:"MUSIC", title:"Thinking Out Loud — Ed Sheeran", meta:"US/UK • 4B+", desc:"Official video.", videoId:"lp-EO5I60KA" },
-      { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"US/UK • 4B+", desc:"Official video.", videoId:"hT_nvWreIhg" },
-      { type:"MUSIC", title:"Dark Horse — Katy Perry", meta:"US/UK • 4B+", desc:"Official video.", videoId:"0KSOMA3QBU0" },
-      { type:"MUSIC", title:"Faded — Alan Walker", meta:"US/UK • 3B+", desc:"Official video.", videoId:"60ItHLz5WEA" },
-      { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"US/UK • 3B+", desc:"Official video.", videoId:"7wtfhZwyrcc" },
-      { type:"MUSIC", title:"Lean On — Major Lazer & DJ Snake", meta:"US/UK • 3B+", desc:"Official video.", videoId:"YqeW9_5kURI" },
-      { type:"MUSIC", title:"Perfect — Ed Sheeran", meta:"US/UK • 3B+", desc:"Official video.", videoId:"2Vv-BfVoq4g" },
-      { type:"MUSIC", title:"Havana — Camila Cabello", meta:"US/UK • 2B+", desc:"Official video.", videoId:"HCjNJDNzw8Y" },
-      { type:"MUSIC", title:"Bad Guy — Billie Eilish", meta:"US/UK • 2B+", desc:"Official video.", videoId:"DyDfgMOUjCI" },
-      { type:"MUSIC", title:"Closer — The Chainsmokers ft. Halsey", meta:"US/UK • 3B+", desc:"Official video.", videoId:"0zGcUoRlhmw" },
-      { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"US/UK • 3B+", desc:"Official video.", videoId:"aJOTlE1K90k" },
-      { type:"MUSIC", title:"Cheap Thrills — Sia", meta:"US/UK • 2B+", desc:"Official video.", videoId:"nYh-n7EOtMA" },
-      { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"JGwWNGJdvx8" },
-      { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"OPf0YbXqDm0" },
-      { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"RgKAFK5djSk" },
-      { type:"MUSIC", title:"Roar — Katy Perry", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"CevxZvSJLk8" },
-      { type:"MUSIC", title:"Sugar — Maroon 5", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"09R8_2nJtjg" },
-      { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"hT_nvWreIhg" },
-      { type:"MUSIC", title:"Hello — Adele", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"YQHsXMglC9A" },
-      { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"7wtfhZwyrcc" },
-      { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"aJOTlE1K90k" },
-      { type:"MUSIC", title:"Closer — The Chainsmokers ft. Halsey", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"0zGcUoRlhmw" },
-    ];
+let autoplay = true;
+let loop = false;
+let currentItem = null;
+
+const apState = document.getElementById("apState");
+const lpState = document.getElementById("lpState");
+
+const mediaQ   = document.getElementById("mediaQ");
+const mediaTab = document.getElementById("mediaTab");
+const lyrHint  = document.getElementById("lyrHint");
+
+// ---------- Helpers ----------
+function toastSafe(msg){
+  try{ toast(msg); }catch(e){ /* ignore */ }
+}
+
+function encodeQ(s){ return encodeURIComponent((s||"").trim()); }
+
+// YouTube search embed (no API key, no videoId)
+function ytSearchEmbedUrl(query){
+  const params = new URLSearchParams();
+  params.set("listType","search");
+  params.set("list", query);         // query string
+  params.set("rel","0");
+  params.set("modestbranding","1");
+  params.set("playsinline","1");
+  if(autoplay) params.set("autoplay","1");
+  // loop in search mode isn't perfect; keep param for consistency
+  if(loop) params.set("loop","1");
+  return `https://www.youtube.com/embed?${params.toString()}`;
+}
+
+// Build legal-ish lyrics links (no lyrics text)
+function buildLyricsLinks(title){
+  // Global: Genius + LyricsTranslate
+  const q = encodeQ(title);
+  return {
+    vi: `https://lyricstranslate.com/en/search?query=${q}`,     // often has translations
+    en: `https://genius.com/search?q=${q}`
+  };
+}
+
+// VN lyrics sources (search pages, not copying lyrics text)
+function buildLyricsLinksVN(title){
+  const q = encodeQ(title);
+  return {
+    vi: `https://loibaihat.biz/search?q=${q}`,                  // VN lyrics search
+    en: `https://lyricstranslate.com/en/search?query=${q}`      // translation search
+  };
+}
+
+function normalizeItem(item){
+  // Ensure each item has: query, lyricsVI, lyricsEN
+  if(!item.query) item.query = item.title;
+  if(!item.lyricsVI || !item.lyricsEN){
+    const links = (item.lib === "vn") ? buildLyricsLinksVN(item.title) : buildLyricsLinks(item.title);
+    item.lyricsVI = item.lyricsVI || links.vi;
+    item.lyricsEN = item.lyricsEN || links.en;
+  }
+  return item;
+}
+
+function getActiveLibrary(){
+  return (mediaTab && mediaTab.value === "vn") ? MEDIA_VN : MEDIA_GLOBAL;
+}
+
+function updateNow(item){
+  nowTypeEl.textContent  = `TYPE: ${item.type}`;
+  nowTitleEl.textContent = `NOW: ${item.title}`;
+  nowModeEl.textContent  = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
+
+  const hasVI = !!(item.lyricsVI && item.lyricsVI.startsWith("http"));
+  const hasEN = !!(item.lyricsEN && item.lyricsEN.startsWith("http"));
+  if(lyrHint) lyrHint.innerHTML = `Lyrics links: VI <b>${hasVI ? "OK" : "missing"}</b> • EN <b>${hasEN ? "OK" : "missing"}</b>`;
+}
+
+function setActiveTrack(idx){
+  const lib = getActiveLibrary();
+  const itemRaw = lib[idx];
+  if(!itemRaw) return;
+
+  const item = normalizeItem(itemRaw);
+  currentItem = item;
+
+  ytPlayer.src = ytSearchEmbedUrl(item.query);
+
+  document.querySelectorAll(".track").forEach(el=>el.classList.remove("active"));
+  const active = document.querySelector(`.track[data-idx="${idx}"]`);
+  if(active) active.classList.add("active");
+
+  updateNow(item);
+}
+
+function renderPlaylist(){
+  const lib = getActiveLibrary().map(normalizeItem);
+  const query = (mediaQ?.value || "").trim().toLowerCase();
+
+  const view = lib
+    .map((m, idx)=>({m, idx}))
+    .filter(x=>{
+      if(!query) return true;
+      return (x.m.title || "").toLowerCase().includes(query) || (x.m.meta || "").toLowerCase().includes(query);
+    });
+
+  playlistEl.innerHTML = view.map(({m, idx})=>`
+    <div class="track" data-idx="${idx}">
+      <div class="trackTop">
+        <div class="trackTitle">${m.title}</div>
+        <div class="trackMeta">${m.meta}</div>
+      </div>
+      <p class="trackDesc">${m.desc || ""}</p>
+    </div>
+  `).join("");
+
+  playlistEl.querySelectorAll(".track").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      const idx = Number(el.getAttribute("data-idx"));
+      setActiveTrack(idx);
+      toastSafe("Switched ✅");
+    });
+  });
+
+  if(!currentItem && view[0]) setActiveTrack(view[0].idx);
+}
+
+function shufflePick(){
+  const lib = getActiveLibrary();
+  const idx = Math.floor(Math.random() * lib.length);
+  setActiveTrack(idx);
+  toastSafe("Random ✅");
+}
+
+// ---------- Buttons ----------
+document.getElementById("btnAutoplay").addEventListener("click", ()=>{
+  autoplay = !autoplay;
+  apState.textContent = autoplay ? "ON" : "OFF";
+  if(currentItem?.query) ytPlayer.src = ytSearchEmbedUrl(currentItem.query);
+  if(currentItem) updateNow(currentItem);
+  toastSafe("Autoplay " + (autoplay ? "ON" : "OFF"));
+});
+
+document.getElementById("btnLoop").addEventListener("click", ()=>{
+  loop = !loop;
+  lpState.textContent = loop ? "ON" : "OFF";
+  if(currentItem?.query) ytPlayer.src = ytSearchEmbedUrl(currentItem.query);
+  if(currentItem) updateNow(currentItem);
+  toastSafe("Loop " + (loop ? "ON" : "OFF"));
+});
+
+document.getElementById("btnCopyMedia").addEventListener("click", async ()=>{
+  if(!currentItem?.query) return;
+  const url = `https://www.youtube.com/results?search_query=${encodeQ(currentItem.query)}`;
+  try{ await navigator.clipboard.writeText(url); toastSafe("Copied search link ✅"); }
+  catch(e){ toastSafe("Copy failed"); }
+});
+
+document.getElementById("btnOpenYT").addEventListener("click", ()=>{
+  if(!currentItem?.query) return;
+  window.open(`https://www.youtube.com/results?search_query=${encodeQ(currentItem.query)}`, "_blank", "noopener");
+});
+
+document.getElementById("btnLyricsVI")?.addEventListener("click", ()=>{
+  const url = currentItem?.lyricsVI;
+  if(url && url.startsWith("http")) window.open(url, "_blank", "noopener");
+  else toastSafe("Chưa có link Lyrics VI");
+});
+
+document.getElementById("btnLyricsEN")?.addEventListener("click", ()=>{
+  const url = currentItem?.lyricsEN;
+  if(url && url.startsWith("http")) window.open(url, "_blank", "noopener");
+  else toastSafe("Chưa có link Lyrics EN");
+});
+
+document.getElementById("btnCopyTitle")?.addEventListener("click", async ()=>{
+  const t = currentItem?.title || "";
+  if(!t) return;
+  try{ await navigator.clipboard.writeText(t); toastSafe("Copied title ✅"); }
+  catch(e){ toastSafe("Copy failed"); }
+});
+
+document.getElementById("btnShuffle")?.addEventListener("click", shufflePick);
+
+if(mediaQ) mediaQ.addEventListener("input", ()=>{ currentItem=null; renderPlaylist(); });
+if(mediaTab) mediaTab.addEventListener("change", ()=>{
+  currentItem = null;
+  renderPlaylist();
+  toastSafe(mediaTab.value === "vn" ? "Vietnam list ✅" : "Global list ✅");
+});
+
+// ---------- DATA: 100 Global + 100 VN ----------
+function makeList(lib, type, metaTag, titles){
+  return titles.map(t=>({
+    lib,
+    type,
+    title: t,
+    meta: metaTag,
+    desc: "YouTube search player (no fixed videoId).",
+    query: t,         // search query
+    lyricsVI: "",      // auto-filled
+    lyricsEN: ""       // auto-filled
+  }));
+}
+
+/**
+ * GLOBAL (≈1B+ candidates) — US/UK/Global hits
+ * NOTE: view counts change; list is “popular billion-view class” (roughly based on public top lists).
+ */
+const GLOBAL_100_TITLES = [
+  "Luis Fonsi - Despacito ft. Daddy Yankee",
+  "Wiz Khalifa - See You Again ft. Charlie Puth",
+  "Ed Sheeran - Shape of You",
+  "Mark Ronson - Uptown Funk ft. Bruno Mars",
+  "PSY - GANGNAM STYLE",
+  "Justin Bieber - Sorry",
+  "Maroon 5 - Sugar",
+  "Katy Perry - Roar",
+  "OneRepublic - Counting Stars",
+  "Adele - Hello",
+  "Imagine Dragons - Believer",
+  "Maroon 5 - Girls Like You ft. Cardi B",
+  "The Chainsmokers - Closer ft. Halsey",
+  "Sia - Cheap Thrills",
+  "Alan Walker - Faded",
+  "Ed Sheeran - Perfect",
+  "Camila Cabello - Havana ft. Young Thug",
+  "Billie Eilish - bad guy",
+  "Dua Lipa - New Rules",
+  "J Balvin & Willy William - Mi Gente",
+  "Justin Bieber - Baby ft. Ludacris",
+  "Taylor Swift - Shake It Off",
+  "Bruno Mars - The Lazy Song",
+  "Bruno Mars - 24K Magic",
+  "Bruno Mars - That’s What I Like",
+  "Shakira - Waka Waka (This Time for Africa)",
+  "Jennifer Lopez - On The Floor ft. Pitbull",
+  "Katy Perry - Dark Horse ft. Juicy J",
+  "Katy Perry - Firework",
+  "Rihanna - Diamonds",
+  "Rihanna - Work ft. Drake",
+  "Coldplay - Hymn For The Weekend",
+  "Coldplay - Paradise",
+  "Coldplay - Viva La Vida",
+  "Eminem - Love The Way You Lie ft. Rihanna",
+  "Eminem - Not Afraid",
+  "Linkin Park - Numb",
+  "Guns N' Roses - November Rain",
+  "Queen - Bohemian Rhapsody",
+  "A-ha - Take On Me",
+  "The Weeknd - Starboy ft. Daft Punk",
+  "The Weeknd - Blinding Lights",
+  "The Weeknd - Save Your Tears",
+  "Drake - Hotline Bling",
+  "Lady Gaga - Bad Romance",
+  "Lady Gaga - Shallow (A Star Is Born)",
+  "Christina Perri - A Thousand Years",
+  "Passenger - Let Her Go",
+  "John Legend - All of Me",
+  "Ariana Grande - 7 rings",
+  "Ariana Grande - thank u, next",
+  "Ariana Grande - side to side ft. Nicki Minaj",
+  "Selena Gomez - Wolves",
+  "Selena Gomez - Come & Get It",
+  "Shawn Mendes - Treat You Better",
+  "Shawn Mendes - Señorita (with Camila Cabello)",
+  "Charlie Puth - We Don't Talk Anymore ft. Selena Gomez",
+  "Charlie Puth - Attention",
+  "DJ Snake - Taki Taki ft. Selena Gomez, Ozuna, Cardi B",
+  "DJ Snake, Major Lazer - Lean On",
+  "Major Lazer - Cold Water ft. Justin Bieber & MØ",
+  "Nicky Jam x J Balvin - X (EQUIS)",
+  "Daddy Yankee - Dura",
+  "Maluma - Felices los 4",
+  "Black Eyed Peas - I Gotta Feeling",
+  "Black Eyed Peas - Where Is The Love?",
+  "Britney Spears - ...Baby One More Time",
+  "Backstreet Boys - I Want It That Way",
+  "Marshmello - Alone",
+  "Marshmello - Happier ft. Bastille",
+  "Avicii - Wake Me Up",
+  "Avicii - The Nights",
+  "Imagine Dragons - Thunder",
+  "Imagine Dragons - Demons",
+  "Halsey - Without Me",
+  "Khalid - Location",
+  "Post Malone - Rockstar ft. 21 Savage",
+  "Post Malone - Circles",
+  "Sam Smith - I'm Not The Only One",
+  "Sam Smith - Stay With Me",
+  "Lewis Capaldi - Someone You Loved",
+  "James Arthur - Say You Won't Let Go",
+  "Tones and I - Dance Monkey",
+  "Lil Nas X - Old Town Road ft. Billy Ray Cyrus",
+  "Doja Cat - Say So",
+  "Beyoncé - Halo",
+  "Nicki Minaj - Anaconda",
+  "Cardi B - I Like It",
+  "BTS - Dynamite",
+  "BTS - Boy With Luv ft. Halsey",
+  "BLACKPINK - DDU-DU DDU-DU",
+  "BLACKPINK - KILL THIS LOVE",
+  "BIGBANG - FANTASTIC BABY",
+  "PSY - Gentleman",
+  "Maroon 5 - Memories",
+  "Imagine Dragons - Natural",
+  "Ed Sheeran - Thinking Out Loud",
+  "Katy Perry - Teenage Dream",
+  "Rihanna - We Found Love ft. Calvin Harris",
+  "Skrillex - Bangarang ft. Sirah",
+  "Adele - Rolling in the Deep",
+  "Justin Timberlake - CAN'T STOP THE FEELING!",
+  "RedOne - Waka Waka remix (search)",
+  "Wham! - Last Christmas",
+  "Mariah Carey - All I Want for Christmas Is You"
+].slice(0,100);
+
+/**
+ * VIETNAM (≈100M+ candidates) — chọn theo nghệ sĩ & bài nổi bật VN (view thay đổi theo thời gian).
+ * Tham khảo danh sách top Vietnamese artists trên Kworb. :contentReference[oaicite:2]{index=2}
+ */
+const VN_100_TITLES = [
+  "SƠN TÙNG M-TP - CHẠY NGAY ĐI (RUN NOW)",
+  "SƠN TÙNG M-TP - LẠC TRÔI",
+  "SƠN TÙNG M-TP - NƠI NÀY CÓ ANH",
+  "SƠN TÙNG M-TP - EM CỦA NGÀY HÔM QUA",
+  "SƠN TÙNG M-TP - HÃY TRAO CHO ANH",
+  "SƠN TÙNG M-TP - BUÔNG ĐÔI TAY NHAU RA",
+  "SƠN TÙNG M-TP - ÂM THẦM BÊN EM",
+  "SƠN TÙNG M-TP - ĐỪNG LÀM TRÁI TIM ANH ĐAU",
+  "Jack x K-ICM - SÓNG GIÓ",
+  "Jack x K-ICM - BẠC PHẬN",
+  "Jack x K-ICM - HỒNG NHAN",
+  "Jack - HOA HẢI ĐƯỜNG",
+  "HƯƠNG TRÀM - EM GÁI MƯA",
+  "ONLY C - YÊU LÀ 'THA THU'",
+  "MIN - Ghen",
+  "ERIK - Sau Tất Cả",
+  "ERIK - Em Không Sai Chúng Ta Sai",
+  "ĐỨC PHÚC - HẾT THƯƠNG CẠN NHỚ",
+  "ĐỨC PHÚC - ÁNH NẮNG CỦA ANH",
+  "HOÀ MINZY - RỜI BỎ",
+  "HOÀ MINZY - THỊ MẦU",
+  "HOÀ MINZY - KHÔNG THỂ CÙNG NHAU SUỐT KIẾP",
+  "BÍCH PHƯƠNG - Bùa Yêu",
+  "BÍCH PHƯƠNG - Đi Đu Đưa Đi",
+  "CHI DÂN - Điều Anh Biết",
+  "CHI DÂN - Người Tôi Yêu",
+  "TRÚC NHÂN - SÁNG MẮT CHƯA",
+  "TRÚC NHÂN - BỐ GIÀ",
+  "NOO PHƯỚC THỊNH - Gạt Đi Nước Mắt",
+  "NOO PHƯỚC THỊNH - Chạm Khẽ Tim Anh Một Chút Thôi",
+  "MỸ TÂM - Người Hãy Quên Em Đi",
+  "MỸ TÂM - Đừng Hỏi Em",
+  "HỒ NGỌC HÀ - Gửi Người Yêu Cũ",
+  "ĐEN VÂU - BÀI NÀY CHILL PHẾT",
+  "ĐEN VÂU - LỐI NHỎ",
+  "ĐEN VÂU - HAI TRIỆU NĂM",
+  "KARIK - Anh Không Đòi Quà",
+  "KARIK - Người Lạ Ơi",
+  "SOOBIN - Phía Sau Một Cô Gái",
+  "SOOBIN - Đi Để Trở Về",
+  "VŨ - BƯỚC QUA MÙA CÔ ĐƠN",
+  "VŨ - LẠ LÙNG",
+  "PHAN MẠNH QUỲNH - Có Chàng Trai Viết Lên Cây",
+  "PHAN MẠNH QUỲNH - Từ Đó",
+  "MR. Siro - Dưới Những Cơn Mưa",
+  "MR. Siro - Em Gái Mưa (search)",
+  "HỒ QUANG HIẾU - Con Bướm Xuân",
+  "QUANG LÊ - Đập Vỡ Cây Đàn (search)",
+  "Masew x Phúc Du x Pháo - 2 Phút Hơn",
+  "AMEE - Anh Nhà Ở Đâu Thế",
+  "AMEE - Trời Giấu Trời Mang Đi",
+  "Ngọt - Em Dạo Này",
+  "HIEUTHUHAI - Ngủ Một Mình",
+  "WREN EVANS - Thích Em Hơi Nhiều",
+  "Tlinh - Gái Độc Thân",
+  "RPT MCK - Chìm Sâu",
+  "RHYMASTIC - YÊU 5",
+  "VĂN MAI HƯƠNG - Cầu Hôn",
+  "VĂN MAI HƯƠNG - Nếu Như Anh Đến",
+  "HỒNG NHUNG - Nhớ Mùa Thu Hà Nội (search)",
+  "LỆ QUYÊN - Giấc Mơ Có Thật (search)",
+  "ĐÔNG NHI - Bad Boy",
+  "ĐÔNG NHI - Vì Ai Vì Anh",
+  "CHI PU - Anh Ơi Ở Lại",
+  "CHI PU - Đóa Hoa Hồng",
+  "K-ICM - Ai Mang Cô Đơn Đi",
+  "K-ICM - Em Gì Ơi",
+  "HÀ ANH TUẤN - Tháng Tư Là Lời Nói Dối Của Em",
+  "HÀ ANH TUẤN - Người Tình Mùa Đông (search)",
+  "TRỊNH THĂNG BÌNH - Người Ấy",
+  "TRỊNH THĂNG BÌNH - Lỡ Yêu",
+  "Suni Hạ Linh - Không Sao Mà, Em Đây Rồi",
+  "Suni Hạ Linh - Cảm Nắng",
+  "OSAD x Turn Hirn x Lena - Người Âm Phủ",
+  "JustaTee - Đã Lỡ Yêu Em Nhiều",
+  "JustaTee - Forever Alone (search)",
+  "TRANG PHÁP - Chỉ Là",
+  "HỒNG THANH - (search)",
+  "BÉ PHAN HIẾU KIÊN - ÔNG GIÀ NOEL VUI TÍNH",
+  "365DABAND - Bống Bống Bang Bang",
+  "HOÀNG THÙY LINH - Để Mị Nói Cho Mà Nghe",
+  "HOÀNG THÙY LINH - Kẻ Cắp Gặp Bà Già",
+  "HOÀNG THÙY LINH - See Tình (search)",
+  "BINZ - OK",
+  "BINZ - BIGCITYBOI",
+  "Sơn Tùng M-TP - Có Chắc Yêu Là Đây",
+  "Sơn Tùng M-TP - Muộn Rồi Mà Sao Còn",
+  "Jack - Laylalay (search)",
+  "ERIK - Chạm Đáy Nỗi Đau",
+  "ĐỨC PHÚC - Hơn Cả Yêu",
+  "HOÀ MINZY - Kén Cá Chọn Canh (search)",
+  "BÍCH PHƯƠNG - Một Cú Lừa (search)",
+  "ĐEN VÂU - Trốn Tìm",
+  "KARIK - Bạn Đời",
+  "SOOBIN - BlackJack (search)",
+  "PHƯƠNG LY - Mặt Trời Của Em",
+  "MIN - Trên Tình Bạn Dưới Tình Yêu",
+  "AMEE - Sao Anh Chưa Về Nhà",
+  "Mỹ Tâm - Ước Gì",
+  "Noo Phước Thịnh - Cause I Love You",
+  "Vũ Cát Tường - Yêu Xa",
+  "Hà Nhi - Chưa Quên Người Yêu Cũ"
+].slice(0,100);
+
+const MEDIA_GLOBAL = makeList("global","MUSIC","GLOBAL • (popular hits)", GLOBAL_100_TITLES);
+const MEDIA_VN     = makeList("vn","V-POP","VIETNAM • (popular hits)", VN_100_TITLES);
+
+// ---------- INIT ----------
+renderPlaylist();
+// Auto play first track
+setActiveTrack(0);
+
 
     function ytEmbedUrl(videoId){
       const params = new URLSearchParams();
