@@ -1129,7 +1129,8 @@
     <div class="lyric-en"></div>
   </div>
 
-  <div class="playlist" id="playlist"></div>
+  <div class="playlist" id="mp3Playlist"></div>
+
 </div>
 
 
@@ -1738,7 +1739,8 @@
      * 8) ✅ MEDIA PLAYER (YouTube) — CLEAN + NO DUPLICATE
      ********************/
     const ytPlayer = document.getElementById("ytPlayer");
-    const playlistEl = document.getElementById("playlist");
+    const mp3PlaylistEl = document.getElementById("mp3Playlist");
+
     const nowTypeEl  = document.getElementById("nowType");
     const nowTitleEl = document.getElementById("nowTitle");
     const nowModeEl  = document.getElementById("nowMode");
@@ -1927,7 +1929,7 @@
     }
 
     function renderPlaylist(){
-      playlistEl.innerHTML = MEDIA.map((m, idx)=>`
+      mp3PlaylistEl.innerHTML = MEDIA.map((m, idx)=>`
         <div class="track" data-idx="${idx}">
           <div class="trackTop">
             <div class="trackTitle">${m.title}</div>
