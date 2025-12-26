@@ -1019,7 +1019,16 @@
           <h3 style="margin:0 0 10px; font-size:15px" data-i18n="cvView">Xem CV ngay trên trang</h3>
 
           <div class="iframeBox">
-            <iframe src="CV_Trung.pdf#view=FitH" title="CV Preview"></iframe>
+           <iframe
+  id="ytPlayer"
+  width="100%"
+  height="360"
+  src=""
+  frameborder="0"
+  allow="autoplay; encrypted-media; picture-in-picture"
+  allowfullscreen>
+</iframe>
+
           </div>
 
           <div class="muted2" style="margin-top:10px; font-weight:800; font-size:12px; line-height:1.7">
@@ -1714,54 +1723,25 @@
       });
     });
 
-    /********************
-     * 8) ✅ MEDIA PLAYER (YouTube) — CLEAN + NO DUPLICATE
-     ********************/
-    const ytPlayer = document.getElementById("ytPlayer");
-    const playlistEl = document.getElementById("playlist");
-    const nowTypeEl  = document.getElementById("nowType");
-    const nowTitleEl = document.getElementById("nowTitle");
-    const nowModeEl  = document.getElementById("nowMode");
+  /********************
+ * 8) ✅ MEDIA PLAYER (YouTube) — CLEAN + NO DUPLICATE
+ ********************/
+const ytPlayer   = document.getElementById("ytPlayer");   // <iframe id="ytPlayer">
+const playlistEl = document.getElementById("playlist");
+const nowTypeEl  = document.getElementById("nowType");
+const nowTitleEl = document.getElementById("nowTitle");
+const nowModeEl  = document.getElementById("nowMode");
 
-    let autoplay = true;
-    let loop = false;
-    let currentItem = null;
+let autoplay = true;
+let loop = false;
+let currentItem = null;
 
-    const MEDIA = [
-      { type:"MUSIC", title:"Last Christmas — Wham!", meta:"UK/US MUSIC", desc:"Official video.", videoId:"E8gmARGvPlI" },
-      { type:"MUSIC", title:"Let Me Hear Your Voice (声をきかせて) — BIGBANG", meta:"K-POP / JP", desc:"BIGBANG Japan single.", videoId:"oQjcJBGIFsA" },
-      { type:"MUSIC", title:"Lies (거짓말) — BIGBANG", meta:"K-POP", desc:"Official MV.", videoId:"2Cv3phvP8Ro" },
-      { type:"MUSIC", title:"Despacito — Luis Fonsi ft. Daddy Yankee", meta:"GLOBAL • 8B+", desc:"Official video.", videoId:"kJQP7kiw5Fk" },
-      { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"US/UK • 6B+", desc:"Official video.", videoId:"RgKAFK5djSk" },
-      { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"US/UK • 6B+", desc:"Official video.", videoId:"JGwWNGJdvx8" },
-      { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"US/UK • 5B+", desc:"Official video.", videoId:"OPf0YbXqDm0" },
-      { type:"MUSIC", title:"Gangnam Style — PSY", meta:"GLOBAL • 5B+", desc:"Official video.", videoId:"9bZkp7q19f0" }, 
-      { type:"MUSIC", title:"Sorry — Justin Bieber", meta:"US/UK • 4B+", desc:"Official video.", videoId:"fRh_vgS2dFE" },
-      { type:"MUSIC", title:"Sugar — Maroon 5", meta:"US/UK • 4B+", desc:"Official video.", videoId:"09R8_2nJtjg" },
-      { type:"MUSIC", title:"Roar — Katy Perry", meta:"US/UK • 4B+", desc:"Official video.", videoId:"CevxZvSJLk8" },
-      { type:"MUSIC", title:"Thinking Out Loud — Ed Sheeran", meta:"US/UK • 4B+", desc:"Official video.", videoId:"lp-EO5I60KA" },
-      { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"US/UK • 4B+", desc:"Official video.", videoId:"hT_nvWreIhg" },
-      { type:"MUSIC", title:"Dark Horse — Katy Perry", meta:"US/UK • 4B+", desc:"Official video.", videoId:"0KSOMA3QBU0" },
-      { type:"MUSIC", title:"Faded — Alan Walker", meta:"US/UK • 3B+", desc:"Official video.", videoId:"60ItHLz5WEA" },
-      { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"US/UK • 3B+", desc:"Official video.", videoId:"7wtfhZwyrcc" },
-      { type:"MUSIC", title:"Lean On — Major Lazer & DJ Snake", meta:"US/UK • 3B+", desc:"Official video.", videoId:"YqeW9_5kURI" },
-      { type:"MUSIC", title:"Perfect — Ed Sheeran", meta:"US/UK • 3B+", desc:"Official video.", videoId:"2Vv-BfVoq4g" },
-      { type:"MUSIC", title:"Havana — Camila Cabello", meta:"US/UK • 2B+", desc:"Official video.", videoId:"HCjNJDNzw8Y" },
-      { type:"MUSIC", title:"Bad Guy — Billie Eilish", meta:"US/UK • 2B+", desc:"Official video.", videoId:"DyDfgMOUjCI" },
-      { type:"MUSIC", title:"Closer — The Chainsmokers ft. Halsey", meta:"US/UK • 3B+", desc:"Official video.", videoId:"0zGcUoRlhmw" },
-      { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"US/UK • 3B+", desc:"Official video.", videoId:"aJOTlE1K90k" },
-      { type:"MUSIC", title:"Cheap Thrills — Sia", meta:"US/UK • 2B+", desc:"Official video.", videoId:"nYh-n7EOtMA" },
-      { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"JGwWNGJdvx8" },
-      { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"OPf0YbXqDm0" },
-      { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"RgKAFK5djSk" },
-      { type:"MUSIC", title:"Roar — Katy Perry", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"CevxZvSJLk8" },
-      { type:"MUSIC", title:"Sugar — Maroon 5", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"09R8_2nJtjg" },
-      { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"hT_nvWreIhg" },
-      { type:"MUSIC", title:"Hello — Adele", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"YQHsXMglC9A" },
-      { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"7wtfhZwyrcc" },
-      { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"aJOTlE1K90k" },
-      { type:"MUSIC", title:"Closer — The Chainsmokers ft. Halsey", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"0zGcUoRlhmw" },
-       { type:"MUSIC", title:"Last Christmas — Wham!", meta:"UK/US MUSIC", desc:"Official video.", videoId:"E8gmARGvPlI" },
+const MEDIA = [
+  { type:"MUSIC", title:"Last Christmas — Wham!", meta:"UK/US MUSIC", desc:"Official video.", videoId:"E8gmARGvPlI" },
+  { type:"MUSIC", title:"Let Me Hear Your Voice (声をきかせて) — BIGBANG", meta:"K-POP / JP", desc:"BIGBANG Japan single.", videoId:"oQjcJBGIFsA" },
+  { type:"MUSIC", title:"Lies (거짓말) — BIGBANG", meta:"K-POP", desc:"Official MV.", videoId:"2Cv3phvP8Ro" },
+  { type:"MUSIC", title:"Despacito — Luis Fonsi ft. Daddy Yankee", meta:"GLOBAL", desc:"Official video.", videoId:"kJQP7kiw5Fk" },
+   { type:"MUSIC", title:"Last Christmas — Wham!", meta:"UK/US MUSIC", desc:"Official video.", videoId:"E8gmARGvPlI" },
       { type:"MUSIC", title:"Let Me Hear Your Voice (声をきかせて) — BIGBANG", meta:"K-POP / JP", desc:"BIGBANG Japan single.", videoId:"oQjcJBGIFsA" },
       { type:"MUSIC", title:"Lies (거짓말) — BIGBANG", meta:"K-POP", desc:"Official MV.", videoId:"2Cv3phvP8Ro" },
       { type:"MUSIC", title:"Despacito — Luis Fonsi ft. Daddy Yankee", meta:"GLOBAL • 8B+", desc:"Official video.", videoId:"kJQP7kiw5Fk" },
@@ -1910,25 +1890,58 @@
   { title:"Nơi Này Có Anh — Sơn Tùng M-TP", videoId:"FN7ALfpGxiI" },
   { title:"Hãy Trao Cho Anh — Sơn Tùng M-TP", videoId:"knW7-x7Y7RE" },
 
-    ];
-    
 
+  // ... (giữ danh sách của anh)
 
+  // Các bài VN anh đang để thiếu field => thêm cho đủ:
+  { type:"MUSIC", title:"Sóng Gió — Jack & K-ICM", meta:"V-POP", desc:"Official MV.", videoId:"U6n2NcJ7rLc" },
+  { type:"MUSIC", title:"Bạc Phận — Jack & K-ICM", meta:"V-POP", desc:"Official MV.", videoId:"pA7w3gq1zGQ" },
+  { type:"MUSIC", title:"Em Gì Ơi — Jack & K-ICM", meta:"V-POP", desc:"Official MV.", videoId:"q-Tkz5c4a9A" },
+  { type:"MUSIC", title:"Hồng Nhan — Jack", meta:"V-POP", desc:"Official MV.", videoId:"7D7v3s1s7nA" },
+  { type:"MUSIC", title:"Có Chắc Yêu Là Đây — Sơn Tùng M-TP", meta:"V-POP", desc:"Official MV.", videoId:"6t-MjBazs3o" },
+  { type:"MUSIC", title:"Chạy Ngay Đi — Sơn Tùng M-TP", meta:"V-POP", desc:"Official MV.", videoId:"32sYGCOYJUM" },
+  { type:"MUSIC", title:"Lạc Trôi — Sơn Tùng M-TP", meta:"V-POP", desc:"Official MV.", videoId:"Llw9Q6akRo4" },
+  { type:"MUSIC", title:"Em Của Ngày Hôm Qua — Sơn Tùng M-TP", meta:"V-POP", desc:"Official MV.", videoId:"pLk9yYzF_xU" },
+  { type:"MUSIC", title:"Nơi Này Có Anh — Sơn Tùng M-TP", meta:"V-POP", desc:"Official MV.", videoId:"FN7ALfpGxiI" },
+  { type:"MUSIC", title:"Hãy Trao Cho Anh — Sơn Tùng M-TP", meta:"V-POP", desc:"Official MV.", videoId:"knW7-x7Y7RE" },
+];
 
-    function ytEmbedUrl(videoId){
-      const params = new URLSearchParams();
-      params.set("rel","0");
-      params.set("modestbranding","1");
-      params.set("playsinline","1");
-      if(autoplay) params.set("autoplay","1");
-      if(loop){
-        params.set("loop","1");
-        params.set("playlist", videoId);
-      }
-      return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
-    }
+// ✅ 1) Chuẩn hoá + chống trùng theo videoId
+const MEDIA_FIXED = Array.from(
+  new Map(
+    MEDIA
+      .filter(x => x && x.videoId)
+      .map(x => [
+        x.videoId,
+        {
+          type: x.type || "MUSIC",
+          title: x.title || "Untitled",
+          meta: x.meta || "",
+          desc: x.desc || "",
+          videoId: x.videoId
+        }
+      ])
+  ).values()
+);
 
-    function function setActiveTrack(idx){
+function ytEmbedUrl(videoId){
+  const params = new URLSearchParams();
+  params.set("rel","0");
+  params.set("modestbranding","1");
+  params.set("playsinline","1");
+
+  // IMPORTANT: autoplay thường bị chặn nếu không có tương tác người dùng
+  if(autoplay) params.set("autoplay","1");
+
+  if(loop){
+    params.set("loop","1");
+    params.set("playlist", videoId);
+  }
+  return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+}
+
+// ✅ 2) Sửa đúng cú pháp function
+function setActiveTrack(idx){
   const item = MEDIA_FIXED[idx];
   if(!item) return;
   currentItem = item;
@@ -1943,15 +1956,14 @@
   if(active) active.classList.add("active");
 }
 
-
-    function function renderPlaylist(){
+function renderPlaylist(){
   playlistEl.innerHTML = MEDIA_FIXED.map((m, idx)=>`
     <div class="track" data-idx="${idx}">
       <div class="trackTop">
         <div class="trackTitle">${m.title}</div>
-        <div class="trackMeta">${m.meta}</div>
+        <div class="trackMeta">${m.meta || ""}</div>
       </div>
-      <p class="trackDesc">${m.desc}</p>
+      <p class="trackDesc">${m.desc || ""}</p>
     </div>
   `).join("");
 
@@ -1959,51 +1971,52 @@
     el.addEventListener("click", ()=>{
       const idx = Number(el.getAttribute("data-idx"));
       setActiveTrack(idx);
-      toast("Switched ✅");
+      toast?.("Switched ✅");
     });
   });
 }
 
-    renderPlaylist();
+renderPlaylist();
 
-    const defaultIdx = MEDIA_FIXED.findIndex(x => (x.title || "").toLowerCase().includes("last christmas"));
+// ✅ 3) chọn bài mặc định
+const defaultIdx = MEDIA_FIXED.findIndex(x => (x.title || "").toLowerCase().includes("last christmas"));
+setActiveTrack(defaultIdx >= 0 ? defaultIdx : 0);
 
-    setActiveTrack(defaultIdx >= 0 ? defaultIdx : 0);
+const apState = document.getElementById("apState");
+const lpState = document.getElementById("lpState");
 
-    const apState = document.getElementById("apState");
-    const lpState = document.getElementById("lpState");
+document.getElementById("btnAutoplay")?.addEventListener("click", ()=>{
+  autoplay = !autoplay;
+  if(apState) apState.textContent = autoplay ? "ON" : "OFF";
+  if(currentItem) ytPlayer.src = ytEmbedUrl(currentItem.videoId);
+  nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
+  toast?.("Autoplay " + (autoplay ? "ON" : "OFF"));
+});
 
-    document.getElementById("btnAutoplay").addEventListener("click", ()=>{
-      autoplay = !autoplay;
-      apState.textContent = autoplay ? "ON" : "OFF";
-      if(currentItem) ytPlayer.src = ytEmbedUrl(currentItem.videoId);
-      nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
-      toast("Autoplay " + (autoplay ? "ON" : "OFF"));
-    });
+document.getElementById("btnLoop")?.addEventListener("click", ()=>{
+  loop = !loop;
+  if(lpState) lpState.textContent = loop ? "ON" : "OFF";
+  if(currentItem) ytPlayer.src = ytEmbedUrl(currentItem.videoId);
+  nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
+  toast?.("Loop " + (loop ? "ON" : "OFF"));
+});
 
-    document.getElementById("btnLoop").addEventListener("click", ()=>{
-      loop = !loop;
-      lpState.textContent = loop ? "ON" : "OFF";
-      if(currentItem) ytPlayer.src = ytEmbedUrl(currentItem.videoId);
-      nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
-      toast("Loop " + (loop ? "ON" : "OFF"));
-    });
+document.getElementById("btnCopyMedia")?.addEventListener("click", async ()=>{
+  if(!currentItem) return;
+  const url = `https://www.youtube.com/watch?v=${currentItem.videoId}`;
+  try{
+    await navigator.clipboard.writeText(url);
+    toast?.("Copied video link ✅");
+  }catch(e){
+    toast?.("Copy failed");
+  }
+});
 
-    document.getElementById("btnCopyMedia").addEventListener("click", async ()=>{
-      if(!currentItem) return;
-      const url = `https://www.youtube.com/watch?v=${currentItem.videoId}`;
-      try{
-        await navigator.clipboard.writeText(url);
-        toast("Copied video link ✅");
-      }catch(e){
-        toast("Copy failed");
-      }
-    });
+document.getElementById("btnOpenYT")?.addEventListener("click", ()=>{
+  if(!currentItem) return;
+  window.open(`https://www.youtube.com/watch?v=${currentItem.videoId}`, "_blank", "noopener");
+});
 
-    document.getElementById("btnOpenYT").addEventListener("click", ()=>{
-      if(!currentItem) return;
-      window.open(`https://www.youtube.com/watch?v=${currentItem.videoId}`, "_blank", "noopener");
-    });
 
     /********************
      * 9) QR GENERATOR
