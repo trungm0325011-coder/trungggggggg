@@ -20,6 +20,42 @@
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 
   <style>
+    <style>
+/* YouTube playlist scroll */
+#playlist{
+  max-height: 420px;
+  overflow: auto;
+  padding-right: 6px;
+}
+.track{
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,.08);
+}
+.track.active{ outline: 2px solid rgba(255, 0, 0, .45); }
+.trackTitle{ font-weight: 700; }
+.trackMeta{ font-size: 12px; opacity: .75; }
+.trackDesc{ font-size: 12px; opacity: .8; margin: 6px 0 0; }
+
+/* MP3 playlist scroll */
+#mp3Playlist{
+  max-height: 320px;
+  overflow: auto;
+  padding-right: 6px;
+}
+.song{
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,.08);
+}
+.song.active{ outline: 2px solid rgba(255, 215, 0, .55); }
+.muted2{ opacity: .75; }
+</style>
+
     :root{
       --bg: #070A10;
       --bg2:#05070c;
@@ -1809,9 +1845,12 @@
         `);
       });
     });
+<script>
 /********************
  * 8) ✅ MEDIA (YouTube + MP3) — FIXED: SEARCH, RANDOM, SCROLL
  ********************/
+
+/* ========= DOM ========= */
 const ytPlayerEl = document.getElementById("ytPlayer");
 const ytListEl   = document.getElementById("playlist");
 const ytSearchEl = document.getElementById("ytSearch");
@@ -1819,183 +1858,61 @@ const ytSearchEl = document.getElementById("ytSearch");
 const mp3ListEl   = document.getElementById("mp3Playlist");
 const mp3SearchEl = document.getElementById("searchSong");
 const audioEl     = document.getElementById("audioPlayer");
+
 const lyricsBox   = document.getElementById("lyricsBox");
 const lyricViEl   = lyricsBox ? lyricsBox.querySelector(".lyric-vi") : null;
 const lyricEnEl   = lyricsBox ? lyricsBox.querySelector(".lyric-en") : null;
 
+/* ========= SAFE HELPERS ========= */
+function toast(msg){
+  // Nếu anh đã có toast() riêng thì bỏ function này đi
+  console.log("[toast]", msg);
+  const t = document.createElement("div");
+  t.textContent = msg;
+  t.style.cssText = "position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 12px;border-radius:12px;font-size:13px;z-index:99999;opacity:.95";
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(), 2000);
+}
+
+function escHtml(str){
+  return String(str ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
 /* ========= DATA ========= */
-/* Nếu anh có window.MEDIA (YouTube list) thì dùng, không thì dùng fallback mẫu */
-const YT = (Array.isArray(window.MEDIA) ? window.MEDIA : [
+/* ✅ Nếu có window.MEDIA (YouTube list) thì dùng, không thì dùng fallback */
+const YT_SOURCE = Array.isArray(window.MEDIA) ? window.MEDIA : [
   { type:"MUSIC", title:"Last Christmas — Wham!", meta:"UK/US MUSIC", desc:"Official video.", videoId:"E8gmARGvPlI" },
-  { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"UK/US MUSIC", desc:"Official video.", videoId:"JGwWNGJdvx8" },
-  { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"US/UK", desc:"Official video.", videoId:"RgKAFK5djSk" },
-  [
-      { type:"MUSIC", title:"Last Christmas — Wham!", meta:"UK/US MUSIC", desc:"Official video.", videoId:"E8gmARGvPlI" },
-      { type:"MUSIC", title:"Let Me Hear Your Voice (声をきかせて) — BIGBANG", meta:"K-POP / JP", desc:"BIGBANG Japan single.", videoId:"oQjcJBGIFsA" },
-      { type:"MUSIC", title:"Lies (거짓말) — BIGBANG", meta:"K-POP", desc:"Official MV.", videoId:"2Cv3phvP8Ro" },
-      { type:"MUSIC", title:"Despacito — Luis Fonsi ft. Daddy Yankee", meta:"GLOBAL • 8B+", desc:"Official video.", videoId:"kJQP7kiw5Fk" },
-      { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"US/UK • 6B+", desc:"Official video.", videoId:"RgKAFK5djSk" },
-      { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"US/UK • 6B+", desc:"Official video.", videoId:"JGwWNGJdvx8" },
-      { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"US/UK • 5B+", desc:"Official video.", videoId:"OPf0YbXqDm0" },
-      { type:"MUSIC", title:"Gangnam Style — PSY", meta:"GLOBAL • 5B+", desc:"Official video.", videoId:"9bZkp7q19f0" }, 
-      { type:"MUSIC", title:"Sorry — Justin Bieber", meta:"US/UK • 4B+", desc:"Official video.", videoId:"fRh_vgS2dFE" },
-      { type:"MUSIC", title:"Sugar — Maroon 5", meta:"US/UK • 4B+", desc:"Official video.", videoId:"09R8_2nJtjg" },
-      { type:"MUSIC", title:"Roar — Katy Perry", meta:"US/UK • 4B+", desc:"Official video.", videoId:"CevxZvSJLk8" },
-      { type:"MUSIC", title:"Thinking Out Loud — Ed Sheeran", meta:"US/UK • 4B+", desc:"Official video.", videoId:"lp-EO5I60KA" },
-      { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"US/UK • 4B+", desc:"Official video.", videoId:"hT_nvWreIhg" },
-      { type:"MUSIC", title:"Dark Horse — Katy Perry", meta:"US/UK • 4B+", desc:"Official video.", videoId:"0KSOMA3QBU0" },
-      { type:"MUSIC", title:"Faded — Alan Walker", meta:"US/UK • 3B+", desc:"Official video.", videoId:"60ItHLz5WEA" },
-      { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"US/UK • 3B+", desc:"Official video.", videoId:"7wtfhZwyrcc" },
-      { type:"MUSIC", title:"Lean On — Major Lazer & DJ Snake", meta:"US/UK • 3B+", desc:"Official video.", videoId:"YqeW9_5kURI" },
-      { type:"MUSIC", title:"Perfect — Ed Sheeran", meta:"US/UK • 3B+", desc:"Official video.", videoId:"2Vv-BfVoq4g" },
-      { type:"MUSIC", title:"Havana — Camila Cabello", meta:"US/UK • 2B+", desc:"Official video.", videoId:"HCjNJDNzw8Y" },
-      { type:"MUSIC", title:"Bad Guy — Billie Eilish", meta:"US/UK • 2B+", desc:"Official video.", videoId:"DyDfgMOUjCI" },
-      { type:"MUSIC", title:"Closer — The Chainsmokers ft. Halsey", meta:"US/UK • 3B+", desc:"Official video.", videoId:"0zGcUoRlhmw" },
-      { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"US/UK • 3B+", desc:"Official video.", videoId:"aJOTlE1K90k" },
-      { type:"MUSIC", title:"Cheap Thrills — Sia", meta:"US/UK • 2B+", desc:"Official video.", videoId:"nYh-n7EOtMA" },
-      { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"JGwWNGJdvx8" },
-      { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"OPf0YbXqDm0" },
-      { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"RgKAFK5djSk" },
-      { type:"MUSIC", title:"Roar — Katy Perry", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"CevxZvSJLk8" },
-      { type:"MUSIC", title:"Sugar — Maroon 5", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"09R8_2nJtjg" },
-      { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"hT_nvWreIhg" },
-      { type:"MUSIC", title:"Hello — Adele", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"YQHsXMglC9A" },
-      { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"7wtfhZwyrcc" },
-      { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"aJOTlE1K90k" },
-      { type:"MUSIC", title:"Closer — The Chainsmokers ft. Halsey", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"0zGcUoRlhmw" },
-      { type:"MUSIC", title:"Waka Waka (This Time for Africa) — Shakira", meta:"GLOBAL • 3B+", desc:"Official video.", videoId:"pRpeEdMmmQ0" },
-{ type:"MUSIC", title:"Chantaje — Shakira ft. Maluma", meta:"GLOBAL • 3B+", desc:"Official video.", videoId:"6Mgqbai3fKo" },
-{ type:"MUSIC", title:"Hips Don't Lie — Shakira ft. Wyclef Jean", meta:"GLOBAL • 1B+", desc:"Official video.", videoId:"DUT5rEU6pqM" },
-{ type:"MUSIC", title:"Mi Gente — J Balvin, Willy William", meta:"GLOBAL • 3B+", desc:"Official video.", videoId:"wnJ6LuUFpMo" },
-{ type:"MUSIC", title:"Bailando — Enrique Iglesias ft. Descemer Bueno, Gente De Zona", meta:"GLOBAL • 3B+", desc:"Official video.", videoId:"NUsoVlDFqZg" },
-{ type:"MUSIC", title:"Dame Tu Cosita — El Chombo", meta:"GLOBAL • 4B+", desc:"Official video.", videoId:"FzG4uDgje3M" },
-{ type:"MUSIC", title:"Taki Taki — DJ Snake ft. Selena Gomez, Ozuna, Cardi B", meta:"GLOBAL • 2B+", desc:"Official video.", videoId:"ixkoVwKQaJg" },
-{ type:"MUSIC", title:"Con Calma — Daddy Yankee & Snow", meta:"GLOBAL • 2B+", desc:"Official video.", videoId:"DiItGE3eAyQ" },
-{ type:"MUSIC", title:"Súbeme La Radio — Enrique Iglesias", meta:"GLOBAL • 1B+", desc:"Official video.", videoId:"9sg-A-eS6Ig" },
-{ type:"MUSIC", title:"Dura — Daddy Yankee", meta:"GLOBAL • 1B+", desc:"Official video.", videoId:"sGIm0-dQd8M" },
+  { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"US/UK • 6B+", desc:"Official video.", videoId:"JGwWNGJdvx8" },
+  { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"US/UK • 6B+", desc:"Official video.", videoId:"RgKAFK5djSk" },
+  { type:"MUSIC", title:"Despacito — Luis Fonsi ft. Daddy Yankee", meta:"GLOBAL • 8B+", desc:"Official video.", videoId:"kJQP7kiw5Fk" },
 
-{ type:"MUSIC", title:"Let Her Go — Passenger", meta:"US/UK • 3B+", desc:"Official video.", videoId:"RBumgq5yVrA" },
-{ type:"MUSIC", title:"Chandelier — Sia", meta:"US/UK • 3B+", desc:"Official video.", videoId:"2vjPBrBU-TM" },
-{ type:"MUSIC", title:"Thunder — Imagine Dragons", meta:"US/UK • 2B+", desc:"Official video.", videoId:"fKopy74weus" },
-{ type:"MUSIC", title:"Demons — Imagine Dragons", meta:"US/UK • 1B+", desc:"Official video.", videoId:"mWRsgZuwf_8" },
-{ type:"MUSIC", title:"Radioactive — Imagine Dragons", meta:"US/UK • 1B+", desc:"Official video.", videoId:"ktvTqknDobU" },
-{ type:"MUSIC", title:"Love Me Like You Do — Ellie Goulding", meta:"US/UK • 2B+", desc:"Official video.", videoId:"AJtDXIazrMo" },
-{ type:"MUSIC", title:"All About That Bass — Meghan Trainor", meta:"US/UK • 2B+", desc:"Official video.", videoId:"7PCkvCPvDXk" },
-{ type:"MUSIC", title:"Wake Me Up — Avicii", meta:"US/UK • 2B+", desc:"Official video.", videoId:"IcrbM1l_BoI" },
-{ type:"MUSIC", title:"The Nights — Avicii", meta:"US/UK • 1B+", desc:"Official video.", videoId:"UtF6Jej8yb4" },
-{ type:"MUSIC", title:"Somebody That I Used To Know — Gotye ft. Kimbra", meta:"US/UK • 2B+", desc:"Official video.", videoId:"8UVNT4wvIGY" },
+  // VN demo:
+  { type:"MUSIC", title:"Sóng Gió — Jack & K-ICM", meta:"VN", desc:"Official MV.", videoId:"U6n2NcJ7rLc" },
+  { type:"MUSIC", title:"Có Chắc Yêu Là Đây — Sơn Tùng M-TP", meta:"VN", desc:"Official MV.", videoId:"6t-MjBazs3o" },
+  { type:"MUSIC", title:"Chạy Ngay Đi — Sơn Tùng M-TP", meta:"VN", desc:"Official MV.", videoId:"32sYGCOYJUM" },
+];
 
-{ type:"MUSIC", title:"Blank Space — Taylor Swift", meta:"US/UK • 3B+", desc:"Official video.", videoId:"e-ORhEE9VVg" },
-{ type:"MUSIC", title:"Shake It Off — Taylor Swift", meta:"US/UK • 3B+", desc:"Official video.", videoId:"nfWlot6h_JM" },
-{ type:"MUSIC", title:"Look What You Made Me Do — Taylor Swift", meta:"US/UK • 1B+", desc:"Official video.", videoId:"3tmd-ClpJxA" },
-{ type:"MUSIC", title:"Girls Just Want To Have Fun — Cyndi Lauper", meta:"US/UK • 1B+", desc:"Official video.", videoId:"PIb6AZdTr-A" },
+/* ✅ Chuẩn hoá & lọc videoId rỗng */
+const YT = YT_SOURCE
+  .map(x => ({
+    type: x.type || "MUSIC",
+    title: x.title || "Untitled",
+    meta: x.meta || "YOUTUBE",
+    desc: x.desc || "",
+    videoId: x.videoId || ""
+  }))
+  .filter(x => x.videoId);
 
-{ type:"MUSIC", title:"Sorry (Lyric/Video) — Justin Bieber (alt)", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"PfGaX8G0f2E" },
-{ type:"MUSIC", title:"Baby — Justin Bieber ft. Ludacris", meta:"US/UK • 3B+", desc:"Official video.", videoId:"kffacxfA7G4" },
-{ type:"MUSIC", title:"What Do You Mean? — Justin Bieber", meta:"US/UK • 2B+", desc:"Official video.", videoId:"DK_0jXPuIr0" },
-
-{ type:"MUSIC", title:"Counting Stars (alt upload) — OneRepublic", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"hT_nvWreIhg" },
-{ type:"MUSIC", title:"Wolves — Selena Gomez x Marshmello", meta:"US/UK • 1B+", desc:"Official video.", videoId:"cH4E_t3m3xM" },
-{ type:"MUSIC", title:"It Ain't Me — Kygo & Selena Gomez", meta:"US/UK • 1B+", desc:"Official video.", videoId:"D5drYkLiLI8" },
-
-{ type:"MUSIC", title:"Counting Stars (Live/Alt) — OneRepublic", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"hT_nvWreIhg" },
-{ type:"MUSIC", title:"Love The Way You Lie — Eminem ft. Rihanna", meta:"US/UK • 2B+", desc:"Official video.", videoId:"uelHwf8o7_U" },
-{ type:"MUSIC", title:"The Monster — Eminem ft. Rihanna", meta:"US/UK • 1B+", desc:"Official video.", videoId:"EHkozMIXZ8w" },
-{ type:"MUSIC", title:"Umbrella — Rihanna ft. JAY-Z", meta:"US/UK • 1B+", desc:"Official video.", videoId:"CvBfHwUxHIk" },
-{ type:"MUSIC", title:"Diamonds — Rihanna", meta:"US/UK • 2B+", desc:"Official video.", videoId:"lWA2pjMjpBs" },
-{ type:"MUSIC", title:"We Found Love — Rihanna ft. Calvin Harris", meta:"US/UK • 1B+", desc:"Official video.", videoId:"tg00YEETFzg" },
-
-{ type:"MUSIC", title:"Stay With Me — Sam Smith", meta:"US/UK • 1B+", desc:"Official video.", videoId:"pB-5XG-DbAA" },
-{ type:"MUSIC", title:"I’m Not The Only One — Sam Smith", meta:"US/UK • 1B+", desc:"Official video.", videoId:"nCkpzqqog4k" },
-
-{ type:"MUSIC", title:"Hello — Lionel Richie", meta:"US/UK • 1B+", desc:"Official video.", videoId:"mHONNcZbwDY" },
-{ type:"MUSIC", title:"Billie Jean — Michael Jackson", meta:"US/UK • 1B+", desc:"Official video.", videoId:"Zi_XLOBDo_Y" },
-{ type:"MUSIC", title:"Beat It — Michael Jackson", meta:"US/UK • 1B+", desc:"Official video.", videoId:"oRdxUFDoQe0" },
-{ type:"MUSIC", title:"Thriller — Michael Jackson", meta:"US/UK • 1B+", desc:"Official video.", videoId:"sOnqjkJTMaA" },
-
-{ type:"MUSIC", title:"Smells Like Teen Spirit — Nirvana", meta:"US/UK • 1B+", desc:"Official video.", videoId:"hTWKbfoikeg" },
-{ type:"MUSIC", title:"Numb — Linkin Park", meta:"US/UK • 2B+", desc:"Official video.", videoId:"kXYiU_JCYtU" },
-{ type:"MUSIC", title:"In The End — Linkin Park", meta:"US/UK • 1B+", desc:"Official video.", videoId:"eVTXPUF4Oz4" },
-
-{ type:"MUSIC", title:"Bohemian Rhapsody — Queen", meta:"US/UK • 1B+", desc:"Official video.", videoId:"fJ9rUzIMcZQ" },
-{ type:"MUSIC", title:"Take On Me — a-ha", meta:"US/UK • 1B+", desc:"Official video.", videoId:"djV11Xbc914" },
-
-{ type:"MUSIC", title:"7 Years — Lukas Graham", meta:"US/UK • 1B+", desc:"Official video.", videoId:"LHCob76kigA" },
-{ type:"MUSIC", title:"Stressed Out — Twenty One Pilots", meta:"US/UK • 1B+", desc:"Official video.", videoId:"pXRviuL6vMY" },
-{ type:"MUSIC", title:"Heathens — Twenty One Pilots", meta:"US/UK • 1B+", desc:"Official video.", videoId:"UprcpdwuwCg" },
-
-{ type:"MUSIC", title:"Happier — Marshmello ft. Bastille", meta:"US/UK • 1B+", desc:"Official video.", videoId:"m7Bc3pLyij0" },
-{ type:"MUSIC", title:"Falling — Trevor Daniel", meta:"US/UK • 1B+", desc:"Official video.", videoId:"L7mfjvdnPno" },
-
-{ type:"MUSIC", title:"Sunflower — Post Malone & Swae Lee", meta:"US/UK • 2B+", desc:"Official video.", videoId:"ApXoWvfEYVU" },
-{ type:"MUSIC", title:"Rockstar — Post Malone ft. 21 Savage", meta:"US/UK • 3B+", desc:"Official video.", videoId:"UceaB4D0jpo" },
-{ type:"MUSIC", title:"God's Plan — Drake", meta:"US/UK • 1B+", desc:"Official video.", videoId:"xpVfcZ0ZcFM" },
-
-{ type:"MUSIC", title:"Counting Stars (duplicate-safe alt) — OneRepublic", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"hT_nvWreIhg" },
-
-{ type:"MUSIC", title:"Work — Rihanna ft. Drake", meta:"US/UK • 1B+", desc:"Official video.", videoId:"HL1UzIK-flA" },
-{ type:"MUSIC", title:"This Is What You Came For — Calvin Harris ft. Rihanna", meta:"US/UK • 1B+", desc:"Official video.", videoId:"kOkQ4T5WO9E" },
-
-{ type:"MUSIC", title:"New Rules — Dua Lipa", meta:"US/UK • 3B+", desc:"Official video.", videoId:"k2qgadSvNyU" },
-{ type:"MUSIC", title:"IDGAF — Dua Lipa", meta:"US/UK • 1B+", desc:"Official video.", videoId:"Mgfe5tIwOj0" },
-
-{ type:"MUSIC", title:"Let Me Love You — DJ Snake ft. Justin Bieber", meta:"US/UK • 1B+", desc:"Official video.", videoId:"euCqAq6BRa4" },
-{ type:"MUSIC", title:"Hymn For The Weekend — Coldplay", meta:"US/UK • 2B+", desc:"Official video.", videoId:"YykjpeuMNEk" },
-{ type:"MUSIC", title:"Paradise — Coldplay", meta:"US/UK • 1B+", desc:"Official video.", videoId:"1G4isv_Fylg" },
-{ type:"MUSIC", title:"Something Just Like This — The Chainsmokers & Coldplay", meta:"US/UK • 2B+", desc:"Official video.", videoId:"FM7MFYoylVs" },
-
-{ type:"MUSIC", title:"Señorita — Shawn Mendes, Camila Cabello", meta:"US/UK • 1B+", desc:"Official video.", videoId:"Pkh8UtuejGw" },
-{ type:"MUSIC", title:"Treat You Better — Shawn Mendes", meta:"US/UK • 2B+", desc:"Official video.", videoId:"lY2yjAdbvdQ" },
-
-{ type:"MUSIC", title:"One Kiss — Calvin Harris & Dua Lipa", meta:"US/UK • 1B+", desc:"Official video.", videoId:"DkeiKbqa02g" },
-{ type:"MUSIC", title:"This Is What You Came For (alt) — Calvin Harris ft. Rihanna", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"kOkQ4T5WO9E" },
-
-{ type:"MUSIC", title:"One Dance — Drake ft. Wizkid & Kyla", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"iAbnEUA0wpA" },
-{ type:"MUSIC", title:"Hotline Bling — Drake", meta:"US/UK • 2B+", desc:"Official video.", videoId:"uxpDa-c-4Mc" },
-
-{ type:"MUSIC", title:"Closer (alt upload) — The Chainsmokers ft. Halsey", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"PT2_F-1esPk" },
-{ type:"MUSIC", title:"Animals — Maroon 5", meta:"US/UK • 1B+", desc:"Official video.", videoId:"qpgTC9MDx1o" },
-{ type:"MUSIC", title:"Memories — Maroon 5", meta:"US/UK • 1B+", desc:"Official video.", videoId:"SlPhMPnQ58k" },
-{ type:"MUSIC", title:"Girls Like You (alt upload) — Maroon 5 ft. Cardi B", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"FJ7YqMMmttQ" },
-
-{ type:"MUSIC", title:"Hello (alt upload) — Adele", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"YQHsXMglC9A" },
-{ type:"MUSIC", title:"Someone Like You — Adele", meta:"US/UK • 1B+", desc:"Official video.", videoId:"hLQl3WQQoQ0" },
-
-{ type:"MUSIC", title:"Happy — Pharrell Williams", meta:"US/UK • 1B+", desc:"Official video.", videoId:"ZbZSe6N_BXs" },
-{ type:"MUSIC", title:"All of Me — John Legend", meta:"US/UK • 2B+", desc:"Official video.", videoId:"450p7goxZqg" },
-
-{ type:"MUSIC", title:"Rude — MAGIC!", meta:"US/UK • 1B+", desc:"Official video.", videoId:"PIh2xe4jnpk" },
-{ type:"MUSIC", title:"Some Nights — fun.", meta:"US/UK • 1B+", desc:"Official video.", videoId:"qQkBeOisNM0" },
-
-{ type:"MUSIC", title:"Counting Stars (keep one only) — OneRepublic", meta:"US/UK • 1B+", desc:"(Nếu trùng thì xoá bớt)", videoId:"hT_nvWreIhg" },
-{ title:"Sóng Gió — Jack & K-ICM", videoId:"U6n2NcJ7rLc" },
-  { title:"Bạc Phận — Jack & K-ICM", videoId:"pA7w3gq1zGQ" },
-  { title:"Em Gì Ơi — Jack & K-ICM", videoId:"q-Tkz5c4a9A" },
-  { title:"Hồng Nhan — Jack", videoId:"7D7v3s1s7nA" },
-  { title:"Có Chắc Yêu Là Đây — Sơn Tùng M-TP", videoId:"6t-MjBazs3o" },
-  { title:"Chạy Ngay Đi — Sơn Tùng M-TP", videoId:"32sYGCOYJUM" },
-  { title:"Lạc Trôi — Sơn Tùng M-TP", videoId:"Llw9Q6akRo4" },
-  { title:"Em Của Ngày Hôm Qua — Sơn Tùng M-TP", videoId:"pLk9yYzF_xU" },
-  { title:"Nơi Này Có Anh — Sơn Tùng M-TP", videoId:"FN7ALfpGxiI" },
-  { title:"Hãy Trao Cho Anh — Sơn Tùng M-TP", videoId:"knW7-x7Y7RE" },
-    ];
-
-  
-]).map(x => ({
-  type: x.type || "MUSIC",
-  title: x.title || "Untitled",
-  meta: x.meta || "YOUTUBE",
-  desc: x.desc || "",
-  videoId: x.videoId || ""
-})).filter(x => x.videoId);
-
-/* MP3 LIST: nếu chưa có mp3 thật thì vẫn hiển thị list + search + random,
-   nhưng audio sẽ báo chưa có src. */
+/* ✅ MP3 LIST: nếu có window.MP3_LIST thì dùng, không thì demo */
 const MP3 = Array.isArray(window.MP3_LIST) ? window.MP3_LIST : [
-  // Ví dụ đúng chuẩn mp3:
-  // { title:"Song A", meta:"MP3", src:"https://domain.com/a.mp3", lyricVI:"", lyricEN:"" },
+  // Ví dụ đúng chuẩn:
+  // { title:"Song A", meta:"MP3", src:"https://domain.com/a.mp3", lyricVI:"...", lyricEN:"..." }
 
-  // Tạm demo (chưa có src):
   { title:"Demo track (chưa có MP3 src)", meta:"MP3", src:"", lyricVI:"", lyricEN:"" },
 ];
 
@@ -2009,18 +1926,29 @@ function ytEmbed(videoId){
 }
 
 /* ========= YOUTUBE ========= */
+function filterYT(q){
+  const s = (q||"").trim().toLowerCase();
+  if(!s) return YT;
+  return YT.filter(x =>
+    (x.title||"").toLowerCase().includes(s) ||
+    (x.meta||"").toLowerCase().includes(s) ||
+    (x.desc||"").toLowerCase().includes(s)
+  );
+}
+
 function renderYT(list){
   if(!ytListEl) return;
 
   ytListEl.innerHTML = list.map((m) => {
     const realIdx = YT.findIndex(x => x.videoId === m.videoId);
+    const active = (realIdx === ytIndex) ? "active" : "";
     return `
-      <div class="track ${realIdx===ytIndex ? "active":""}" data-yt="${realIdx}">
+      <div class="track ${active}" data-yt="${realIdx}">
         <div class="trackTop">
-          <div class="trackTitle">${m.title}</div>
-          <div class="trackMeta">${m.meta || "YOUTUBE"}</div>
+          <div class="trackTitle">${escHtml(m.title)}</div>
+          <div class="trackMeta">${escHtml(m.meta || "YOUTUBE")}</div>
         </div>
-        <p class="trackDesc">${m.desc || ""}</p>
+        ${m.desc ? `<p class="trackDesc">${escHtml(m.desc)}</p>` : ``}
       </div>
     `;
   }).join("");
@@ -2035,6 +1963,7 @@ function renderYT(list){
 function playYT(i){
   const item = YT[i];
   if(!item || !ytPlayerEl) return;
+
   ytIndex = i;
   ytPlayerEl.src = ytEmbed(item.videoId);
 
@@ -2042,16 +1971,7 @@ function playYT(i){
   ytListEl?.querySelector(`[data-yt="${i}"]`)?.classList.add("active");
 }
 
-function filterYT(q){
-  const s = (q||"").trim().toLowerCase();
-  if(!s) return YT;
-  return YT.filter(x =>
-    (x.title||"").toLowerCase().includes(s) ||
-    (x.meta||"").toLowerCase().includes(s) ||
-    (x.desc||"").toLowerCase().includes(s)
-  );
-}
-
+/* Search */
 if(ytSearchEl){
   ytSearchEl.addEventListener("input", ()=>{
     renderYT(filterYT(ytSearchEl.value));
@@ -2059,15 +1979,27 @@ if(ytSearchEl){
 }
 
 /* ========= MP3 ========= */
+function filterMP3(q){
+  const s = (q||"").trim().toLowerCase();
+  if(!s) return MP3;
+  return MP3.filter(x =>
+    (x.title||"").toLowerCase().includes(s) ||
+    (x.meta||"").toLowerCase().includes(s)
+  );
+}
+
 function renderMP3(list){
   if(!mp3ListEl) return;
 
   mp3ListEl.innerHTML = list.map((s)=>{
-    const realIdx = MP3.findIndex(x => x.title === s.title && (x.meta||"") === (s.meta||""));
+    const realIdx = MP3.findIndex(x =>
+      (x.title === s.title) && ((x.meta||"") === (s.meta||"")) && ((x.src||"") === (s.src||""))
+    );
+    const active = (realIdx === mp3Index) ? "active" : "";
     return `
-      <div class="song" data-mp3="${realIdx}">
-        <b>${s.title}</b>
-        <div class="muted2" style="font-size:12px">${s.meta || ""}</div>
+      <div class="song ${active}" data-mp3="${realIdx}">
+        <b>${escHtml(s.title)}</b>
+        <div class="muted2" style="font-size:12px">${escHtml(s.meta || "")}</div>
       </div>
     `;
   }).join("");
@@ -2082,7 +2014,12 @@ function renderMP3(list){
 function playMP3(i){
   const song = MP3[i];
   if(!song) return;
+
   mp3Index = i;
+
+  // highlight
+  mp3ListEl?.querySelectorAll(".song").forEach(s=>s.classList.remove("active"));
+  mp3ListEl?.querySelector(`[data-mp3="${i}"]`)?.classList.add("active");
 
   if(audioEl){
     if(song.src){
@@ -2099,15 +2036,7 @@ function playMP3(i){
   if(lyricEnEl) lyricEnEl.textContent = song.lyricEN ? song.lyricEN : "(Chưa có lời EN)";
 }
 
-function filterMP3(q){
-  const s = (q||"").trim().toLowerCase();
-  if(!s) return MP3;
-  return MP3.filter(x =>
-    (x.title||"").toLowerCase().includes(s) ||
-    (x.meta||"").toLowerCase().includes(s)
-  );
-}
-
+/* Search */
 if(mp3SearchEl){
   mp3SearchEl.addEventListener("input", ()=>{
     renderMP3(filterMP3(mp3SearchEl.value));
@@ -2117,6 +2046,7 @@ if(mp3SearchEl){
 /* Buttons (global for onclick) */
 window.prevSong = function(){
   if(MP3.length === 0) return;
+
   if(mp3Random && MP3.length > 1){
     let r = mp3Index;
     while(r === mp3Index) r = Math.floor(Math.random() * MP3.length);
@@ -2128,6 +2058,7 @@ window.prevSong = function(){
 
 window.nextSong = function(){
   if(MP3.length === 0) return;
+
   if(mp3Random && MP3.length > 1){
     let r = mp3Index;
     while(r === mp3Index) r = Math.floor(Math.random() * MP3.length);
@@ -2142,130 +2073,125 @@ window.toggleRandomMode = function(){
   toast(mp3Random ? "MP3 Random: ON 🔀" : "MP3 Random: OFF");
 };
 
-/* INIT */
+/* Auto next when MP3 ended */
+if(audioEl){
+  audioEl.addEventListener("ended", ()=>{
+    window.nextSong();
+  });
+}
+
+/* ========= INIT ========= */
 renderYT(YT);
 renderMP3(MP3);
 if(YT.length) playYT(0);
 if(MP3.length) playMP3(0);
+</script>
+  
+<!-- ĐẢM BẢO có thư viện QRCode trước script chính -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+<script>
+/********************
+ * 9) ✅ QR GENERATOR — FIXED
+ ********************/
+(function(){
+  const qrBox = document.getElementById("qrBox");
+  const qrCaption = document.getElementById("qrCaption");
 
-    /********************
-     * 9) QR GENERATOR
-     ********************/
-    const qrBox = document.getElementById("qrBox");
-    const qrCaption = document.getElementById("qrCaption");
+  const btnQR    = document.getElementById("btnQR");
+  const btnQRUrl = document.getElementById("btnQRUrl");
+  const btnQRVCF = document.getElementById("btnQRVCF");
+  const qrTextEl = document.getElementById("qrText");
 
-    function makeQR(targetEl, text){
-      targetEl.innerHTML = "";
-      new QRCode(targetEl, {
-        text,
-        width: 220,
-        height: 220,
-        colorDark : "#111111",
-        colorLight : "#ffffff",
-        correctLevel : QRCode.CorrectLevel.H
-      });
+  const qrSiteBox = document.getElementById("qrSiteBox");
+  const qrFbBox   = document.getElementById("qrFbBox");
+  const qrZaloBox = document.getElementById("qrZaloBox");
+  const qrSiteText= document.getElementById("qrSiteText");
+
+  // Nếu anh chưa có CONTACT thì set fallback tránh lỗi
+  const CONTACT_SAFE = (typeof CONTACT === "object" && CONTACT) ? CONTACT : {
+    email: "your@email.com",
+    facebook: "https://facebook.com/",
+    zalo: "https://zalo.me/"
+  };
+
+  function safeToast(msg){
+    if(typeof toast === "function") toast(msg);
+    else console.log("[toast]", msg);
+  }
+
+  function makeQR(targetEl, text){
+    if(!targetEl) return;
+    if(typeof QRCode === "undefined"){
+      safeToast("Thiếu thư viện QRCode (qrcode.min.js) ⚠️");
+      return;
+    }
+    const value = String(text || "").trim();
+    if(!value){
+      safeToast("Nội dung QR rỗng ⚠️");
+      return;
     }
 
-    function makeMainQR(text){
-      makeQR(qrBox, text);
-      qrCaption.textContent = "QR: " + text;
-      toast("QR created ✅");
-    }
+    // clear old qr
+    targetEl.innerHTML = "";
 
-    document.getElementById("btnQR").addEventListener("click", ()=>{
-      const text = (document.getElementById("qrText").value || "").trim();
-      if(!text){ toast("Nhập nội dung để tạo QR"); return; }
+    new QRCode(targetEl, {
+      text: value,
+      width: 220,
+      height: 220,
+      colorDark : "#111111",
+      colorLight : "#ffffff",
+      correctLevel : QRCode.CorrectLevel.H
+    });
+  }
+
+  function makeMainQR(text){
+    if(!qrBox) { safeToast("Không tìm thấy #qrBox ⚠️"); return; }
+    makeQR(qrBox, text);
+    if(qrCaption) qrCaption.textContent = "QR: " + String(text || "");
+    safeToast("QR created ✅");
+  }
+
+  // Buttons
+  if(btnQR){
+    btnQR.addEventListener("click", ()=>{
+      const text = (qrTextEl?.value || "").trim();
+      if(!text){ safeToast("Nhập nội dung để tạo QR"); return; }
       makeMainQR(text);
     });
+  }
 
-    document.getElementById("btnQRUrl").addEventListener("click", ()=>{
+  if(btnQRUrl){
+    btnQRUrl.addEventListener("click", ()=>{
       const url = location.href.split("#")[0];
       makeMainQR(url);
     });
+  }
 
-    document.getElementById("btnQRVCF").addEventListener("click", ()=>{
+  if(btnQRVCF){
+    btnQRVCF.addEventListener("click", ()=>{
+      const siteUrl = location.href.split("#")[0];
       const vcf =
 `BEGIN:VCARD
 VERSION:3.0
 FN:Tran Quoc Trung
-EMAIL:${CONTACT.email}
-URL:${location.href.split("#")[0]}
-X-SOCIALPROFILE;type=facebook:${CONTACT.facebook}
+EMAIL:${CONTACT_SAFE.email}
+URL:${siteUrl}
+X-SOCIALPROFILE;type=facebook:${CONTACT_SAFE.facebook}
 NOTE:Veterinary • AI • App Builder
 END:VCARD`;
       makeMainQR(vcf);
     });
+  }
 
-    const siteUrl = location.href.split("#")[0];
-    document.getElementById("qrSiteText").textContent = siteUrl;
+  // Auto QR boxes
+  const siteUrl = location.href.split("#")[0];
+  if(qrSiteText) qrSiteText.textContent = siteUrl;
 
-    makeQR(document.getElementById("qrSiteBox"), siteUrl);
-    makeQR(document.getElementById("qrFbBox"), CONTACT.facebook);
-    makeQR(document.getElementById("qrZaloBox"), CONTACT.zalo);
+  makeQR(qrSiteBox, siteUrl);
+  makeQR(qrFbBox, CONTACT_SAFE.facebook);
+  makeQR(qrZaloBox, CONTACT_SAFE.zalo);
 
-    /********************
-     * 10) PRINT CV
-     ********************/
-    document.getElementById("btnPrint").addEventListener("click", ()=>{
-      window.open("CV_Trung.pdf", "_blank", "noopener");
-      toast("Opened CV ✅");
-    });
+})();
+</script>
 
-    /********************
-     * 11) SEND MAIL (mailto)
-     ********************/
-    document.getElementById("btnMail").addEventListener("click", ()=>{
-      const name = (document.getElementById("name").value || "").trim();
-      const subject = (document.getElementById("subject").value || "").trim();
-      const message = (document.getElementById("message").value || "").trim();
-
-      const sub = encodeURIComponent(subject ? `[Portfolio] ${subject}` : "[Portfolio] Message");
-      const body = encodeURIComponent(
-        `Name: ${name}\n\nMessage:\n${message}\n\n---\nSent from portfolio page`
-      );
-      window.location.href = `mailto:${CONTACT.email}?subject=${sub}&body=${body}`;
-    });
-
-    /********************
-     * 12) NAV SPY + BACK TO TOP
-     ********************/
-    const topBtn = document.getElementById("topBtn");
-    topBtn.addEventListener("click", ()=> window.scrollTo({top:0, behavior:"smooth"}));
-
-    const links = Array.from(document.querySelectorAll(".navLinks a[data-spy]"));
-    const sections = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
-
-    function onScroll(){
-      const y = window.scrollY || document.documentElement.scrollTop;
-      topBtn.classList.toggle("show", y > 600);
-
-      let idx = 0;
-      for(let i=0;i<sections.length;i++){
-        const s = sections[i];
-        const top = s.offsetTop - 120;
-        if(y >= top) idx = i;
-      }
-      links.forEach(a=>a.classList.remove("active"));
-      if(links[idx]) links[idx].classList.add("active");
-    }
-    window.addEventListener("scroll", onScroll, {passive:true});
-    onScroll();
-
-    /********************
-     * 13) SKILL BARS animate when visible
-     ********************/
-    const barEls = document.querySelectorAll(".bar");
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          const pct = e.target.getAttribute("data-pct");
-          const fill = e.target.querySelector(".fill");
-          fill.style.width = pct + "%";
-        }
-      });
-    }, {threshold: 0.25});
-    barEls.forEach(b=>io.observe(b));
-  </script>
-</body>
-</html>
