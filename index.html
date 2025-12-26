@@ -1162,21 +1162,23 @@
   <div class="media-grid">
 
     <!-- LEFT: YOUTUBE -->
-    <div class="media-left card pad">
- 
-          <iframe
-  id="ytPlayer"
-  width="100%"
-  height="315"
-  src="https://www.youtube.com/embed/E8gmARGvPlI"
-  title="YouTube player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  allowfullscreen
-></iframe>
+   <div class="media-left card pad">
+  <iframe
+    id="ytPlayer"
+    width="100%"
+    height="315"
+    src="https://www.youtube.com/embed/E8gmARGvPlI"
+    title="YouTube player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+  ></iframe>
 
-      <div id="playlist" class="yt-playlist"></div>
-    </div>
+  <!-- ✅ search cho YouTube -->
+  <input id="ytSearch" class="input" placeholder="🔍 Tìm video YouTube..." style="margin-top:10px; min-width:100%" />
+
+  <div id="playlist" class="yt-playlist"></div>
+</div>
 
     <!-- RIGHT: MP3 + LYRICS + SCROLL PLAYLIST -->
     <div class="media-right card pad">
@@ -1808,20 +1810,31 @@
       });
     });
 
-    /********************
-     * 8) ✅ MEDIA PLAYER (YouTube) — CLEAN + NO DUPLICATE
-     ********************/
-   if (!ytPlayer) console.warn("Missing #ytPlayer in HTML");
-   if (!mp3PlaylistEl) console.warn("Missing #mp3Playlist in HTML");
-    const nowTypeEl  = document.getElementById("nowType");
-    const nowTitleEl = document.getElementById("nowTitle");
-    const nowModeEl  = document.getElementById("nowMode");
+ /********************
+ * 8) ✅ MEDIA (YouTube + MP3) — CLEAN, SEARCH, RANDOM, SCROLL
+ ********************/
+const ytPlayerEl = document.getElementById("ytPlayer");
+const ytListEl   = document.getElementById("playlist");
+const ytSearchEl = document.getElementById("ytSearch");
 
-    let autoplay = true;
-    let loop = false;
-    let currentItem = null;
+const mp3ListEl  = document.getElementById("mp3Playlist");
+const mp3SearchEl= document.getElementById("searchSong");
+const audioEl    = document.getElementById("audioPlayer");
+const lyricsBox  = document.getElementById("lyricsBox");
+const lyricViEl  = lyricsBox ? lyricsBox.querySelector(".lyric-vi") : null;
+const lyricEnEl  = lyricsBox ? lyricsBox.querySelector(".lyric-en") : null;
 
-    const MEDIA = [
+// ✅ Dùng MEDIA của anh cho YouTube (nếu item không có type/meta/desc thì set mặc định)
+const YT = (Array.isArray(MEDIA) ? MEDIA : []).map(x => ({
+  type: x.type || "MUSIC",
+  title: x.title || "Untitled",
+  meta: x.meta || "YOUTUBE",
+  desc: x.desc || "",
+  videoId: x.videoId || ""
+})).filter(x => x.videoId);
+
+// ✅ MP3 playlist: anh tự thay src bằng file mp3 thật (local hoặc url https)
+const MP3 = [
       { type:"MUSIC", title:"Last Christmas — Wham!", meta:"UK/US MUSIC", desc:"Official video.", videoId:"E8gmARGvPlI" },
       { type:"MUSIC", title:"Let Me Hear Your Voice (声をきかせて) — BIGBANG", meta:"K-POP / JP", desc:"BIGBANG Japan single.", videoId:"oQjcJBGIFsA" },
       { type:"MUSIC", title:"Lies (거짓말) — BIGBANG", meta:"K-POP", desc:"Official MV.", videoId:"2Cv3phvP8Ro" },
@@ -1972,92 +1985,187 @@
   { title:"Hãy Trao Cho Anh — Sơn Tùng M-TP", videoId:"knW7-x7Y7RE" },
     ];
 
-    function ytEmbedUrl(videoId){
-      const params = new URLSearchParams();
-      params.set("rel","0");
-      params.set("modestbranding","1");
-      params.set("playsinline","1");
-      if(autoplay) params.set("autoplay","1");
-      if(loop){
-        params.set("loop","1");
-        params.set("playlist", videoId);
-      }
-      return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+
+let ytIndex = 0;
+let mp3Index = 0;
+
+let ytRandom = false;
+let mp3Random = false;
+
+function ytEmbed(videoId){
+  // autoplay nhẹ (tránh một số browser chặn)
+  return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&playsinline=1`;
+}
+
+/* ===== YOUTUBE ===== */
+function renderYT(list){
+  if(!ytListEl) return;
+  ytListEl.innerHTML = list.map((m, idx) => `
+    <div class="track ${idx===ytIndex ? "active":""}" data-yt="${idx}">
+      <div class="trackTop">
+        <div class="trackTitle">${m.title}</div>
+        <div class="trackMeta">${m.meta}</div>
+      </div>
+      <p class="trackDesc">${m.desc || ""}</p>
+    </div>
+  `).join("");
+
+  ytListEl.querySelectorAll("[data-yt]").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      const i = Number(el.getAttribute("data-yt"));
+      playYT(i);
+    });
+  });
+}
+
+function playYT(i){
+  const item = YT[i];
+  if(!item || !ytPlayerEl) return;
+  ytIndex = i;
+  ytPlayerEl.src = ytEmbed(item.videoId);
+
+  // active UI
+  ytListEl?.querySelectorAll(".track").forEach(t=>t.classList.remove("active"));
+  ytListEl?.querySelector(`[data-yt="${i}"]`)?.classList.add("active");
+}
+
+function filterYT(q){
+  const s = (q||"").trim().toLowerCase();
+  if(!s) return YT;
+  return YT.filter(x =>
+    (x.title||"").toLowerCase().includes(s) ||
+    (x.meta||"").toLowerCase().includes(s) ||
+    (x.desc||"").toLowerCase().includes(s)
+  );
+}
+
+/* ===== MP3 ===== */
+function renderMP3(list){
+  if(!mp3ListEl) return;
+  mp3ListEl.innerHTML = list.map((s, idx)=>`
+    <div class="song" data-mp3="${idx}">
+      <b>${s.title}</b><div class="muted2" style="font-size:12px">${s.artist || ""}</div>
+    </div>
+  `).join("");
+
+  mp3ListEl.querySelectorAll("[data-mp3]").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      const i = Number(el.getAttribute("data-mp3"));
+      playMP3(i);
+    });
+  });
+}
+
+function playMP3(i){
+  const song = MP3[i];
+  if(!song) return;
+  mp3Index = i;
+
+  // Nếu chưa có src, chỉ hiển thị info (không crash)
+  if(audioEl){
+    if(song.src){
+      audioEl.src = song.src;
+      audioEl.play?.().catch(()=>{});
+    }else{
+      audioEl.removeAttribute("src");
+      audioEl.load();
+      toast("MP3 chưa có link src (hãy thay src bằng file MP3 thật) ⚠️");
     }
+  }
 
-    function setActiveTrack(idx){
-      const item = MEDIA[idx];
-      if(!item) return;
-      currentItem = item;
+  if(lyricViEl) lyricViEl.textContent = song.lyricVI ? song.lyricVI : "(Chưa có lời VI)";
+  if(lyricEnEl) lyricEnEl.textContent = song.lyricEN ? song.lyricEN : "(Chưa có lời EN)";
+}
 
-      ytPlayer.src = ytEmbedUrl(item.videoId);
-      nowTypeEl.textContent  = `TYPE: ${item.type}`;
-      nowTitleEl.textContent = `NOW: ${item.title}`;
-      nowModeEl.textContent  = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
+function filterMP3(q){
+  const s = (q||"").trim().toLowerCase();
+  if(!s) return MP3;
+  return MP3.filter(x =>
+    (x.title||"").toLowerCase().includes(s) ||
+    (x.artist||"").toLowerCase().includes(s)
+  );
+}
 
-      document.querySelectorAll(".track").forEach(el=>el.classList.remove("active"));
-      const active = document.querySelector(`.track[data-idx="${idx}"]`);
-      if(active) active.classList.add("active");
-    }
+/* ===== BUTTONS (global functions for onclick) ===== */
+window.prevSong = function(){
+  if(mp3Random && MP3.length>1){
+    let r = mp3Index;
+    while(r===mp3Index) r = Math.floor(Math.random()*MP3.length);
+    playMP3(r);
+    return;
+  }
+  const i = (mp3Index - 1 + MP3.length) % MP3.length;
+  playMP3(i);
+};
 
-    function renderPlaylist(){
-      mp3PlaylistEl.innerHTML = MEDIA.map((m, idx)=>`
-        <div class="track" data-idx="${idx}">
+window.nextSong = function(){
+  if(mp3Random && MP3.length>1){
+    let r = mp3Index;
+    while(r===mp3Index) r = Math.floor(Math.random()*MP3.length);
+    playMP3(r);
+    return;
+  }
+  const i = (mp3Index + 1) % MP3.length;
+  playMP3(i);
+};
+
+window.toggleRandomMode = function(){
+  mp3Random = !mp3Random;
+  toast(mp3Random ? "MP3 Random: ON 🔀" : "MP3 Random: OFF");
+};
+
+/* ===== WIRE SEARCH ===== */
+if(ytSearchEl){
+  ytSearchEl.addEventListener("input", ()=>{
+    const list = filterYT(ytSearchEl.value);
+    // Khi lọc, render theo list lọc, nhưng play vẫn theo index gốc.
+    // Đơn giản: render list lọc và click sẽ play theo index trong list lọc:
+    ytListEl.innerHTML = list.map((m)=> {
+      const realIdx = YT.findIndex(x=>x.videoId===m.videoId);
+      return `
+        <div class="track ${realIdx===ytIndex ? "active":""}" data-yt="${realIdx}">
           <div class="trackTop">
             <div class="trackTitle">${m.title}</div>
             <div class="trackMeta">${m.meta}</div>
           </div>
-          <p class="trackDesc">${m.desc}</p>
+          <p class="trackDesc">${m.desc || ""}</p>
         </div>
-      `).join("");
+      `;
+    }).join("");
 
-      playlistEl.querySelectorAll(".track").forEach(el=>{
-        el.addEventListener("click", ()=>{
-          const idx = Number(el.getAttribute("data-idx"));
-          setActiveTrack(idx);
-          toast("Switched ✅");
-        });
+    ytListEl.querySelectorAll("[data-yt]").forEach(el=>{
+      el.addEventListener("click", ()=>{
+        playYT(Number(el.getAttribute("data-yt")));
       });
-    }
-    renderPlaylist();
-
-    const defaultIdx = MEDIA.findIndex(x => (x.title || "").toLowerCase().includes("last christmas"));
-    setActiveTrack(defaultIdx >= 0 ? defaultIdx : 0);
-
-    const apState = document.getElementById("apState");
-    const lpState = document.getElementById("lpState");
-
-    document.getElementById("btnAutoplay").addEventListener("click", ()=>{
-      autoplay = !autoplay;
-      apState.textContent = autoplay ? "ON" : "OFF";
-      if(currentItem) ytPlayer.src = ytEmbedUrl(currentItem.videoId);
-      nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
-      toast("Autoplay " + (autoplay ? "ON" : "OFF"));
     });
+  });
+}
 
-    document.getElementById("btnLoop").addEventListener("click", ()=>{
-      loop = !loop;
-      lpState.textContent = loop ? "ON" : "OFF";
-      if(currentItem) ytPlayer.src = ytEmbedUrl(currentItem.videoId);
-      nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
-      toast("Loop " + (loop ? "ON" : "OFF"));
+if(mp3SearchEl){
+  mp3SearchEl.addEventListener("input", ()=>{
+    const list = filterMP3(mp3SearchEl.value);
+    // render theo list lọc nhưng play theo index thật
+    mp3ListEl.innerHTML = list.map((s)=> {
+      const realIdx = MP3.findIndex(x=>x.title===s.title && x.artist===s.artist);
+      return `
+        <div class="song" data-mp3="${realIdx}">
+          <b>${s.title}</b><div class="muted2" style="font-size:12px">${s.artist || ""}</div>
+        </div>
+      `;
+    }).join("");
+    mp3ListEl.querySelectorAll("[data-mp3]").forEach(el=>{
+      el.addEventListener("click", ()=> playMP3(Number(el.getAttribute("data-mp3"))));
     });
+  });
+}
 
-    document.getElementById("btnCopyMedia").addEventListener("click", async ()=>{
-      if(!currentItem) return;
-      const url = `https://www.youtube.com/watch?v=${currentItem.videoId}`;
-      try{
-        await navigator.clipboard.writeText(url);
-        toast("Copied video link ✅");
-      }catch(e){
-        toast("Copy failed");
-      }
-    });
+/* ===== INIT ===== */
+renderYT(YT);
+renderMP3(MP3);
 
-    document.getElementById("btnOpenYT").addEventListener("click", ()=>{
-      if(!currentItem) return;
-      window.open(`https://www.youtube.com/watch?v=${currentItem.videoId}`, "_blank", "noopener");
-    });
+// play mặc định
+if(YT.length) playYT(0);
+if(MP3.length) playMP3(0);
 
     /********************
      * 9) QR GENERATOR
