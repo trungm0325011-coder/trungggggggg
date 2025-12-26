@@ -2,94 +2,84 @@
 <html lang="vi" data-theme="dark">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Media Player + AI English Learning Platform (offline single-file)" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Media Player + AI English Learning Platform" />
+  <meta name="keywords" content="English Learning, Music, Lyrics, AI, Quiz" />
   <meta name="author" content="Trần Quốc Trung" />
-  <title>Media • AI English Learning (Full)</title>
+  <title>Media • AI English Learning</title>
 
   <style>
-    /* =========================
-       0) RESET + BASE
-       ========================= */
+    /* ========== RESET + BASE ========== */
     *{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       min-height:100vh;
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,"Times New Roman",serif;
-      background: radial-gradient(900px 500px at 15% 10%, rgba(255,59,59,.18), transparent 55%),
-                  radial-gradient(900px 500px at 80% 20%, rgba(255,213,74,.14), transparent 60%),
-                  radial-gradient(700px 500px at 40% 85%, rgba(74,144,255,.10), transparent 55%),
-                  linear-gradient(180deg, #05070c 0%, #070A10 100%);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(255,59,59,.18), transparent 55%),
+        radial-gradient(900px 500px at 80% 20%, rgba(255,213,74,.14), transparent 60%),
+        radial-gradient(700px 500px at 40% 85%, rgba(74,144,255,.10), transparent 55%),
+        linear-gradient(180deg, #05070c 0%, #070A10 100%);
       color: rgba(255,255,255,.92);
       overflow-x:hidden;
     }
-    a{color:inherit;text-decoration:none}
-    button,input,select,textarea{font:inherit}
-    img{max-width:100%;display:block}
-
     :root{
-      --bg:#070A10;
-      --bg2:#05070c;
-      --txt:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.68);
-      --muted2:rgba(255,255,255,.56);
-      --panel:rgba(255,255,255,.06);
-      --panel2:rgba(255,255,255,.08);
+      --bg:#070A10; --txt:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68); --muted2:rgba(255,255,255,.56);
+      --panel:rgba(255,255,255,.06); --panel2:rgba(255,255,255,.08);
       --line:rgba(255,255,255,.12);
-      --brand:#ff3b3b;
-      --brand2:#ffd54a;
-      --blue:#6aa6ff;
+      --brand:#ff3b3b; --brand2:#ffd54a;
       --radius:18px;
-      --radius2:24px;
       --shadow:0 18px 60px rgba(0,0,0,.55);
       --ring:0 0 0 4px rgba(255,59,59,.14);
-      --glass: blur(12px);
-      --max:1180px;
       --ease:.18s ease;
+      --max:1160px;
     }
     [data-theme="light"]{
-      --bg:#f6f7fb;
-      --bg2:#ffffff;
-      --txt:rgba(0,0,0,.88);
-      --muted:rgba(0,0,0,.64);
-      --muted2:rgba(0,0,0,.52);
-      --panel:rgba(0,0,0,.04);
-      --panel2:rgba(0,0,0,.06);
+      --bg:#f6f7fb; --txt:rgba(0,0,0,.88);
+      --muted:rgba(0,0,0,.64); --muted2:rgba(0,0,0,.52);
+      --panel:rgba(0,0,0,.04); --panel2:rgba(0,0,0,.06);
       --line:rgba(0,0,0,.10);
       --shadow:0 18px 60px rgba(0,0,0,.14);
       --ring:0 0 0 4px rgba(255,59,59,.18);
     }
 
+    /* ========== LAYOUT ========== */
     .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
     .grid{display:grid;gap:16px}
-    .flex{display:flex;gap:10px;flex-wrap:wrap}
     .card{
       background: linear-gradient(180deg, var(--panel) 0%, rgba(255,255,255,.04) 100%);
       border:1px solid var(--line);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
-      backdrop-filter:var(--glass);
+      backdrop-filter: blur(12px);
     }
     .pad{padding:18px}
     .muted{color:var(--muted)}
     .muted2{color:var(--muted2)}
     .bold{font-weight:900}
-    .hidden{display:none !important}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-weight:800;font-size:13px;
+      white-space:nowrap;
+    }
+    .dot{width:8px;height:8px;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand2));
+      box-shadow:0 0 0 4px rgba(255,59,59,.12)
+    }
 
+    /* ========== HEADER ========== */
     header{
       position:sticky;top:0;z-index:50;
       background: rgba(7,10,16,.62);
       border-bottom:1px solid rgba(255,255,255,.08);
       backdrop-filter: blur(10px);
     }
-    [data-theme="light"] header{
-      background: rgba(255,255,255,.75);
-      border-bottom:1px solid rgba(0,0,0,.08);
-    }
-    .nav{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:10px 0;gap:12px;
-    }
+    [data-theme="light"] header{background: rgba(255,255,255,.75);border-bottom:1px solid rgba(0,0,0,.08)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:12px}
     .brandWrap{display:flex;align-items:center;gap:10px}
     .brandBadge{
       width:36px;height:36px;border-radius:14px;display:grid;place-items:center;
@@ -98,1660 +88,515 @@
       box-shadow:0 14px 40px rgba(0,0,0,.18);
       flex:0 0 auto;
     }
-    [data-theme="light"] .brandBadge{border-color:rgba(0,0,0,.10)}
     .brandBadge span{
-      font-weight:900;
-      background:linear-gradient(135deg,var(--brand),var(--brand2));
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-      letter-spacing:.4px;
+      font-weight:900;background:linear-gradient(135deg,var(--brand),var(--brand2));
+      -webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:.4px;
     }
     .brandTitle{font-weight:900;font-size:14px;line-height:1.15}
     .brandSub{font-weight:800;font-size:12px;color:var(--muted2)}
-    .navLinks{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-    .navLinks a{
-      color:var(--muted);font-weight:900;font-size:12.5px;
-      padding:9px 10px;border-radius:12px;border:1px solid transparent;
-      transition:var(--ease)
-    }
-    .navLinks a:hover{color:var(--txt);border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.05)}
-    [data-theme="light"] .navLinks a:hover{border-color:rgba(0,0,0,.08);background:rgba(0,0,0,.03)}
-    .navLinks a.active{
-      color:var(--txt);
-      border-color:rgba(255,59,59,.22);
-      background:linear-gradient(135deg, rgba(255,59,59,.16), rgba(255,213,74,.10));
-    }
     .actions{display:flex;align-items:center;gap:8px}
     .iconBtn{
       display:inline-flex;align-items:center;justify-content:center;
       width:40px;height:40px;border-radius:14px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      cursor:pointer;transition:var(--ease);user-select:none
+      border:1px solid var(--line);background:rgba(255,255,255,.04);
+      cursor:pointer;transition:var(--ease);user-select:none;
     }
     .iconBtn:hover{transform:translateY(-1px);background:rgba(255,255,255,.06)}
     .iconBtn:focus{outline:none;box-shadow:var(--ring)}
-    [data-theme="light"] .iconBtn{background:rgba(0,0,0,.03)}
-    .kbd{font-weight:900;font-size:12px;opacity:.9}
 
-    .hero{padding:18px 0 10px}
-    .heroGrid{grid-template-columns:1.12fr .88fr;align-items:stretch}
-    @media (max-width: 980px){ .heroGrid{grid-template-columns:1fr} }
-    .headline{
-      font-size:40px;line-height:1.05;margin:8px 0 10px;letter-spacing:-.8px
+    /* ========== CONTROLS + INPUTS ========== */
+    .input{
+      padding:11px 12px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);color:var(--txt);
+      font-weight:800;font-size:13px;outline:none;min-width:220px;
     }
-    @media (max-width: 520px){ .headline{font-size:32px} }
-    .grad{
-      background:linear-gradient(135deg,var(--brand),var(--brand2));
-      -webkit-background-clip:text;background-clip:text;color:transparent
-    }
-    .sub{font-size:15px;line-height:1.7;color:var(--muted);margin:0 0 14px;max-width:72ch;white-space:pre-line}
-
-    .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:8px 12px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(255,255,255,.04);color:var(--muted);
-      font-weight:900;font-size:13px;white-space:nowrap
-    }
-    [data-theme="light"] .pill{background:rgba(0,0,0,.03)}
-    .dot{width:8px;height:8px;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand2));box-shadow:0 0 0 4px rgba(255,59,59,.12)}
-
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      padding:12px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.05);color:var(--txt);
-      font-weight:900;font-size:14px;min-width:190px;
-      cursor:pointer;transition:var(--ease);user-select:none
-    }
-    [data-theme="light"] .btn{border-color:rgba(0,0,0,.12);background:rgba(0,0,0,.03)}
-    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.07)}
-    [data-theme="light"] .btn:hover{background:rgba(0,0,0,.04)}
-    .btn:focus{outline:none;box-shadow:var(--ring)}
-    .btnPrimary{
-      border-color:rgba(255,59,59,.35);
-      background:linear-gradient(135deg, rgba(255,59,59,.25), rgba(255,213,74,.14));
-    }
-    .btnPrimary:hover{background:linear-gradient(135deg, rgba(255,59,59,.32), rgba(255,213,74,.18))}
-    .btn .ico{
-      width:28px;height:28px;border-radius:12px;display:grid;place-items:center;
-      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)
-    }
-    [data-theme="light"] .btn .ico{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.10)}
-    .btn small{display:block;margin-top:2px;font-size:11px;color:var(--muted);font-weight:800}
-
     .miniBtn{
       display:inline-flex;align-items:center;justify-content:center;gap:8px;
       padding:10px 12px;border-radius:14px;border:1px solid var(--line);
-      background:rgba(255,255,255,.04);cursor:pointer;font-weight:900;font-size:12.5px;transition:var(--ease)
+      background:rgba(255,255,255,.04);
+      cursor:pointer;font-weight:900;font-size:12.5px;transition:var(--ease);
     }
-    [data-theme="light"] .miniBtn{background:rgba(0,0,0,.03)}
     .miniBtn:hover{background:rgba(255,255,255,.06)}
-    [data-theme="light"] .miniBtn:hover{background:rgba(0,0,0,.04)}
     .miniBtn:focus{outline:none;box-shadow:var(--ring)}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .spacer{height:10px}
 
-    .input,.select,.textarea{
-      padding:11px 12px;border-radius:14px;border:1px solid var(--line);
-      background:rgba(255,255,255,.04);color:var(--txt);
-      font-weight:800;font-size:13px;outline:none
+    /* ========== MEDIA UI ========== */
+    .mediaGrid{grid-template-columns: 1.05fr .95fr;align-items:stretch}
+    .playerBox{
+      border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);overflow:hidden;
     }
-    [data-theme="light"] .input,[data-theme="light"] .select,[data-theme="light"] .textarea{background:rgba(0,0,0,.03)}
-    .select{min-width:180px}
-    .textarea{min-height:120px;resize:vertical}
-
-    .titleRow{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:4px 0 12px}
-    .titleRow h2{margin:0;font-size:18px;letter-spacing:-.2px}
-
-    /* Sections */
-    section{padding:18px 0}
-    .sectionGrid{grid-template-columns:1.05fr .95fr}
-    @media (max-width: 980px){ .sectionGrid{grid-template-columns:1fr} }
-
-    /* Media */
-    .playerBox{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);overflow:hidden}
-    [data-theme="light"] .playerBox{background:rgba(0,0,0,.02)}
     .playerBox iframe{width:100%;height:420px;border:0;display:block;background:#000}
+    .nowBox{display:flex;flex-direction:column;gap:6px}
+    .nowLine{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .nowLine b{font-size:14px}
+    .badge{
+      font-size:11px;font-weight:900;padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.04);color:var(--muted);white-space:nowrap;
+    }
+    .badge.red{border-color: rgba(255,59,59,.25)}
+    .badge.yellow{border-color: rgba(255,213,74,.25)}
     .playlistTools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    .playlistTools .input{min-width:240px;flex:1}
-    .playlistScroll{max-height:520px;overflow:auto;padding-right:6px;scroll-behavior:smooth}
+    .playlistScroll{max-height:520px;overflow:auto;padding-right:6px}
     .playlist{display:grid;gap:10px}
     .track{
       border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04);
-      padding:12px;cursor:pointer;transition:var(--ease);display:grid;gap:6px
+      padding:12px;cursor:pointer;transition:var(--ease);display:grid;gap:6px;
     }
-    [data-theme="light"] .track{background:rgba(0,0,0,.03)}
     .track:hover{transform:translateY(-1px);background:rgba(255,255,255,.06)}
-    [data-theme="light"] .track:hover{background:rgba(0,0,0,.04)}
-    .track.active{border-color:rgba(255,59,59,.35);background:linear-gradient(135deg, rgba(255,59,59,.18), rgba(255,213,74,.10))}
+    .track.active{
+      border-color: rgba(255,59,59,.35);
+      background:linear-gradient(135deg, rgba(255,59,59,.18), rgba(255,213,74,.10));
+    }
     .trackTop{display:flex;justify-content:space-between;gap:10px;align-items:center}
     .trackTitle{font-weight:900;font-size:13px}
     .trackMeta{color:var(--muted2);font-weight:900;font-size:11px;letter-spacing:.6px;text-transform:uppercase}
-    .trackDesc{color:var(--muted);font-size:12.5px;line-height:1.55;margin:0}
+    .trackDesc{color:var(--muted);font-size:12.5px;line-height:1.55}
 
-    .lyricBox{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);overflow:hidden}
-    [data-theme="light"] .lyricBox{background:rgba(0,0,0,.02)}
-    .lyricBoxHead{padding:12px 12px;border-bottom:1px solid rgba(255,255,255,.10);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-    [data-theme="light"] .lyricBoxHead{border-bottom-color:rgba(0,0,0,.08)}
-    .lyricBoxBody{padding:12px}
-    .twoCols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    @media (max-width: 780px){ .twoCols{grid-template-columns:1fr} }
-    .textarea.small{min-height:150px}
-    .hint{font-size:12px;color:var(--muted2);font-weight:800}
-
-    /* Vocab */
-    table{width:100%;border-collapse:separate;border-spacing:0 10px}
-    th{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted2);text-align:left;padding:0 10px}
-    td{padding:12px 10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.04)}
-    [data-theme="light"] td{background:rgba(0,0,0,.03)}
-    td:first-child{border-left:1px solid var(--line);border-top-left-radius:14px;border-bottom-left-radius:14px}
-    td:last-child{border-right:1px solid var(--line);border-top-right-radius:14px;border-bottom-right-radius:14px}
-    .rowActions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-    .tag{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-weight:900;font-size:11px;color:var(--muted2)}
-    [data-theme="light"] .tag{background:rgba(0,0,0,.03)}
-    .danger{border-color:rgba(255,59,59,.28)}
-    .ok{border-color:rgba(106,166,255,.25)}
-
-    /* Quiz */
-    .qBox{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);overflow:hidden}
-    [data-theme="light"] .qBox{background:rgba(0,0,0,.02)}
-    .qHead{padding:12px;border-bottom:1px solid rgba(255,255,255,.10);display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
-    [data-theme="light"] .qHead{border-bottom-color:rgba(0,0,0,.08)}
-    .qBody{padding:12px}
-    .qPrompt{font-weight:900;margin-bottom:10px}
-    .qOpt{display:grid;gap:10px}
-    .optBtn{
-      text-align:left;width:100%;
-      padding:12px;border-radius:14px;border:1px solid var(--line);
-      background:rgba(255,255,255,.04);cursor:pointer;font-weight:900;transition:var(--ease)
+    /* Lyrics */
+    .lyricBox{margin-top:12px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);overflow:hidden}
+    .lyricHead{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.10)}
+    .lyricHead b{font-weight:900;font-size:13px}
+    .lyricHint{color:var(--muted2);font-weight:800;font-size:12px;white-space:nowrap}
+    .lyricBody{padding:12px 14px;display:grid;gap:10px}
+    .lyricText{
+      width:100%;min-height:140px;resize:vertical;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);color:var(--txt);font-weight:800;font-size:13px;outline:none;
+      line-height:1.6;padding:12px;
     }
-    [data-theme="light"] .optBtn{background:rgba(0,0,0,.03)}
-    .optBtn:hover{background:rgba(255,255,255,.06);transform:translateY(-1px)}
-    [data-theme="light"] .optBtn:hover{background:rgba(0,0,0,.04)}
-    .optBtn.correct{border-color:rgba(106,166,255,.30)}
-    .optBtn.wrong{border-color:rgba(255,59,59,.30)}
-    .scoreLine{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:10px}
-    .progress{height:10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);overflow:hidden}
-    [data-theme="light"] .progress{background:rgba(0,0,0,.03)}
-    .bar{height:100%;width:0%;background:linear-gradient(135deg,var(--brand),var(--brand2))}
-    .smallText{font-size:12px;color:var(--muted2);font-weight:800}
-
-    /* Timer */
-    .timerBox{display:grid;gap:10px}
-    .timeBig{font-size:40px;font-weight:1000;letter-spacing:-.5px}
-    .timeRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    .chipBtn{
-      padding:9px 12px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(255,255,255,.04);cursor:pointer;font-weight:900;font-size:12px;transition:var(--ease)
-    }
-    [data-theme="light"] .chipBtn{background:rgba(0,0,0,.03)}
-    .chipBtn:hover{background:rgba(255,255,255,.06)}
-    [data-theme="light"] .chipBtn:hover{background:rgba(0,0,0,.04)}
+    .lyricActions{display:flex;gap:10px;flex-wrap:wrap}
 
     /* Toast */
     .toast{
-      position:fixed;right:16px;bottom:16px;z-index:120;
-      padding:12px 14px;border-radius:16px;border:1px solid var(--line);
-      background:rgba(0,0,0,.65);color:rgba(255,255,255,.92);font-weight:900;
-      display:none;backdrop-filter: blur(10px);max-width:340px
+      position:fixed;right:16px;bottom:16px;padding:12px 14px;border-radius:16px;
+      border:1px solid var(--line);background:rgba(0,0,0,.65);color:rgba(255,255,255,.92);
+      font-weight:900;display:none;z-index:120;backdrop-filter: blur(10px);max-width: 320px;
     }
-    [data-theme="light"] .toast{background:rgba(255,255,255,.88);color:rgba(0,0,0,.88)}
+    [data-theme="light"] .toast{background:rgba(255,255,255,.85);color:rgba(0,0,0,.88)}
     .toast.show{display:block}
 
-    footer{padding:18px 0 30px}
-    .footerRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
-    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace}
+    @media (max-width: 1040px){
+      .mediaGrid{grid-template-columns:1fr}
+      .playerBox iframe{height:320px}
+      .playlistScroll{max-height:420px}
+    }
+    @media (max-width: 560px){
+      .playerBox iframe{height:240px}
+      .playlistScroll{max-height:320px}
+      .actions{display:none}
+    }
   </style>
 </head>
 
 <body>
   <header>
-    <div class="wrap nav">
-      <div class="brandWrap">
-        <div class="brandBadge" aria-hidden="true"><span>VS</span></div>
-        <div>
-          <div class="brandTitle">Media • AI English Learning</div>
-          <div class="brandSub">Học tiếng Anh qua nhạc • Lyrics • Từ vựng • Quiz • Timer</div>
+    <div class="wrap">
+      <div class="nav">
+        <div class="brandWrap">
+          <div class="brandBadge" aria-hidden="true"><span>MV</span></div>
+          <div>
+            <div class="brandTitle">🎧 Media • AI English Learning</div>
+            <div class="brandSub">Learn English through Music, Lyrics & Practice</div>
+          </div>
         </div>
-      </div>
 
-      <nav class="navLinks" aria-label="navigation">
-        <a href="#media" data-link>Media</a>
-        <a href="#vocab" data-link>Vocab</a>
-        <a href="#quiz" data-link>Quiz</a>
-        <a href="#timer" data-link>Timer</a>
-        <a href="#data" data-link>Data</a>
-      </nav>
-
-      <div class="actions">
-        <button class="iconBtn" id="btnTheme" title="Đổi giao diện (T)">🌓</button>
-        <button class="iconBtn" id="btnHelp" title="Phím tắt (H)">?</button>
+        <div class="actions">
+          <button id="btnTheme" class="iconBtn" title="Đổi theme (Dark/Light)">🌓</button>
+        </div>
       </div>
     </div>
   </header>
 
-  <main class="wrap">
-    <div class="hero">
-      <div class="grid heroGrid">
-        <div class="card pad">
-          <div class="flex" style="justify-content:space-between;align-items:center">
-            <span class="pill"><span class="dot"></span> Offline • Single-file • Auto-save</span>
-            <span class="pill">⌨️ T: Theme • /: Search • Space: Play/Pause timer</span>
-          </div>
-          <h1 class="headline">🎧 Học tiếng Anh bằng <span class="grad">âm nhạc</span> + luyện <span class="grad">từ vựng</span></h1>
-          <p class="sub">Trung có thể:
-• Chọn bài từ playlist (YouTube embed)
-• Ghi lyrics EN/VN + lưu tự động
-• Lưu từ vựng (meaning, example, level)
-• Tự tạo quiz từ vocab
-• Pomodoro/timer luyện tập
-Tất cả lưu trong trình duyệt (localStorage) — không cần mạng.</p>
-          <div class="flex">
-            <button class="btn btnPrimary" id="btnAddDemo"><span class="ico">✨</span><div><div>Thêm playlist mẫu</div><small>Lady Gaga / học nhanh</small></div></button>
-            <button class="btn" id="btnResetAll"><span class="ico">🧹</span><div><div>Xóa dữ liệu demo</div><small>Không xóa file của máy</small></div></button>
-          </div>
-        </div>
-
-        <div class="card pad">
-          <div class="titleRow">
-            <h2>📌 Quick Actions</h2>
-            <span class="muted2" style="font-weight:900;font-size:12px">Save: tự động</span>
-          </div>
-          <div class="grid" style="gap:12px">
-            <div class="flex">
-              <button class="btn" id="btnFocusMedia"><span class="ico">🎵</span><div><div>Đi tới Media</div><small>Ctrl/⌘ + 1</small></div></button>
-              <button class="btn" id="btnFocusVocab"><span class="ico">📚</span><div><div>Đi tới Vocab</div><small>Ctrl/⌘ + 2</small></div></button>
-            </div>
-            <div class="flex">
-              <button class="btn" id="btnFocusQuiz"><span class="ico">🧠</span><div><div>Đi tới Quiz</div><small>Ctrl/⌘ + 3</small></div></button>
-              <button class="btn" id="btnFocusTimer"><span class="ico">⏱️</span><div><div>Đi tới Timer</div><small>Ctrl/⌘ + 4</small></div></button>
-            </div>
-
-            <div class="card pad" style="background:rgba(255,255,255,.03);box-shadow:none">
-              <div class="muted2" style="font-weight:900;margin-bottom:6px">Tip</div>
-              <div class="muted" style="font-weight:800;font-size:13px">
-                Dán link YouTube bất kỳ vào ô “YouTube URL” để phát. Lyrics có 2 ô: English & Vietnamese.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <main class="wrap" style="padding:18px 0 28px;">
+    <div class="row" style="margin-bottom:12px;">
+      <span class="pill"><span class="dot"></span> Player + Playlist + Lyrics (EN/VI)</span>
+      <span class="pill">✅ Lưu dữ liệu bằng LocalStorage</span>
     </div>
 
-    <!-- ================= MEDIA ================= -->
-    <section id="media" aria-label="media">
-      <div class="titleRow">
-        <h2>🎵 Media Player</h2>
-        <span class="muted2" style="font-weight:900;font-size:12px" id="nowPlaying">Chưa chọn bài</span>
-      </div>
-
-      <div class="grid sectionGrid">
-        <div class="card pad">
-          <div class="playerBox">
-            <iframe id="ytPlayer" title="YouTube Player" src="about:blank" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <div class="grid mediaGrid">
+      <!-- LEFT: Player -->
+      <section class="card pad">
+        <div class="nowBox">
+          <div class="nowLine">
+            <b id="nowTitle">Chưa chọn bài</b>
+            <span id="nowType" class="badge red">MUSIC</span>
+            <span id="nowMeta" class="badge yellow">—</span>
           </div>
+          <div class="muted" style="font-size:13px;" id="nowDesc">Chọn 1 bài ở playlist bên phải để phát.</div>
+        </div>
 
-          <div class="flex" style="margin-top:10px;align-items:center;justify-content:space-between">
-            <div class="flex" style="flex:1">
-              <input class="input" id="ytUrl" placeholder="Dán YouTube URL hoặc ID (vd: https://youtu.be/....)" />
-              <button class="miniBtn" id="btnLoadYt">▶️ Load</button>
-              <button class="miniBtn" id="btnClearYt">⛔ Stop</button>
-            </div>
+        <div class="spacer"></div>
+
+        <div class="playerBox">
+          <iframe id="ytPlayer"
+                  title="YouTube Player"
+                  src="about:blank"
+                  allow="autoplay; encrypted-media"
+                  allowfullscreen></iframe>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="row">
+          <button id="btnPrev" class="miniBtn">⏮ Prev</button>
+          <button id="btnNext" class="miniBtn">⏭ Next</button>
+          <button id="btnShuffle" class="miniBtn" aria-pressed="false">🔀 Shuffle: OFF</button>
+          <button id="btnRepeat" class="miniBtn" aria-pressed="false">🔁 Repeat One: OFF</button>
+          <button id="btnCopyLink" class="miniBtn">🔗 Copy Link</button>
+        </div>
+
+        <div class="lyricBox">
+          <div class="lyricHead">
+            <b>📝 Lyrics (EN / VI)</b>
+            <span class="lyricHint">Tip: Save theo từng bài</span>
           </div>
-
-          <div class="lyricBox" style="margin-top:12px">
-            <div class="lyricBoxHead">
-              <div class="bold">📝 Lyrics (EN / VN)</div>
-              <div class="flex">
-                <button class="miniBtn" id="btnSwapLyrics">🔁 Swap</button>
-                <button class="miniBtn" id="btnCopyLyrics">📋 Copy</button>
-                <button class="miniBtn" id="btnClearLyrics">🧹 Clear</button>
-              </div>
+          <div class="lyricBody">
+            <textarea id="lyricEN" class="lyricText" placeholder="Lyrics English..."></textarea>
+            <textarea id="lyricVI" class="lyricText" placeholder="Lời tiếng Việt..."></textarea>
+            <div class="lyricActions">
+              <button id="btnSaveLyric" class="miniBtn">💾 Save Lyrics</button>
+              <button id="btnLoadLyric" class="miniBtn">📥 Load Lyrics</button>
+              <button id="btnClearLyric" class="miniBtn">🧹 Clear Box</button>
             </div>
-            <div class="lyricBoxBody">
-              <div class="twoCols">
-                <div>
-                  <div class="hint">English</div>
-                  <textarea class="textarea small" id="lyricEN" placeholder="Lyrics tiếng Anh..."></textarea>
-                </div>
-                <div>
-                  <div class="hint">Vietnamese</div>
-                  <textarea class="textarea small" id="lyricVI" placeholder="Lời dịch tiếng Việt..."></textarea>
-                </div>
-              </div>
-              <div class="smallText" style="margin-top:8px" id="lyricStatus">Auto-save ✅</div>
+            <div class="muted2" style="font-size:12px;line-height:1.6">
+              Lưu ý: YouTube iframe không cho đọc “currentTime”, nên bản này không có “Save time”.
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="card pad">
-          <div class="titleRow">
-            <h2>🎶 Playlist</h2>
-            <span class="muted2" style="font-weight:900;font-size:12px" id="playlistCount">0 bài</span>
-          </div>
-
-          <div class="playlistWrap">
-            <div class="playlistTools">
-              <input class="input" id="plSearch" placeholder="Tìm bài… (gõ / để focus)" />
-              <button class="miniBtn" id="btnNewTrack">➕ Add</button>
-            </div>
-
-            <div class="playlistScroll" tabindex="0" aria-label="playlist list">
-              <div class="playlist" id="playlist"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= VOCAB ================= -->
-    <section id="vocab" aria-label="vocab">
-      <div class="titleRow">
-        <h2>📚 Vocabulary Tracker</h2>
-        <span class="muted2" style="font-weight:900;font-size:12px" id="vocabCount">0 từ</span>
-      </div>
-
-      <div class="grid sectionGrid">
-        <div class="card pad">
-          <div class="titleRow">
-            <h2>➕ Add word</h2>
-            <span class="muted2" style="font-weight:900;font-size:12px">Tip: Enter để add nhanh</span>
-          </div>
-
-          <div class="grid" style="grid-template-columns: 1fr 1fr; gap:10px">
-            <input class="input" id="vWord" placeholder="Word (vd: committed)" />
-            <select class="select" id="vLevel">
-              <option value="A1">A1</option><option value="A2">A2</option><option value="B1" selected>B1</option>
-              <option value="B2">B2</option><option value="C1">C1</option><option value="C2">C2</option>
-            </select>
-            <input class="input" id="vMeaning" placeholder="Meaning (VN/EN ngắn)" />
-            <input class="input" id="vExample" placeholder="Example sentence" />
-          </div>
-
-          <div class="flex" style="margin-top:12px;justify-content:space-between;align-items:center">
-            <div class="flex">
-              <button class="miniBtn" id="btnAddVocab">✅ Add</button>
-              <button class="miniBtn" id="btnClearVForm">🧽 Clear</button>
-            </div>
-            <div class="flex">
-              <button class="miniBtn" id="btnVocabExport">⬇️ Export JSON</button>
-              <label class="miniBtn" for="vocabImportFile" style="cursor:pointer">⬆️ Import JSON</label>
-              <input id="vocabImportFile" type="file" accept="application/json" class="hidden" />
-            </div>
-          </div>
+      <!-- RIGHT: Playlist -->
+      <aside class="card pad">
+        <div class="playlistTools">
+          <input id="trackSearch" class="input" placeholder="Tìm bài hát (search)..." />
+          <span class="badge" id="countBadge">0 tracks</span>
         </div>
 
-        <div class="card pad">
-          <div class="titleRow">
-            <h2>🔎 Filter</h2>
-            <span class="muted2" style="font-weight:900;font-size:12px">Sort + Search</span>
-          </div>
+        <div class="spacer"></div>
 
-          <div class="grid" style="grid-template-columns: 1fr 1fr; gap:10px">
-            <input class="input" id="vSearch" placeholder="Search word/meaning/example…" />
-            <select class="select" id="vSort">
-              <option value="newest" selected>Mới nhất</option>
-              <option value="oldest">Cũ nhất</option>
-              <option value="az">A → Z</option>
-              <option value="za">Z → A</option>
-              <option value="level">Theo Level</option>
-            </select>
-          </div>
-
-          <div class="card pad" style="margin-top:12px;background:rgba(255,255,255,.03);box-shadow:none">
-            <div class="muted2" style="font-weight:900;margin-bottom:6px">Quiz uses vocab</div>
-            <div class="muted" style="font-weight:800;font-size:13px">
-              Quiz sẽ lấy dữ liệu từ bảng từ vựng này. Bạn càng nhập nhiều, quiz càng hay.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card pad" style="margin-top:12px">
-        <div class="titleRow">
-          <h2>📋 Your words</h2>
-          <span class="muted2" style="font-weight:900;font-size:12px">Click Edit để chỉnh</span>
+        <div class="playlistScroll">
+          <div id="playlist" class="playlist"></div>
         </div>
 
-        <div style="overflow:auto">
-          <table aria-label="vocab table">
-            <thead>
-              <tr>
-                <th>Word</th>
-                <th>Level</th>
-                <th>Meaning</th>
-                <th>Example</th>
-                <th style="text-align:right">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="vocabTable"></tbody>
-          </table>
+        <div class="spacer"></div>
+        <div class="muted2" style="font-size:12px;line-height:1.6">
+          • Click 1 track để phát. • Search để lọc. • Shuffle/Repeat lưu trạng thái.
         </div>
-      </div>
-    </section>
-
-    <!-- ================= QUIZ ================= -->
-    <section id="quiz" aria-label="quiz">
-      <div class="titleRow">
-        <h2>🧠 Quiz</h2>
-        <span class="muted2" style="font-weight:900;font-size:12px" id="quizInfo">Chưa bắt đầu</span>
-      </div>
-
-      <div class="grid sectionGrid">
-        <div class="card pad">
-          <div class="titleRow">
-            <h2>⚙️ Setup</h2>
-            <span class="muted2" style="font-weight:900;font-size:12px">Offline</span>
-          </div>
-
-          <div class="grid" style="grid-template-columns: 1fr 1fr; gap:10px">
-            <select class="select" id="qMode">
-              <option value="en_vi" selected>Word → Meaning</option>
-              <option value="vi_en">Meaning → Word</option>
-              <option value="fill">Fill in the blank (Example)</option>
-            </select>
-            <select class="select" id="qCount">
-              <option value="5">5 câu</option>
-              <option value="10" selected>10 câu</option>
-              <option value="15">15 câu</option>
-              <option value="20">20 câu</option>
-            </select>
-            <select class="select" id="qLevel">
-              <option value="ALL" selected>All levels</option>
-              <option value="A1">A1</option><option value="A2">A2</option><option value="B1">B1</option>
-              <option value="B2">B2</option><option value="C1">C1</option><option value="C2">C2</option>
-            </select>
-            <select class="select" id="qChoice">
-              <option value="4" selected>4 lựa chọn</option>
-              <option value="3">3 lựa chọn</option>
-            </select>
-          </div>
-
-          <div class="flex" style="margin-top:12px">
-            <button class="btn btnPrimary" id="btnStartQuiz"><span class="ico">🚀</span><div><div>Start Quiz</div><small>Tạo câu hỏi từ vocab</small></div></button>
-            <button class="btn" id="btnResetQuiz"><span class="ico">♻️</span><div><div>Reset</div><small>Xóa tiến độ</small></div></button>
-          </div>
-
-          <div class="card pad" style="margin-top:12px;background:rgba(255,255,255,.03);box-shadow:none">
-            <div class="muted2 bold">Gợi ý</div>
-            <div class="muted" style="font-weight:800;font-size:13px;margin-top:6px">
-              Nếu vocab &lt; 6 từ, quiz sẽ không đủ đáp án “nhiễu”.
-              Hãy thêm nhiều từ hơn trước khi quiz.
-            </div>
-          </div>
-        </div>
-
-        <div class="qBox">
-          <div class="qHead">
-            <div class="bold">🧩 Question</div>
-            <div class="flex">
-              <span class="tag ok" id="qCounterTag">0/0</span>
-              <span class="tag" id="qScoreTag">Score: 0</span>
-            </div>
-          </div>
-          <div class="qBody">
-            <div class="qPrompt" id="qPrompt">Chưa có câu hỏi. Bấm “Start Quiz”.</div>
-            <div class="qOpt" id="qOptions"></div>
-
-            <div class="scoreLine">
-              <div style="flex:1;min-width:220px">
-                <div class="progress" aria-label="quiz progress"><div class="bar" id="qBar"></div></div>
-                <div class="smallText" id="qExplain" style="margin-top:6px">—</div>
-              </div>
-              <div class="flex">
-                <button class="miniBtn" id="btnNextQ">Next ▶️</button>
-                <button class="miniBtn" id="btnReveal">👀 Reveal</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= TIMER ================= -->
-    <section id="timer" aria-label="timer">
-      <div class="titleRow">
-        <h2>⏱️ Timer / Pomodoro</h2>
-        <span class="muted2" style="font-weight:900;font-size:12px" id="timerInfo">Ready</span>
-      </div>
-
-      <div class="grid sectionGrid">
-        <div class="card pad">
-          <div class="timerBox">
-            <div class="timeBig mono" id="timeBig">25:00</div>
-            <div class="muted" style="font-weight:800">Space = Start/Pause • R = Reset</div>
-
-            <div class="timeRow">
-              <button class="chipBtn" data-min="25">Pomodoro 25</button>
-              <button class="chipBtn" data-min="50">Deep 50</button>
-              <button class="chipBtn" data-min="5">Break 5</button>
-              <button class="chipBtn" data-min="10">Break 10</button>
-            </div>
-
-            <div class="progress" aria-label="timer progress"><div class="bar" id="tBar"></div></div>
-
-            <div class="flex">
-              <button class="btn btnPrimary" id="btnTimerToggle"><span class="ico">▶️</span><div><div>Start</div><small>Đếm ngược</small></div></button>
-              <button class="btn" id="btnTimerReset"><span class="ico">↩️</span><div><div>Reset</div><small>Quay về preset</small></div></button>
-            </div>
-
-            <div class="card pad" style="background:rgba(255,255,255,.03);box-shadow:none">
-              <div class="muted2 bold">Ghi chú luyện tập</div>
-              <textarea class="textarea" id="focusNote" placeholder="Ghi nhanh mục tiêu phiên học…"></textarea>
-              <div class="smallText" id="noteStatus">Auto-save ✅</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card pad">
-          <div class="titleRow">
-            <h2>📈 Stats</h2>
-            <span class="muted2" style="font-weight:900;font-size:12px">Lưu theo máy</span>
-          </div>
-          <div class="grid" style="gap:10px">
-            <div class="card pad" style="background:rgba(255,255,255,.03);box-shadow:none">
-              <div class="muted2 bold">Sessions completed</div>
-              <div class="headline mono" style="font-size:34px" id="statSessions">0</div>
-            </div>
-            <div class="card pad" style="background:rgba(255,255,255,.03);box-shadow:none">
-              <div class="muted2 bold">Minutes focused</div>
-              <div class="headline mono" style="font-size:34px" id="statMinutes">0</div>
-            </div>
-            <button class="miniBtn" id="btnResetStats">🗑️ Reset stats</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= DATA ================= -->
-    <section id="data" aria-label="data">
-      <div class="titleRow">
-        <h2>💾 Data & Backup</h2>
-        <span class="muted2" style="font-weight:900;font-size:12px">Export/Import toàn bộ</span>
-      </div>
-
-      <div class="grid sectionGrid">
-        <div class="card pad">
-          <div class="titleRow">
-            <h2>⬇️ Export (All)</h2>
-            <span class="muted2" style="font-weight:900;font-size:12px">JSON file</span>
-          </div>
-          <p class="muted" style="font-weight:800;font-size:13px">
-            Xuất playlist + lyrics + vocab + quiz progress + timer note + stats.
-          </p>
-          <div class="flex" style="margin-top:12px">
-            <button class="btn btnPrimary" id="btnExportAll"><span class="ico">⬇️</span><div><div>Export All</div><small>backup.json</small></div></button>
-            <label class="btn" for="importAllFile" style="cursor:pointer"><span class="ico">⬆️</span><div><div>Import All</div><small>khôi phục</small></div></label>
-            <input id="importAllFile" type="file" accept="application/json" class="hidden" />
-          </div>
-        </div>
-
-        <div class="card pad">
-          <div class="titleRow">
-            <h2>⚠️ Danger zone</h2>
-            <span class="muted2" style="font-weight:900;font-size:12px">LocalStorage</span>
-          </div>
-          <p class="muted" style="font-weight:800;font-size:13px">
-            Xóa toàn bộ dữ liệu của trang này trong trình duyệt.
-          </p>
-          <div class="flex" style="margin-top:12px">
-            <button class="btn" id="btnWipeStorage"><span class="ico">🧨</span><div><div>Wipe Storage</div><small>xóa sạch</small></div></button>
-          </div>
-
-          <div class="card pad" style="margin-top:12px;background:rgba(255,255,255,.03);box-shadow:none">
-            <div class="muted2 bold">Current Storage keys</div>
-            <div class="mono muted" style="font-weight:800;font-size:12px;margin-top:6px" id="keyList">—</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <div class="footerRow">
-        <div class="muted" style="font-weight:800">
-          Made for Trung • Offline learning helper • <span class="mono">v1.0</span>
-        </div>
-        <div class="flex">
-          <button class="miniBtn" id="btnTop">⬆️ Top</button>
-        </div>
-      </div>
-    </footer>
+      </aside>
+    </div>
   </main>
 
-  <div class="toast" id="toast" role="status" aria-live="polite">—</div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script>
-    // =========================
-    // Storage keys
-    // =========================
-    const K = {
-      theme: "maiel_theme",
-      playlist: "maiel_playlist",
-      selectedTrackId: "maiel_selectedTrackId",
-      ytUrl: "maiel_ytUrl",
-      lyrics: "maiel_lyrics",
-      vocab: "maiel_vocab",
-      quiz: "maiel_quiz",
-      timer: "maiel_timer",
-      stats: "maiel_stats",
-    };
+    /* =========================================================
+       Media • AI English Learning — Clean Single-file Version
+       Fixes for your doc:
+       - Tách đúng HTML/CSS/JS (không để CSS/JS nằm ngoài </html>)
+       - Không lặp CSS (bỏ duplicate “PART 2”)
+       - Bổ sung đủ các ID mà JS gọi: #trackSearch, #nowTitle, #btnPrev...
+       - Playlist + Search + Shuffle + Repeat + Lyrics per-track (LocalStorage)
+       ========================================================= */
 
-    // =========================
-    // Helpers
-    // =========================
-    const $ = (s, root=document) => root.querySelector(s);
-    const $$ = (s, root=document) => Array.from(root.querySelectorAll(s));
-    const now = () => new Date().toISOString();
+    const $ = (q, root=document) => root.querySelector(q);
 
-    function safeParse(json, fallback){
-      try{ return JSON.parse(json); }catch{ return fallback; }
-    }
-    function save(key, value){
-      localStorage.setItem(key, JSON.stringify(value));
-      refreshKeyList();
-    }
-    function load(key, fallback){
-      const v = localStorage.getItem(key);
-      return v ? safeParse(v, fallback) : fallback;
-    }
     function toast(msg){
-      const t = $("#toast");
-      t.textContent = msg;
-      t.classList.add("show");
-      window.clearTimeout(toast._tm);
-      toast._tm = window.setTimeout(()=>t.classList.remove("show"), 2200);
-    }
-    function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
-    function uid(){ return Math.random().toString(16).slice(2) + Date.now().toString(16); }
-
-    // =========================
-    // Theme
-    // =========================
-    function applyTheme(theme){
-      document.documentElement.setAttribute("data-theme", theme);
-      save(K.theme, theme);
-      toast(theme === "light" ? "Light theme" : "Dark theme");
-    }
-    function initTheme(){
-      const t = load(K.theme, "dark");
-      document.documentElement.setAttribute("data-theme", t);
+      const el = $("#toast");
+      if(!el) return alert(msg);
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(()=> el.classList.remove("show"), 1800);
     }
 
-    // =========================
-    // Navigation active link
-    // =========================
-    function setActiveNav(){
-      const links = $$("[data-link]");
-      const y = window.scrollY + 120;
-      let current = "#media";
-      for (const s of ["#media","#vocab","#quiz","#timer","#data"]){
-        const el = $(s);
-        if (el && el.offsetTop <= y) current = s;
-      }
-      links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === current));
+    function safeJSONParse(str, fallback){
+      try{ return JSON.parse(str); }catch(e){ return fallback; }
     }
 
-    // =========================
-    // YouTube URL -> embed
-    // =========================
-    function extractYouTubeId(input){
-      if(!input) return "";
-      const raw = input.trim();
-      // If already id-like
-      if (/^[a-zA-Z0-9_-]{6,}$/.test(raw) && !raw.includes("http")) return raw;
-
-      try{
-        const url = new URL(raw);
-        if (url.hostname.includes("youtu.be")){
-          const id = url.pathname.replace("/","").trim();
-          return id || "";
-        }
-        if (url.hostname.includes("youtube.com")){
-          const v = url.searchParams.get("v");
-          if (v) return v;
-          // /embed/ID or /shorts/ID
-          const parts = url.pathname.split("/").filter(Boolean);
-          const idx = parts.findIndex(p => p === "embed" || p === "shorts");
-          if (idx >= 0 && parts[idx+1]) return parts[idx+1];
-        }
-      }catch{
-        // ignore
-      }
-      return "";
-    }
-    function setYouTube(input){
-      const id = extractYouTubeId(input);
-      if(!id){
-        toast("Không nhận ra YouTube ID/URL");
-        return;
-      }
-      const embed = `https://www.youtube.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`;
-      $("#ytPlayer").src = embed;
-      $("#ytUrl").value = input;
-      save(K.ytUrl, input);
-      toast("Loaded video ✅");
-    }
-    function stopYouTube(){
-      $("#ytPlayer").src = "about:blank";
-      save(K.ytUrl, "");
-      $("#ytUrl").value = "";
-      toast("Stopped");
+    function norm(str){
+      return (str||"").toString().trim().toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g,"");
     }
 
-    // =========================
-    // Playlist
-    // =========================
-    let playlist = load(K.playlist, []);
-    let selectedTrackId = load(K.selectedTrackId, "");
+    // ===== DOM =====
+    const ytPlayer   = $("#ytPlayer");
+    const playlistEl = $("#playlist");
+    const searchEl   = $("#trackSearch");
+    const nowTitleEl = $("#nowTitle");
+    const nowMetaEl  = $("#nowMeta");
+    const nowTypeEl  = $("#nowType");
+    const nowDescEl  = $("#nowDesc");
+    const countBadge = $("#countBadge");
 
-    function formatTrackMeta(t){
-      const a = t.artist ? `• ${t.artist}` : "";
-      const tag = t.tag ? `• ${t.tag}` : "";
-      return `${t.type || "YOUTUBE"} ${a} ${tag}`.trim();
-    }
+    const btnPrev    = $("#btnPrev");
+    const btnNext    = $("#btnNext");
+    const btnShuffle = $("#btnShuffle");
+    const btnRepeat  = $("#btnRepeat");
+    const btnCopyLink= $("#btnCopyLink");
+    const btnTheme   = $("#btnTheme");
 
-    function renderPlaylist(){
-      const q = ($("#plSearch").value || "").trim().toLowerCase();
-      const list = $("#playlist");
-      list.innerHTML = "";
+    const lyricEnEl  = $("#lyricEN");
+    const lyricViEl  = $("#lyricVI");
+    const btnSaveLyric = $("#btnSaveLyric");
+    const btnLoadLyric = $("#btnLoadLyric");
+    const btnClearLyric= $("#btnClearLyric");
 
-      const filtered = playlist.filter(t => {
-        const blob = `${t.title||""} ${t.artist||""} ${t.desc||""} ${t.url||""} ${t.tag||""}`.toLowerCase();
-        return blob.includes(q);
+    // ===== DATA: minimal default list (you can paste your 100 tracks here) =====
+    // Nếu bạn đã có list MEDIA trong file cũ, cứ thay TRACKS bên dưới bằng list đó.
+    const TRACKS = [
+      { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"US/UK", desc:"Official video", videoId:"JGwWNGJdvx8" },
+      { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"US/UK", desc:"Official video", videoId:"OPf0YbXqDm0" },
+      { type:"MUSIC", title:"bad guy — Billie Eilish", meta:"US/UK", desc:"Official video", videoId:"DyDfgMOUjCI" },
+      { type:"MUSIC", title:"Despacito — Luis Fonsi ft. Daddy Yankee", meta:"GLOBAL", desc:"Official video", videoId:"kJQP7kiw5Fk" },
+      { type:"MUSIC", title:"Gangnam Style — PSY", meta:"K-POP", desc:"Official video", videoId:"9bZkp7q19f0" },
+      { type:"MUSIC", title:"Faded — Alan Walker", meta:"EDM", desc:"Official video", videoId:"60ItHLz5WEA" },
+      { type:"MUSIC", title:"Hello — Adele", meta:"US/UK", desc:"Official video", videoId:"YQHsXMglC9A" },
+      { type:"MUSIC", title:"Waka Waka — Shakira", meta:"GLOBAL", desc:"Official video", videoId:"pRpeEdMmmQ0" }
+    ];
+
+    // ===== STORAGE KEYS =====
+    const LS_STATE  = "mvapp_state_v1";
+    const LS_LYRICS = "mvapp_lyrics_store_v1";
+
+    function readState(){
+      return safeJSONParse(localStorage.getItem(LS_STATE), {
+        idx: 0,
+        shuffle: false,
+        repeatOne: false,
+        theme: document.documentElement.getAttribute("data-theme") || "dark"
       });
+    }
+    function writeState(s){
+      localStorage.setItem(LS_STATE, JSON.stringify(s));
+    }
+    function readLyricsStore(){
+      return safeJSONParse(localStorage.getItem(LS_LYRICS), {});
+    }
+    function writeLyricsStore(obj){
+      localStorage.setItem(LS_LYRICS, JSON.stringify(obj));
+    }
 
-      $("#playlistCount").textContent = `${filtered.length} / ${playlist.length} bài`;
+    // ===== APP STATE =====
+    let state = readState();
+    let currentIndex = clampIndex(state.idx);
+    let shuffle = !!state.shuffle;
+    let repeatOne = !!state.repeatOne;
 
-      if(filtered.length === 0){
-        const empty = document.createElement("div");
-        empty.className = "muted";
-        empty.style.fontWeight = "900";
-        empty.textContent = playlist.length ? "Không có kết quả" : "Playlist trống. Bấm Add để thêm bài.";
-        list.appendChild(empty);
-        return;
-      }
+    function clampIndex(i){
+      const n = TRACKS.length || 1;
+      i = Number.isFinite(i) ? i : 0;
+      if(i < 0) i = 0;
+      if(i >= n) i = n - 1;
+      return i;
+    }
 
-      for(const t of filtered){
-        const div = document.createElement("div");
-        div.className = "track" + (t.id === selectedTrackId ? " active" : "");
-        div.dataset.id = t.id;
-        div.innerHTML = `
+    function setTheme(t){
+      document.documentElement.setAttribute("data-theme", t);
+      state.theme = t;
+      writeState(state);
+    }
+
+    function toggleTheme(){
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      setTheme(cur === "dark" ? "light" : "dark");
+      toast("🌓 Theme: " + (document.documentElement.getAttribute("data-theme")));
+    }
+
+    function buildEmbedUrl(videoId){
+      // NOTE: Không thể đọc currentTime từ iframe => không có save time ở bản này
+      return `https://www.youtube.com/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0&modestbranding=1`;
+    }
+
+    function setNowPlayingUI(track){
+      nowTitleEl.textContent = track?.title || "Chưa chọn bài";
+      nowTypeEl.textContent  = track?.type || "MUSIC";
+      nowMetaEl.textContent  = track?.meta || "—";
+      nowDescEl.textContent  = track?.desc || "—";
+    }
+
+    function renderPlaylist(filterText=""){
+      const f = norm(filterText);
+      const list = TRACKS
+        .map((t, idx)=> ({...t, idx}))
+        .filter(t => !f || norm(t.title + " " + (t.meta||"") + " " + (t.desc||"")).includes(f));
+
+      playlistEl.innerHTML = list.map(t => `
+        <div class="track ${t.idx===currentIndex ? "active":""}" data-idx="${t.idx}">
           <div class="trackTop">
-            <div class="trackTitle">${escapeHTML(t.title || "Untitled")}</div>
-            <div class="trackMeta">${escapeHTML(formatTrackMeta(t))}</div>
+            <div class="trackTitle">${escapeHtml(t.title)}</div>
+            <div class="trackMeta">${escapeHtml(t.meta || t.type || "MUSIC")}</div>
           </div>
-          <p class="trackDesc">${escapeHTML(t.desc || "")}</p>
-          <div class="rowActions">
-            <button class="miniBtn" data-act="play">▶️ Play</button>
-            <button class="miniBtn" data-act="edit">✏️ Edit</button>
-            <button class="miniBtn" data-act="del">🗑️ Del</button>
-          </div>
-        `;
-        div.addEventListener("click", (e)=>{
-          const btn = e.target.closest("button");
-          if(!btn){
-            // click card = play
-            playTrack(t.id);
-            return;
-          }
-          const act = btn.dataset.act;
-          if(act === "play") playTrack(t.id);
-          if(act === "edit") editTrack(t.id);
-          if(act === "del") deleteTrack(t.id);
-          e.stopPropagation();
-        });
-        list.appendChild(div);
-      }
+          <p class="trackDesc">${escapeHtml(t.desc || "")}</p>
+        </div>
+      `).join("");
+
+      countBadge.textContent = `${list.length} / ${TRACKS.length} tracks`;
     }
 
-    function playTrack(id){
-      const t = playlist.find(x => x.id === id);
-      if(!t) return;
-      selectedTrackId = id;
-      save(K.selectedTrackId, id);
-      $("#nowPlaying").textContent = `Now: ${t.title || "Untitled"}`;
-      setYouTube(t.url || "");
-      renderPlaylist();
-      // load track-specific lyrics if exists
-      const allLyrics = load(K.lyrics, {});
-      const L = allLyrics[id] || { en:"", vi:"" };
-      $("#lyricEN").value = L.en || "";
-      $("#lyricVI").value = L.vi || "";
-      toast("Playing: " + (t.title || "Untitled"));
-    }
-
-    function promptTrack(defaults={}){
-      const title = prompt("Title:", defaults.title || "");
-      if(title === null) return null;
-      const artist = prompt("Artist (optional):", defaults.artist || "") ?? "";
-      const url = prompt("YouTube URL or ID:", defaults.url || "") ?? "";
-      const desc = prompt("Description (optional):", defaults.desc || "") ?? "";
-      const tag = prompt("Tag (optional):", defaults.tag || "") ?? "";
-      return { title:title.trim(), artist:artist.trim(), url:url.trim(), desc:desc.trim(), tag:tag.trim(), type:"YOUTUBE" };
-    }
-    function addTrack(){
-      const data = promptTrack();
-      if(!data) return;
-      if(!data.url){ toast("Thiếu URL/ID"); return; }
-      const t = { id: uid(), createdAt: now(), ...data };
-      playlist.unshift(t);
-      save(K.playlist, playlist);
-      renderPlaylist();
-      toast("Added track ✅");
-    }
-    function editTrack(id){
-      const t = playlist.find(x => x.id === id);
-      if(!t) return;
-      const data = promptTrack(t);
-      if(!data) return;
-      Object.assign(t, data, { updatedAt: now() });
-      save(K.playlist, playlist);
-      renderPlaylist();
-      toast("Updated ✅");
-    }
-    function deleteTrack(id){
-      const t = playlist.find(x => x.id === id);
-      if(!t) return;
-      if(!confirm(`Xóa "${t.title}"?`)) return;
-      playlist = playlist.filter(x => x.id !== id);
-      save(K.playlist, playlist);
-      if(selectedTrackId === id){
-        selectedTrackId = "";
-        save(K.selectedTrackId, "");
-        $("#nowPlaying").textContent = "Chưa chọn bài";
-      }
-      // remove lyrics for track
-      const allLyrics = load(K.lyrics, {});
-      delete allLyrics[id];
-      save(K.lyrics, allLyrics);
-      renderPlaylist();
-      toast("Deleted 🗑️");
-    }
-
-    // =========================
-    // Lyrics per track
-    // =========================
-    function escapeHTML(s){
+    function escapeHtml(s){
       return (s ?? "").toString()
         .replaceAll("&","&amp;")
         .replaceAll("<","&lt;")
         .replaceAll(">","&gt;")
         .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+        .replaceAll("'","&#39;");
     }
 
-    function persistLyrics(){
-      const id = selectedTrackId || "__free__";
-      const allLyrics = load(K.lyrics, {});
-      allLyrics[id] = { en: $("#lyricEN").value, vi: $("#lyricVI").value, updatedAt: now() };
-      save(K.lyrics, allLyrics);
-      $("#lyricStatus").textContent = "Saved ✅ " + new Date().toLocaleTimeString();
-    }
+    function playByIndex(idx, {silent=false} = {}){
+      idx = clampIndex(idx);
+      currentIndex = idx;
+      state.idx = idx;
+      writeState(state);
 
-    function loadInitialLyrics(){
-      const id = selectedTrackId || "__free__";
-      const allLyrics = load(K.lyrics, {});
-      const L = allLyrics[id] || { en:"", vi:"" };
-      $("#lyricEN").value = L.en || "";
-      $("#lyricVI").value = L.vi || "";
-    }
+      const track = TRACKS[idx];
+      setNowPlayingUI(track);
 
-    // =========================
-    // Vocabulary
-    // =========================
-    let vocab = load(K.vocab, []);
-    function normalizeWord(w){ return (w||"").trim(); }
-
-    function addVocab(){
-      const word = normalizeWord($("#vWord").value);
-      const level = $("#vLevel").value;
-      const meaning = ($("#vMeaning").value||"").trim();
-      const example = ($("#vExample").value||"").trim();
-
-      if(!word){ toast("Thiếu Word"); return; }
-      const exists = vocab.some(v => v.word.toLowerCase() === word.toLowerCase());
-      if(exists && !confirm("Từ này đã có. Vẫn thêm?")) return;
-
-      vocab.unshift({ id: uid(), word, level, meaning, example, createdAt: now() });
-      save(K.vocab, vocab);
-      renderVocab();
-      $("#vWord").value = ""; $("#vMeaning").value=""; $("#vExample").value="";
-      $("#vWord").focus();
-      toast("Added vocab ✅");
-    }
-
-    function renderVocab(){
-      const q = ($("#vSearch").value||"").trim().toLowerCase();
-      const sort = $("#vSort").value;
-
-      let rows = vocab.filter(v => {
-        const blob = `${v.word} ${v.level} ${v.meaning} ${v.example}`.toLowerCase();
-        return blob.includes(q);
-      });
-
-      if(sort === "newest") rows = [...rows].sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||""));
-      if(sort === "oldest") rows = [...rows].sort((a,b)=>(a.createdAt||"").localeCompare(b.createdAt||""));
-      if(sort === "az") rows = [...rows].sort((a,b)=>a.word.localeCompare(b.word));
-      if(sort === "za") rows = [...rows].sort((a,b)=>b.word.localeCompare(a.word));
-      if(sort === "level") rows = [...rows].sort((a,b)=>a.level.localeCompare(b.level) || a.word.localeCompare(b.word));
-
-      $("#vocabCount").textContent = `${vocab.length} từ`;
-      const tbody = $("#vocabTable");
-      tbody.innerHTML = "";
-
-      if(rows.length === 0){
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td colspan="5" class="muted" style="font-weight:900;border-radius:14px">Chưa có từ hoặc không có kết quả.</td>`;
-        tbody.appendChild(tr);
-        return;
+      if(track?.videoId){
+        ytPlayer.src = buildEmbedUrl(track.videoId);
+        if(!silent) toast("▶️ " + track.title);
       }
 
-      for(const v of rows){
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td><span class="bold">${escapeHTML(v.word)}</span></td>
-          <td><span class="tag">${escapeHTML(v.level)}</span></td>
-          <td>${escapeHTML(v.meaning||"")}</td>
-          <td>${escapeHTML(v.example||"")}</td>
-          <td style="text-align:right">
-            <div class="rowActions">
-              <button class="miniBtn" data-act="edit">✏️ Edit</button>
-              <button class="miniBtn" data-act="del">🗑️ Del</button>
-            </div>
-          </td>
-        `;
-        tr.addEventListener("click",(e)=>{
-          const btn = e.target.closest("button");
-          if(!btn) return;
-          const act = btn.dataset.act;
-          if(act==="edit") editVocab(v.id);
-          if(act==="del") delVocab(v.id);
-          e.stopPropagation();
-        });
-        tbody.appendChild(tr);
+      renderPlaylist(searchEl?.value || "");
+      loadLyricsForCurrentIntoUI(false);
+    }
+
+    function nextIndex(){
+      if(repeatOne) return currentIndex;
+
+      if(shuffle){
+        if(TRACKS.length <= 1) return currentIndex;
+        let tries = 0;
+        let r = currentIndex;
+        while(r === currentIndex && tries < 10){
+          r = Math.floor(Math.random() * TRACKS.length);
+          tries++;
+        }
+        return r;
+      }
+      return (currentIndex + 1) % TRACKS.length;
+    }
+
+    function prevIndex(){
+      if(repeatOne) return currentIndex;
+      if(shuffle) return nextIndex(); // random prev for simplicity
+      return (currentIndex - 1 + TRACKS.length) % TRACKS.length;
+    }
+
+    function setShuffle(v){
+      shuffle = !!v;
+      state.shuffle = shuffle;
+      writeState(state);
+      btnShuffle.setAttribute("aria-pressed", String(shuffle));
+      btnShuffle.textContent = shuffle ? "🔀 Shuffle: ON" : "🔀 Shuffle: OFF";
+    }
+
+    function setRepeatOne(v){
+      repeatOne = !!v;
+      state.repeatOne = repeatOne;
+      writeState(state);
+      btnRepeat.setAttribute("aria-pressed", String(repeatOne));
+      btnRepeat.textContent = repeatOne ? "🔁 Repeat One: ON" : "🔁 Repeat One: OFF";
+    }
+
+    async function copyCurrentLink(){
+      const t = TRACKS[currentIndex];
+      if(!t?.videoId) return toast("❌ No track");
+      const url = `https://youtu.be/${t.videoId}`;
+      try{
+        await navigator.clipboard.writeText(url);
+        toast("✅ Copied: " + url);
+      }catch{
+        // fallback
+        const ta = document.createElement("textarea");
+        ta.value = url;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        toast("✅ Copied: " + url);
       }
     }
 
-    function editVocab(id){
-      const v = vocab.find(x=>x.id===id);
-      if(!v) return;
-      const word = prompt("Word:", v.word);
-      if(word === null) return;
-      const meaning = prompt("Meaning:", v.meaning||"") ?? "";
-      const example = prompt("Example:", v.example||"") ?? "";
-      const level = prompt("Level (A1/A2/B1/B2/C1/C2):", v.level||"B1") ?? v.level;
-
-      v.word = normalizeWord(word) || v.word;
-      v.meaning = meaning.trim();
-      v.example = example.trim();
-      v.level = (level||v.level).trim().toUpperCase();
-      v.updatedAt = now();
-
-      save(K.vocab, vocab);
-      renderVocab();
-      toast("Updated vocab ✅");
-    }
-    function delVocab(id){
-      const v = vocab.find(x=>x.id===id);
-      if(!v) return;
-      if(!confirm(`Xóa từ "${v.word}"?`)) return;
-      vocab = vocab.filter(x=>x.id!==id);
-      save(K.vocab, vocab);
-      renderVocab();
-      toast("Deleted 🗑️");
+    // ===== LYRICS STORE (per track) =====
+    function currentKey(){
+      const t = TRACKS[currentIndex];
+      return t?.videoId ? String(t.videoId) : String(currentIndex);
     }
 
-    // Export/import vocab only
-    function exportVocab(){
-      downloadJSON({ exportedAt: now(), vocab }, "vocab.json");
+    function loadLyricsForCurrentIntoUI(showToast){
+      const store = readLyricsStore();
+      const key = currentKey();
+      const entry = store[key] || { en:"", vi:"" };
+      if(lyricEnEl) lyricEnEl.value = entry.en || "";
+      if(lyricViEl) lyricViEl.value = entry.vi || "";
+      if(showToast) toast("📥 Loaded lyrics");
     }
-    function importVocab(file){
-      const reader = new FileReader();
-      reader.onload = ()=>{
-        const data = safeParse(reader.result, null);
-        if(!data || !Array.isArray(data.vocab)){ toast("File không đúng"); return; }
-        vocab = data.vocab;
-        save(K.vocab, vocab);
-        renderVocab();
-        toast("Imported vocab ✅");
+
+    function saveLyricsForCurrentFromUI(){
+      const store = readLyricsStore();
+      const key = currentKey();
+      store[key] = {
+        en: lyricEnEl?.value || "",
+        vi: lyricViEl?.value || ""
       };
-      reader.readAsText(file);
+      writeLyricsStore(store);
+      toast("💾 Saved lyrics");
     }
 
-    // =========================
-    // Quiz
-    // =========================
-    let quizState = load(K.quiz, null); // {items, idx, score, mode, total, level, choices, answered}
-
-    function filteredVocabForQuiz(){
-      const level = $("#qLevel").value;
-      const src = level === "ALL" ? vocab : vocab.filter(v => v.level === level);
-      return src;
-    }
-    function buildQuiz(){
-      const src = filteredVocabForQuiz();
-      const count = parseInt($("#qCount").value, 10);
-      const mode = $("#qMode").value;
-      const choices = parseInt($("#qChoice").value, 10);
-
-      if(src.length < Math.max(6, choices)){
-        toast("Vocab chưa đủ để tạo quiz");
-        return null;
-      }
-      // sample
-      const pool = shuffle([...src]).slice(0, Math.min(count, src.length));
-      const items = pool.map(v => ({
-        id: v.id,
-        word: v.word,
-        meaning: v.meaning || "",
-        example: v.example || "",
-        level: v.level || "B1"
-      }));
-
-      quizState = { createdAt: now(), mode, choices, idx: 0, score: 0, items, answered: false, last: null };
-      save(K.quiz, quizState);
-      return quizState;
+    function clearLyricBoxes(){
+      if(lyricEnEl) lyricEnEl.value = "";
+      if(lyricViEl) lyricViEl.value = "";
+      toast("🧹 Cleared");
     }
 
-    function renderQuiz(){
-      if(!quizState || !quizState.items || quizState.items.length === 0){
-        $("#qPrompt").textContent = "Chưa có câu hỏi. Bấm “Start Quiz”.";
-        $("#qOptions").innerHTML = "";
-        $("#qCounterTag").textContent = "0/0";
-        $("#qScoreTag").textContent = "Score: 0";
-        $("#qBar").style.width = "0%";
-        $("#qExplain").textContent = "—";
-        $("#quizInfo").textContent = "Chưa bắt đầu";
-        return;
-      }
+    // ===== BIND EVENTS (no dupes) =====
+    let BOUND = false;
+    function bindOnce(){
+      if(BOUND) return;
+      BOUND = true;
 
-      const total = quizState.items.length;
-      const idx = clamp(quizState.idx, 0, total-1);
-      const item = quizState.items[idx];
+      btnPrev?.addEventListener("click", ()=> playByIndex(prevIndex()));
+      btnNext?.addEventListener("click", ()=> playByIndex(nextIndex()));
+      btnShuffle?.addEventListener("click", ()=> setShuffle(!shuffle));
+      btnRepeat?.addEventListener("click", ()=> setRepeatOne(!repeatOne));
+      btnCopyLink?.addEventListener("click", copyCurrentLink);
+      btnTheme?.addEventListener("click", toggleTheme);
 
-      $("#qCounterTag").textContent = `${idx+1}/${total}`;
-      $("#qScoreTag").textContent = `Score: ${quizState.score}`;
-      $("#qBar").style.width = `${Math.round(((idx)/total)*100)}%`;
-      $("#quizInfo").textContent = `Mode: ${quizState.mode.toUpperCase()} • Choices: ${quizState.choices}`;
+      searchEl?.addEventListener("input", ()=> renderPlaylist(searchEl.value));
 
-      const mode = quizState.mode;
-      const prompt = makePrompt(item, mode);
-      $("#qPrompt").textContent = prompt.text;
-
-      const options = makeOptions(item, mode, quizState.choices);
-      const box = $("#qOptions");
-      box.innerHTML = "";
-      for(const opt of options){
-        const btn = document.createElement("button");
-        btn.className = "optBtn";
-        btn.textContent = opt.label;
-        btn.addEventListener("click", ()=>{
-          if(quizState.answered) return;
-          quizState.answered = true;
-          const correct = opt.correct;
-          if(correct) quizState.score += 1;
-          quizState.last = { correctValue: options.find(x=>x.correct)?.label || "", picked: opt.label, correct };
-          save(K.quiz, quizState);
-          // mark
-          $$("#qOptions .optBtn").forEach((b,i)=>{
-            const o = options[i];
-            if(o.correct) b.classList.add("correct");
-            if(!o.correct && o.label === opt.label) b.classList.add("wrong");
-          });
-          $("#qExplain").textContent = explain(item, mode, quizState.last);
-          toast(correct ? "Đúng ✅" : "Sai ❌");
-        });
-        box.appendChild(btn);
-      }
-      $("#qExplain").textContent = quizState.answered ? explain(item, mode, quizState.last) : "Chọn 1 đáp án.";
-    }
-
-    function makePrompt(item, mode){
-      if(mode === "en_vi") return { text: `Word: ${item.word}` };
-      if(mode === "vi_en") return { text: `Meaning: ${item.meaning || "(no meaning)"}` };
-      // fill
-      const ex = item.example || "";
-      if(!ex || ex.toLowerCase().indexOf(item.word.toLowerCase()) === -1){
-        return { text: `Fill: (example missing) Choose the correct word for: "${item.meaning || "—"}"` };
-      }
-      const blank = ex.replace(new RegExp(item.word, "ig"), "_____");
-      return { text: `Fill in the blank: ${blank}` };
-    }
-
-    function makeOptions(item, mode, n){
-      const src = filteredVocabForQuiz();
-      const choices = [];
-      const correctLabel = (mode === "en_vi") ? (item.meaning || "(no meaning)") :
-                           (mode === "vi_en") ? (item.word) :
-                           (item.word);
-      choices.push({ label: correctLabel, correct: true });
-
-      const candidates = shuffle(src.filter(v => v.id !== item.id));
-      for(const c of candidates){
-        const label = (mode === "en_vi") ? (c.meaning || "(no meaning)") :
-                      (mode === "vi_en") ? (c.word) :
-                      (c.word);
-        if(!choices.some(x => x.label.toLowerCase() === label.toLowerCase())){
-          choices.push({ label, correct:false });
-        }
-        if(choices.length >= n) break;
-      }
-      return shuffle(choices);
-    }
-
-    function explain(item, mode, last){
-      if(!last) return "—";
-      const base = `Đáp án đúng: ${mode==="en_vi" ? item.meaning : item.word}`;
-      const ex = item.example ? ` • Example: ${item.example}` : "";
-      return base + ex;
-    }
-
-    function nextQuestion(){
-      if(!quizState) return;
-      const total = quizState.items.length;
-      if(quizState.idx >= total-1){
-        $("#qBar").style.width = "100%";
-        toast(`Hoàn thành! Score: ${quizState.score}/${total}`);
-        $("#qExplain").textContent = `Done ✅ Score: ${quizState.score}/${total}`;
-        return;
-      }
-      quizState.idx += 1;
-      quizState.answered = false;
-      quizState.last = null;
-      save(K.quiz, quizState);
-      renderQuiz();
-    }
-
-    function revealAnswer(){
-      if(!quizState) return;
-      if(quizState.answered) return;
-      const idx = clamp(quizState.idx, 0, quizState.items.length-1);
-      const item = quizState.items[idx];
-      quizState.answered = true;
-      quizState.last = { correctValue: (quizState.mode==="en_vi"?item.meaning:item.word), picked:"(reveal)", correct:false };
-      save(K.quiz, quizState);
-      renderQuiz();
-      toast("Revealed 👀");
-    }
-
-    function resetQuiz(){
-      quizState = null;
-      localStorage.removeItem(K.quiz);
-      refreshKeyList();
-      renderQuiz();
-      toast("Quiz reset");
-    }
-
-    // =========================
-    // Timer / Pomodoro
-    // =========================
-    let timerState = load(K.timer, { presetMin:25, remainingSec:1500, running:false, startedAt:null, note:"" });
-    let stats = load(K.stats, { sessions:0, minutes:0 });
-
-    function setPreset(min){
-      const m = clamp(parseInt(min,10)||25, 1, 999);
-      timerState.presetMin = m;
-      timerState.remainingSec = m*60;
-      timerState.running = false;
-      timerState.startedAt = null;
-      save(K.timer, timerState);
-      renderTimer();
-      toast(`Preset: ${m} phút`);
-    }
-
-    function toggleTimer(){
-      timerState.running = !timerState.running;
-      timerState.startedAt = timerState.running ? Date.now() : null;
-      save(K.timer, timerState);
-      renderTimer();
-      toast(timerState.running ? "Timer Start" : "Timer Pause");
-    }
-
-    function resetTimer(){
-      timerState.remainingSec = timerState.presetMin * 60;
-      timerState.running = false;
-      timerState.startedAt = null;
-      save(K.timer, timerState);
-      renderTimer();
-      toast("Timer Reset");
-    }
-
-    function tickTimer(){
-      if(!timerState.running) return;
-      timerState.remainingSec -= 1;
-      if(timerState.remainingSec <= 0){
-        timerState.remainingSec = 0;
-        timerState.running = false;
-        timerState.startedAt = null;
-
-        // stats
-        stats.sessions += 1;
-        stats.minutes += timerState.presetMin;
-        save(K.stats, stats);
-
-        save(K.timer, timerState);
-        renderTimer();
-        renderStats();
-        toast("Hết giờ! ✅");
-        // simple beep (best-effort)
-        try{ beep(); }catch{}
-        return;
-      }
-      save(K.timer, timerState);
-      renderTimer();
-    }
-
-    function renderTimer(){
-      const mm = Math.floor(timerState.remainingSec / 60);
-      const ss = timerState.remainingSec % 60;
-      $("#timeBig").textContent = `${String(mm).padStart(2,"0")}:${String(ss).padStart(2,"0")}`;
-      $("#timerInfo").textContent = timerState.running ? "Running" : "Ready";
-      $("#btnTimerToggle").querySelector(".ico").textContent = timerState.running ? "⏸️" : "▶️";
-      $("#btnTimerToggle").querySelector("div>div").textContent = timerState.running ? "Pause" : "Start";
-      const total = timerState.presetMin * 60;
-      const done = total - timerState.remainingSec;
-      $("#tBar").style.width = `${clamp(Math.round((done/total)*100), 0, 100)}%`;
-      $("#focusNote").value = timerState.note || "";
-    }
-
-    function renderStats(){
-      $("#statSessions").textContent = stats.sessions || 0;
-      $("#statMinutes").textContent = stats.minutes || 0;
-    }
-
-    function resetStats(){
-      if(!confirm("Reset stats?")) return;
-      stats = { sessions:0, minutes:0 };
-      save(K.stats, stats);
-      renderStats();
-      toast("Stats reset");
-    }
-
-    function beep(){
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = "sine";
-      o.frequency.value = 880;
-      o.connect(g); g.connect(ctx.destination);
-      g.gain.setValueAtTime(0.0001, ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.02);
-      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.35);
-      o.start();
-      o.stop(ctx.currentTime + 0.36);
-      window.setTimeout(()=>ctx.close(), 500);
-    }
-
-    // =========================
-    // Export/import all
-    // =========================
-    function downloadJSON(obj, filename){
-      const blob = new Blob([JSON.stringify(obj, null, 2)], {type:"application/json"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    }
-
-    function exportAll(){
-      const all = {
-        exportedAt: now(),
-        theme: load(K.theme, "dark"),
-        playlist: load(K.playlist, []),
-        selectedTrackId: load(K.selectedTrackId, ""),
-        ytUrl: load(K.ytUrl, ""),
-        lyrics: load(K.lyrics, {}),
-        vocab: load(K.vocab, []),
-        quiz: load(K.quiz, null),
-        timer: load(K.timer, null),
-        stats: load(K.stats, null),
-      };
-      downloadJSON(all, "backup_all.json");
-      toast("Exported ✅");
-    }
-
-    function importAll(file){
-      const reader = new FileReader();
-      reader.onload = ()=>{
-        const data = safeParse(reader.result, null);
-        if(!data || typeof data !== "object"){ toast("File không đúng"); return; }
-        if(Array.isArray(data.playlist)) save(K.playlist, data.playlist);
-        if(typeof data.selectedTrackId === "string") save(K.selectedTrackId, data.selectedTrackId);
-        if(typeof data.ytUrl === "string") save(K.ytUrl, data.ytUrl);
-        if(data.lyrics && typeof data.lyrics === "object") save(K.lyrics, data.lyrics);
-        if(Array.isArray(data.vocab)) save(K.vocab, data.vocab);
-        if(data.quiz) save(K.quiz, data.quiz);
-        if(data.timer) save(K.timer, data.timer);
-        if(data.stats) save(K.stats, data.stats);
-        if(typeof data.theme === "string") save(K.theme, data.theme);
-
-        // reload in-memory
-        playlist = load(K.playlist, []);
-        selectedTrackId = load(K.selectedTrackId, "");
-        vocab = load(K.vocab, []);
-        quizState = load(K.quiz, null);
-        timerState = load(K.timer, timerState);
-        stats = load(K.stats, stats);
-
-        initTheme();
-        renderPlaylist();
-        renderVocab();
-        renderQuiz();
-        renderTimer();
-        renderStats();
-        refreshKeyList();
-        toast("Imported All ✅");
-      };
-      reader.readAsText(file);
-    }
-
-    function wipeStorage(){
-      if(!confirm("Xóa toàn bộ dữ liệu trang này?")) return;
-      Object.values(K).forEach(k => localStorage.removeItem(k));
-      refreshKeyList();
-      // reset memory
-      playlist = [];
-      selectedTrackId = "";
-      vocab = [];
-      quizState = null;
-      timerState = { presetMin:25, remainingSec:1500, running:false, startedAt:null, note:"" };
-      stats = { sessions:0, minutes:0 };
-      initTheme();
-      stopYouTube();
-      loadInitialLyrics();
-      renderPlaylist();
-      renderVocab();
-      renderQuiz();
-      renderTimer();
-      renderStats();
-      toast("Wiped ✅");
-    }
-
-    // =========================
-    // Demo content
-    // =========================
-    function addDemo(){
-      const demo = [
-        {
-          id: uid(),
-          title: "Lady Gaga - Always Remember Us This Way",
-          artist: "Lady Gaga",
-          url: "https://youtu.be/5vheNbQlsyU",
-          desc: "Practice listening + shadowing (chorus).",
-          tag: "LISTENING",
-          type: "YOUTUBE",
-          createdAt: now()
-        },
-        {
-          id: uid(),
-          title: "Lady Gaga - Shallow (Live)",
-          artist: "Lady Gaga",
-          url: "https://youtu.be/bo_efYhYU2A",
-          desc: "Learn pronunciation (th / vowel).",
-          tag: "PRONUNCIATION",
-          type: "YOUTUBE",
-          createdAt: now()
-        }
-      ];
-      // merge without duplicates by url
-      const urls = new Set(playlist.map(t => t.url));
-      for(const t of demo){
-        if(!urls.has(t.url)) playlist.unshift(t);
-      }
-      save(K.playlist, playlist);
-      renderPlaylist();
-      toast("Added demo ✅");
-    }
-    function resetDemo(){
-      if(!confirm("Xóa demo (playlist + lyrics của demo)?")) return;
-      // remove only demo urls
-      const demoUrls = new Set([
-        "https://youtu.be/5vheNbQlsyU",
-        "https://youtu.be/bo_efYhYU2A"
-      ]);
-      const removedIds = new Set(playlist.filter(t=>demoUrls.has(t.url)).map(t=>t.id));
-      playlist = playlist.filter(t=>!demoUrls.has(t.url));
-      save(K.playlist, playlist);
-
-      const allLyrics = load(K.lyrics, {});
-      for(const id of removedIds) delete allLyrics[id];
-      save(K.lyrics, allLyrics);
-
-      if(removedIds.has(selectedTrackId)){
-        selectedTrackId = "";
-        save(K.selectedTrackId, "");
-        $("#nowPlaying").textContent = "Chưa chọn bài";
-        stopYouTube();
-      }
-      renderPlaylist();
-      toast("Removed demo ✅");
-    }
-
-    // =========================
-    // Utils
-    // =========================
-    function shuffle(arr){
-      for(let i=arr.length-1;i>0;i--){
-        const j = Math.floor(Math.random()*(i+1));
-        [arr[i],arr[j]]=[arr[j],arr[i]];
-      }
-      return arr;
-    }
-
-    function refreshKeyList(){
-      const keys = Object.values(K).filter(k => localStorage.getItem(k) !== null);
-      $("#keyList").textContent = keys.length ? keys.join(" • ") : "—";
-    }
-
-    // =========================
-    // Help
-    // =========================
-    function showHelp(){
-      alert(
-`Phím tắt:
-T = đổi theme
-/ = focus search playlist
-Ctrl/⌘ + 1..4 = chuyển nhanh section
-Space = Start/Pause timer
-R = Reset timer
-H = help
-
-Gợi ý:
-- Bấm vào 1 track để play.
-- Lyrics auto-save theo track (nếu chưa chọn track thì lưu vào "__free__").
-- Vocab dùng để tạo Quiz.`
-      );
-    }
-
-    // =========================
-    // Wire events
-    // =========================
-    function bind(){
-      $("#btnTheme").addEventListener("click", ()=>{
-        const cur = document.documentElement.getAttribute("data-theme") || "dark";
-        applyTheme(cur === "dark" ? "light" : "dark");
-      });
-      $("#btnHelp").addEventListener("click", showHelp);
-
-      $("#btnLoadYt").addEventListener("click", ()=> setYouTube($("#ytUrl").value));
-      $("#btnClearYt").addEventListener("click", stopYouTube);
-
-      $("#btnNewTrack").addEventListener("click", addTrack);
-      $("#plSearch").addEventListener("input", renderPlaylist);
-
-      $("#lyricEN").addEventListener("input", debounce(persistLyrics, 350));
-      $("#lyricVI").addEventListener("input", debounce(persistLyrics, 350));
-      $("#btnClearLyrics").addEventListener("click", ()=>{
-        if(!confirm("Clear lyrics?")) return;
-        $("#lyricEN").value = ""; $("#lyricVI").value = "";
-        persistLyrics();
-        toast("Lyrics cleared");
-      });
-      $("#btnSwapLyrics").addEventListener("click", ()=>{
-        const a = $("#lyricEN").value;
-        $("#lyricEN").value = $("#lyricVI").value;
-        $("#lyricVI").value = a;
-        persistLyrics();
-        toast("Swapped");
-      });
-      $("#btnCopyLyrics").addEventListener("click", async ()=>{
-        const text = `EN:\n${$("#lyricEN").value}\n\nVI:\n${$("#lyricVI").value}`;
-        try{
-          await navigator.clipboard.writeText(text);
-          toast("Copied ✅");
-        }catch{
-          toast("Copy failed (browser)");
-        }
+      playlistEl?.addEventListener("click", (e)=>{
+        const card = e.target.closest(".track");
+        if(!card) return;
+        const idx = Number(card.getAttribute("data-idx"));
+        if(Number.isFinite(idx)) playByIndex(idx);
       });
 
-      $("#btnAddVocab").addEventListener("click", addVocab);
-      $("#btnClearVForm").addEventListener("click", ()=>{
-        $("#vWord").value=""; $("#vMeaning").value=""; $("#vExample").value="";
-        $("#vWord").focus();
-      });
-      $("#vWord").addEventListener("keydown", (e)=>{
-        if(e.key === "Enter"){ addVocab(); }
-      });
-      $("#vSearch").addEventListener("input", renderVocab);
-      $("#vSort").addEventListener("change", renderVocab);
-
-      $("#btnVocabExport").addEventListener("click", exportVocab);
-      $("#vocabImportFile").addEventListener("change", (e)=>{
-        const f = e.target.files?.[0];
-        if(f) importVocab(f);
-        e.target.value = "";
-      });
-
-      $("#btnStartQuiz").addEventListener("click", ()=>{
-        const q = buildQuiz();
-        if(!q) return;
-        quizState.answered = false;
-        save(K.quiz, quizState);
-        renderQuiz();
-        toast("Quiz started ✅");
-      });
-      $("#btnResetQuiz").addEventListener("click", resetQuiz);
-      $("#btnNextQ").addEventListener("click", nextQuestion);
-      $("#btnReveal").addEventListener("click", revealAnswer);
-
-      $$(".chipBtn").forEach(b => b.addEventListener("click", ()=> setPreset(b.dataset.min)));
-      $("#btnTimerToggle").addEventListener("click", toggleTimer);
-      $("#btnTimerReset").addEventListener("click", resetTimer);
-      $("#focusNote").addEventListener("input", debounce(()=>{
-        timerState.note = $("#focusNote").value;
-        save(K.timer, timerState);
-        $("#noteStatus").textContent = "Saved ✅ " + new Date().toLocaleTimeString();
-      }, 350));
-      $("#btnResetStats").addEventListener("click", resetStats);
-
-      $("#btnExportAll").addEventListener("click", exportAll);
-      $("#importAllFile").addEventListener("change", (e)=>{
-        const f = e.target.files?.[0];
-        if(f) importAll(f);
-        e.target.value = "";
-      });
-      $("#btnWipeStorage").addEventListener("click", wipeStorage);
-
-      $("#btnAddDemo").addEventListener("click", addDemo);
-      $("#btnResetAll").addEventListener("click", resetDemo);
-
-      $("#btnTop").addEventListener("click", ()=> window.scrollTo({top:0, behavior:"smooth"}));
-
-      // quick focus buttons
-      $("#btnFocusMedia").addEventListener("click", ()=> $("#media").scrollIntoView({behavior:"smooth"}));
-      $("#btnFocusVocab").addEventListener("click", ()=> $("#vocab").scrollIntoView({behavior:"smooth"}));
-      $("#btnFocusQuiz").addEventListener("click", ()=> $("#quiz").scrollIntoView({behavior:"smooth"}));
-      $("#btnFocusTimer").addEventListener("click", ()=> $("#timer").scrollIntoView({behavior:"smooth"}));
-
-      // keyboard shortcuts
-      window.addEventListener("keydown", (e)=>{
-        if(e.target && ["INPUT","TEXTAREA","SELECT"].includes(e.target.tagName)){
-          // allow / in inputs
-        }else{
-          if(e.key === "t" || e.key === "T"){
-            e.preventDefault();
-            $("#btnTheme").click();
-          }
-          if(e.key === "h" || e.key === "H"){
-            e.preventDefault();
-            showHelp();
-          }
-          if(e.key === "/"){
-            e.preventDefault();
-            $("#plSearch").focus();
-          }
-          if(e.key === " "){
-            e.preventDefault();
-            $("#btnTimerToggle").click();
-          }
-          if(e.key === "r" || e.key === "R"){
-            e.preventDefault();
-            $("#btnTimerReset").click();
-          }
-        }
-
-        if((e.ctrlKey || e.metaKey) && ["1","2","3","4"].includes(e.key)){
-          e.preventDefault();
-          const map = { "1":"#media", "2":"#vocab", "3":"#quiz", "4":"#timer" };
-          const sel = map[e.key];
-          $(sel)?.scrollIntoView({behavior:"smooth"});
-        }
-      });
-
-      window.addEventListener("scroll", debounce(setActiveNav, 80));
-      setActiveNav();
+      btnSaveLyric?.addEventListener("click", saveLyricsForCurrentFromUI);
+      btnLoadLyric?.addEventListener("click", ()=> loadLyricsForCurrentIntoUI(true));
+      btnClearLyric?.addEventListener("click", clearLyricBoxes);
     }
 
-    function debounce(fn, ms){
-      let t;
-      return (...args)=>{
-        clearTimeout(t);
-        t = setTimeout(()=>fn(...args), ms);
-      };
-    }
+    // ===== INIT =====
+    (function init(){
+      // Theme
+      const startTheme = state.theme || "dark";
+      setTheme(startTheme);
 
-    // =========================
-    // Boot
-    // =========================
-    function boot(){
-      initTheme();
-      refreshKeyList();
+      // Buttons state
+      setShuffle(shuffle);
+      setRepeatOne(repeatOne);
 
-      // load stored
-      playlist = load(K.playlist, []);
-      selectedTrackId = load(K.selectedTrackId, "");
-      vocab = load(K.vocab, []);
-      quizState = load(K.quiz, null);
-      timerState = load(K.timer, timerState);
-      stats = load(K.stats, stats);
+      // Render first
+      renderPlaylist("");
 
-      $("#ytUrl").value = load(K.ytUrl, "");
-      if($("#ytUrl").value) setYouTube($("#ytUrl").value);
+      // Bind
+      bindOnce();
 
-      renderPlaylist();
-      renderVocab();
-      renderQuiz();
-      renderTimer();
-      renderStats();
-      loadInitialLyrics();
-
-      bind();
-      setActiveNav();
-
-      // start timer tick
-      setInterval(tickTimer, 1000);
-
-      // restore selected track
-      if(selectedTrackId){
-        const t = playlist.find(x => x.id === selectedTrackId);
-        if(t){
-          $("#nowPlaying").textContent = `Now: ${t.title || "Untitled"}`;
-        }
-      }
-    }
-
-    boot();
+      // Auto play last track (silent toast)
+      playByIndex(currentIndex, {silent:true});
+      toast("✅ Ready!");
+    })();
   </script>
 </body>
 </html>
