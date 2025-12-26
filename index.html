@@ -1,2121 +1,1757 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trần Quốc Trung — Professional Portfolio</title>
-  <meta name="description" content="Portfolio chuyên nghiệp: Thú y • AI • Ứng dụng • Dự án • CV • Liên hệ • QR • Media" />
-
-  <!-- SEO / Social -->
-  <meta property="og:title" content="Trần Quốc Trung — Professional Portfolio" />
-  <meta property="og:description" content="Thú y • AI • Ứng dụng • Dự án • CV • Liên hệ • QR • Media" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="avatar.jpg" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <!-- QR library (CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <meta name="description" content="Media Player + AI English Learning Platform (offline single-file)" />
+  <meta name="author" content="Trần Quốc Trung" />
+  <title>Media • AI English Learning (Full)</title>
 
   <style>
+    /* =========================
+       0) RESET + BASE
+       ========================= */
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      min-height:100vh;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,"Times New Roman",serif;
+      background: radial-gradient(900px 500px at 15% 10%, rgba(255,59,59,.18), transparent 55%),
+                  radial-gradient(900px 500px at 80% 20%, rgba(255,213,74,.14), transparent 60%),
+                  radial-gradient(700px 500px at 40% 85%, rgba(74,144,255,.10), transparent 55%),
+                  linear-gradient(180deg, #05070c 0%, #070A10 100%);
+      color: rgba(255,255,255,.92);
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    img{max-width:100%;display:block}
+
     :root{
-      --bg: #070A10;
+      --bg:#070A10;
       --bg2:#05070c;
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.08);
-      --line: rgba(255,255,255,.12);
-      --txt: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
-      --muted2: rgba(255,255,255,.56);
-      --brand: #ff3b3b;
+      --txt:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --muted2:rgba(255,255,255,.56);
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.08);
+      --line:rgba(255,255,255,.12);
+      --brand:#ff3b3b;
       --brand2:#ffd54a;
       --blue:#6aa6ff;
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --radius: 18px;
-      --radius2: 24px;
-      --max: 1160px;
-      --ring: 0 0 0 4px rgba(255,59,59,.12);
+      --radius:18px;
+      --radius2:24px;
+      --shadow:0 18px 60px rgba(0,0,0,.55);
+      --ring:0 0 0 4px rgba(255,59,59,.14);
       --glass: blur(12px);
+      --max:1180px;
+      --ease:.18s ease;
     }
-
     [data-theme="light"]{
       --bg:#f6f7fb;
       --bg2:#ffffff;
-      --panel: rgba(0,0,0,.04);
-      --panel2: rgba(0,0,0,.06);
-      --line: rgba(0,0,0,.10);
-      --txt: rgba(0,0,0,.88);
-      --muted: rgba(0,0,0,.64);
-      --muted2: rgba(0,0,0,.52);
-      --shadow: 0 18px 60px rgba(0,0,0,.14);
-      --ring: 0 0 0 4px rgba(255,59,59,.18);
+      --txt:rgba(0,0,0,.88);
+      --muted:rgba(0,0,0,.64);
+      --muted2:rgba(0,0,0,.52);
+      --panel:rgba(0,0,0,.04);
+      --panel2:rgba(0,0,0,.06);
+      --line:rgba(0,0,0,.10);
+      --shadow:0 18px 60px rgba(0,0,0,.14);
+      --ring:0 0 0 4px rgba(255,59,59,.18);
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--txt);
-      background:
-        radial-gradient(1000px 500px at 15% 10%, rgba(255,59,59,.18), transparent 55%),
-        radial-gradient(900px 500px at 80% 15%, rgba(255,213,74,.14), transparent 60%),
-        radial-gradient(700px 500px at 40% 85%, rgba(74,144,255,.10), transparent 55%),
-        linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
-      overflow-x:hidden;
-    }
-
-    a{color:inherit; text-decoration:none}
-    img{max-width:100%; display:block}
-    button{font-family:inherit}
-
-    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
-    .grid{display:grid; gap:16px}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
+    .grid{display:grid;gap:16px}
+    .flex{display:flex;gap:10px;flex-wrap:wrap}
     .card{
-      background:linear-gradient(180deg, var(--panel) 0%, rgba(255,255,255,.04) 100%);
+      background: linear-gradient(180deg, var(--panel) 0%, rgba(255,255,255,.04) 100%);
       border:1px solid var(--line);
       border-radius:var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: var(--glass);
+      box-shadow:var(--shadow);
+      backdrop-filter:var(--glass);
     }
     .pad{padding:18px}
     .muted{color:var(--muted)}
     .muted2{color:var(--muted2)}
-
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      color:var(--muted);
-      font-weight:700;
-      font-size:13px;
-      white-space:nowrap;
-    }
-    .dot{
-      width:8px; height:8px; border-radius:999px;
-      background:linear-gradient(135deg, var(--brand), var(--brand2));
-      box-shadow: 0 0 0 4px rgba(255,59,59,.12);
-    }
+    .bold{font-weight:900}
+    .hidden{display:none !important}
 
     header{
-      position:sticky; top:0; z-index:50;
-      background:rgba(7,10,16,.62);
+      position:sticky;top:0;z-index:50;
+      background: rgba(7,10,16,.62);
       border-bottom:1px solid rgba(255,255,255,.08);
       backdrop-filter: blur(10px);
     }
     [data-theme="light"] header{
-      background:rgba(255,255,255,.75);
+      background: rgba(255,255,255,.75);
       border-bottom:1px solid rgba(0,0,0,.08);
     }
     .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:10px 0;
-      gap:12px;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:10px 0;gap:12px;
     }
-    .brandWrap{display:flex; align-items:center; gap:10px}
+    .brandWrap{display:flex;align-items:center;gap:10px}
     .brandBadge{
-      width:36px; height:36px; border-radius:14px;
-      display:grid; place-items:center;
+      width:36px;height:36px;border-radius:14px;display:grid;place-items:center;
       background:linear-gradient(135deg, rgba(255,59,59,.22), rgba(255,213,74,.18));
       border:1px solid rgba(255,255,255,.14);
       box-shadow:0 14px 40px rgba(0,0,0,.18);
       flex:0 0 auto;
     }
+    [data-theme="light"] .brandBadge{border-color:rgba(0,0,0,.10)}
     .brandBadge span{
       font-weight:900;
-      background:linear-gradient(135deg, var(--brand), var(--brand2));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
       letter-spacing:.4px;
     }
-    .brandTitle{font-weight:900; font-size:14px; line-height:1.15}
-    .brandSub{font-weight:700; font-size:12px; color:var(--muted2)}
-    .navLinks{
-      display:flex; align-items:center; gap:6px;
-      flex-wrap:wrap; justify-content:flex-end;
-    }
+    .brandTitle{font-weight:900;font-size:14px;line-height:1.15}
+    .brandSub{font-weight:800;font-size:12px;color:var(--muted2)}
+    .navLinks{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
     .navLinks a{
-      color:var(--muted);
-      font-weight:800;
-      font-size:12.5px;
-      padding:9px 10px;
-      border-radius:12px;
-      border:1px solid transparent;
+      color:var(--muted);font-weight:900;font-size:12.5px;
+      padding:9px 10px;border-radius:12px;border:1px solid transparent;
+      transition:var(--ease)
     }
-    .navLinks a:hover{
-      color:var(--txt);
-      border-color:rgba(255,255,255,.12);
-      background:rgba(255,255,255,.05);
-    }
+    .navLinks a:hover{color:var(--txt);border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.05)}
+    [data-theme="light"] .navLinks a:hover{border-color:rgba(0,0,0,.08);background:rgba(0,0,0,.03)}
     .navLinks a.active{
       color:var(--txt);
       border-color:rgba(255,59,59,.22);
       background:linear-gradient(135deg, rgba(255,59,59,.16), rgba(255,213,74,.10));
     }
-
-    .actions{display:flex; align-items:center; gap:8px}
+    .actions{display:flex;align-items:center;gap:8px}
     .iconBtn{
-      display:inline-flex; align-items:center; justify-content:center;
-      width:40px; height:40px;
-      border-radius:14px;
+      display:inline-flex;align-items:center;justify-content:center;
+      width:40px;height:40px;border-radius:14px;
       border:1px solid var(--line);
       background:rgba(255,255,255,.04);
-      cursor:pointer;
-      transition:.18s ease;
-      user-select:none;
+      cursor:pointer;transition:var(--ease);user-select:none
     }
-    .iconBtn:hover{transform:translateY(-1px); background:rgba(255,255,255,.06)}
-    .iconBtn:focus{outline:none; box-shadow:var(--ring)}
-    .kbd{font-weight:900; font-size:12px; opacity:.9}
+    .iconBtn:hover{transform:translateY(-1px);background:rgba(255,255,255,.06)}
+    .iconBtn:focus{outline:none;box-shadow:var(--ring)}
+    [data-theme="light"] .iconBtn{background:rgba(0,0,0,.03)}
+    .kbd{font-weight:900;font-size:12px;opacity:.9}
 
-    .hero{padding:20px 0 10px}
-    .heroGrid{grid-template-columns: 1.12fr .88fr; align-items:stretch}
+    .hero{padding:18px 0 10px}
+    .heroGrid{grid-template-columns:1.12fr .88fr;align-items:stretch}
+    @media (max-width: 980px){ .heroGrid{grid-template-columns:1fr} }
     .headline{
-      font-size:42px; line-height:1.06; margin:10px 0 12px;
-      letter-spacing:-.8px;
+      font-size:40px;line-height:1.05;margin:8px 0 10px;letter-spacing:-.8px
     }
+    @media (max-width: 520px){ .headline{font-size:32px} }
     .grad{
       background:linear-gradient(135deg,var(--brand),var(--brand2));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
+      -webkit-background-clip:text;background-clip:text;color:transparent
     }
-    .sub{
-      font-size:15px;
-      line-height:1.7;
-      color:var(--muted);
-      margin:0 0 14px;
-      max-width:70ch;
-      white-space:pre-line;
-    }
-    .metaRow{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 6px}
+    .sub{font-size:15px;line-height:1.7;color:var(--muted);margin:0 0 14px;max-width:72ch;white-space:pre-line}
 
-    .cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.05);
-      color:var(--txt);
-      font-weight:900;
-      font-size:14px;
-      min-width:190px;
-      cursor:pointer;
-      transition:.18s ease;
-      user-select:none;
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);color:var(--muted);
+      font-weight:900;font-size:13px;white-space:nowrap
     }
-    [data-theme="light"] .btn{border-color: rgba(0,0,0,.12)}
-    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.07)}
+    [data-theme="light"] .pill{background:rgba(0,0,0,.03)}
+    .dot{width:8px;height:8px;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand2));box-shadow:0 0 0 4px rgba(255,59,59,.12)}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.05);color:var(--txt);
+      font-weight:900;font-size:14px;min-width:190px;
+      cursor:pointer;transition:var(--ease);user-select:none
+    }
+    [data-theme="light"] .btn{border-color:rgba(0,0,0,.12);background:rgba(0,0,0,.03)}
+    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.07)}
+    [data-theme="light"] .btn:hover{background:rgba(0,0,0,.04)}
+    .btn:focus{outline:none;box-shadow:var(--ring)}
     .btnPrimary{
-      border-color: rgba(255,59,59,.35);
+      border-color:rgba(255,59,59,.35);
       background:linear-gradient(135deg, rgba(255,59,59,.25), rgba(255,213,74,.14));
     }
-    .btnPrimary:hover{
-      background:linear-gradient(135deg, rgba(255,59,59,.32), rgba(255,213,74,.18));
-    }
+    .btnPrimary:hover{background:linear-gradient(135deg, rgba(255,59,59,.32), rgba(255,213,74,.18))}
     .btn .ico{
-      width:28px; height:28px; border-radius:12px;
-      display:grid; place-items:center;
-      background:rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.12);
+      width:28px;height:28px;border-radius:12px;display:grid;place-items:center;
+      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)
     }
-    .btn small{display:block; margin-top:2px; font-size:11px; color:var(--muted); font-weight:800}
+    [data-theme="light"] .btn .ico{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.10)}
+    .btn small{display:block;margin-top:2px;font-size:11px;color:var(--muted);font-weight:800}
 
-    .avatar{
-      width:100%;
-      aspect-ratio: 1 / 1;
-      border-radius: var(--radius2);
-      border:1px solid rgba(255,255,255,.16);
-      overflow:hidden;
-      background:rgba(255,255,255,.04);
-      position:relative;
-      box-shadow: 0 24px 90px rgba(0,0,0,.35);
+    .miniBtn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:10px 12px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);cursor:pointer;font-weight:900;font-size:12.5px;transition:var(--ease)
     }
-    .avatar img{width:100%; height:100%; object-fit:cover; transform: scale(1.03)}
-    .avatar::after{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(600px 320px at 30% 10%, rgba(255,59,59,.18), transparent 55%),
-        radial-gradient(640px 340px at 80% 20%, rgba(255,213,74,.12), transparent 55%);
-      mix-blend-mode: overlay;
-      pointer-events:none;
-    }
+    [data-theme="light"] .miniBtn{background:rgba(0,0,0,.03)}
+    .miniBtn:hover{background:rgba(255,255,255,.06)}
+    [data-theme="light"] .miniBtn:hover{background:rgba(0,0,0,.04)}
+    .miniBtn:focus{outline:none;box-shadow:var(--ring)}
 
-    .miniGrid{display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:12px}
-    .mini{
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:12px;
-      background:rgba(255,255,255,.04);
+    .input,.select,.textarea{
+      padding:11px 12px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);color:var(--txt);
+      font-weight:800;font-size:13px;outline:none
     }
-    .mini b{display:block; font-size:13px}
-    .mini span{color:var(--muted); font-size:12px; line-height:1.45}
-
-    section{padding:10px 0 14px}
-    .titleRow{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin:4px 0 12px}
-    .titleRow h2{margin:0; font-size:18px; letter-spacing:-.2px}
-    .split2{grid-template-columns: 1fr 1fr}
-    .split3{grid-template-columns: 1fr 1fr 1fr}
-    .list{display:grid; gap:12px}
-    .item{
-      padding:14px;
-      border-radius:16px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-    }
-    .item h3{margin:0 0 6px; font-size:14px}
-    .item p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
-    .tagRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
-
-    .stats{display:grid; grid-template-columns: repeat(4, 1fr); gap:12px}
-    .stat{
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      border-radius:18px;
-      padding:14px;
-    }
-    .stat .num{font-size:22px; font-weight:900}
-    .stat .lbl{color:var(--muted2); font-size:12px; font-weight:800; margin-top:4px}
-
-    .timeline{display:grid; gap:12px}
-    .tItem{
-      display:grid;
-      grid-template-columns: 140px 1fr;
-      gap:12px;
-      padding:14px;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(255,255,255,.04);
-    }
-    .tDate{font-weight:900; color:var(--muted2); font-size:12px; letter-spacing:.6px; text-transform:uppercase}
-    .tTitle{font-weight:900; font-size:14px; margin:0}
-    .tDesc{margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.6}
-
-    .bars{display:grid; gap:10px}
-    .bar{
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:12px;
-      background:rgba(255,255,255,.04);
-    }
-    .barTop{display:flex; justify-content:space-between; gap:10px; font-weight:900; font-size:13px}
-    .meter{
-      height:10px; border-radius:999px; background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.10);
-      overflow:hidden;
-      margin-top:10px;
-    }
-    .fill{
-      height:100%;
-      border-radius:999px;
-      background:linear-gradient(90deg, rgba(255,59,59,.85), rgba(255,213,74,.85));
-      width:0%;
-      transition: width .6s ease;
-    }
-
-    .controls{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-    .input, .select{
-      padding:11px 12px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      color:var(--txt);
-      font-weight:800;
-      font-size:13px;
-      min-width:220px;
-      outline:none;
-    }
+    [data-theme="light"] .input,[data-theme="light"] .select,[data-theme="light"] .textarea{background:rgba(0,0,0,.03)}
     .select{min-width:180px}
-    .projGrid{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px}
-    .proj{
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(255,255,255,.04);
-      padding:14px;
-      display:grid; gap:10px;
-      cursor:pointer;
-      transition:.18s ease;
-    }
-    .proj:hover{transform: translateY(-2px); background:rgba(255,255,255,.06)}
-    .projTop{display:flex; justify-content:space-between; gap:10px}
-    .badge{
-      font-size:11px;
-      font-weight:900;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.04);
-      color:var(--muted);
-      white-space:nowrap;
-    }
-    .badge.red{border-color: rgba(255,59,59,.25)}
-    .badge.yellow{border-color: rgba(255,213,74,.25)}
-    .badge.blue{border-color: rgba(106,166,255,.25)}
-    .proj h3{margin:0; font-size:14px}
-    .proj p{margin:0; color:var(--muted); font-size:13px; line-height:1.55}
-    .projFooter{display:flex; justify-content:space-between; gap:10px; align-items:center; margin-top:2px}
-    .linkMini{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 10px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      font-weight:900;
-      font-size:12px;
-    }
+    .textarea{min-height:120px;resize:vertical}
 
-    .overlay{
-      position:fixed; inset:0;
-      background:rgba(0,0,0,.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      z-index:99;
-    }
-    .overlay.show{display:flex}
-    .modal{
-      width:min(920px, 100%);
-      border-radius:22px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, var(--panel2), var(--panel));
-      box-shadow: 0 30px 120px rgba(0,0,0,.6);
-      overflow:hidden;
-    }
-    .modalHead{
-      padding:14px 14px;
-      display:flex; justify-content:space-between; gap:10px; align-items:center;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .modalHead b{font-weight:900}
-    .modalBody{padding:14px}
-    .closeBtn{
-      width:42px; height:42px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      cursor:pointer;
-      font-weight:900;
-    }
-    .closeBtn:hover{background:rgba(255,255,255,.06)}
+    .titleRow{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:4px 0 12px}
+    .titleRow h2{margin:0;font-size:18px;letter-spacing:-.2px}
 
-    .iframeBox{
-      width:100%;
-      height:520px;
-      border-radius:18px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.03);
-    }
-    .iframeBox iframe{width:100%; height:100%; border:0;}
+    /* Sections */
+    section{padding:18px 0}
+    .sectionGrid{grid-template-columns:1.05fr .95fr}
+    @media (max-width: 980px){ .sectionGrid{grid-template-columns:1fr} }
 
-    .gal{display:grid; grid-template-columns: repeat(4, 1fr); gap:10px}
-    .ph{
-      border:1px solid var(--line);
-      border-radius:18px;
-      overflow:hidden;
-      background:rgba(255,255,255,.04);
-      cursor:pointer;
-      position:relative;
-      aspect-ratio: 4 / 3;
+    /* Media */
+    .playerBox{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);overflow:hidden}
+    [data-theme="light"] .playerBox{background:rgba(0,0,0,.02)}
+    .playerBox iframe{width:100%;height:420px;border:0;display:block;background:#000}
+    .playlistTools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .playlistTools .input{min-width:240px;flex:1}
+    .playlistScroll{max-height:520px;overflow:auto;padding-right:6px;scroll-behavior:smooth}
+    .playlist{display:grid;gap:10px}
+    .track{
+      border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04);
+      padding:12px;cursor:pointer;transition:var(--ease);display:grid;gap:6px
     }
-    .ph img{width:100%; height:100%; object-fit:cover; transform:scale(1.02)}
-    .ph::after{
-      content:"";
-      position:absolute; inset:0;
-      background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,.45));
-      pointer-events:none;
-    }
-    .ph span{
-      position:absolute; left:12px; bottom:10px;
-      font-weight:900; font-size:12px;
-      color:rgba(255,255,255,.92);
-      text-shadow:0 8px 30px rgba(0,0,0,.55);
-    }
+    [data-theme="light"] .track{background:rgba(0,0,0,.03)}
+    .track:hover{transform:translateY(-1px);background:rgba(255,255,255,.06)}
+    [data-theme="light"] .track:hover{background:rgba(0,0,0,.04)}
+    .track.active{border-color:rgba(255,59,59,.35);background:linear-gradient(135deg, rgba(255,59,59,.18), rgba(255,213,74,.10))}
+    .trackTop{display:flex;justify-content:space-between;gap:10px;align-items:center}
+    .trackTitle{font-weight:900;font-size:13px}
+    .trackMeta{color:var(--muted2);font-weight:900;font-size:11px;letter-spacing:.6px;text-transform:uppercase}
+    .trackDesc{color:var(--muted);font-size:12.5px;line-height:1.55;margin:0}
 
-    .posts{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px}
-    .post{
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(255,255,255,.04);
-      padding:14px;
-      display:grid; gap:10px;
-    }
-    .post .date{font-size:11px; font-weight:900; color:var(--muted2); letter-spacing:.6px; text-transform:uppercase}
-    .post h3{margin:0; font-size:14px}
-    .post p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
+    .lyricBox{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);overflow:hidden}
+    [data-theme="light"] .lyricBox{background:rgba(0,0,0,.02)}
+    .lyricBoxHead{padding:12px 12px;border-bottom:1px solid rgba(255,255,255,.10);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+    [data-theme="light"] .lyricBoxHead{border-bottom-color:rgba(0,0,0,.08)}
+    .lyricBoxBody{padding:12px}
+    .twoCols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width: 780px){ .twoCols{grid-template-columns:1fr} }
+    .textarea.small{min-height:150px}
+    .hint{font-size:12px;color:var(--muted2);font-weight:800}
 
-    details{
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(255,255,255,.04);
-      padding:12px 14px;
-    }
-    summary{cursor:pointer; font-weight:900; list-style:none;}
-    summary::-webkit-details-marker{display:none}
-    details p{margin:10px 0 0; color:var(--muted); line-height:1.65; font-size:13px}
+    /* Vocab */
+    table{width:100%;border-collapse:separate;border-spacing:0 10px}
+    th{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted2);text-align:left;padding:0 10px}
+    td{padding:12px 10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.04)}
+    [data-theme="light"] td{background:rgba(0,0,0,.03)}
+    td:first-child{border-left:1px solid var(--line);border-top-left-radius:14px;border-bottom-left-radius:14px}
+    td:last-child{border-right:1px solid var(--line);border-top-right-radius:14px;border-bottom-right-radius:14px}
+    .rowActions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .tag{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-weight:900;font-size:11px;color:var(--muted2)}
+    [data-theme="light"] .tag{background:rgba(0,0,0,.03)}
+    .danger{border-color:rgba(255,59,59,.28)}
+    .ok{border-color:rgba(106,166,255,.25)}
 
-    .contactGrid{grid-template-columns: 1.12fr .88fr}
-    .row{
-      display:grid;
-      grid-template-columns: 120px 1fr;
-      gap:10px;
-      padding:12px 0;
-      border-top:1px dashed rgba(255,255,255,.12);
+    /* Quiz */
+    .qBox{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);overflow:hidden}
+    [data-theme="light"] .qBox{background:rgba(0,0,0,.02)}
+    .qHead{padding:12px;border-bottom:1px solid rgba(255,255,255,.10);display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+    [data-theme="light"] .qHead{border-bottom-color:rgba(0,0,0,.08)}
+    .qBody{padding:12px}
+    .qPrompt{font-weight:900;margin-bottom:10px}
+    .qOpt{display:grid;gap:10px}
+    .optBtn{
+      text-align:left;width:100%;
+      padding:12px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);cursor:pointer;font-weight:900;transition:var(--ease)
     }
-    .row:first-child{border-top:none}
-    .label{color:var(--muted2); font-weight:900; font-size:12px; text-transform:uppercase; letter-spacing:.8px}
-    .value{font-weight:800}
-    .value a{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      margin-right:8px;
-      margin-top:6px;
-    }
-    .value a:hover{background:rgba(255,255,255,.06)}
-    .copyBtn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      cursor:pointer;
-      font-weight:900;
-      font-size:12px;
-      margin-top:6px;
-    }
-    .copyBtn:hover{background:rgba(255,255,255,.06)}
-    .formGrid{display:grid; gap:10px}
-    .textarea{min-height:120px; resize:vertical}
+    [data-theme="light"] .optBtn{background:rgba(0,0,0,.03)}
+    .optBtn:hover{background:rgba(255,255,255,.06);transform:translateY(-1px)}
+    [data-theme="light"] .optBtn:hover{background:rgba(0,0,0,.04)}
+    .optBtn.correct{border-color:rgba(106,166,255,.30)}
+    .optBtn.wrong{border-color:rgba(255,59,59,.30)}
+    .scoreLine{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:10px}
+    .progress{height:10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);overflow:hidden}
+    [data-theme="light"] .progress{background:rgba(0,0,0,.03)}
+    .bar{height:100%;width:0%;background:linear-gradient(135deg,var(--brand),var(--brand2))}
+    .smallText{font-size:12px;color:var(--muted2);font-weight:800}
 
+    /* Timer */
+    .timerBox{display:grid;gap:10px}
+    .timeBig{font-size:40px;font-weight:1000;letter-spacing:-.5px}
+    .timeRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .chipBtn{
+      padding:9px 12px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);cursor:pointer;font-weight:900;font-size:12px;transition:var(--ease)
+    }
+    [data-theme="light"] .chipBtn{background:rgba(0,0,0,.03)}
+    .chipBtn:hover{background:rgba(255,255,255,.06)}
+    [data-theme="light"] .chipBtn:hover{background:rgba(0,0,0,.04)}
+
+    /* Toast */
     .toast{
-      position:fixed; right:16px; bottom:16px;
-      padding:12px 14px;
-      border-radius:16px;
-      border:1px solid var(--line);
-      background:rgba(0,0,0,.65);
-      color:rgba(255,255,255,.92);
-      font-weight:900;
-      display:none;
-      z-index:120;
-      backdrop-filter: blur(10px);
-      max-width: 320px;
+      position:fixed;right:16px;bottom:16px;z-index:120;
+      padding:12px 14px;border-radius:16px;border:1px solid var(--line);
+      background:rgba(0,0,0,.65);color:rgba(255,255,255,.92);font-weight:900;
+      display:none;backdrop-filter: blur(10px);max-width:340px
     }
-    [data-theme="light"] .toast{
-      background:rgba(255,255,255,.85);
-      color:rgba(0,0,0,.88);
-    }
+    [data-theme="light"] .toast{background:rgba(255,255,255,.88);color:rgba(0,0,0,.88)}
     .toast.show{display:block}
 
-    .topBtn{
-      position:fixed;
-      left:16px;
-      bottom:16px;
-      width:46px; height:46px;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.05);
-      display:none;
-      place-items:center;
-      cursor:pointer;
-      z-index:120;
-      font-weight:900;
-      backdrop-filter: blur(10px);
-    }
-    .topBtn.show{display:grid}
-    .topBtn:hover{background:rgba(255,255,255,.08)}
-
-    footer{padding:22px 0 34px; color:var(--muted2); font-size:12px}
-    .foot{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; flex-wrap:wrap;
-      border-top:1px solid rgba(255,255,255,.10);
-      padding-top:14px;
-    }
-
-    .qrImg{
-      width: 220px;
-      max-width: 100%;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      padding: 10px;
-    }
-    .qrRow{display:flex; gap:18px; flex-wrap:wrap;}
-
-    .mediaGrid{grid-template-columns: 1.05fr .95fr}
-    .playerBox{
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(255,255,255,.03);
-      overflow:hidden;
-    }
-    .playerBox iframe{width:100%; height:420px; border:0; display:block}
-    .playlist{display:grid; gap:10px;}
-    .track{
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:rgba(255,255,255,.04);
-      padding:12px;
-      cursor:pointer;
-      transition:.18s ease;
-      display:grid;
-      gap:6px;
-    }
-    .track:hover{transform:translateY(-1px); background:rgba(255,255,255,.06)}
-    .track.active{
-      border-color: rgba(255,59,59,.35);
-      background:linear-gradient(135deg, rgba(255,59,59,.18), rgba(255,213,74,.10));
-    }
-    .trackTop{display:flex; justify-content:space-between; gap:10px; align-items:center}
-    .trackTitle{font-weight:900; font-size:13px}
-    .trackMeta{color:var(--muted2); font-weight:900; font-size:11px; letter-spacing:.6px; text-transform:uppercase}
-    .trackDesc{color:var(--muted); font-size:12.5px; line-height:1.55; margin:0}
-    .miniBtns{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
-    .miniBtn{
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      cursor:pointer;
-      font-weight:900;
-      font-size:12.5px;
-    }
-    .miniBtn:hover{background:rgba(255,255,255,.06)}
-    .chip{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:7px 10px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.04);
-      font-weight:900; font-size:11px; color:var(--muted2);
-    }
-
-    @media (max-width: 1040px){
-      .heroGrid{grid-template-columns: 1fr}
-      .split2{grid-template-columns: 1fr}
-      .split3{grid-template-columns: 1fr}
-      .contactGrid{grid-template-columns: 1fr}
-      .projGrid{grid-template-columns: 1fr 1fr}
-      .posts{grid-template-columns: 1fr 1fr}
-      .gal{grid-template-columns: 1fr 1fr}
-      .stats{grid-template-columns: 1fr 1fr}
-      .mediaGrid{grid-template-columns: 1fr}
-      .playerBox iframe{height:320px}
-    }
-    @media (max-width: 560px){
-      .headline{font-size:32px}
-      .miniGrid{grid-template-columns:1fr}
-      .projGrid{grid-template-columns: 1fr}
-      .posts{grid-template-columns: 1fr}
-      .row{grid-template-columns: 1fr}
-      .actions{display:none}
-      .playerBox iframe{height:240px}
-    }
+    footer{padding:18px 0 30px}
+    .footerRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace}
   </style>
 </head>
 
 <body>
   <header>
-    <div class="wrap">
-      <div class="nav">
-        <div class="brandWrap">
-          <div class="brandBadge" aria-hidden="true"><span>VS</span></div>
-          <div>
-            <div class="brandTitle">Trần Quốc Trung</div>
-            <div class="brandSub" data-i18n="role">Veterinary • AI • App Builder</div>
-          </div>
+    <div class="wrap nav">
+      <div class="brandWrap">
+        <div class="brandBadge" aria-hidden="true"><span>VS</span></div>
+        <div>
+          <div class="brandTitle">Media • AI English Learning</div>
+          <div class="brandSub">Học tiếng Anh qua nhạc • Lyrics • Từ vựng • Quiz • Timer</div>
         </div>
+      </div>
 
-        <nav class="navLinks" aria-label="Navigation">
-          <a href="#home" class="active" data-spy>Home</a>
-          <a href="#about" data-spy>About</a>
-          <a href="#highlights" data-spy>Highlights</a>
-          <a href="#skills" data-spy>Skills</a>
-          <a href="#timeline" data-spy>Timeline</a>
-          <a href="#projects" data-spy>Projects</a>
-          <a href="#cv" data-spy>CV</a>
-          <a href="#gallery" data-spy>Gallery</a>
-          <a href="#blog" data-spy>Blog</a>
-          <a href="#media" data-spy>Media</a>
-          <a href="#qr" data-spy>QR</a>
-          <a href="#faq" data-spy>FAQ</a>
-          <a href="#contact" data-spy>Contact</a>
-        </nav>
+      <nav class="navLinks" aria-label="navigation">
+        <a href="#media" data-link>Media</a>
+        <a href="#vocab" data-link>Vocab</a>
+        <a href="#quiz" data-link>Quiz</a>
+        <a href="#timer" data-link>Timer</a>
+        <a href="#data" data-link>Data</a>
+      </nav>
 
-        <div class="actions" aria-label="Actions">
-          <button class="iconBtn" id="btnTheme" title="Đổi giao diện (Light/Dark)"><span class="kbd">☀️</span></button>
-          <button class="iconBtn" id="btnLang" title="Đổi ngôn ngữ (VI/EN)"><span class="kbd">VI</span></button>
-        </div>
+      <div class="actions">
+        <button class="iconBtn" id="btnTheme" title="Đổi giao diện (T)">🌓</button>
+        <button class="iconBtn" id="btnHelp" title="Phím tắt (H)">?</button>
       </div>
     </div>
   </header>
 
-  <main class="wrap" id="home">
-    <section class="hero">
+  <main class="wrap">
+    <div class="hero">
       <div class="grid heroGrid">
         <div class="card pad">
-          <div class="pill"><span class="dot"></span> <span data-i18n="status">Online • Sẵn sàng hợp tác</span></div>
+          <div class="flex" style="justify-content:space-between;align-items:center">
+            <span class="pill"><span class="dot"></span> Offline • Single-file • Auto-save</span>
+            <span class="pill">⌨️ T: Theme • /: Search • Space: Play/Pause timer</span>
+          </div>
+          <h1 class="headline">🎧 Học tiếng Anh bằng <span class="grad">âm nhạc</span> + luyện <span class="grad">từ vựng</span></h1>
+          <p class="sub">Trung có thể:
+• Chọn bài từ playlist (YouTube embed)
+• Ghi lyrics EN/VN + lưu tự động
+• Lưu từ vựng (meaning, example, level)
+• Tự tạo quiz từ vocab
+• Pomodoro/timer luyện tập
+Tất cả lưu trong trình duyệt (localStorage) — không cần mạng.</p>
+          <div class="flex">
+            <button class="btn btnPrimary" id="btnAddDemo"><span class="ico">✨</span><div><div>Thêm playlist mẫu</div><small>Lady Gaga / học nhanh</small></div></button>
+            <button class="btn" id="btnResetAll"><span class="ico">🧹</span><div><div>Xóa dữ liệu demo</div><small>Không xóa file của máy</small></div></button>
+          </div>
+        </div>
 
-          <h1 class="headline">
-            <span data-i18n="hello">Xin chào, tôi là</span> <span class="grad">Trần Quốc Trung</span>.
-          </h1>
+        <div class="card pad">
+          <div class="titleRow">
+            <h2>📌 Quick Actions</h2>
+            <span class="muted2" style="font-weight:900;font-size:12px">Save: tự động</span>
+          </div>
+          <div class="grid" style="gap:12px">
+            <div class="flex">
+              <button class="btn" id="btnFocusMedia"><span class="ico">🎵</span><div><div>Đi tới Media</div><small>Ctrl/⌘ + 1</small></div></button>
+              <button class="btn" id="btnFocusVocab"><span class="ico">📚</span><div><div>Đi tới Vocab</div><small>Ctrl/⌘ + 2</small></div></button>
+            </div>
+            <div class="flex">
+              <button class="btn" id="btnFocusQuiz"><span class="ico">🧠</span><div><div>Đi tới Quiz</div><small>Ctrl/⌘ + 3</small></div></button>
+              <button class="btn" id="btnFocusTimer"><span class="ico">⏱️</span><div><div>Đi tới Timer</div><small>Ctrl/⌘ + 4</small></div></button>
+            </div>
 
-          <p class="sub" data-i18n="heroDesc">
-"Các mẹo làm giàu nhanh chỉ dành cho kẻ lười biếng & không dám dấn thân." - Steve Maraboli
-"Đừng làm việc chỉ để kiếm tiền, hãy làm việc để tạo ra giá trị và tiền sẽ đến với bạn." - Steve Maraboli
-"Người giàu làm việc để học hỏi, không phải để kiếm tiền." - Robert Kiyosaki
-"Nếu bạn không tìm ra cách kiếm tiền khi đang ngủ, bạn sẽ phải làm việc cho đến khi chết." - Warren Buffett
-"Sự khác biệt lớn nhất giữa người giàu và người nghèo là cách họ sử dụng thời gian." - Robert Kiyosaki
-"Không phải bạn kiếm được bao nhiêu, mà là bạn giữ được bao nhiêu, đầu tư được bao nhiêu và bạn giữ nó hoạt động như thế." - Robert Kiyosaki
-"Đừng bao giờ phụ thuộc vào một nguồn thu nhập duy nhất. Hãy đầu tư để tạo ra nguồn thu nhập thứ hai." - Warren Buffett
+            <div class="card pad" style="background:rgba(255,255,255,.03);box-shadow:none">
+              <div class="muted2" style="font-weight:900;margin-bottom:6px">Tip</div>
+              <div class="muted" style="font-weight:800;font-size:13px">
+                Dán link YouTube bất kỳ vào ô “YouTube URL” để phát. Lyrics có 2 ô: English & Vietnamese.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= MEDIA ================= -->
+    <section id="media" aria-label="media">
+      <div class="titleRow">
+        <h2>🎵 Media Player</h2>
+        <span class="muted2" style="font-weight:900;font-size:12px" id="nowPlaying">Chưa chọn bài</span>
+      </div>
+
+      <div class="grid sectionGrid">
+        <div class="card pad">
+          <div class="playerBox">
+            <iframe id="ytPlayer" title="YouTube Player" src="about:blank" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+
+          <div class="flex" style="margin-top:10px;align-items:center;justify-content:space-between">
+            <div class="flex" style="flex:1">
+              <input class="input" id="ytUrl" placeholder="Dán YouTube URL hoặc ID (vd: https://youtu.be/....)" />
+              <button class="miniBtn" id="btnLoadYt">▶️ Load</button>
+              <button class="miniBtn" id="btnClearYt">⛔ Stop</button>
+            </div>
+          </div>
+
+          <div class="lyricBox" style="margin-top:12px">
+            <div class="lyricBoxHead">
+              <div class="bold">📝 Lyrics (EN / VN)</div>
+              <div class="flex">
+                <button class="miniBtn" id="btnSwapLyrics">🔁 Swap</button>
+                <button class="miniBtn" id="btnCopyLyrics">📋 Copy</button>
+                <button class="miniBtn" id="btnClearLyrics">🧹 Clear</button>
+              </div>
+            </div>
+            <div class="lyricBoxBody">
+              <div class="twoCols">
+                <div>
+                  <div class="hint">English</div>
+                  <textarea class="textarea small" id="lyricEN" placeholder="Lyrics tiếng Anh..."></textarea>
+                </div>
+                <div>
+                  <div class="hint">Vietnamese</div>
+                  <textarea class="textarea small" id="lyricVI" placeholder="Lời dịch tiếng Việt..."></textarea>
+                </div>
+              </div>
+              <div class="smallText" style="margin-top:8px" id="lyricStatus">Auto-save ✅</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card pad">
+          <div class="titleRow">
+            <h2>🎶 Playlist</h2>
+            <span class="muted2" style="font-weight:900;font-size:12px" id="playlistCount">0 bài</span>
+          </div>
+
+          <div class="playlistWrap">
+            <div class="playlistTools">
+              <input class="input" id="plSearch" placeholder="Tìm bài… (gõ / để focus)" />
+              <button class="miniBtn" id="btnNewTrack">➕ Add</button>
+            </div>
+
+            <div class="playlistScroll" tabindex="0" aria-label="playlist list">
+              <div class="playlist" id="playlist"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VOCAB ================= -->
+    <section id="vocab" aria-label="vocab">
+      <div class="titleRow">
+        <h2>📚 Vocabulary Tracker</h2>
+        <span class="muted2" style="font-weight:900;font-size:12px" id="vocabCount">0 từ</span>
+      </div>
+
+      <div class="grid sectionGrid">
+        <div class="card pad">
+          <div class="titleRow">
+            <h2>➕ Add word</h2>
+            <span class="muted2" style="font-weight:900;font-size:12px">Tip: Enter để add nhanh</span>
+          </div>
+
+          <div class="grid" style="grid-template-columns: 1fr 1fr; gap:10px">
+            <input class="input" id="vWord" placeholder="Word (vd: committed)" />
+            <select class="select" id="vLevel">
+              <option value="A1">A1</option><option value="A2">A2</option><option value="B1" selected>B1</option>
+              <option value="B2">B2</option><option value="C1">C1</option><option value="C2">C2</option>
+            </select>
+            <input class="input" id="vMeaning" placeholder="Meaning (VN/EN ngắn)" />
+            <input class="input" id="vExample" placeholder="Example sentence" />
+          </div>
+
+          <div class="flex" style="margin-top:12px;justify-content:space-between;align-items:center">
+            <div class="flex">
+              <button class="miniBtn" id="btnAddVocab">✅ Add</button>
+              <button class="miniBtn" id="btnClearVForm">🧽 Clear</button>
+            </div>
+            <div class="flex">
+              <button class="miniBtn" id="btnVocabExport">⬇️ Export JSON</button>
+              <label class="miniBtn" for="vocabImportFile" style="cursor:pointer">⬆️ Import JSON</label>
+              <input id="vocabImportFile" type="file" accept="application/json" class="hidden" />
+            </div>
+          </div>
+        </div>
+
+        <div class="card pad">
+          <div class="titleRow">
+            <h2>🔎 Filter</h2>
+            <span class="muted2" style="font-weight:900;font-size:12px">Sort + Search</span>
+          </div>
+
+          <div class="grid" style="grid-template-columns: 1fr 1fr; gap:10px">
+            <input class="input" id="vSearch" placeholder="Search word/meaning/example…" />
+            <select class="select" id="vSort">
+              <option value="newest" selected>Mới nhất</option>
+              <option value="oldest">Cũ nhất</option>
+              <option value="az">A → Z</option>
+              <option value="za">Z → A</option>
+              <option value="level">Theo Level</option>
+            </select>
+          </div>
+
+          <div class="card pad" style="margin-top:12px;background:rgba(255,255,255,.03);box-shadow:none">
+            <div class="muted2" style="font-weight:900;margin-bottom:6px">Quiz uses vocab</div>
+            <div class="muted" style="font-weight:800;font-size:13px">
+              Quiz sẽ lấy dữ liệu từ bảng từ vựng này. Bạn càng nhập nhiều, quiz càng hay.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card pad" style="margin-top:12px">
+        <div class="titleRow">
+          <h2>📋 Your words</h2>
+          <span class="muted2" style="font-weight:900;font-size:12px">Click Edit để chỉnh</span>
+        </div>
+
+        <div style="overflow:auto">
+          <table aria-label="vocab table">
+            <thead>
+              <tr>
+                <th>Word</th>
+                <th>Level</th>
+                <th>Meaning</th>
+                <th>Example</th>
+                <th style="text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="vocabTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= QUIZ ================= -->
+    <section id="quiz" aria-label="quiz">
+      <div class="titleRow">
+        <h2>🧠 Quiz</h2>
+        <span class="muted2" style="font-weight:900;font-size:12px" id="quizInfo">Chưa bắt đầu</span>
+      </div>
+
+      <div class="grid sectionGrid">
+        <div class="card pad">
+          <div class="titleRow">
+            <h2>⚙️ Setup</h2>
+            <span class="muted2" style="font-weight:900;font-size:12px">Offline</span>
+          </div>
+
+          <div class="grid" style="grid-template-columns: 1fr 1fr; gap:10px">
+            <select class="select" id="qMode">
+              <option value="en_vi" selected>Word → Meaning</option>
+              <option value="vi_en">Meaning → Word</option>
+              <option value="fill">Fill in the blank (Example)</option>
+            </select>
+            <select class="select" id="qCount">
+              <option value="5">5 câu</option>
+              <option value="10" selected>10 câu</option>
+              <option value="15">15 câu</option>
+              <option value="20">20 câu</option>
+            </select>
+            <select class="select" id="qLevel">
+              <option value="ALL" selected>All levels</option>
+              <option value="A1">A1</option><option value="A2">A2</option><option value="B1">B1</option>
+              <option value="B2">B2</option><option value="C1">C1</option><option value="C2">C2</option>
+            </select>
+            <select class="select" id="qChoice">
+              <option value="4" selected>4 lựa chọn</option>
+              <option value="3">3 lựa chọn</option>
+            </select>
+          </div>
+
+          <div class="flex" style="margin-top:12px">
+            <button class="btn btnPrimary" id="btnStartQuiz"><span class="ico">🚀</span><div><div>Start Quiz</div><small>Tạo câu hỏi từ vocab</small></div></button>
+            <button class="btn" id="btnResetQuiz"><span class="ico">♻️</span><div><div>Reset</div><small>Xóa tiến độ</small></div></button>
+          </div>
+
+          <div class="card pad" style="margin-top:12px;background:rgba(255,255,255,.03);box-shadow:none">
+            <div class="muted2 bold">Gợi ý</div>
+            <div class="muted" style="font-weight:800;font-size:13px;margin-top:6px">
+              Nếu vocab &lt; 6 từ, quiz sẽ không đủ đáp án “nhiễu”.
+              Hãy thêm nhiều từ hơn trước khi quiz.
+            </div>
+          </div>
+        </div>
+
+        <div class="qBox">
+          <div class="qHead">
+            <div class="bold">🧩 Question</div>
+            <div class="flex">
+              <span class="tag ok" id="qCounterTag">0/0</span>
+              <span class="tag" id="qScoreTag">Score: 0</span>
+            </div>
+          </div>
+          <div class="qBody">
+            <div class="qPrompt" id="qPrompt">Chưa có câu hỏi. Bấm “Start Quiz”.</div>
+            <div class="qOpt" id="qOptions"></div>
+
+            <div class="scoreLine">
+              <div style="flex:1;min-width:220px">
+                <div class="progress" aria-label="quiz progress"><div class="bar" id="qBar"></div></div>
+                <div class="smallText" id="qExplain" style="margin-top:6px">—</div>
+              </div>
+              <div class="flex">
+                <button class="miniBtn" id="btnNextQ">Next ▶️</button>
+                <button class="miniBtn" id="btnReveal">👀 Reveal</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TIMER ================= -->
+    <section id="timer" aria-label="timer">
+      <div class="titleRow">
+        <h2>⏱️ Timer / Pomodoro</h2>
+        <span class="muted2" style="font-weight:900;font-size:12px" id="timerInfo">Ready</span>
+      </div>
+
+      <div class="grid sectionGrid">
+        <div class="card pad">
+          <div class="timerBox">
+            <div class="timeBig mono" id="timeBig">25:00</div>
+            <div class="muted" style="font-weight:800">Space = Start/Pause • R = Reset</div>
+
+            <div class="timeRow">
+              <button class="chipBtn" data-min="25">Pomodoro 25</button>
+              <button class="chipBtn" data-min="50">Deep 50</button>
+              <button class="chipBtn" data-min="5">Break 5</button>
+              <button class="chipBtn" data-min="10">Break 10</button>
+            </div>
+
+            <div class="progress" aria-label="timer progress"><div class="bar" id="tBar"></div></div>
+
+            <div class="flex">
+              <button class="btn btnPrimary" id="btnTimerToggle"><span class="ico">▶️</span><div><div>Start</div><small>Đếm ngược</small></div></button>
+              <button class="btn" id="btnTimerReset"><span class="ico">↩️</span><div><div>Reset</div><small>Quay về preset</small></div></button>
+            </div>
+
+            <div class="card pad" style="background:rgba(255,255,255,.03);box-shadow:none">
+              <div class="muted2 bold">Ghi chú luyện tập</div>
+              <textarea class="textarea" id="focusNote" placeholder="Ghi nhanh mục tiêu phiên học…"></textarea>
+              <div class="smallText" id="noteStatus">Auto-save ✅</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card pad">
+          <div class="titleRow">
+            <h2>📈 Stats</h2>
+            <span class="muted2" style="font-weight:900;font-size:12px">Lưu theo máy</span>
+          </div>
+          <div class="grid" style="gap:10px">
+            <div class="card pad" style="background:rgba(255,255,255,.03);box-shadow:none">
+              <div class="muted2 bold">Sessions completed</div>
+              <div class="headline mono" style="font-size:34px" id="statSessions">0</div>
+            </div>
+            <div class="card pad" style="background:rgba(255,255,255,.03);box-shadow:none">
+              <div class="muted2 bold">Minutes focused</div>
+              <div class="headline mono" style="font-size:34px" id="statMinutes">0</div>
+            </div>
+            <button class="miniBtn" id="btnResetStats">🗑️ Reset stats</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DATA ================= -->
+    <section id="data" aria-label="data">
+      <div class="titleRow">
+        <h2>💾 Data & Backup</h2>
+        <span class="muted2" style="font-weight:900;font-size:12px">Export/Import toàn bộ</span>
+      </div>
+
+      <div class="grid sectionGrid">
+        <div class="card pad">
+          <div class="titleRow">
+            <h2>⬇️ Export (All)</h2>
+            <span class="muted2" style="font-weight:900;font-size:12px">JSON file</span>
+          </div>
+          <p class="muted" style="font-weight:800;font-size:13px">
+            Xuất playlist + lyrics + vocab + quiz progress + timer note + stats.
           </p>
-
-          <div class="metaRow">
-            <span class="pill">🐾 Veterinary</span>
-            <span class="pill">🤖 AI</span>
-            <span class="pill">📱 App/Web</span>
-            <span class="pill">🌍 English</span>
-            <span class="pill">📍 Cần Thơ</span>
-            <span class="pill">🎬 Media</span>
-          </div>
-
-          <div class="cta">
-            <a class="btn btnPrimary" href="#cv">
-              <span class="ico">📄</span>
-              <span>
-                <span data-i18n="btnCV">Xem & Tải CV</span>
-                <small>CV_Trung.pdf</small>
-              </span>
-            </a>
-            <a class="btn" href="#projects">
-              <span class="ico">🧩</span>
-              <span>
-                <span data-i18n="btnProjects">Xem dự án</span>
-                <small data-i18n="btnProjectsSub">Filter • Search • Modal</small>
-              </span>
-            </a>
-            <a class="btn" href="#media">
-              <span class="ico">🎧</span>
-              <span>
-                <span>Media • English • Music</span>
-                <small>Player + Playlist</small>
-              </span>
-            </a>
-            <button class="btn" id="btnShare" type="button">
-              <span class="ico">🔗</span>
-              <span>
-                <span data-i18n="btnShare">Chia sẻ link</span>
-                <small data-i18n="btnShareSub">Copy URL nhanh</small>
-              </span>
-            </button>
+          <div class="flex" style="margin-top:12px">
+            <button class="btn btnPrimary" id="btnExportAll"><span class="ico">⬇️</span><div><div>Export All</div><small>backup.json</small></div></button>
+            <label class="btn" for="importAllFile" style="cursor:pointer"><span class="ico">⬆️</span><div><div>Import All</div><small>khôi phục</small></div></label>
+            <input id="importAllFile" type="file" accept="application/json" class="hidden" />
           </div>
         </div>
 
         <div class="card pad">
-          <div class="avatar" title="avatar.jpg">
-            <img src="avatar.jpg" alt="Avatar Trung" loading="eager">
+          <div class="titleRow">
+            <h2>⚠️ Danger zone</h2>
+            <span class="muted2" style="font-weight:900;font-size:12px">LocalStorage</span>
           </div>
-
-          <div class="miniGrid">
-            <div class="mini">
-              <b data-i18n="mini1t">Vị trí</b>
-              <span data-i18n="mini1d">Cần Thơ, Việt Nam</span>
-            </div>
-            <div class="mini">
-              <b data-i18n="mini2t">Mục tiêu</b>
-              <span data-i18n="mini2d">Ứng dụng AI & xây sản phẩm hữu ích</span>
-            </div>
-            <div class="mini">
-              <b data-i18n="mini3t">Tài liệu</b>
-              <span data-i18n="mini3d">CV PDF • Portfolio • QR</span>
-            </div>
-            <div class="mini">
-              <b data-i18n="mini4t">Ưu tiên</b>
-              <span data-i18n="mini4d">Ổn định • Bảo mật • Trải nghiệm</span>
-            </div>
-          </div>
-
-          <div class="item" style="margin-top:12px">
-            <h3 style="margin:0 0 6px">✅ Upgrade mới</h3>
-            <p class="muted" style="margin:0">Đã thêm mục <b>Media</b>: YouTube English + UK/US music playlist, player đổi bài nhanh.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about">
-      <div class="titleRow">
-        <h2 data-i18n="aboutTitle">Giới thiệu chuyên nghiệp</h2>
-        <span class="muted2" style="font-weight:800" data-i18n="aboutRight">Tổng quan rõ ràng</span>
-      </div>
-
-      <div class="grid split2">
-        <div class="card pad">
-          <h3 style="margin:0 0 8px; font-size:15px" data-i18n="aboutMeT">Tôi là ai?</h3>
-          <p class="muted" style="margin:0; line-height:1.75" data-i18n="aboutMeD">
-            Tôi theo hướng kết hợp giữa kiến thức Thú y và công nghệ để tạo ra giải pháp thực tế.
-            Tôi ưu tiên làm việc có hệ thống, dễ mở rộng, rõ ràng và trình bày chuyên nghiệp.
+          <p class="muted" style="font-weight:800;font-size:13px">
+            Xóa toàn bộ dữ liệu của trang này trong trình duyệt.
           </p>
-
-          <div class="tagRow">
-            <span class="pill" data-i18n="tag1">Tư duy hệ thống</span>
-            <span class="pill" data-i18n="tag2">Tối ưu trải nghiệm</span>
-            <span class="pill" data-i18n="tag3">Kỷ luật & bền bỉ</span>
-          </div>
-        </div>
-
-        <div class="card pad">
-          <h3 style="margin:0 0 8px; font-size:15px" data-i18n="valueT">Giá trị tôi mang lại</h3>
-
-          <div class="list">
-            <div class="item">
-              <h3 data-i18n="value1t">✅ Tối ưu rõ ràng</h3>
-              <p data-i18n="value1d">Thiết kế nội dung dễ đọc, cấu trúc rõ ràng, link CV/QR hoạt động đúng.</p>
-            </div>
-            <div class="item">
-              <h3 data-i18n="value2t">✅ Tính chuyên nghiệp</h3>
-              <p data-i18n="value2d">Giao diện “portfolio chuẩn”, có filter/search, modal, blog, gallery, QR generator.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- HIGHLIGHTS -->
-    <section id="highlights">
-      <div class="titleRow">
-        <h2 data-i18n="hlTitle">Highlights</h2>
-        <span class="muted2" style="font-weight:800" data-i18n="hlRight">Thông tin nổi bật</span>
-      </div>
-
-      <div class="grid split2">
-        <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="statsT">Thống kê nhanh</h3>
-          <div class="stats">
-            <div class="stat">
-              <div class="num" id="s1">0</div>
-              <div class="lbl" data-i18n="s1">Dự án demo</div>
-            </div>
-            <div class="stat">
-              <div class="num" id="s2">0</div>
-              <div class="lbl" data-i18n="s2">Chủ đề AI thú y</div>
-            </div>
-            <div class="stat">
-              <div class="num" id="s3">0</div>
-              <div class="lbl" data-i18n="s3">Bài viết</div>
-            </div>
-            <div class="stat">
-              <div class="num" id="s4">0</div>
-              <div class="lbl" data-i18n="s4">Chứng chỉ</div>
-            </div>
+          <div class="flex" style="margin-top:12px">
+            <button class="btn" id="btnWipeStorage"><span class="ico">🧨</span><div><div>Wipe Storage</div><small>xóa sạch</small></div></button>
           </div>
 
-          <div class="muted2" style="margin-top:12px; font-weight:800; font-size:12px; line-height:1.7">
-            * <span data-i18n="statsNote">Số liệu có thể chỉnh trong phần JS cuối file.</span>
-          </div>
-        </div>
-
-        <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="focusT">Trọng tâm</h3>
-          <div class="list">
-            <div class="item">
-              <h3 data-i18n="focus1t">📌 Thú y + Công nghệ</h3>
-              <p data-i18n="focus1d">Tập trung tính ứng dụng, tối ưu vận hành, triển khai dễ.</p>
-            </div>
-            <div class="item">
-              <h3 data-i18n="focus2t">📌 Trình bày chuyên nghiệp</h3>
-              <p data-i18n="focus2d">Website có cấu trúc rõ, UX tốt, có tính năng đầy đủ như web doanh nghiệp.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills">
-      <div class="titleRow">
-        <h2 data-i18n="skillsTitle">Kỹ năng</h2>
-        <span class="muted2" style="font-weight:800" data-i18n="skillsRight">Thanh đánh giá + mô tả</span>
-      </div>
-
-      <div class="grid split2">
-        <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="skillsCore">Năng lực cốt lõi</h3>
-          <div class="bars" id="bars">
-            <div class="bar" data-pct="78">
-              <div class="barTop"><span data-i18n="b1">Veterinary Fundamentals</span><span>78%</span></div>
-              <div class="meter"><div class="fill"></div></div>
-            </div>
-            <div class="bar" data-pct="72">
-              <div class="barTop"><span data-i18n="b2">AI Tools & Workflow</span><span>72%</span></div>
-              <div class="meter"><div class="fill"></div></div>
-            </div>
-            <div class="bar" data-pct="70">
-              <div class="barTop"><span data-i18n="b3">Web UI / GitHub Pages</span><span>70%</span></div>
-              <div class="meter"><div class="fill"></div></div>
-            </div>
-            <div class="bar" data-pct="64">
-              <div class="barTop"><span data-i18n="b4">English Communication</span><span>64%</span></div>
-              <div class="meter"><div class="fill"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="skillsMore">Kỹ năng bổ sung</h3>
-          <div class="list">
-            <div class="item">
-              <h3 data-i18n="sm1t">🧠 Tư duy hệ thống</h3>
-              <p data-i18n="sm1d">Tách module rõ, đặt tên chuẩn, link đúng đường dẫn, tránh lỗi 404.</p>
-            </div>
-            <div class="item">
-              <h3 data-i18n="sm2t">🧩 Thiết kế trải nghiệm</h3>
-              <p data-i18n="sm2d">Filter/search dự án, modal, CTA rõ, nút copy nhanh, QR generator.</p>
-            </div>
-            <div class="item">
-              <h3 data-i18n="sm3t">🛡️ Chất lượng & ổn định</h3>
-              <p data-i18n="sm3d">Ưu tiên website chạy mượt, responsive, cấu trúc chuyên nghiệp.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TIMELINE -->
-    <section id="timeline">
-      <div class="titleRow">
-        <h2 data-i18n="tlTitle">Timeline</h2>
-        <span class="muted2" style="font-weight:800" data-i18n="tlRight">Học tập • Công việc • Dự án</span>
-      </div>
-
-      <div class="grid split2">
-        <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="tlExp">Kinh nghiệm / Hành trình</h3>
-          <div class="timeline">
-            <div class="tItem">
-              <div class="tDate">2024–2025</div>
-              <div>
-                <p class="tTitle" data-i18n="t1t">Nâng cấp học thuật</p>
-                <p class="tDesc" data-i18n="t1d">Tập trung kiến thức chuyên ngành và tài liệu chuẩn, trình bày khoa học.</p>
-              </div>
-            </div>
-            <div class="tItem">
-              <div class="tDate">2025</div>
-              <div>
-                <p class="tTitle" data-i18n="t2t">Portfolio / Web cá nhân</p>
-                <p class="tDesc" data-i18n="t2d">Xây web chuyên nghiệp: CV PDF, QR, dự án, blog, gallery, contact.</p>
-              </div>
-            </div>
-            <div class="tItem">
-              <div class="tDate">2025+</div>
-              <div>
-                <p class="tTitle" data-i18n="t3t">Ứng dụng AI thực tế</p>
-                <p class="tDesc" data-i18n="t3d">Ứng dụng AI hỗ trợ học tập, tra cứu, chuẩn hóa quy trình và hiệu suất.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="certTitle">Chứng chỉ / Thành tựu</h3>
-          <div class="list">
-            <div class="item">
-              <h3>🏅 <span data-i18n="c1t">English Practice</span></h3>
-              <p data-i18n="c1d">Luyện viết, luyện nói, tăng từ vựng, trình bày chuẩn.</p>
-              <div class="tagRow">
-                <span class="pill">B1/B2</span><span class="pill">Writing</span><span class="pill">Speaking</span>
-              </div>
-            </div>
-            <div class="item">
-              <h3>🏅 <span data-i18n="c2t">AI Tools in Vet</span></h3>
-              <p data-i18n="c2d">Tổng hợp công cụ AI: chẩn đoán, quản lý bệnh án, hỗ trợ tư vấn.</p>
-              <div class="tagRow">
-                <span class="pill">SignalPET</span><span class="pill">Digitail</span><span class="pill">CoVet</span>
-              </div>
-            </div>
-            <div class="item">
-              <h3>🏅 <span data-i18n="c3t">Web Deployment</span></h3>
-              <p data-i18n="c3d">Deploy GitHub Pages đúng cấu trúc, không lỗi assets/404.</p>
-              <div class="tagRow">
-                <span class="pill">GitHub Pages</span><span class="pill">Responsive</span><span class="pill">SEO</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects">
-      <div class="titleRow">
-        <h2 data-i18n="projTitle">Dự án</h2>
-        <span class="muted2" style="font-weight:800" data-i18n="projRight">Filter • Search • Modal</span>
-      </div>
-
-      <div class="card pad">
-        <div class="controls">
-          <input class="input" id="q" placeholder="Tìm dự án (vd: AI, web, thú y)..." />
-          <select class="select" id="cat">
-            <option value="all">Tất cả</option>
-            <option value="vet">Thú y</option>
-            <option value="ai">AI</option>
-            <option value="web">Web</option>
-            <option value="app">App</option>
-          </select>
-          <button class="btn" style="min-width:170px" id="btnReset" type="button"><span class="ico">🧽</span><span>Làm mới</span></button>
-        </div>
-
-        <div style="height:12px"></div>
-
-        <div class="projGrid" id="projGrid"></div>
-
-        <div class="muted2" style="margin-top:12px; font-weight:800; font-size:12px; line-height:1.7">
-          * <span data-i18n="projHint">Nhấp vào 1 dự án để mở modal chi tiết.</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- CV -->
-    <section id="cv">
-      <div class="titleRow">
-        <h2 data-i18n="cvTitle">CV</h2>
-        <span class="muted2" style="font-weight:800" data-i18n="cvRight">Rõ ràng • Xem trực tiếp • Tải nhanh</span>
-      </div>
-
-      <div class="grid split2">
-        <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px">CV</h3>
-
-          <div class="cta">
-            <a class="btn btnPrimary" href="CV_Trung.pdf" target="_blank" rel="noopener">
-              <span class="ico">⬇️</span>
-              <span><span data-i18n="openCV">Mở / Tải CV</span><small>CV_Trung.pdf</small></span>
-            </a>
-            <a class="btn" href="CV_Trung.pdf" download>
-              <span class="ico">💾</span>
-              <span><span data-i18n="downloadCV">Tải về máy</span><small data-i18n="downloadCVSub">Download trực tiếp</small></span>
-            </a>
-            <button class="btn" id="btnPrint" type="button">
-              <span class="ico">🖨️</span>
-              <span><span data-i18n="printCV">In CV</span><small data-i18n="printCVSub">Mở rồi in</small></span>
-            </button>
-          </div>
-        </div>
-
-        <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="cvView">Xem CV ngay trên trang</h3>
-
-          <div class="iframeBox">
-            <iframe src="CV_Trung.pdf#view=FitH" title="CV Preview"></iframe>
-          </div>
-
-          <div class="muted2" style="margin-top:10px; font-weight:800; font-size:12px; line-height:1.7">
-            * Tip: Nếu iframe không hiện trên một số trình duyệt, bấm nút “Mở / Tải CV”.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- GALLERY -->
-    <section id="gallery">
-      <div class="titleRow">
-        <h2 data-i18n="galTitle">Gallery</h2>
-        <span class="muted2" style="font-weight:800" data-i18n="galRight">Modal ảnh • Responsive</span>
-      </div>
-
-      <div class="card pad">
-        <div class="gal" id="gal"></div>
-        <div class="muted2" style="margin-top:12px; font-weight:800; font-size:12px; line-height:1.7">
-          * <span data-i18n="galHint">Bạn có thể thay ảnh bằng link thật (hoặc upload ảnh vào repo).</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- BLOG -->
-    <section id="blog">
-      <div class="titleRow">
-        <h2 data-i18n="blogTitle">Blog mini</h2>
-        <span class="muted2" style="font-weight:800" data-i18n="blogRight">Bài viết • Gợi ý nội dung</span>
-      </div>
-
-      <div class="card pad">
-        <div class="posts" id="posts"></div>
-      </div>
-    </section>
-
-    <!-- MEDIA -->
-    <section id="media">
-      <div class="titleRow">
-        <h2>Media (English • UK/US Music)</h2>
-        <span class="muted2" style="font-weight:800">YouTube Player • Playlist • Quick Switch</span>
-      </div>
-
-      <div class="grid mediaGrid">
-        <div class="card pad">
-          <div class="item">
-            <h3 style="margin:0 0 6px">🎬 Player</h3>
-            <p class="muted" style="margin:0">
-              Chọn bài ở playlist bên phải để phát ngay. Có nút bật <b>Autoplay</b> và <b>Loop</b>.
-            </p>
-            <div class="tagRow" style="margin-top:10px">
-              <span class="chip" id="nowType">TYPE: MUSIC</span>
-              <span class="chip" id="nowTitle">NOW: Last Christmas</span>
-              <span class="chip" id="nowMode">MODE: Autoplay ON</span>
-            </div>
-          </div>
-
-          <div class="playerBox" style="margin-top:12px">
-            <iframe
-              id="ytPlayer"
-              title="YouTube Player"
-              src=""
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              referrerpolicy="strict-origin-when-cross-origin"
-            ></iframe>
-          </div>
-
-          <div class="miniBtns">
-            <button class="miniBtn" id="btnAutoplay" type="button">⚡ Autoplay: <span id="apState">ON</span></button>
-            <button class="miniBtn" id="btnLoop" type="button">🔁 Loop: <span id="lpState">OFF</span></button>
-            <button class="miniBtn" id="btnCopyMedia" type="button">🔗 Copy video link</button>
-            <button class="miniBtn" id="btnOpenYT" type="button">▶️ Open on YouTube</button>
-          </div>
-
-          <div class="muted2" style="margin-top:10px; font-weight:800; font-size:12px; line-height:1.7">
-            * Tip: Bạn chỉ cần thay <b>videoId</b> ở playlist để đổi bài / đổi video English.
-          </div>
-        </div>
-
-        <div class="card pad">
-          <div class="item">
-            <h3 style="margin:0 0 6px">🎧 Playlist</h3>
-            <p class="muted" style="margin:0">Gồm: <b>English videos</b> + <b>UK/US music</b>.</p>
-          </div>
-
-          <div style="height:10px"></div>
-
-          <div class="playlist" id="playlist"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- QR -->
-    <section id="qr">
-      <div class="titleRow">
-        <h2 data-i18n="qrTitle">QR</h2>
-        <span class="muted2" style="font-weight:800" data-i18n="qrRight">Tạo QR ngay trên web</span>
-      </div>
-
-      <div class="grid split2" style="margin-bottom:16px">
-        <div class="card pad">
-          <h3 style="margin:0 0 10px;font-size:15px">QR Website</h3>
-          <div id="qrSiteBox"></div>
-          <div class="muted2" id="qrSiteText" style="margin-top:10px; font-weight:800"></div>
-        </div>
-
-        <div class="card pad">
-          <h3 style="margin:0 0 10px;font-size:15px">QR Liên hệ</h3>
-          <div class="qrRow">
-            <div>
-              <div class="muted2">Facebook</div>
-              <div id="qrFbBox"></div>
-            </div>
-            <div>
-              <div class="muted2">Zalo</div>
-              <div id="qrZaloBox"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid split2">
-        <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="qrMake">Tạo QR chia sẻ</h3>
-
-          <div class="formGrid">
-            <input class="input" id="qrText" placeholder="Dán link website / Facebook / Zalo / Email..." />
-            <div class="controls">
-              <button class="btn btnPrimary" style="min-width:180px" id="btnQR" type="button">
-                <span class="ico">🔳</span><span data-i18n="qrBtn">Tạo QR</span>
-              </button>
-              <button class="btn" style="min-width:180px" id="btnQRUrl" type="button">
-                <span class="ico">🌐</span><span data-i18n="qrSite">QR Website</span>
-              </button>
-              <button class="btn" style="min-width:180px" id="btnQRVCF" type="button">
-                <span class="ico">👤</span><span data-i18n="qrVcard">QR Danh thiếp</span>
-              </button>
-            </div>
-
-            <div class="muted2" style="font-weight:800; font-size:12px; line-height:1.7">
-              ✅ <span data-i18n="qrNote">QR Website: lấy URL hiện tại. QR Danh thiếp: tạo vCard theo Contact.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="qrResult">Kết quả QR</h3>
-          <div style="display:grid; place-items:center; padding:12px; border-radius:18px; border:1px solid var(--line); background:rgba(255,255,255,.03)">
-            <div id="qrBox"></div>
-          </div>
-          <div class="muted2" style="margin-top:10px; font-weight:800; font-size:12px; line-height:1.7" id="qrCaption">
-            (Chưa tạo QR)
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq">
-      <div class="titleRow">
-        <h2 data-i18n="faqTitle">FAQ</h2>
-        <span class="muted2" style="font-weight:800" data-i18n="faqRight">Câu hỏi thường gặp</span>
-      </div>
-
-      <div class="grid split2">
-        <div class="card pad">
-          <div class="list">
-            <details open>
-              <summary data-i18n="f1q">Vì sao trước đây bị lỗi 404 CV?</summary>
-              <p data-i18n="f1a">Do link vẫn trỏ “assets/” nhưng bạn đã xóa thư mục assets. Bản này dùng đường dẫn trực tiếp: CV_Trung.pdf.</p>
-            </details>
-            <details>
-              <summary data-i18n="f2q">GitHub có phân biệt chữ hoa thường không?</summary>
-              <p data-i18n="f2a">Có. “CV_Trung.pdf” khác “cv_trung.pdf”. Phải đúng y hệt tên file.</p>
-            </details>
-            <details>
-              <summary data-i18n="f3q">Muốn thay ảnh/giữ đẹp thì làm sao?</summary>
-              <p data-i18n="f3a">Chỉ cần thay file avatar.jpg bằng ảnh mới (giữ đúng tên) rồi commit + push.</p>
-            </details>
-          </div>
-        </div>
-
-        <div class="card pad">
-          <div class="list">
-            <details>
-              <summary data-i18n="f4q">Có thể thêm nhiều trang (multi-page) không?</summary>
-              <p data-i18n="f4a">Được. Nhưng hiện tại bạn yêu cầu 1 file duy nhất, nên làm kiểu “nhiều section” trong 1 trang cuộn.</p>
-            </details>
-            <details>
-              <summary data-i18n="f5q">Muốn form gửi tin nhắn hoạt động thật thì sao?</summary>
-              <p data-i18n="f5a">GitHub Pages không có backend. Bạn có thể dùng Google Form, Formspree, hoặc email mailto.</p>
-            </details>
-            <details>
-              <summary data-i18n="f6q">Làm sao kiểm tra nhanh đã deploy chưa?</summary>
-              <p data-i18n="f6a">Mở link trực tiếp: /avatar.jpg và /CV_Trung.pdf. Nếu mở được là OK.</p>
-            </details>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="titleRow">
-        <h2 data-i18n="ctTitle">Liên hệ</h2>
-        <span class="muted2" style="font-weight:800" data-i18n="ctRight">Email • Zalo • Facebook</span>
-      </div>
-
-      <div class="grid contactGrid">
-        <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="ctInfo">Thông tin liên hệ</h3>
-
-          <div class="row">
-            <div class="label">Email</div>
-            <div class="value" id="emailWrap">
-              <a id="emailLink" href="mailto:trungm0325011@gstudent.ctu.edu.vn">📧 <span id="emailText">trungm0325011@gstudent.ctu.edu.vn</span></a>
-              <button class="copyBtn" data-copy="#emailText" type="button">Copy</button>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="label">Zalo</div>
-            <div class="value" id="zaloWrap">
-              <a id="zaloLink" href="https://zalo.me/0945350772" target="_blank" rel="noopener">💬 <span id="zaloText">zalo.me/0945350772</span></a>
-              <button class="copyBtn" data-copy="#zaloText" type="button">Copy</button>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="label">Facebook</div>
-            <div class="value" id="fbWrap">
-              <a id="fbLink" href="https://www.facebook.com/langtukid94/" target="_blank" rel="noopener">🔵 <span id="fbText">facebook.com/langtukid94</span></a>
-              <button class="copyBtn" data-copy="#fbText" type="button">Copy</button>
-            </div>
-          </div>
-
-          <div class="muted2" style="margin-top:12px; font-weight:800; font-size:12px; line-height:1.7">
-            ✅ <span data-i18n="ctNote">Bạn có thể dùng QR Danh thiếp ở phần QR sau khi nhập đúng email/zalo/facebook.</span>
-          </div>
-        </div>
-
-        <div class="card pad">
-          <h3 style="margin:0 0 10px; font-size:15px" data-i18n="ctForm">Gửi tin nhắn (mailto)</h3>
-          <p class="muted" style="margin:0 0 12px; line-height:1.7" data-i18n="ctFormDesc">
-            Form này sẽ mở ứng dụng email của bạn để gửi. GitHub Pages không có backend sẵn.
-          </p>
-
-          <div class="formGrid">
-            <input class="input" id="name" placeholder="Tên của bạn..." />
-            <input class="input" id="subject" placeholder="Chủ đề..." />
-            <textarea class="input textarea" id="message" placeholder="Nội dung..."></textarea>
-
-            <button class="btn btnPrimary" id="btnMail" type="button">
-              <span class="ico">✉️</span>
-              <span><span data-i18n="sendMail">Gửi email</span><small data-i18n="sendMailSub">Mở Gmail/Outlook</small></span>
-            </button>
+          <div class="card pad" style="margin-top:12px;background:rgba(255,255,255,.03);box-shadow:none">
+            <div class="muted2 bold">Current Storage keys</div>
+            <div class="mono muted" style="font-weight:800;font-size:12px;margin-top:6px" id="keyList">—</div>
           </div>
         </div>
       </div>
     </section>
 
     <footer>
-      <div class="foot">
-        <div>© <span id="y"></span> Trần Quốc Trung. All rights reserved.</div>
-        <div class="muted2">Single-file Professional Portfolio • GitHub Pages</div>
+      <div class="footerRow">
+        <div class="muted" style="font-weight:800">
+          Made for Trung • Offline learning helper • <span class="mono">v1.0</span>
+        </div>
+        <div class="flex">
+          <button class="miniBtn" id="btnTop">⬆️ Top</button>
+        </div>
       </div>
     </footer>
   </main>
 
-  <button class="topBtn" id="topBtn" title="Lên đầu" type="button">↑</button>
-  <div class="toast" id="toast">Copied!</div>
-
-  <div class="overlay" id="overlay" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true">
-      <div class="modalHead">
-        <b id="mTitle">Title</b>
-        <button class="closeBtn" id="mClose" aria-label="Close" type="button">✕</button>
-      </div>
-      <div class="modalBody" id="mBody"></div>
-    </div>
-  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite">—</div>
 
   <script>
-    /********************
-     * 0) CONFIG (SỬA NHANH)
-     ********************/
-    const CONTACT = {
-      email: "trungm0325011@gstudent.ctu.edu.vn",
-      zalo:  "https://zalo.me/0945350772",
-      facebook: "https://www.facebook.com/langtukid94/"
+    // =========================
+    // Storage keys
+    // =========================
+    const K = {
+      theme: "maiel_theme",
+      playlist: "maiel_playlist",
+      selectedTrackId: "maiel_selectedTrackId",
+      ytUrl: "maiel_ytUrl",
+      lyrics: "maiel_lyrics",
+      vocab: "maiel_vocab",
+      quiz: "maiel_quiz",
+      timer: "maiel_timer",
+      stats: "maiel_stats",
     };
 
-    const STATS = { projects: 12, ai_topics: 18, posts: 6, certs: 3 };
+    // =========================
+    // Helpers
+    // =========================
+    const $ = (s, root=document) => root.querySelector(s);
+    const $$ = (s, root=document) => Array.from(root.querySelectorAll(s));
+    const now = () => new Date().toISOString();
 
-    /********************
-     * 1) INIT BASIC
-     ********************/
-    document.getElementById("y").textContent = new Date().getFullYear();
-
-    function applyContact(){
-      const emailLink = document.getElementById("emailLink");
-      const emailText = document.getElementById("emailText");
-      emailLink.href = "mailto:" + CONTACT.email;
-      emailText.textContent = CONTACT.email;
-
-      const zaloLink = document.getElementById("zaloLink");
-      const zaloText = document.getElementById("zaloText");
-      zaloLink.href = CONTACT.zalo;
-      zaloText.textContent = CONTACT.zalo.replace(/^https?:\/\//,"");
-
-      const fbLink = document.getElementById("fbLink");
-      const fbText = document.getElementById("fbText");
-      fbLink.href = CONTACT.facebook;
-      fbText.textContent = CONTACT.facebook.replace(/^https?:\/\//,"");
+    function safeParse(json, fallback){
+      try{ return JSON.parse(json); }catch{ return fallback; }
     }
-    applyContact();
-
-    function animateNumber(el, to){
-      let cur = 0;
-      const step = Math.max(1, Math.floor(to/40));
-      const t = setInterval(()=>{
-        cur += step;
-        if(cur >= to){ cur = to; clearInterval(t); }
-        el.textContent = cur;
-      }, 18);
+    function save(key, value){
+      localStorage.setItem(key, JSON.stringify(value));
+      refreshKeyList();
     }
-    animateNumber(document.getElementById("s1"), STATS.projects);
-    animateNumber(document.getElementById("s2"), STATS.ai_topics);
-    animateNumber(document.getElementById("s3"), STATS.posts);
-    animateNumber(document.getElementById("s4"), STATS.certs);
-
-    /********************
-     * TOAST
-     ********************/
-    const toastEl = document.getElementById("toast");
+    function load(key, fallback){
+      const v = localStorage.getItem(key);
+      return v ? safeParse(v, fallback) : fallback;
+    }
     function toast(msg){
-      toastEl.textContent = msg;
-      toastEl.classList.add("show");
-      setTimeout(()=> toastEl.classList.remove("show"), 1600);
+      const t = $("#toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      window.clearTimeout(toast._tm);
+      toast._tm = window.setTimeout(()=>t.classList.remove("show"), 2200);
+    }
+    function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+    function uid(){ return Math.random().toString(16).slice(2) + Date.now().toString(16); }
+
+    // =========================
+    // Theme
+    // =========================
+    function applyTheme(theme){
+      document.documentElement.setAttribute("data-theme", theme);
+      save(K.theme, theme);
+      toast(theme === "light" ? "Light theme" : "Dark theme");
+    }
+    function initTheme(){
+      const t = load(K.theme, "dark");
+      document.documentElement.setAttribute("data-theme", t);
     }
 
-    /********************
-     * 2) THEME TOGGLE
-     ********************/
-    const btnTheme = document.getElementById("btnTheme");
-    const savedTheme = localStorage.getItem("theme") || "dark";
-    document.documentElement.setAttribute("data-theme", savedTheme);
-    btnTheme.querySelector(".kbd").textContent = (savedTheme === "light") ? "🌙" : "☀️";
-
-    btnTheme.addEventListener("click", ()=>{
-      const cur = document.documentElement.getAttribute("data-theme") || "dark";
-      const next = (cur === "dark") ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-      btnTheme.querySelector(".kbd").textContent = (next === "light") ? "🌙" : "☀️";
-      toast(next === "light" ? "Light mode" : "Dark mode");
-    });
-
-    /********************
-     * 3) LANGUAGE TOGGLE (VI/EN)
-     ********************/
-    const btnLang = document.getElementById("btnLang");
-    const dict = { vi:{ role:"Veterinary • AI • App Builder", status:"Online • Sẵn sàng hợp tác", hello:"Xin chào, tôi là",
-      btnCV:"Xem & Tải CV", btnProjects:"Xem dự án", btnProjectsSub:"Filter • Search • Modal",
-      btnShare:"Chia sẻ link", btnShareSub:"Copy URL nhanh",
-      aboutTitle:"Giới thiệu chuyên nghiệp", aboutRight:"Tổng quan rõ ràng",
-      aboutMeT:"Tôi là ai?", aboutMeD:"Tôi theo hướng kết hợp giữa kiến thức Thú y và công nghệ để tạo ra giải pháp thực tế. Tôi ưu tiên làm việc có hệ thống, dễ mở rộng, rõ ràng và trình bày chuyên nghiệp.",
-      valueT:"Giá trị tôi mang lại", value1t:"✅ Tối ưu rõ ràng", value1d:"Thiết kế nội dung dễ đọc, cấu trúc rõ ràng, link CV/QR hoạt động đúng.",
-      value2t:"✅ Tính chuyên nghiệp", value2d:"Giao diện “portfolio chuẩn”, có filter/search, modal, blog, gallery, QR generator.",
-      tag1:"Tư duy hệ thống", tag2:"Tối ưu trải nghiệm", tag3:"Kỷ luật & bền bỉ",
-      hlTitle:"Highlights", hlRight:"Thông tin nổi bật", statsT:"Thống kê nhanh",
-      s1:"Dự án demo", s2:"Chủ đề AI thú y", s3:"Bài viết", s4:"Chứng chỉ", statsNote:"Số liệu có thể chỉnh trong phần JS cuối file.",
-      focusT:"Trọng tâm", focus1t:"📌 Thú y + Công nghệ", focus1d:"Tập trung tính ứng dụng, tối ưu vận hành, triển khai dễ.",
-      focus2t:"📌 Trình bày chuyên nghiệp", focus2d:"Website có cấu trúc rõ, UX tốt, có tính năng đầy đủ như web doanh nghiệp.",
-      skillsTitle:"Kỹ năng", skillsRight:"Thanh đánh giá + mô tả", skillsCore:"Năng lực cốt lõi", skillsMore:"Kỹ năng bổ sung",
-      b1:"Nền tảng Thú y", b2:"AI Tools & Workflow", b3:"Web UI / GitHub Pages", b4:"Giao tiếp tiếng Anh",
-      sm1t:"🧠 Tư duy hệ thống", sm1d:"Tách module rõ, đặt tên chuẩn, link đúng đường dẫn, tránh lỗi 404.",
-      sm2t:"🧩 Thiết kế trải nghiệm", sm2d:"Filter/search dự án, modal, CTA rõ, nút copy nhanh, QR generator.",
-      sm3t:"🛡️ Chất lượng & ổn định", sm3d:"Ưu tiên website chạy mượt, responsive, cấu trúc chuyên nghiệp.",
-      tlTitle:"Timeline", tlRight:"Học tập • Công việc • Dự án", tlExp:"Kinh nghiệm / Hành trình",
-      t1t:"Nâng cấp học thuật", t1d:"Tập trung kiến thức chuyên ngành và tài liệu chuẩn, trình bày khoa học.",
-      t2t:"Portfolio / Web cá nhân", t2d:"Xây web chuyên nghiệp: CV PDF, QR, dự án, blog, gallery, contact.",
-      t3t:"Ứng dụng AI thực tế", t3d:"Ứng dụng AI hỗ trợ học tập, tra cứu, chuẩn hóa quy trình và hiệu suất.",
-      certTitle:"Chứng chỉ / Thành tựu", c1t:"Luyện tiếng Anh", c1d:"Luyện viết, luyện nói, tăng từ vựng, trình bày chuẩn.",
-      c2t:"AI trong thú y", c2d:"Tổng hợp công cụ AI: chẩn đoán, quản lý bệnh án, hỗ trợ tư vấn.",
-      c3t:"Triển khai Web", c3d:"Deploy GitHub Pages đúng cấu trúc, không lỗi assets/404.",
-      projTitle:"Dự án", projRight:"Filter • Search • Modal", projHint:"Nhấp vào 1 dự án để mở modal chi tiết.",
-      cvTitle:"CV", cvRight:"Rõ ràng • Xem trực tiếp • Tải nhanh", openCV:"Mở / Tải CV", downloadCV:"Tải về máy",
-      downloadCVSub:"Download trực tiếp", printCV:"In CV", printCVSub:"Mở rồi in", cvView:"Xem CV ngay trên trang",
-      galTitle:"Gallery", galRight:"Modal ảnh • Responsive", galHint:"Bạn có thể thay ảnh bằng link thật (hoặc upload ảnh vào repo).",
-      blogTitle:"Blog mini", blogRight:"Bài viết • Gợi ý nội dung",
-      qrTitle:"QR", qrRight:"Tạo QR ngay trên web", qrMake:"Tạo QR chia sẻ", qrBtn:"Tạo QR", qrSite:"QR Website", qrVcard:"QR Danh thiếp",
-      qrNote:"QR Website: lấy URL hiện tại. QR Danh thiếp: tạo vCard theo Contact.", qrResult:"Kết quả QR",
-      faqTitle:"FAQ", faqRight:"Câu hỏi thường gặp",
-      f1q:"Vì sao trước đây bị lỗi 404 CV?", f1a:"Do link vẫn trỏ “assets/” nhưng bạn đã xóa thư mục assets. Bản này dùng đường dẫn trực tiếp: CV_Trung.pdf.",
-      f2q:"GitHub có phân biệt chữ hoa thường không?", f2a:"Có. “CV_Trung.pdf” khác “cv_trung.pdf”. Phải đúng y hệt tên file.",
-      f3q:"Muốn thay ảnh/giữ đẹp thì làm sao?", f3a:"Chỉ cần thay file avatar.jpg bằng ảnh mới (giữ đúng tên) rồi commit + push.",
-      f4q:"Có thể thêm nhiều trang (multi-page) không?", f4a:"Được. Nhưng hiện tại bạn yêu cầu 1 file duy nhất, nên làm kiểu “nhiều section” trong 1 trang cuộn.",
-      f5q:"Muốn form gửi tin nhắn hoạt động thật thì sao?", f5a:"GitHub Pages không có backend. Bạn có thể dùng Google Form, Formspree, hoặc email mailto.",
-      f6q:"Làm sao kiểm tra nhanh đã deploy chưa?", f6a:"Mở link trực tiếp: /avatar.jpg và /CV_Trung.pdf. Nếu mở được là OK.",
-      ctTitle:"Liên hệ", ctRight:"Email • Zalo • Facebook", ctInfo:"Thông tin liên hệ",
-      ctNote:"Bạn có thể dùng QR Danh thiếp ở phần QR sau khi nhập đúng email/zalo/facebook.",
-      ctForm:"Gửi tin nhắn (mailto)", ctFormDesc:"Form này sẽ mở ứng dụng email của bạn để gửi. GitHub Pages không có backend sẵn.",
-      sendMail:"Gửi email", sendMailSub:"Mở Gmail/Outlook"
-    },
-    en:{ role:"Veterinary • AI • App Builder", status:"Online • Open to collaborate", hello:"Hi, I'm",
-      btnCV:"View & Download CV", btnProjects:"View projects", btnProjectsSub:"Filter • Search • Modal",
-      btnShare:"Share link", btnShareSub:"Quick copy URL",
-      aboutTitle:"Professional introduction", aboutRight:"Clear overview",
-      aboutMeT:"Who am I?", aboutMeD:"I combine Veterinary knowledge and technology to build practical solutions. I prefer structured work, scalability, clarity, and professional presentation.",
-      valueT:"What I deliver", value1t:"✅ Clarity first", value1d:"Readable structure, clean layout, working CV/QR links.",
-      value2t:"✅ Professional features", value2d:"Portfolio-grade UI with filters/search, modal, blog, gallery, QR generator.",
-      tag1:"System thinking", tag2:"UX-focused", tag3:"Disciplined",
-      hlTitle:"Highlights", hlRight:"Key points", statsT:"Quick stats",
-      s1:"Demo projects", s2:"AI vet topics", s3:"Posts", s4:"Certificates", statsNote:"You can edit numbers in the JS config at the bottom.",
-      focusT:"Focus areas", focus1t:"📌 Vet + Tech", focus1d:"Practical use-cases, optimized operations, easy deployment.",
-      focus2t:"📌 Professional presentation", focus2d:"Clean structure, strong UX, business-like features.",
-      skillsTitle:"Skills", skillsRight:"Skill bars + description", skillsCore:"Core skills", skillsMore:"Additional skills",
-      b1:"Veterinary Fundamentals", b2:"AI Tools & Workflow", b3:"Web UI / GitHub Pages", b4:"English Communication",
-      sm1t:"🧠 System thinking", sm1d:"Clean structure, proper naming, correct paths, avoid 404.",
-      sm2t:"🧩 UX design", sm2d:"Project filter/search, modal, clear CTA, quick copy, QR generator.",
-      sm3t:"🛡️ Quality", sm3d:"Fast, responsive, professional structure.",
-      tlTitle:"Timeline", tlRight:"Study • Work • Projects", tlExp:"Experience / Journey",
-      t1t:"Academic improvement", t1d:"Professional formatting, structured knowledge, scientific writing style.",
-      t2t:"Portfolio website", t2d:"Professional web: CV PDF, QR, projects, blog, gallery, contact.",
-      t3t:"Real-world AI usage", t3d:"AI to support learning, lookup, standardize workflows and productivity.",
-      certTitle:"Certificates / Achievements", c1t:"English practice", c1d:"Writing, speaking, vocabulary and presentation improvements.",
-      c2t:"AI in veterinary", c2d:"Curating AI tools for diagnosis, records, and assistance.",
-      c3t:"Web deployment", c3d:"GitHub Pages deployment with correct structure (no assets/404).",
-      projTitle:"Projects", projRight:"Filter • Search • Modal", projHint:"Click a project to open details modal.",
-      cvTitle:"CV", cvRight:"Clear • Embedded • Fast download", openCV:"Open / Download CV", downloadCV:"Download file", downloadCVSub:"Direct download",
-      printCV:"Print CV", printCVSub:"Open then print", cvView:"Preview CV on page",
-      galTitle:"Gallery", galRight:"Image modal • Responsive", galHint:"Replace with your real images or upload to the repo.",
-      blogTitle:"Mini blog", blogRight:"Content ideas",
-      qrTitle:"QR", qrRight:"Generate QR on-page", qrMake:"Generate sharing QR", qrBtn:"Generate QR", qrSite:"Website QR", qrVcard:"vCard QR",
-      qrNote:"Website QR uses current URL. vCard uses your contact values from config.", qrResult:"QR result",
-      faqTitle:"FAQ", faqRight:"Frequently asked questions",
-      f1q:"Why did I get 404 for CV before?", f1a:"Because your link still pointed to “assets/” but the folder was deleted. This uses direct path: CV_Trung.pdf.",
-      f2q:"Is GitHub case-sensitive?", f2a:"Yes. “CV_Trung.pdf” is different from “cv_trung.pdf”. Keep exact filename.",
-      f3q:"How to update avatar easily?", f3a:"Replace avatar.jpg with a new image (keep the same name) then commit + push.",
-      f4q:"Can I make it multi-page?", f4a:"Yes. But you asked for a single file; this is many sections in one scroll page.",
-      f5q:"Can the contact form send messages directly?", f5a:"GitHub Pages has no backend by default. Use Google Form, Formspree, or mailto.",
-      f6q:"How to verify deployment quickly?", f6a:"Open direct links: /avatar.jpg and /CV_Trung.pdf. If they load, you're good.",
-      ctTitle:"Contact", ctRight:"Email • Zalo • Facebook", ctInfo:"Contact info",
-      ctNote:"You can generate a vCard QR after you update email/zalo/facebook in config.",
-      ctForm:"Send message (mailto)", ctFormDesc:"This opens your email client to send. GitHub Pages has no backend by default.",
-      sendMail:"Send email", sendMailSub:"Open Gmail/Outlook"
-    }};
-
-    let lang = localStorage.getItem("lang") || "vi";
-    function applyLang(){
-      btnLang.querySelector(".kbd").textContent = lang.toUpperCase();
-      document.querySelectorAll("[data-i18n]").forEach(el=>{
-        const key = el.getAttribute("data-i18n");
-        if(dict[lang] && dict[lang][key]){
-          el.innerHTML = dict[lang][key];
-        }
-      });
+    // =========================
+    // Navigation active link
+    // =========================
+    function setActiveNav(){
+      const links = $$("[data-link]");
+      const y = window.scrollY + 120;
+      let current = "#media";
+      for (const s of ["#media","#vocab","#quiz","#timer","#data"]){
+        const el = $(s);
+        if (el && el.offsetTop <= y) current = s;
+      }
+      links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === current));
     }
-    applyLang();
 
-    btnLang.addEventListener("click", ()=>{
-      lang = (lang === "vi") ? "en" : "vi";
-      localStorage.setItem("lang", lang);
-      applyLang();
-      toast(lang === "vi" ? "Đã chuyển: Tiếng Việt" : "Switched: English");
-    });
+    // =========================
+    // YouTube URL -> embed
+    // =========================
+    function extractYouTubeId(input){
+      if(!input) return "";
+      const raw = input.trim();
+      // If already id-like
+      if (/^[a-zA-Z0-9_-]{6,}$/.test(raw) && !raw.includes("http")) return raw;
 
-    /********************
-     * 4) SHARE / COPY
-     ********************/
-    document.getElementById("btnShare").addEventListener("click", async ()=>{
-      const url = location.href.split("#")[0];
       try{
-        await navigator.clipboard.writeText(url);
-        toast("Copied URL ✅");
-      }catch(e){
-        toast("Copy failed. Select & copy manually.");
-      }
-    });
-
-    document.querySelectorAll("[data-copy]").forEach(btn=>{
-      btn.addEventListener("click", async ()=>{
-        const sel = btn.getAttribute("data-copy");
-        const el = document.querySelector(sel);
-        if(!el) return;
-        try{
-          await navigator.clipboard.writeText(el.textContent.trim());
-          toast("Copied ✅");
-        }catch(e){
-          toast("Copy failed");
+        const url = new URL(raw);
+        if (url.hostname.includes("youtu.be")){
+          const id = url.pathname.replace("/","").trim();
+          return id || "";
         }
-      });
-    });
-
-    /********************
-     * 5) PROJECTS (Filter/Search/Modal)
-     ********************/
-    const PROJECTS = [
-      {id:1, title:"Portfolio Professional (Single-file)", cat:"web", badge:"web", badgeClass:"blue",
-        desc:"Trang portfolio 1 file: CV PDF, QR, Filter/Search, Modal, Blog, Gallery, Contact.",
-        details:["Không dùng assets/","Responsive chuẩn","Copy/Share nhanh","QR generator + vCard"]},
-      {id:2, title:"AI Tools for Veterinary", cat:"ai", badge:"ai", badgeClass:"yellow",
-        desc:"Tổng hợp công cụ AI hỗ trợ thú y: chẩn đoán, bệnh án, tư vấn, workflow.",
-        details:["Danh sách tool","Use-case thực tế","Gợi ý triển khai"]},
-      {id:3, title:"Vet Knowledge Notes", cat:"vet", badge:"vet", badgeClass:"red",
-        desc:"Hệ thống hóa ghi chú học thuật thú y, trình bày theo dạng dễ ôn tập.",
-        details:["Phân mục rõ","Từ vựng chuyên ngành","Tài liệu tham khảo"]},
-      {id:4, title:"Simple Web App (Deploy GitHub Pages)", cat:"web", badge:"deploy", badgeClass:"blue",
-        desc:"Chuẩn hóa deploy web: đúng đường dẫn, không lỗi case-sensitive, không 404.",
-        details:["Checklist deploy","Test URL trực tiếp","Best practices"]},
-      {id:5, title:"English Practice Tracker", cat:"app", badge:"app", badgeClass:"yellow",
-        desc:"Theo dõi luyện viết/nói: mục tiêu ngày/tuần, từ vựng, điểm tiến bộ.",
-        details:["Daily plan","Vocabulary list","Progress view"]},
-      {id:6, title:"Clinic Workflow Template", cat:"vet", badge:"vet", badgeClass:"red",
-        desc:"Khung quy trình cho phòng khám/cửa hàng: tiếp nhận, khám, điều trị, theo dõi.",
-        details:["Form mẫu","Checklist an toàn","Tối ưu vận hành"]},
-      {id:7, title:"QR Contact Kit", cat:"web", badge:"qr", badgeClass:"blue",
-        desc:"Tạo QR cho website, facebook, zalo, email, danh thiếp vCard.",
-        details:["QR website","QR vCard","Tùy biến nội dung"]},
-      {id:8, title:"Project Library Layout", cat:"web", badge:"ui", badgeClass:"blue",
-        desc:"Bố cục card UI: thống kê, timeline, section headings chuẩn portfolio.",
-        details:["Cards + grid","Modal pattern","Mobile-first"]},
-      {id:9, title:"AI Prompt Templates", cat:"ai", badge:"ai", badgeClass:"yellow",
-        desc:"Prompt mẫu cho học tập và công việc: tóm tắt, so sánh, checklist, Q&A.",
-        details:["Prompt library","Use-case cụ thể","Mẫu ngắn gọn"]},
-      {id:10, title:"Vet Case Study Format", cat:"vet", badge:"vet", badgeClass:"red",
-        desc:"Khung viết case study: triệu chứng, chẩn đoán phân biệt, điều trị, theo dõi, kết luận.",
-        details:["Template chuẩn","Đầu mục rõ","Dễ dùng"]},
-      {id:11, title:"Personal Branding Pack", cat:"web", badge:"brand", badgeClass:"blue",
-        desc:"Bộ nhận diện: màu sắc, typography, CTA, cấu trúc thông tin.",
-        details:["Màu đỏ-vàng","Font Inter","CTA rõ ràng"]},
-      {id:12, title:"Content Plan (Blog/Posts)", cat:"web", badge:"content", badgeClass:"yellow",
-        desc:"Kế hoạch nội dung: bài viết ngắn, chủ đề AI thú y, chia sẻ học tập.",
-        details:["6 bài mẫu","Lịch đăng","Gợi ý tiêu đề"]},
-    ];
-
-    const grid = document.getElementById("projGrid");
-    const q = document.getElementById("q");
-    const cat = document.getElementById("cat");
-    const btnReset = document.getElementById("btnReset");
-
-    function openModal(title, html){
-      document.getElementById("mTitle").textContent = title;
-      document.getElementById("mBody").innerHTML = html;
-      const overlay = document.getElementById("overlay");
-      overlay.classList.add("show");
-      overlay.setAttribute("aria-hidden","false");
-    }
-    function closeModal(){
-      const overlay = document.getElementById("overlay");
-      overlay.classList.remove("show");
-      overlay.setAttribute("aria-hidden","true");
-    }
-
-    document.getElementById("mClose").addEventListener("click", closeModal);
-    document.getElementById("overlay").addEventListener("click", (e)=>{
-      if(e.target.id === "overlay") closeModal();
-    });
-    window.addEventListener("keydown", (e)=>{
-      if(e.key === "Escape") closeModal();
-    });
-
-    function renderProjects(){
-      const query = (q.value || "").trim().toLowerCase();
-      const c = cat.value;
-      const filtered = PROJECTS.filter(p=>{
-        const okCat = (c === "all") ? true : p.cat === c;
-        const okQ = !query ? true : (p.title.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query));
-        return okCat && okQ;
-      });
-
-      grid.innerHTML = filtered.map(p=>`
-        <div class="proj" data-id="${p.id}">
-          <div class="projTop">
-            <span class="badge ${p.badgeClass}">${p.badge.toUpperCase()}</span>
-            <span class="badge">${p.cat.toUpperCase()}</span>
-          </div>
-          <h3>${p.title}</h3>
-          <p>${p.desc}</p>
-          <div class="projFooter">
-            <span class="muted2" style="font-weight:900; font-size:12px;">Click for details</span>
-            <span class="linkMini">Open →</span>
-          </div>
-        </div>
-      `).join("");
-
-      grid.querySelectorAll(".proj").forEach(el=>{
-        el.addEventListener("click", ()=>{
-          const id = Number(el.getAttribute("data-id"));
-          const p = PROJECTS.find(x=>x.id===id);
-          if(!p) return;
-          openModal(p.title, `
-            <div class="list">
-              <div class="item">
-                <h3>Overview</h3>
-                <p>${p.desc}</p>
-              </div>
-              <div class="item">
-                <h3>Key points</h3>
-                <ul style="margin:8px 0 0; padding-left:18px; color:var(--muted); line-height:1.75; font-weight:700; font-size:13px">
-                  ${p.details.map(d=>`<li>${d}</li>`).join("")}
-                </ul>
-              </div>
-              <div class="item">
-                <h3>Category</h3>
-                <p><b>${p.cat.toUpperCase()}</b> • Badge: <b>${p.badge.toUpperCase()}</b></p>
-              </div>
-            </div>
-          `);
-        });
-      });
-    }
-    renderProjects();
-    q.addEventListener("input", renderProjects);
-    cat.addEventListener("change", renderProjects);
-    btnReset.addEventListener("click", ()=>{
-      q.value=""; cat.value="all"; renderProjects(); toast("Reset ✅");
-    });
-
-    /********************
-     * 6) GALLERY (render 1 lần + click modal OK)
-     ********************/
-    const GALLERY = [
-      {title:"Workspace", src:"https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=70"},
-      {title:"Veterinary", src:"https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=1200&q=70"},
-      {title:"AI / Tech", src:"https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1200&q=70"},
-      {title:"Learning", src:"https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=70"},
-      {title:"Nature", src:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=70"},
-      {title:"Teamwork", src:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=70"},
-      {title:"Clinic", src:"https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=70"},
-      {title:"Presentation", src:"https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=70"},
-    ];
-    const gal = document.getElementById("gal");
-    const FALLBACK_IMG = "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=70";
-
-    function renderGallery(){
-      gal.innerHTML = GALLERY.map((g,i)=>`
-        <div class="ph" data-i="${i}">
-          <img src="${g.src}" alt="${g.title}" loading="lazy"
-               onerror="this.onerror=null; this.src='${FALLBACK_IMG}';">
-          <span>${g.title}</span>
-        </div>
-      `).join("");
-
-      gal.querySelectorAll(".ph").forEach(el=>{
-        el.addEventListener("click", ()=>{
-          const i = Number(el.getAttribute("data-i"));
-          const g = GALLERY[i];
-          openModal("Gallery • " + g.title, `
-            <div style="border-radius:18px; overflow:hidden">
-              <img src="${g.src}" style="width:100%"
-                   onerror="this.onerror=null; this.src='${FALLBACK_IMG}';">
-            </div>
-          `);
-        });
-      });
-    }
-    renderGallery();
-
-    /********************
-     * 7) BLOG
-     ********************/
-    const POSTS = [
-      {date:"2025-01-01", title:"AI trong thú y: bắt đầu từ đâu?", desc:"Gợi ý lộ trình: công cụ, use-case, cách ghi chú và triển khai thực tế."},
-      {date:"2025-01-15", title:"Cách viết báo cáo/case study thú y chuẩn", desc:"Mẫu khung: triệu chứng, chẩn đoán phân biệt, điều trị, theo dõi, kết luận."},
-      {date:"2025-02-02", title:"Tối ưu GitHub Pages: tránh lỗi 404", desc:"Checklist: tên file, case-sensitive, đường dẫn đúng, test trực tiếp /avatar.jpg và /CV.pdf."},
-      {date:"2025-02-20", title:"Portfolio chuyên nghiệp: những phần cần có", desc:"Hero + CV + Projects + Contact + QR + Blog + Gallery + Timeline."},
-      {date:"2025-03-10", title:"Từ vựng tiếng Anh chuyên ngành thú y", desc:"Tổng hợp từ vựng + cách dùng trong văn bản học thuật và giao tiếp."},
-      {date:"2025-03-30", title:"Kỷ luật học tập: 30 phút mỗi ngày", desc:"Cách chia nhỏ mục tiêu để tiến bộ đều và tránh bỏ cuộc."},
-    ];
-    const posts = document.getElementById("posts");
-    posts.innerHTML = POSTS.map(p=>`
-      <div class="post">
-        <div class="date">${p.date}</div>
-        <h3>${p.title}</h3>
-        <p>${p.desc}</p>
-        <button class="linkMini" style="justify-content:center; cursor:pointer" data-open="${p.title}" type="button">Read more →</button>
-      </div>
-    `).join("");
-    posts.querySelectorAll("[data-open]").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        const title = btn.getAttribute("data-open");
-        const p = POSTS.find(x=>x.title===title);
-        openModal("Blog • " + title, `
-          <div class="item">
-            <h3>${p.title}</h3>
-            <p>${p.desc}</p>
-          </div>
-        `);
-      });
-    });
-
-    /********************
-     * 8) ✅ MEDIA PLAYER (YouTube) — CLEAN + NO DUPLICATE
-     ********************/
-    const ytPlayer = document.getElementById("ytPlayer");
-    const playlistEl = document.getElementById("playlist");
-    const nowTypeEl  = document.getElementById("nowType");
-    const nowTitleEl = document.getElementById("nowTitle");
-    const nowModeEl  = document.getElementById("nowMode");
-
-    let autoplay = true;
-    let loop = false;
-    let currentItem = null;
-
-    const MEDIA = [
-      { type:"MUSIC", title:"Last Christmas — Wham!", meta:"UK/US MUSIC", desc:"Official video.", videoId:"E8gmARGvPlI" },
-      { type:"MUSIC", title:"Let Me Hear Your Voice (声をきかせて) — BIGBANG", meta:"K-POP / JP", desc:"BIGBANG Japan single.", videoId:"oQjcJBGIFsA" },
-      { type:"MUSIC", title:"Lies (거짓말) — BIGBANG", meta:"K-POP", desc:"Official MV.", videoId:"2Cv3phvP8Ro" },
-      { type:"MUSIC", title:"Despacito — Luis Fonsi ft. Daddy Yankee", meta:"GLOBAL • 8B+", desc:"Official video.", videoId:"kJQP7kiw5Fk" },
-      { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"US/UK • 6B+", desc:"Official video.", videoId:"RgKAFK5djSk" },
-      { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"US/UK • 6B+", desc:"Official video.", videoId:"JGwWNGJdvx8" },
-      { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"US/UK • 5B+", desc:"Official video.", videoId:"OPf0YbXqDm0" },
-      { type:"MUSIC", title:"Gangnam Style — PSY", meta:"GLOBAL • 5B+", desc:"Official video.", videoId:"9bZkp7q19f0" }, 
-      { type:"MUSIC", title:"Sorry — Justin Bieber", meta:"US/UK • 4B+", desc:"Official video.", videoId:"fRh_vgS2dFE" },
-      { type:"MUSIC", title:"Sugar — Maroon 5", meta:"US/UK • 4B+", desc:"Official video.", videoId:"09R8_2nJtjg" },
-      { type:"MUSIC", title:"Roar — Katy Perry", meta:"US/UK • 4B+", desc:"Official video.", videoId:"CevxZvSJLk8" },
-      { type:"MUSIC", title:"Thinking Out Loud — Ed Sheeran", meta:"US/UK • 4B+", desc:"Official video.", videoId:"lp-EO5I60KA" },
-      { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"US/UK • 4B+", desc:"Official video.", videoId:"hT_nvWreIhg" },
-      { type:"MUSIC", title:"Dark Horse — Katy Perry", meta:"US/UK • 4B+", desc:"Official video.", videoId:"0KSOMA3QBU0" },
-      { type:"MUSIC", title:"Faded — Alan Walker", meta:"US/UK • 3B+", desc:"Official video.", videoId:"60ItHLz5WEA" },
-      { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"US/UK • 3B+", desc:"Official video.", videoId:"7wtfhZwyrcc" },
-      { type:"MUSIC", title:"Lean On — Major Lazer & DJ Snake", meta:"US/UK • 3B+", desc:"Official video.", videoId:"YqeW9_5kURI" },
-      { type:"MUSIC", title:"Perfect — Ed Sheeran", meta:"US/UK • 3B+", desc:"Official video.", videoId:"2Vv-BfVoq4g" },
-      { type:"MUSIC", title:"Havana — Camila Cabello", meta:"US/UK • 2B+", desc:"Official video.", videoId:"HCjNJDNzw8Y" },
-      { type:"MUSIC", title:"Bad Guy — Billie Eilish", meta:"US/UK • 2B+", desc:"Official video.", videoId:"DyDfgMOUjCI" },
-      { type:"MUSIC", title:"Closer — The Chainsmokers ft. Halsey", meta:"US/UK • 3B+", desc:"Official video.", videoId:"0zGcUoRlhmw" },
-      { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"US/UK • 3B+", desc:"Official video.", videoId:"aJOTlE1K90k" },
-      { type:"MUSIC", title:"Cheap Thrills — Sia", meta:"US/UK • 2B+", desc:"Official video.", videoId:"nYh-n7EOtMA" },
-      { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"JGwWNGJdvx8" },
-      { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"OPf0YbXqDm0" },
-      { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"RgKAFK5djSk" },
-      { type:"MUSIC", title:"Roar — Katy Perry", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"CevxZvSJLk8" },
-      { type:"MUSIC", title:"Sugar — Maroon 5", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"09R8_2nJtjg" },
-      { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"hT_nvWreIhg" },
-      { type:"MUSIC", title:"Hello — Adele", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"YQHsXMglC9A" },
-      { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"7wtfhZwyrcc" },
-      { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"aJOTlE1K90k" },
-      { type:"MUSIC", title:"Closer — The Chainsmokers ft. Halsey", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"0zGcUoRlhmw" },
-       { type:"MUSIC", title:"Last Christmas — Wham!", meta:"UK/US MUSIC", desc:"Official video.", videoId:"E8gmARGvPlI" },
-      { type:"MUSIC", title:"Let Me Hear Your Voice (声をきかせて) — BIGBANG", meta:"K-POP / JP", desc:"BIGBANG Japan single.", videoId:"oQjcJBGIFsA" },
-      { type:"MUSIC", title:"Lies (거짓말) — BIGBANG", meta:"K-POP", desc:"Official MV.", videoId:"2Cv3phvP8Ro" },
-      { type:"MUSIC", title:"Despacito — Luis Fonsi ft. Daddy Yankee", meta:"GLOBAL • 8B+", desc:"Official video.", videoId:"kJQP7kiw5Fk" },
-      { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"US/UK • 6B+", desc:"Official video.", videoId:"RgKAFK5djSk" },
-      { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"US/UK • 6B+", desc:"Official video.", videoId:"JGwWNGJdvx8" },
-      { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"US/UK • 5B+", desc:"Official video.", videoId:"OPf0YbXqDm0" },
-      { type:"MUSIC", title:"Gangnam Style — PSY", meta:"GLOBAL • 5B+", desc:"Official video.", videoId:"9bZkp7q19f0" }, 
-      { type:"MUSIC", title:"Sorry — Justin Bieber", meta:"US/UK • 4B+", desc:"Official video.", videoId:"fRh_vgS2dFE" },
-      { type:"MUSIC", title:"Sugar — Maroon 5", meta:"US/UK • 4B+", desc:"Official video.", videoId:"09R8_2nJtjg" },
-      { type:"MUSIC", title:"Roar — Katy Perry", meta:"US/UK • 4B+", desc:"Official video.", videoId:"CevxZvSJLk8" },
-      { type:"MUSIC", title:"Thinking Out Loud — Ed Sheeran", meta:"US/UK • 4B+", desc:"Official video.", videoId:"lp-EO5I60KA" },
-      { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"US/UK • 4B+", desc:"Official video.", videoId:"hT_nvWreIhg" },
-      { type:"MUSIC", title:"Dark Horse — Katy Perry", meta:"US/UK • 4B+", desc:"Official video.", videoId:"0KSOMA3QBU0" },
-      { type:"MUSIC", title:"Faded — Alan Walker", meta:"US/UK • 3B+", desc:"Official video.", videoId:"60ItHLz5WEA" },
-      { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"US/UK • 3B+", desc:"Official video.", videoId:"7wtfhZwyrcc" },
-      { type:"MUSIC", title:"Lean On — Major Lazer & DJ Snake", meta:"US/UK • 3B+", desc:"Official video.", videoId:"YqeW9_5kURI" },
-      { type:"MUSIC", title:"Perfect — Ed Sheeran", meta:"US/UK • 3B+", desc:"Official video.", videoId:"2Vv-BfVoq4g" },
-      { type:"MUSIC", title:"Havana — Camila Cabello", meta:"US/UK • 2B+", desc:"Official video.", videoId:"HCjNJDNzw8Y" },
-      { type:"MUSIC", title:"Bad Guy — Billie Eilish", meta:"US/UK • 2B+", desc:"Official video.", videoId:"DyDfgMOUjCI" },
-      { type:"MUSIC", title:"Closer — The Chainsmokers ft. Halsey", meta:"US/UK • 3B+", desc:"Official video.", videoId:"0zGcUoRlhmw" },
-      { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"US/UK • 3B+", desc:"Official video.", videoId:"aJOTlE1K90k" },
-      { type:"MUSIC", title:"Cheap Thrills — Sia", meta:"US/UK • 2B+", desc:"Official video.", videoId:"nYh-n7EOtMA" },
-      { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"JGwWNGJdvx8" },
-      { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"OPf0YbXqDm0" },
-      { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"RgKAFK5djSk" },
-      { type:"MUSIC", title:"Roar — Katy Perry", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"CevxZvSJLk8" },
-      { type:"MUSIC", title:"Sugar — Maroon 5", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"09R8_2nJtjg" },
-      { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"hT_nvWreIhg" },
-      { type:"MUSIC", title:"Hello — Adele", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"YQHsXMglC9A" },
-      { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"7wtfhZwyrcc" },
-      { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"aJOTlE1K90k" },
-      { type:"MUSIC", title:"Closer — The Chainsmokers ft. Halsey", meta:"UK/US MUSIC • 1B+", desc:"Official video.", videoId:"0zGcUoRlhmw" },
-      { type:"MUSIC", title:"Waka Waka (This Time for Africa) — Shakira", meta:"GLOBAL • 3B+", desc:"Official video.", videoId:"pRpeEdMmmQ0" },
-{ type:"MUSIC", title:"Chantaje — Shakira ft. Maluma", meta:"GLOBAL • 3B+", desc:"Official video.", videoId:"6Mgqbai3fKo" },
-{ type:"MUSIC", title:"Hips Don't Lie — Shakira ft. Wyclef Jean", meta:"GLOBAL • 1B+", desc:"Official video.", videoId:"DUT5rEU6pqM" },
-{ type:"MUSIC", title:"Mi Gente — J Balvin, Willy William", meta:"GLOBAL • 3B+", desc:"Official video.", videoId:"wnJ6LuUFpMo" },
-{ type:"MUSIC", title:"Bailando — Enrique Iglesias ft. Descemer Bueno, Gente De Zona", meta:"GLOBAL • 3B+", desc:"Official video.", videoId:"NUsoVlDFqZg" },
-{ type:"MUSIC", title:"Dame Tu Cosita — El Chombo", meta:"GLOBAL • 4B+", desc:"Official video.", videoId:"FzG4uDgje3M" },
-{ type:"MUSIC", title:"Taki Taki — DJ Snake ft. Selena Gomez, Ozuna, Cardi B", meta:"GLOBAL • 2B+", desc:"Official video.", videoId:"ixkoVwKQaJg" },
-{ type:"MUSIC", title:"Con Calma — Daddy Yankee & Snow", meta:"GLOBAL • 2B+", desc:"Official video.", videoId:"DiItGE3eAyQ" },
-{ type:"MUSIC", title:"Súbeme La Radio — Enrique Iglesias", meta:"GLOBAL • 1B+", desc:"Official video.", videoId:"9sg-A-eS6Ig" },
-{ type:"MUSIC", title:"Dura — Daddy Yankee", meta:"GLOBAL • 1B+", desc:"Official video.", videoId:"sGIm0-dQd8M" },
-
-{ type:"MUSIC", title:"Let Her Go — Passenger", meta:"US/UK • 3B+", desc:"Official video.", videoId:"RBumgq5yVrA" },
-{ type:"MUSIC", title:"Chandelier — Sia", meta:"US/UK • 3B+", desc:"Official video.", videoId:"2vjPBrBU-TM" },
-{ type:"MUSIC", title:"Thunder — Imagine Dragons", meta:"US/UK • 2B+", desc:"Official video.", videoId:"fKopy74weus" },
-{ type:"MUSIC", title:"Demons — Imagine Dragons", meta:"US/UK • 1B+", desc:"Official video.", videoId:"mWRsgZuwf_8" },
-{ type:"MUSIC", title:"Radioactive — Imagine Dragons", meta:"US/UK • 1B+", desc:"Official video.", videoId:"ktvTqknDobU" },
-{ type:"MUSIC", title:"Love Me Like You Do — Ellie Goulding", meta:"US/UK • 2B+", desc:"Official video.", videoId:"AJtDXIazrMo" },
-{ type:"MUSIC", title:"All About That Bass — Meghan Trainor", meta:"US/UK • 2B+", desc:"Official video.", videoId:"7PCkvCPvDXk" },
-{ type:"MUSIC", title:"Wake Me Up — Avicii", meta:"US/UK • 2B+", desc:"Official video.", videoId:"IcrbM1l_BoI" },
-{ type:"MUSIC", title:"The Nights — Avicii", meta:"US/UK • 1B+", desc:"Official video.", videoId:"UtF6Jej8yb4" },
-{ type:"MUSIC", title:"Somebody That I Used To Know — Gotye ft. Kimbra", meta:"US/UK • 2B+", desc:"Official video.", videoId:"8UVNT4wvIGY" },
-
-{ type:"MUSIC", title:"Blank Space — Taylor Swift", meta:"US/UK • 3B+", desc:"Official video.", videoId:"e-ORhEE9VVg" },
-{ type:"MUSIC", title:"Shake It Off — Taylor Swift", meta:"US/UK • 3B+", desc:"Official video.", videoId:"nfWlot6h_JM" },
-{ type:"MUSIC", title:"Look What You Made Me Do — Taylor Swift", meta:"US/UK • 1B+", desc:"Official video.", videoId:"3tmd-ClpJxA" },
-{ type:"MUSIC", title:"Girls Just Want To Have Fun — Cyndi Lauper", meta:"US/UK • 1B+", desc:"Official video.", videoId:"PIb6AZdTr-A" },
-
-{ type:"MUSIC", title:"Sorry (Lyric/Video) — Justin Bieber (alt)", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"PfGaX8G0f2E" },
-{ type:"MUSIC", title:"Baby — Justin Bieber ft. Ludacris", meta:"US/UK • 3B+", desc:"Official video.", videoId:"kffacxfA7G4" },
-{ type:"MUSIC", title:"What Do You Mean? — Justin Bieber", meta:"US/UK • 2B+", desc:"Official video.", videoId:"DK_0jXPuIr0" },
-
-{ type:"MUSIC", title:"Counting Stars (alt upload) — OneRepublic", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"hT_nvWreIhg" },
-{ type:"MUSIC", title:"Wolves — Selena Gomez x Marshmello", meta:"US/UK • 1B+", desc:"Official video.", videoId:"cH4E_t3m3xM" },
-{ type:"MUSIC", title:"It Ain't Me — Kygo & Selena Gomez", meta:"US/UK • 1B+", desc:"Official video.", videoId:"D5drYkLiLI8" },
-
-{ type:"MUSIC", title:"Counting Stars (Live/Alt) — OneRepublic", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"hT_nvWreIhg" },
-{ type:"MUSIC", title:"Love The Way You Lie — Eminem ft. Rihanna", meta:"US/UK • 2B+", desc:"Official video.", videoId:"uelHwf8o7_U" },
-{ type:"MUSIC", title:"The Monster — Eminem ft. Rihanna", meta:"US/UK • 1B+", desc:"Official video.", videoId:"EHkozMIXZ8w" },
-{ type:"MUSIC", title:"Umbrella — Rihanna ft. JAY-Z", meta:"US/UK • 1B+", desc:"Official video.", videoId:"CvBfHwUxHIk" },
-{ type:"MUSIC", title:"Diamonds — Rihanna", meta:"US/UK • 2B+", desc:"Official video.", videoId:"lWA2pjMjpBs" },
-{ type:"MUSIC", title:"We Found Love — Rihanna ft. Calvin Harris", meta:"US/UK • 1B+", desc:"Official video.", videoId:"tg00YEETFzg" },
-
-{ type:"MUSIC", title:"Stay With Me — Sam Smith", meta:"US/UK • 1B+", desc:"Official video.", videoId:"pB-5XG-DbAA" },
-{ type:"MUSIC", title:"I’m Not The Only One — Sam Smith", meta:"US/UK • 1B+", desc:"Official video.", videoId:"nCkpzqqog4k" },
-
-{ type:"MUSIC", title:"Hello — Lionel Richie", meta:"US/UK • 1B+", desc:"Official video.", videoId:"mHONNcZbwDY" },
-{ type:"MUSIC", title:"Billie Jean — Michael Jackson", meta:"US/UK • 1B+", desc:"Official video.", videoId:"Zi_XLOBDo_Y" },
-{ type:"MUSIC", title:"Beat It — Michael Jackson", meta:"US/UK • 1B+", desc:"Official video.", videoId:"oRdxUFDoQe0" },
-{ type:"MUSIC", title:"Thriller — Michael Jackson", meta:"US/UK • 1B+", desc:"Official video.", videoId:"sOnqjkJTMaA" },
-
-{ type:"MUSIC", title:"Smells Like Teen Spirit — Nirvana", meta:"US/UK • 1B+", desc:"Official video.", videoId:"hTWKbfoikeg" },
-{ type:"MUSIC", title:"Numb — Linkin Park", meta:"US/UK • 2B+", desc:"Official video.", videoId:"kXYiU_JCYtU" },
-{ type:"MUSIC", title:"In The End — Linkin Park", meta:"US/UK • 1B+", desc:"Official video.", videoId:"eVTXPUF4Oz4" },
-
-{ type:"MUSIC", title:"Bohemian Rhapsody — Queen", meta:"US/UK • 1B+", desc:"Official video.", videoId:"fJ9rUzIMcZQ" },
-{ type:"MUSIC", title:"Take On Me — a-ha", meta:"US/UK • 1B+", desc:"Official video.", videoId:"djV11Xbc914" },
-
-{ type:"MUSIC", title:"7 Years — Lukas Graham", meta:"US/UK • 1B+", desc:"Official video.", videoId:"LHCob76kigA" },
-{ type:"MUSIC", title:"Stressed Out — Twenty One Pilots", meta:"US/UK • 1B+", desc:"Official video.", videoId:"pXRviuL6vMY" },
-{ type:"MUSIC", title:"Heathens — Twenty One Pilots", meta:"US/UK • 1B+", desc:"Official video.", videoId:"UprcpdwuwCg" },
-
-{ type:"MUSIC", title:"Happier — Marshmello ft. Bastille", meta:"US/UK • 1B+", desc:"Official video.", videoId:"m7Bc3pLyij0" },
-{ type:"MUSIC", title:"Falling — Trevor Daniel", meta:"US/UK • 1B+", desc:"Official video.", videoId:"L7mfjvdnPno" },
-
-{ type:"MUSIC", title:"Sunflower — Post Malone & Swae Lee", meta:"US/UK • 2B+", desc:"Official video.", videoId:"ApXoWvfEYVU" },
-{ type:"MUSIC", title:"Rockstar — Post Malone ft. 21 Savage", meta:"US/UK • 3B+", desc:"Official video.", videoId:"UceaB4D0jpo" },
-{ type:"MUSIC", title:"God's Plan — Drake", meta:"US/UK • 1B+", desc:"Official video.", videoId:"xpVfcZ0ZcFM" },
-
-{ type:"MUSIC", title:"Counting Stars (duplicate-safe alt) — OneRepublic", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"hT_nvWreIhg" },
-
-{ type:"MUSIC", title:"Work — Rihanna ft. Drake", meta:"US/UK • 1B+", desc:"Official video.", videoId:"HL1UzIK-flA" },
-{ type:"MUSIC", title:"This Is What You Came For — Calvin Harris ft. Rihanna", meta:"US/UK • 1B+", desc:"Official video.", videoId:"kOkQ4T5WO9E" },
-
-{ type:"MUSIC", title:"New Rules — Dua Lipa", meta:"US/UK • 3B+", desc:"Official video.", videoId:"k2qgadSvNyU" },
-{ type:"MUSIC", title:"IDGAF — Dua Lipa", meta:"US/UK • 1B+", desc:"Official video.", videoId:"Mgfe5tIwOj0" },
-
-{ type:"MUSIC", title:"Let Me Love You — DJ Snake ft. Justin Bieber", meta:"US/UK • 1B+", desc:"Official video.", videoId:"euCqAq6BRa4" },
-{ type:"MUSIC", title:"Hymn For The Weekend — Coldplay", meta:"US/UK • 2B+", desc:"Official video.", videoId:"YykjpeuMNEk" },
-{ type:"MUSIC", title:"Paradise — Coldplay", meta:"US/UK • 1B+", desc:"Official video.", videoId:"1G4isv_Fylg" },
-{ type:"MUSIC", title:"Something Just Like This — The Chainsmokers & Coldplay", meta:"US/UK • 2B+", desc:"Official video.", videoId:"FM7MFYoylVs" },
-
-{ type:"MUSIC", title:"Señorita — Shawn Mendes, Camila Cabello", meta:"US/UK • 1B+", desc:"Official video.", videoId:"Pkh8UtuejGw" },
-{ type:"MUSIC", title:"Treat You Better — Shawn Mendes", meta:"US/UK • 2B+", desc:"Official video.", videoId:"lY2yjAdbvdQ" },
-
-{ type:"MUSIC", title:"One Kiss — Calvin Harris & Dua Lipa", meta:"US/UK • 1B+", desc:"Official video.", videoId:"DkeiKbqa02g" },
-{ type:"MUSIC", title:"This Is What You Came For (alt) — Calvin Harris ft. Rihanna", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"kOkQ4T5WO9E" },
-
-{ type:"MUSIC", title:"One Dance — Drake ft. Wizkid & Kyla", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"iAbnEUA0wpA" },
-{ type:"MUSIC", title:"Hotline Bling — Drake", meta:"US/UK • 2B+", desc:"Official video.", videoId:"uxpDa-c-4Mc" },
-
-{ type:"MUSIC", title:"Closer (alt upload) — The Chainsmokers ft. Halsey", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"PT2_F-1esPk" },
-{ type:"MUSIC", title:"Animals — Maroon 5", meta:"US/UK • 1B+", desc:"Official video.", videoId:"qpgTC9MDx1o" },
-{ type:"MUSIC", title:"Memories — Maroon 5", meta:"US/UK • 1B+", desc:"Official video.", videoId:"SlPhMPnQ58k" },
-{ type:"MUSIC", title:"Girls Like You (alt upload) — Maroon 5 ft. Cardi B", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"FJ7YqMMmttQ" },
-
-{ type:"MUSIC", title:"Hello (alt upload) — Adele", meta:"US/UK • 1B+", desc:"Official/Verified.", videoId:"YQHsXMglC9A" },
-{ type:"MUSIC", title:"Someone Like You — Adele", meta:"US/UK • 1B+", desc:"Official video.", videoId:"hLQl3WQQoQ0" },
-
-{ type:"MUSIC", title:"Happy — Pharrell Williams", meta:"US/UK • 1B+", desc:"Official video.", videoId:"ZbZSe6N_BXs" },
-{ type:"MUSIC", title:"All of Me — John Legend", meta:"US/UK • 2B+", desc:"Official video.", videoId:"450p7goxZqg" },
-
-{ type:"MUSIC", title:"Rude — MAGIC!", meta:"US/UK • 1B+", desc:"Official video.", videoId:"PIh2xe4jnpk" },
-{ type:"MUSIC", title:"Some Nights — fun.", meta:"US/UK • 1B+", desc:"Official video.", videoId:"qQkBeOisNM0" },
-
-{ type:"MUSIC", title:"Counting Stars (keep one only) — OneRepublic", meta:"US/UK • 1B+", desc:"(Nếu trùng thì xoá bớt)", videoId:"hT_nvWreIhg" },
-{ title:"Sóng Gió — Jack & K-ICM", videoId:"U6n2NcJ7rLc" },
-  { title:"Bạc Phận — Jack & K-ICM", videoId:"pA7w3gq1zGQ" },
-  { title:"Em Gì Ơi — Jack & K-ICM", videoId:"q-Tkz5c4a9A" },
-  { title:"Hồng Nhan — Jack", videoId:"7D7v3s1s7nA" },
-  { title:"Có Chắc Yêu Là Đây — Sơn Tùng M-TP", videoId:"6t-MjBazs3o" },
-  { title:"Chạy Ngay Đi — Sơn Tùng M-TP", videoId:"32sYGCOYJUM" },
-  { title:"Lạc Trôi — Sơn Tùng M-TP", videoId:"Llw9Q6akRo4" },
-  { title:"Em Của Ngày Hôm Qua — Sơn Tùng M-TP", videoId:"pLk9yYzF_xU" },
-  { title:"Nơi Này Có Anh — Sơn Tùng M-TP", videoId:"FN7ALfpGxiI" },
-  { title:"Hãy Trao Cho Anh — Sơn Tùng M-TP", videoId:"knW7-x7Y7RE" },
-
-    ];
-
-    function ytEmbedUrl(videoId){
-      const params = new URLSearchParams();
-      params.set("rel","0");
-      params.set("modestbranding","1");
-      params.set("playsinline","1");
-      if(autoplay) params.set("autoplay","1");
-      if(loop){
-        params.set("loop","1");
-        params.set("playlist", videoId);
+        if (url.hostname.includes("youtube.com")){
+          const v = url.searchParams.get("v");
+          if (v) return v;
+          // /embed/ID or /shorts/ID
+          const parts = url.pathname.split("/").filter(Boolean);
+          const idx = parts.findIndex(p => p === "embed" || p === "shorts");
+          if (idx >= 0 && parts[idx+1]) return parts[idx+1];
+        }
+      }catch{
+        // ignore
       }
-      return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+      return "";
+    }
+    function setYouTube(input){
+      const id = extractYouTubeId(input);
+      if(!id){
+        toast("Không nhận ra YouTube ID/URL");
+        return;
+      }
+      const embed = `https://www.youtube.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`;
+      $("#ytPlayer").src = embed;
+      $("#ytUrl").value = input;
+      save(K.ytUrl, input);
+      toast("Loaded video ✅");
+    }
+    function stopYouTube(){
+      $("#ytPlayer").src = "about:blank";
+      save(K.ytUrl, "");
+      $("#ytUrl").value = "";
+      toast("Stopped");
     }
 
-    function setActiveTrack(idx){
-      const item = MEDIA[idx];
-      if(!item) return;
-      currentItem = item;
+    // =========================
+    // Playlist
+    // =========================
+    let playlist = load(K.playlist, []);
+    let selectedTrackId = load(K.selectedTrackId, "");
 
-      ytPlayer.src = ytEmbedUrl(item.videoId);
-      nowTypeEl.textContent  = `TYPE: ${item.type}`;
-      nowTitleEl.textContent = `NOW: ${item.title}`;
-      nowModeEl.textContent  = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
-
-      document.querySelectorAll(".track").forEach(el=>el.classList.remove("active"));
-      const active = document.querySelector(`.track[data-idx="${idx}"]`);
-      if(active) active.classList.add("active");
+    function formatTrackMeta(t){
+      const a = t.artist ? `• ${t.artist}` : "";
+      const tag = t.tag ? `• ${t.tag}` : "";
+      return `${t.type || "YOUTUBE"} ${a} ${tag}`.trim();
     }
 
     function renderPlaylist(){
-      playlistEl.innerHTML = MEDIA.map((m, idx)=>`
-        <div class="track" data-idx="${idx}">
+      const q = ($("#plSearch").value || "").trim().toLowerCase();
+      const list = $("#playlist");
+      list.innerHTML = "";
+
+      const filtered = playlist.filter(t => {
+        const blob = `${t.title||""} ${t.artist||""} ${t.desc||""} ${t.url||""} ${t.tag||""}`.toLowerCase();
+        return blob.includes(q);
+      });
+
+      $("#playlistCount").textContent = `${filtered.length} / ${playlist.length} bài`;
+
+      if(filtered.length === 0){
+        const empty = document.createElement("div");
+        empty.className = "muted";
+        empty.style.fontWeight = "900";
+        empty.textContent = playlist.length ? "Không có kết quả" : "Playlist trống. Bấm Add để thêm bài.";
+        list.appendChild(empty);
+        return;
+      }
+
+      for(const t of filtered){
+        const div = document.createElement("div");
+        div.className = "track" + (t.id === selectedTrackId ? " active" : "");
+        div.dataset.id = t.id;
+        div.innerHTML = `
           <div class="trackTop">
-            <div class="trackTitle">${m.title}</div>
-            <div class="trackMeta">${m.meta}</div>
+            <div class="trackTitle">${escapeHTML(t.title || "Untitled")}</div>
+            <div class="trackMeta">${escapeHTML(formatTrackMeta(t))}</div>
           </div>
-          <p class="trackDesc">${m.desc}</p>
-        </div>
-      `).join("");
-
-      playlistEl.querySelectorAll(".track").forEach(el=>{
-        el.addEventListener("click", ()=>{
-          const idx = Number(el.getAttribute("data-idx"));
-          setActiveTrack(idx);
-          toast("Switched ✅");
+          <p class="trackDesc">${escapeHTML(t.desc || "")}</p>
+          <div class="rowActions">
+            <button class="miniBtn" data-act="play">▶️ Play</button>
+            <button class="miniBtn" data-act="edit">✏️ Edit</button>
+            <button class="miniBtn" data-act="del">🗑️ Del</button>
+          </div>
+        `;
+        div.addEventListener("click", (e)=>{
+          const btn = e.target.closest("button");
+          if(!btn){
+            // click card = play
+            playTrack(t.id);
+            return;
+          }
+          const act = btn.dataset.act;
+          if(act === "play") playTrack(t.id);
+          if(act === "edit") editTrack(t.id);
+          if(act === "del") deleteTrack(t.id);
+          e.stopPropagation();
         });
-      });
-    }
-    renderPlaylist();
-
-    const defaultIdx = MEDIA.findIndex(x => (x.title || "").toLowerCase().includes("last christmas"));
-    setActiveTrack(defaultIdx >= 0 ? defaultIdx : 0);
-
-    const apState = document.getElementById("apState");
-    const lpState = document.getElementById("lpState");
-
-    document.getElementById("btnAutoplay").addEventListener("click", ()=>{
-      autoplay = !autoplay;
-      apState.textContent = autoplay ? "ON" : "OFF";
-      if(currentItem) ytPlayer.src = ytEmbedUrl(currentItem.videoId);
-      nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
-      toast("Autoplay " + (autoplay ? "ON" : "OFF"));
-    });
-
-    document.getElementById("btnLoop").addEventListener("click", ()=>{
-      loop = !loop;
-      lpState.textContent = loop ? "ON" : "OFF";
-      if(currentItem) ytPlayer.src = ytEmbedUrl(currentItem.videoId);
-      nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
-      toast("Loop " + (loop ? "ON" : "OFF"));
-    });
-
-    document.getElementById("btnCopyMedia").addEventListener("click", async ()=>{
-      if(!currentItem) return;
-      const url = `https://www.youtube.com/watch?v=${currentItem.videoId}`;
-      try{
-        await navigator.clipboard.writeText(url);
-        toast("Copied video link ✅");
-      }catch(e){
-        toast("Copy failed");
+        list.appendChild(div);
       }
-    });
+    }
 
-    document.getElementById("btnOpenYT").addEventListener("click", ()=>{
-      if(!currentItem) return;
-      window.open(`https://www.youtube.com/watch?v=${currentItem.videoId}`, "_blank", "noopener");
-    });
+    function playTrack(id){
+      const t = playlist.find(x => x.id === id);
+      if(!t) return;
+      selectedTrackId = id;
+      save(K.selectedTrackId, id);
+      $("#nowPlaying").textContent = `Now: ${t.title || "Untitled"}`;
+      setYouTube(t.url || "");
+      renderPlaylist();
+      // load track-specific lyrics if exists
+      const allLyrics = load(K.lyrics, {});
+      const L = allLyrics[id] || { en:"", vi:"" };
+      $("#lyricEN").value = L.en || "";
+      $("#lyricVI").value = L.vi || "";
+      toast("Playing: " + (t.title || "Untitled"));
+    }
 
-    /********************
-     * 9) QR GENERATOR
-     ********************/
-    const qrBox = document.getElementById("qrBox");
-    const qrCaption = document.getElementById("qrCaption");
+    function promptTrack(defaults={}){
+      const title = prompt("Title:", defaults.title || "");
+      if(title === null) return null;
+      const artist = prompt("Artist (optional):", defaults.artist || "") ?? "";
+      const url = prompt("YouTube URL or ID:", defaults.url || "") ?? "";
+      const desc = prompt("Description (optional):", defaults.desc || "") ?? "";
+      const tag = prompt("Tag (optional):", defaults.tag || "") ?? "";
+      return { title:title.trim(), artist:artist.trim(), url:url.trim(), desc:desc.trim(), tag:tag.trim(), type:"YOUTUBE" };
+    }
+    function addTrack(){
+      const data = promptTrack();
+      if(!data) return;
+      if(!data.url){ toast("Thiếu URL/ID"); return; }
+      const t = { id: uid(), createdAt: now(), ...data };
+      playlist.unshift(t);
+      save(K.playlist, playlist);
+      renderPlaylist();
+      toast("Added track ✅");
+    }
+    function editTrack(id){
+      const t = playlist.find(x => x.id === id);
+      if(!t) return;
+      const data = promptTrack(t);
+      if(!data) return;
+      Object.assign(t, data, { updatedAt: now() });
+      save(K.playlist, playlist);
+      renderPlaylist();
+      toast("Updated ✅");
+    }
+    function deleteTrack(id){
+      const t = playlist.find(x => x.id === id);
+      if(!t) return;
+      if(!confirm(`Xóa "${t.title}"?`)) return;
+      playlist = playlist.filter(x => x.id !== id);
+      save(K.playlist, playlist);
+      if(selectedTrackId === id){
+        selectedTrackId = "";
+        save(K.selectedTrackId, "");
+        $("#nowPlaying").textContent = "Chưa chọn bài";
+      }
+      // remove lyrics for track
+      const allLyrics = load(K.lyrics, {});
+      delete allLyrics[id];
+      save(K.lyrics, allLyrics);
+      renderPlaylist();
+      toast("Deleted 🗑️");
+    }
 
-    function makeQR(targetEl, text){
-      targetEl.innerHTML = "";
-      new QRCode(targetEl, {
-        text,
-        width: 220,
-        height: 220,
-        colorDark : "#111111",
-        colorLight : "#ffffff",
-        correctLevel : QRCode.CorrectLevel.H
+    // =========================
+    // Lyrics per track
+    // =========================
+    function escapeHTML(s){
+      return (s ?? "").toString()
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function persistLyrics(){
+      const id = selectedTrackId || "__free__";
+      const allLyrics = load(K.lyrics, {});
+      allLyrics[id] = { en: $("#lyricEN").value, vi: $("#lyricVI").value, updatedAt: now() };
+      save(K.lyrics, allLyrics);
+      $("#lyricStatus").textContent = "Saved ✅ " + new Date().toLocaleTimeString();
+    }
+
+    function loadInitialLyrics(){
+      const id = selectedTrackId || "__free__";
+      const allLyrics = load(K.lyrics, {});
+      const L = allLyrics[id] || { en:"", vi:"" };
+      $("#lyricEN").value = L.en || "";
+      $("#lyricVI").value = L.vi || "";
+    }
+
+    // =========================
+    // Vocabulary
+    // =========================
+    let vocab = load(K.vocab, []);
+    function normalizeWord(w){ return (w||"").trim(); }
+
+    function addVocab(){
+      const word = normalizeWord($("#vWord").value);
+      const level = $("#vLevel").value;
+      const meaning = ($("#vMeaning").value||"").trim();
+      const example = ($("#vExample").value||"").trim();
+
+      if(!word){ toast("Thiếu Word"); return; }
+      const exists = vocab.some(v => v.word.toLowerCase() === word.toLowerCase());
+      if(exists && !confirm("Từ này đã có. Vẫn thêm?")) return;
+
+      vocab.unshift({ id: uid(), word, level, meaning, example, createdAt: now() });
+      save(K.vocab, vocab);
+      renderVocab();
+      $("#vWord").value = ""; $("#vMeaning").value=""; $("#vExample").value="";
+      $("#vWord").focus();
+      toast("Added vocab ✅");
+    }
+
+    function renderVocab(){
+      const q = ($("#vSearch").value||"").trim().toLowerCase();
+      const sort = $("#vSort").value;
+
+      let rows = vocab.filter(v => {
+        const blob = `${v.word} ${v.level} ${v.meaning} ${v.example}`.toLowerCase();
+        return blob.includes(q);
       });
+
+      if(sort === "newest") rows = [...rows].sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||""));
+      if(sort === "oldest") rows = [...rows].sort((a,b)=>(a.createdAt||"").localeCompare(b.createdAt||""));
+      if(sort === "az") rows = [...rows].sort((a,b)=>a.word.localeCompare(b.word));
+      if(sort === "za") rows = [...rows].sort((a,b)=>b.word.localeCompare(a.word));
+      if(sort === "level") rows = [...rows].sort((a,b)=>a.level.localeCompare(b.level) || a.word.localeCompare(b.word));
+
+      $("#vocabCount").textContent = `${vocab.length} từ`;
+      const tbody = $("#vocabTable");
+      tbody.innerHTML = "";
+
+      if(rows.length === 0){
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td colspan="5" class="muted" style="font-weight:900;border-radius:14px">Chưa có từ hoặc không có kết quả.</td>`;
+        tbody.appendChild(tr);
+        return;
+      }
+
+      for(const v of rows){
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><span class="bold">${escapeHTML(v.word)}</span></td>
+          <td><span class="tag">${escapeHTML(v.level)}</span></td>
+          <td>${escapeHTML(v.meaning||"")}</td>
+          <td>${escapeHTML(v.example||"")}</td>
+          <td style="text-align:right">
+            <div class="rowActions">
+              <button class="miniBtn" data-act="edit">✏️ Edit</button>
+              <button class="miniBtn" data-act="del">🗑️ Del</button>
+            </div>
+          </td>
+        `;
+        tr.addEventListener("click",(e)=>{
+          const btn = e.target.closest("button");
+          if(!btn) return;
+          const act = btn.dataset.act;
+          if(act==="edit") editVocab(v.id);
+          if(act==="del") delVocab(v.id);
+          e.stopPropagation();
+        });
+        tbody.appendChild(tr);
+      }
     }
 
-    function makeMainQR(text){
-      makeQR(qrBox, text);
-      qrCaption.textContent = "QR: " + text;
-      toast("QR created ✅");
+    function editVocab(id){
+      const v = vocab.find(x=>x.id===id);
+      if(!v) return;
+      const word = prompt("Word:", v.word);
+      if(word === null) return;
+      const meaning = prompt("Meaning:", v.meaning||"") ?? "";
+      const example = prompt("Example:", v.example||"") ?? "";
+      const level = prompt("Level (A1/A2/B1/B2/C1/C2):", v.level||"B1") ?? v.level;
+
+      v.word = normalizeWord(word) || v.word;
+      v.meaning = meaning.trim();
+      v.example = example.trim();
+      v.level = (level||v.level).trim().toUpperCase();
+      v.updatedAt = now();
+
+      save(K.vocab, vocab);
+      renderVocab();
+      toast("Updated vocab ✅");
+    }
+    function delVocab(id){
+      const v = vocab.find(x=>x.id===id);
+      if(!v) return;
+      if(!confirm(`Xóa từ "${v.word}"?`)) return;
+      vocab = vocab.filter(x=>x.id!==id);
+      save(K.vocab, vocab);
+      renderVocab();
+      toast("Deleted 🗑️");
     }
 
-    document.getElementById("btnQR").addEventListener("click", ()=>{
-      const text = (document.getElementById("qrText").value || "").trim();
-      if(!text){ toast("Nhập nội dung để tạo QR"); return; }
-      makeMainQR(text);
-    });
+    // Export/import vocab only
+    function exportVocab(){
+      downloadJSON({ exportedAt: now(), vocab }, "vocab.json");
+    }
+    function importVocab(file){
+      const reader = new FileReader();
+      reader.onload = ()=>{
+        const data = safeParse(reader.result, null);
+        if(!data || !Array.isArray(data.vocab)){ toast("File không đúng"); return; }
+        vocab = data.vocab;
+        save(K.vocab, vocab);
+        renderVocab();
+        toast("Imported vocab ✅");
+      };
+      reader.readAsText(file);
+    }
 
-    document.getElementById("btnQRUrl").addEventListener("click", ()=>{
-      const url = location.href.split("#")[0];
-      makeMainQR(url);
-    });
+    // =========================
+    // Quiz
+    // =========================
+    let quizState = load(K.quiz, null); // {items, idx, score, mode, total, level, choices, answered}
 
-    document.getElementById("btnQRVCF").addEventListener("click", ()=>{
-      const vcf =
-`BEGIN:VCARD
-VERSION:3.0
-FN:Tran Quoc Trung
-EMAIL:${CONTACT.email}
-URL:${location.href.split("#")[0]}
-X-SOCIALPROFILE;type=facebook:${CONTACT.facebook}
-NOTE:Veterinary • AI • App Builder
-END:VCARD`;
-      makeMainQR(vcf);
-    });
+    function filteredVocabForQuiz(){
+      const level = $("#qLevel").value;
+      const src = level === "ALL" ? vocab : vocab.filter(v => v.level === level);
+      return src;
+    }
+    function buildQuiz(){
+      const src = filteredVocabForQuiz();
+      const count = parseInt($("#qCount").value, 10);
+      const mode = $("#qMode").value;
+      const choices = parseInt($("#qChoice").value, 10);
 
-    const siteUrl = location.href.split("#")[0];
-    document.getElementById("qrSiteText").textContent = siteUrl;
+      if(src.length < Math.max(6, choices)){
+        toast("Vocab chưa đủ để tạo quiz");
+        return null;
+      }
+      // sample
+      const pool = shuffle([...src]).slice(0, Math.min(count, src.length));
+      const items = pool.map(v => ({
+        id: v.id,
+        word: v.word,
+        meaning: v.meaning || "",
+        example: v.example || "",
+        level: v.level || "B1"
+      }));
 
-    makeQR(document.getElementById("qrSiteBox"), siteUrl);
-    makeQR(document.getElementById("qrFbBox"), CONTACT.facebook);
-    makeQR(document.getElementById("qrZaloBox"), CONTACT.zalo);
+      quizState = { createdAt: now(), mode, choices, idx: 0, score: 0, items, answered: false, last: null };
+      save(K.quiz, quizState);
+      return quizState;
+    }
 
-    /********************
-     * 10) PRINT CV
-     ********************/
-    document.getElementById("btnPrint").addEventListener("click", ()=>{
-      window.open("CV_Trung.pdf", "_blank", "noopener");
-      toast("Opened CV ✅");
-    });
+    function renderQuiz(){
+      if(!quizState || !quizState.items || quizState.items.length === 0){
+        $("#qPrompt").textContent = "Chưa có câu hỏi. Bấm “Start Quiz”.";
+        $("#qOptions").innerHTML = "";
+        $("#qCounterTag").textContent = "0/0";
+        $("#qScoreTag").textContent = "Score: 0";
+        $("#qBar").style.width = "0%";
+        $("#qExplain").textContent = "—";
+        $("#quizInfo").textContent = "Chưa bắt đầu";
+        return;
+      }
 
-    /********************
-     * 11) SEND MAIL (mailto)
-     ********************/
-    document.getElementById("btnMail").addEventListener("click", ()=>{
-      const name = (document.getElementById("name").value || "").trim();
-      const subject = (document.getElementById("subject").value || "").trim();
-      const message = (document.getElementById("message").value || "").trim();
+      const total = quizState.items.length;
+      const idx = clamp(quizState.idx, 0, total-1);
+      const item = quizState.items[idx];
 
-      const sub = encodeURIComponent(subject ? `[Portfolio] ${subject}` : "[Portfolio] Message");
-      const body = encodeURIComponent(
-        `Name: ${name}\n\nMessage:\n${message}\n\n---\nSent from portfolio page`
+      $("#qCounterTag").textContent = `${idx+1}/${total}`;
+      $("#qScoreTag").textContent = `Score: ${quizState.score}`;
+      $("#qBar").style.width = `${Math.round(((idx)/total)*100)}%`;
+      $("#quizInfo").textContent = `Mode: ${quizState.mode.toUpperCase()} • Choices: ${quizState.choices}`;
+
+      const mode = quizState.mode;
+      const prompt = makePrompt(item, mode);
+      $("#qPrompt").textContent = prompt.text;
+
+      const options = makeOptions(item, mode, quizState.choices);
+      const box = $("#qOptions");
+      box.innerHTML = "";
+      for(const opt of options){
+        const btn = document.createElement("button");
+        btn.className = "optBtn";
+        btn.textContent = opt.label;
+        btn.addEventListener("click", ()=>{
+          if(quizState.answered) return;
+          quizState.answered = true;
+          const correct = opt.correct;
+          if(correct) quizState.score += 1;
+          quizState.last = { correctValue: options.find(x=>x.correct)?.label || "", picked: opt.label, correct };
+          save(K.quiz, quizState);
+          // mark
+          $$("#qOptions .optBtn").forEach((b,i)=>{
+            const o = options[i];
+            if(o.correct) b.classList.add("correct");
+            if(!o.correct && o.label === opt.label) b.classList.add("wrong");
+          });
+          $("#qExplain").textContent = explain(item, mode, quizState.last);
+          toast(correct ? "Đúng ✅" : "Sai ❌");
+        });
+        box.appendChild(btn);
+      }
+      $("#qExplain").textContent = quizState.answered ? explain(item, mode, quizState.last) : "Chọn 1 đáp án.";
+    }
+
+    function makePrompt(item, mode){
+      if(mode === "en_vi") return { text: `Word: ${item.word}` };
+      if(mode === "vi_en") return { text: `Meaning: ${item.meaning || "(no meaning)"}` };
+      // fill
+      const ex = item.example || "";
+      if(!ex || ex.toLowerCase().indexOf(item.word.toLowerCase()) === -1){
+        return { text: `Fill: (example missing) Choose the correct word for: "${item.meaning || "—"}"` };
+      }
+      const blank = ex.replace(new RegExp(item.word, "ig"), "_____");
+      return { text: `Fill in the blank: ${blank}` };
+    }
+
+    function makeOptions(item, mode, n){
+      const src = filteredVocabForQuiz();
+      const choices = [];
+      const correctLabel = (mode === "en_vi") ? (item.meaning || "(no meaning)") :
+                           (mode === "vi_en") ? (item.word) :
+                           (item.word);
+      choices.push({ label: correctLabel, correct: true });
+
+      const candidates = shuffle(src.filter(v => v.id !== item.id));
+      for(const c of candidates){
+        const label = (mode === "en_vi") ? (c.meaning || "(no meaning)") :
+                      (mode === "vi_en") ? (c.word) :
+                      (c.word);
+        if(!choices.some(x => x.label.toLowerCase() === label.toLowerCase())){
+          choices.push({ label, correct:false });
+        }
+        if(choices.length >= n) break;
+      }
+      return shuffle(choices);
+    }
+
+    function explain(item, mode, last){
+      if(!last) return "—";
+      const base = `Đáp án đúng: ${mode==="en_vi" ? item.meaning : item.word}`;
+      const ex = item.example ? ` • Example: ${item.example}` : "";
+      return base + ex;
+    }
+
+    function nextQuestion(){
+      if(!quizState) return;
+      const total = quizState.items.length;
+      if(quizState.idx >= total-1){
+        $("#qBar").style.width = "100%";
+        toast(`Hoàn thành! Score: ${quizState.score}/${total}`);
+        $("#qExplain").textContent = `Done ✅ Score: ${quizState.score}/${total}`;
+        return;
+      }
+      quizState.idx += 1;
+      quizState.answered = false;
+      quizState.last = null;
+      save(K.quiz, quizState);
+      renderQuiz();
+    }
+
+    function revealAnswer(){
+      if(!quizState) return;
+      if(quizState.answered) return;
+      const idx = clamp(quizState.idx, 0, quizState.items.length-1);
+      const item = quizState.items[idx];
+      quizState.answered = true;
+      quizState.last = { correctValue: (quizState.mode==="en_vi"?item.meaning:item.word), picked:"(reveal)", correct:false };
+      save(K.quiz, quizState);
+      renderQuiz();
+      toast("Revealed 👀");
+    }
+
+    function resetQuiz(){
+      quizState = null;
+      localStorage.removeItem(K.quiz);
+      refreshKeyList();
+      renderQuiz();
+      toast("Quiz reset");
+    }
+
+    // =========================
+    // Timer / Pomodoro
+    // =========================
+    let timerState = load(K.timer, { presetMin:25, remainingSec:1500, running:false, startedAt:null, note:"" });
+    let stats = load(K.stats, { sessions:0, minutes:0 });
+
+    function setPreset(min){
+      const m = clamp(parseInt(min,10)||25, 1, 999);
+      timerState.presetMin = m;
+      timerState.remainingSec = m*60;
+      timerState.running = false;
+      timerState.startedAt = null;
+      save(K.timer, timerState);
+      renderTimer();
+      toast(`Preset: ${m} phút`);
+    }
+
+    function toggleTimer(){
+      timerState.running = !timerState.running;
+      timerState.startedAt = timerState.running ? Date.now() : null;
+      save(K.timer, timerState);
+      renderTimer();
+      toast(timerState.running ? "Timer Start" : "Timer Pause");
+    }
+
+    function resetTimer(){
+      timerState.remainingSec = timerState.presetMin * 60;
+      timerState.running = false;
+      timerState.startedAt = null;
+      save(K.timer, timerState);
+      renderTimer();
+      toast("Timer Reset");
+    }
+
+    function tickTimer(){
+      if(!timerState.running) return;
+      timerState.remainingSec -= 1;
+      if(timerState.remainingSec <= 0){
+        timerState.remainingSec = 0;
+        timerState.running = false;
+        timerState.startedAt = null;
+
+        // stats
+        stats.sessions += 1;
+        stats.minutes += timerState.presetMin;
+        save(K.stats, stats);
+
+        save(K.timer, timerState);
+        renderTimer();
+        renderStats();
+        toast("Hết giờ! ✅");
+        // simple beep (best-effort)
+        try{ beep(); }catch{}
+        return;
+      }
+      save(K.timer, timerState);
+      renderTimer();
+    }
+
+    function renderTimer(){
+      const mm = Math.floor(timerState.remainingSec / 60);
+      const ss = timerState.remainingSec % 60;
+      $("#timeBig").textContent = `${String(mm).padStart(2,"0")}:${String(ss).padStart(2,"0")}`;
+      $("#timerInfo").textContent = timerState.running ? "Running" : "Ready";
+      $("#btnTimerToggle").querySelector(".ico").textContent = timerState.running ? "⏸️" : "▶️";
+      $("#btnTimerToggle").querySelector("div>div").textContent = timerState.running ? "Pause" : "Start";
+      const total = timerState.presetMin * 60;
+      const done = total - timerState.remainingSec;
+      $("#tBar").style.width = `${clamp(Math.round((done/total)*100), 0, 100)}%`;
+      $("#focusNote").value = timerState.note || "";
+    }
+
+    function renderStats(){
+      $("#statSessions").textContent = stats.sessions || 0;
+      $("#statMinutes").textContent = stats.minutes || 0;
+    }
+
+    function resetStats(){
+      if(!confirm("Reset stats?")) return;
+      stats = { sessions:0, minutes:0 };
+      save(K.stats, stats);
+      renderStats();
+      toast("Stats reset");
+    }
+
+    function beep(){
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = "sine";
+      o.frequency.value = 880;
+      o.connect(g); g.connect(ctx.destination);
+      g.gain.setValueAtTime(0.0001, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.35);
+      o.start();
+      o.stop(ctx.currentTime + 0.36);
+      window.setTimeout(()=>ctx.close(), 500);
+    }
+
+    // =========================
+    // Export/import all
+    // =========================
+    function downloadJSON(obj, filename){
+      const blob = new Blob([JSON.stringify(obj, null, 2)], {type:"application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function exportAll(){
+      const all = {
+        exportedAt: now(),
+        theme: load(K.theme, "dark"),
+        playlist: load(K.playlist, []),
+        selectedTrackId: load(K.selectedTrackId, ""),
+        ytUrl: load(K.ytUrl, ""),
+        lyrics: load(K.lyrics, {}),
+        vocab: load(K.vocab, []),
+        quiz: load(K.quiz, null),
+        timer: load(K.timer, null),
+        stats: load(K.stats, null),
+      };
+      downloadJSON(all, "backup_all.json");
+      toast("Exported ✅");
+    }
+
+    function importAll(file){
+      const reader = new FileReader();
+      reader.onload = ()=>{
+        const data = safeParse(reader.result, null);
+        if(!data || typeof data !== "object"){ toast("File không đúng"); return; }
+        if(Array.isArray(data.playlist)) save(K.playlist, data.playlist);
+        if(typeof data.selectedTrackId === "string") save(K.selectedTrackId, data.selectedTrackId);
+        if(typeof data.ytUrl === "string") save(K.ytUrl, data.ytUrl);
+        if(data.lyrics && typeof data.lyrics === "object") save(K.lyrics, data.lyrics);
+        if(Array.isArray(data.vocab)) save(K.vocab, data.vocab);
+        if(data.quiz) save(K.quiz, data.quiz);
+        if(data.timer) save(K.timer, data.timer);
+        if(data.stats) save(K.stats, data.stats);
+        if(typeof data.theme === "string") save(K.theme, data.theme);
+
+        // reload in-memory
+        playlist = load(K.playlist, []);
+        selectedTrackId = load(K.selectedTrackId, "");
+        vocab = load(K.vocab, []);
+        quizState = load(K.quiz, null);
+        timerState = load(K.timer, timerState);
+        stats = load(K.stats, stats);
+
+        initTheme();
+        renderPlaylist();
+        renderVocab();
+        renderQuiz();
+        renderTimer();
+        renderStats();
+        refreshKeyList();
+        toast("Imported All ✅");
+      };
+      reader.readAsText(file);
+    }
+
+    function wipeStorage(){
+      if(!confirm("Xóa toàn bộ dữ liệu trang này?")) return;
+      Object.values(K).forEach(k => localStorage.removeItem(k));
+      refreshKeyList();
+      // reset memory
+      playlist = [];
+      selectedTrackId = "";
+      vocab = [];
+      quizState = null;
+      timerState = { presetMin:25, remainingSec:1500, running:false, startedAt:null, note:"" };
+      stats = { sessions:0, minutes:0 };
+      initTheme();
+      stopYouTube();
+      loadInitialLyrics();
+      renderPlaylist();
+      renderVocab();
+      renderQuiz();
+      renderTimer();
+      renderStats();
+      toast("Wiped ✅");
+    }
+
+    // =========================
+    // Demo content
+    // =========================
+    function addDemo(){
+      const demo = [
+        {
+          id: uid(),
+          title: "Lady Gaga - Always Remember Us This Way",
+          artist: "Lady Gaga",
+          url: "https://youtu.be/5vheNbQlsyU",
+          desc: "Practice listening + shadowing (chorus).",
+          tag: "LISTENING",
+          type: "YOUTUBE",
+          createdAt: now()
+        },
+        {
+          id: uid(),
+          title: "Lady Gaga - Shallow (Live)",
+          artist: "Lady Gaga",
+          url: "https://youtu.be/bo_efYhYU2A",
+          desc: "Learn pronunciation (th / vowel).",
+          tag: "PRONUNCIATION",
+          type: "YOUTUBE",
+          createdAt: now()
+        }
+      ];
+      // merge without duplicates by url
+      const urls = new Set(playlist.map(t => t.url));
+      for(const t of demo){
+        if(!urls.has(t.url)) playlist.unshift(t);
+      }
+      save(K.playlist, playlist);
+      renderPlaylist();
+      toast("Added demo ✅");
+    }
+    function resetDemo(){
+      if(!confirm("Xóa demo (playlist + lyrics của demo)?")) return;
+      // remove only demo urls
+      const demoUrls = new Set([
+        "https://youtu.be/5vheNbQlsyU",
+        "https://youtu.be/bo_efYhYU2A"
+      ]);
+      const removedIds = new Set(playlist.filter(t=>demoUrls.has(t.url)).map(t=>t.id));
+      playlist = playlist.filter(t=>!demoUrls.has(t.url));
+      save(K.playlist, playlist);
+
+      const allLyrics = load(K.lyrics, {});
+      for(const id of removedIds) delete allLyrics[id];
+      save(K.lyrics, allLyrics);
+
+      if(removedIds.has(selectedTrackId)){
+        selectedTrackId = "";
+        save(K.selectedTrackId, "");
+        $("#nowPlaying").textContent = "Chưa chọn bài";
+        stopYouTube();
+      }
+      renderPlaylist();
+      toast("Removed demo ✅");
+    }
+
+    // =========================
+    // Utils
+    // =========================
+    function shuffle(arr){
+      for(let i=arr.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [arr[i],arr[j]]=[arr[j],arr[i]];
+      }
+      return arr;
+    }
+
+    function refreshKeyList(){
+      const keys = Object.values(K).filter(k => localStorage.getItem(k) !== null);
+      $("#keyList").textContent = keys.length ? keys.join(" • ") : "—";
+    }
+
+    // =========================
+    // Help
+    // =========================
+    function showHelp(){
+      alert(
+`Phím tắt:
+T = đổi theme
+/ = focus search playlist
+Ctrl/⌘ + 1..4 = chuyển nhanh section
+Space = Start/Pause timer
+R = Reset timer
+H = help
+
+Gợi ý:
+- Bấm vào 1 track để play.
+- Lyrics auto-save theo track (nếu chưa chọn track thì lưu vào "__free__").
+- Vocab dùng để tạo Quiz.`
       );
-      window.location.href = `mailto:${CONTACT.email}?subject=${sub}&body=${body}`;
-    });
-
-    /********************
-     * 12) NAV SPY + BACK TO TOP
-     ********************/
-    const topBtn = document.getElementById("topBtn");
-    topBtn.addEventListener("click", ()=> window.scrollTo({top:0, behavior:"smooth"}));
-
-    const links = Array.from(document.querySelectorAll(".navLinks a[data-spy]"));
-    const sections = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
-
-    function onScroll(){
-      const y = window.scrollY || document.documentElement.scrollTop;
-      topBtn.classList.toggle("show", y > 600);
-
-      let idx = 0;
-      for(let i=0;i<sections.length;i++){
-        const s = sections[i];
-        const top = s.offsetTop - 120;
-        if(y >= top) idx = i;
-      }
-      links.forEach(a=>a.classList.remove("active"));
-      if(links[idx]) links[idx].classList.add("active");
     }
-    window.addEventListener("scroll", onScroll, {passive:true});
-    onScroll();
 
-    /********************
-     * 13) SKILL BARS animate when visible
-     ********************/
-    const barEls = document.querySelectorAll(".bar");
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          const pct = e.target.getAttribute("data-pct");
-          const fill = e.target.querySelector(".fill");
-          fill.style.width = pct + "%";
+    // =========================
+    // Wire events
+    // =========================
+    function bind(){
+      $("#btnTheme").addEventListener("click", ()=>{
+        const cur = document.documentElement.getAttribute("data-theme") || "dark";
+        applyTheme(cur === "dark" ? "light" : "dark");
+      });
+      $("#btnHelp").addEventListener("click", showHelp);
+
+      $("#btnLoadYt").addEventListener("click", ()=> setYouTube($("#ytUrl").value));
+      $("#btnClearYt").addEventListener("click", stopYouTube);
+
+      $("#btnNewTrack").addEventListener("click", addTrack);
+      $("#plSearch").addEventListener("input", renderPlaylist);
+
+      $("#lyricEN").addEventListener("input", debounce(persistLyrics, 350));
+      $("#lyricVI").addEventListener("input", debounce(persistLyrics, 350));
+      $("#btnClearLyrics").addEventListener("click", ()=>{
+        if(!confirm("Clear lyrics?")) return;
+        $("#lyricEN").value = ""; $("#lyricVI").value = "";
+        persistLyrics();
+        toast("Lyrics cleared");
+      });
+      $("#btnSwapLyrics").addEventListener("click", ()=>{
+        const a = $("#lyricEN").value;
+        $("#lyricEN").value = $("#lyricVI").value;
+        $("#lyricVI").value = a;
+        persistLyrics();
+        toast("Swapped");
+      });
+      $("#btnCopyLyrics").addEventListener("click", async ()=>{
+        const text = `EN:\n${$("#lyricEN").value}\n\nVI:\n${$("#lyricVI").value}`;
+        try{
+          await navigator.clipboard.writeText(text);
+          toast("Copied ✅");
+        }catch{
+          toast("Copy failed (browser)");
         }
       });
-    }, {threshold: 0.25});
-    barEls.forEach(b=>io.observe(b));
+
+      $("#btnAddVocab").addEventListener("click", addVocab);
+      $("#btnClearVForm").addEventListener("click", ()=>{
+        $("#vWord").value=""; $("#vMeaning").value=""; $("#vExample").value="";
+        $("#vWord").focus();
+      });
+      $("#vWord").addEventListener("keydown", (e)=>{
+        if(e.key === "Enter"){ addVocab(); }
+      });
+      $("#vSearch").addEventListener("input", renderVocab);
+      $("#vSort").addEventListener("change", renderVocab);
+
+      $("#btnVocabExport").addEventListener("click", exportVocab);
+      $("#vocabImportFile").addEventListener("change", (e)=>{
+        const f = e.target.files?.[0];
+        if(f) importVocab(f);
+        e.target.value = "";
+      });
+
+      $("#btnStartQuiz").addEventListener("click", ()=>{
+        const q = buildQuiz();
+        if(!q) return;
+        quizState.answered = false;
+        save(K.quiz, quizState);
+        renderQuiz();
+        toast("Quiz started ✅");
+      });
+      $("#btnResetQuiz").addEventListener("click", resetQuiz);
+      $("#btnNextQ").addEventListener("click", nextQuestion);
+      $("#btnReveal").addEventListener("click", revealAnswer);
+
+      $$(".chipBtn").forEach(b => b.addEventListener("click", ()=> setPreset(b.dataset.min)));
+      $("#btnTimerToggle").addEventListener("click", toggleTimer);
+      $("#btnTimerReset").addEventListener("click", resetTimer);
+      $("#focusNote").addEventListener("input", debounce(()=>{
+        timerState.note = $("#focusNote").value;
+        save(K.timer, timerState);
+        $("#noteStatus").textContent = "Saved ✅ " + new Date().toLocaleTimeString();
+      }, 350));
+      $("#btnResetStats").addEventListener("click", resetStats);
+
+      $("#btnExportAll").addEventListener("click", exportAll);
+      $("#importAllFile").addEventListener("change", (e)=>{
+        const f = e.target.files?.[0];
+        if(f) importAll(f);
+        e.target.value = "";
+      });
+      $("#btnWipeStorage").addEventListener("click", wipeStorage);
+
+      $("#btnAddDemo").addEventListener("click", addDemo);
+      $("#btnResetAll").addEventListener("click", resetDemo);
+
+      $("#btnTop").addEventListener("click", ()=> window.scrollTo({top:0, behavior:"smooth"}));
+
+      // quick focus buttons
+      $("#btnFocusMedia").addEventListener("click", ()=> $("#media").scrollIntoView({behavior:"smooth"}));
+      $("#btnFocusVocab").addEventListener("click", ()=> $("#vocab").scrollIntoView({behavior:"smooth"}));
+      $("#btnFocusQuiz").addEventListener("click", ()=> $("#quiz").scrollIntoView({behavior:"smooth"}));
+      $("#btnFocusTimer").addEventListener("click", ()=> $("#timer").scrollIntoView({behavior:"smooth"}));
+
+      // keyboard shortcuts
+      window.addEventListener("keydown", (e)=>{
+        if(e.target && ["INPUT","TEXTAREA","SELECT"].includes(e.target.tagName)){
+          // allow / in inputs
+        }else{
+          if(e.key === "t" || e.key === "T"){
+            e.preventDefault();
+            $("#btnTheme").click();
+          }
+          if(e.key === "h" || e.key === "H"){
+            e.preventDefault();
+            showHelp();
+          }
+          if(e.key === "/"){
+            e.preventDefault();
+            $("#plSearch").focus();
+          }
+          if(e.key === " "){
+            e.preventDefault();
+            $("#btnTimerToggle").click();
+          }
+          if(e.key === "r" || e.key === "R"){
+            e.preventDefault();
+            $("#btnTimerReset").click();
+          }
+        }
+
+        if((e.ctrlKey || e.metaKey) && ["1","2","3","4"].includes(e.key)){
+          e.preventDefault();
+          const map = { "1":"#media", "2":"#vocab", "3":"#quiz", "4":"#timer" };
+          const sel = map[e.key];
+          $(sel)?.scrollIntoView({behavior:"smooth"});
+        }
+      });
+
+      window.addEventListener("scroll", debounce(setActiveNav, 80));
+      setActiveNav();
+    }
+
+    function debounce(fn, ms){
+      let t;
+      return (...args)=>{
+        clearTimeout(t);
+        t = setTimeout(()=>fn(...args), ms);
+      };
+    }
+
+    // =========================
+    // Boot
+    // =========================
+    function boot(){
+      initTheme();
+      refreshKeyList();
+
+      // load stored
+      playlist = load(K.playlist, []);
+      selectedTrackId = load(K.selectedTrackId, "");
+      vocab = load(K.vocab, []);
+      quizState = load(K.quiz, null);
+      timerState = load(K.timer, timerState);
+      stats = load(K.stats, stats);
+
+      $("#ytUrl").value = load(K.ytUrl, "");
+      if($("#ytUrl").value) setYouTube($("#ytUrl").value);
+
+      renderPlaylist();
+      renderVocab();
+      renderQuiz();
+      renderTimer();
+      renderStats();
+      loadInitialLyrics();
+
+      bind();
+      setActiveNav();
+
+      // start timer tick
+      setInterval(tickTimer, 1000);
+
+      // restore selected track
+      if(selectedTrackId){
+        const t = playlist.find(x => x.id === selectedTrackId);
+        if(t){
+          $("#nowPlaying").textContent = `Now: ${t.title || "Untitled"}`;
+        }
+      }
+    }
+
+    boot();
   </script>
 </body>
 </html>
