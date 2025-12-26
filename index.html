@@ -1919,6 +1919,15 @@ const MEDIA_FIXED = MEDIA.map(m => ({
   desc: m.desc || "Official video.",
   videoId: m.videoId
 })).filter(x => x.videoId); // remove any item missing videoId
+    const seen = new Set();
+    type: m.type || "MUSIC",
+    title: m.title || "Untitled",
+    meta: m.meta || "VIETNAM • MUSIC",
+    desc: m.desc || "Official video.",
+    videoId: m.videoId
+  }))
+  .filter(x => x.videoId && !seen.has(x.videoId) && seen.add(x.videoId));
+
 
 
     function ytEmbedUrl(videoId){
