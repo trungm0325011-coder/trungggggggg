@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="vi">
 <head>
@@ -41,7 +40,6 @@
       --glass: blur(12px);
     }
 
-    /* Light mode */
     [data-theme="light"]{
       --bg:#f6f7fb;
       --bg2:#ffffff;
@@ -73,7 +71,6 @@
     img{max-width:100%; display:block}
     button{font-family:inherit}
 
-    /* Layout */
     .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
     .grid{display:grid; gap:16px}
     .card{
@@ -104,7 +101,6 @@
       box-shadow: 0 0 0 4px rgba(255,59,59,.12);
     }
 
-    /* Header */
     header{
       position:sticky; top:0; z-index:50;
       background:rgba(7,10,16,.62);
@@ -162,7 +158,6 @@
       background:linear-gradient(135deg, rgba(255,59,59,.16), rgba(255,213,74,.10));
     }
 
-    /* Top actions */
     .actions{display:flex; align-items:center; gap:8px}
     .iconBtn{
       display:inline-flex; align-items:center; justify-content:center;
@@ -178,7 +173,6 @@
     .iconBtn:focus{outline:none; box-shadow:var(--ring)}
     .kbd{font-weight:900; font-size:12px; opacity:.9}
 
-    /* Hero */
     .hero{padding:20px 0 10px}
     .heroGrid{grid-template-columns: 1.12fr .88fr; align-items:stretch}
     .headline{
@@ -201,7 +195,6 @@
     }
     .metaRow{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 6px}
 
-    /* Buttons */
     .cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
@@ -235,7 +228,6 @@
     }
     .btn small{display:block; margin-top:2px; font-size:11px; color:var(--muted); font-weight:800}
 
-    /* Avatar big */
     .avatar{
       width:100%;
       aspect-ratio: 1 / 1;
@@ -267,7 +259,6 @@
     .mini b{display:block; font-size:13px}
     .mini span{color:var(--muted); font-size:12px; line-height:1.45}
 
-    /* Sections */
     section{padding:10px 0 14px}
     .titleRow{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin:4px 0 12px}
     .titleRow h2{margin:0; font-size:18px; letter-spacing:-.2px}
@@ -284,7 +275,6 @@
     .item p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
     .tagRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
 
-    /* Stats */
     .stats{display:grid; grid-template-columns: repeat(4, 1fr); gap:12px}
     .stat{
       border:1px solid var(--line);
@@ -295,7 +285,6 @@
     .stat .num{font-size:22px; font-weight:900}
     .stat .lbl{color:var(--muted2); font-size:12px; font-weight:800; margin-top:4px}
 
-    /* Timeline */
     .timeline{display:grid; gap:12px}
     .tItem{
       display:grid;
@@ -310,7 +299,6 @@
     .tTitle{font-weight:900; font-size:14px; margin:0}
     .tDesc{margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.6}
 
-    /* Skills bars */
     .bars{display:grid; gap:10px}
     .bar{
       border:1px solid var(--line);
@@ -333,7 +321,6 @@
       transition: width .6s ease;
     }
 
-    /* Projects filters */
     .controls{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
     .input, .select{
       padding:11px 12px;
@@ -385,7 +372,6 @@
       font-size:12px;
     }
 
-    /* Modal */
     .overlay{
       position:fixed; inset:0;
       background:rgba(0,0,0,.55);
@@ -421,7 +407,6 @@
     }
     .closeBtn:hover{background:rgba(255,255,255,.06)}
 
-    /* CV PREVIEW */
     .iframeBox{
       width:100%;
       height:520px;
@@ -430,13 +415,8 @@
       border:1px solid rgba(255,255,255,.12);
       background:rgba(255,255,255,.03);
     }
-    .iframeBox iframe{
-      width:100%;
-      height:100%;
-      border:0;
-    }
+    .iframeBox iframe{width:100%; height:100%; border:0;}
 
-    /* Gallery */
     .gal{display:grid; grid-template-columns: repeat(4, 1fr); gap:10px}
     .ph{
       border:1px solid var(--line);
@@ -461,7 +441,6 @@
       text-shadow:0 8px 30px rgba(0,0,0,.55);
     }
 
-    /* Blog */
     .posts{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px}
     .post{
       border:1px solid var(--line);
@@ -474,22 +453,16 @@
     .post h3{margin:0; font-size:14px}
     .post p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
 
-    /* FAQ */
     details{
       border:1px solid var(--line);
       border-radius:18px;
       background:rgba(255,255,255,.04);
       padding:12px 14px;
     }
-    summary{
-      cursor:pointer;
-      font-weight:900;
-      list-style:none;
-    }
+    summary{cursor:pointer; font-weight:900; list-style:none;}
     summary::-webkit-details-marker{display:none}
     details p{margin:10px 0 0; color:var(--muted); line-height:1.65; font-size:13px}
 
-    /* Contact */
     .contactGrid{grid-template-columns: 1.12fr .88fr}
     .row{
       display:grid;
@@ -526,7 +499,6 @@
     .formGrid{display:grid; gap:10px}
     .textarea{min-height:120px; resize:vertical}
 
-    /* Toast */
     .toast{
       position:fixed; right:16px; bottom:16px;
       padding:12px 14px;
@@ -546,7 +518,6 @@
     }
     .toast.show{display:block}
 
-    /* Back to top */
     .topBtn{
       position:fixed;
       left:16px;
@@ -565,7 +536,6 @@
     .topBtn.show{display:grid}
     .topBtn:hover{background:rgba(255,255,255,.08)}
 
-    /* Footer */
     footer{padding:22px 0 34px; color:var(--muted2); font-size:12px}
     .foot{
       display:flex; align-items:center; justify-content:space-between;
@@ -574,7 +544,6 @@
       padding-top:14px;
     }
 
-    /* QR cards (top showcase) */
     .qrImg{
       width: 220px;
       max-width: 100%;
@@ -585,7 +554,6 @@
     }
     .qrRow{display:flex; gap:18px; flex-wrap:wrap;}
 
-    /* NEW: MEDIA (YouTube) */
     .mediaGrid{grid-template-columns: 1.05fr .95fr}
     .playerBox{
       border:1px solid var(--line);
@@ -594,9 +562,106 @@
       overflow:hidden;
     }
     .playerBox iframe{width:100%; height:420px; border:0; display:block}
-    .playlist{
-      display:grid; gap:10px;
-    }
+    .playlist{display:grid; gap:10px;}
+    /* ===== MEDIA UPGRADE: Search + Scroll + Lyric box ===== */
+.playlistWrap{
+  display:grid;
+  gap:10px;
+}
+
+.playlistTools{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.playlistTools .input{
+  min-width: 240px;
+  flex: 1;
+}
+
+.playlistScroll{
+  max-height: 520px;
+  overflow: auto;
+  padding-right: 6px;
+  scroll-behavior: smooth;
+}
+
+.playlistScroll::-webkit-scrollbar{width:10px}
+.playlistScroll::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,.14);
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+}
+[data-theme="light"] .playlistScroll::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.12);
+}
+
+.lyricBox{
+  margin-top:12px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+  overflow:hidden;
+}
+
+.lyricHead{
+  padding:12px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+
+.lyricHead b{
+  font-weight:900;
+  font-size:13px;
+}
+
+.lyricHint{
+  color:var(--muted2);
+  font-weight:800;
+  font-size:12px;
+  white-space:nowrap;
+}
+
+.lyricBody{
+  padding:12px 14px;
+}
+
+.lyricText{
+  width:100%;
+  min-height: 160px;
+  resize: vertical;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  color:var(--txt);
+  font-weight:800;
+  font-size:13px;
+  outline:none;
+  line-height:1.6;
+  padding:12px;
+}
+
+.lyricActions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+/* Mobile tweak */
+@media (max-width: 1040px){
+  .playlistScroll{max-height: 420px;}
+}
+@media (max-width: 560px){
+  .playlistScroll{max-height: 320px;}
+  .lyricText{min-height: 140px;}
+}
+
     .track{
       border:1px solid var(--line);
       border-radius:16px;
@@ -636,7 +701,6 @@
       font-weight:900; font-size:11px; color:var(--muted2);
     }
 
-    /* Responsive */
     @media (max-width: 1040px){
       .heroGrid{grid-template-columns: 1fr}
       .split2{grid-template-columns: 1fr}
@@ -662,7 +726,6 @@
 </head>
 
 <body>
-  <!-- Header -->
   <header>
     <div class="wrap">
       <div class="nav">
@@ -684,10 +747,7 @@
           <a href="#cv" data-spy>CV</a>
           <a href="#gallery" data-spy>Gallery</a>
           <a href="#blog" data-spy>Blog</a>
-
-          <!-- ✅ NEW -->
           <a href="#media" data-spy>Media</a>
-
           <a href="#qr" data-spy>QR</a>
           <a href="#faq" data-spy>FAQ</a>
           <a href="#contact" data-spy>Contact</a>
@@ -702,7 +762,6 @@
   </header>
 
   <main class="wrap" id="home">
-    <!-- HERO -->
     <section class="hero">
       <div class="grid heroGrid">
         <div class="card pad">
@@ -834,7 +893,7 @@
       </div>
     </section>
 
-    <!-- HIGHLIGHTS + STATS -->
+    <!-- HIGHLIGHTS -->
     <section id="highlights">
       <div class="titleRow">
         <h2 data-i18n="hlTitle">Highlights</h2>
@@ -1096,62 +1155,100 @@
       </div>
     </section>
 
-    <!-- ✅ NEW: MEDIA -->
-    <section id="media">
-      <div class="titleRow">
-        <h2>Media (English • UK/US Music)</h2>
-        <span class="muted2" style="font-weight:800">YouTube Player • Playlist • Quick Switch</span>
+   <!-- MEDIA -->
+<section id="media">
+  <div class="titleRow">
+    <h2>Media (English • UK/US Music)</h2>
+    <span class="muted2" style="font-weight:800">YouTube Player • Playlist • Search • Lyrics Notes</span>
+  </div>
+
+  <div class="grid mediaGrid">
+    <!-- LEFT: PLAYER + LYRIC -->
+    <div class="card pad">
+      <div class="item">
+        <h3 style="margin:0 0 6px">🎬 Player</h3>
+        <p class="muted" style="margin:0">
+          Chọn bài ở playlist bên phải để phát ngay. Có nút bật <b>Autoplay</b> và <b>Loop</b>.
+        </p>
+        <div class="tagRow" style="margin-top:10px">
+          <span class="chip" id="nowType">TYPE: MUSIC</span>
+          <span class="chip" id="nowTitle">NOW: ...</span>
+          <span class="chip" id="nowMode">MODE: Autoplay ON</span>
+        </div>
       </div>
 
-      <div class="grid mediaGrid">
-        <div class="card pad">
-          <div class="item">
-            <h3 style="margin:0 0 6px">🎬 Player</h3>
-            <p class="muted" style="margin:0">
-              Chọn bài ở playlist bên phải để phát ngay. Có nút bật <b>Autoplay</b> và <b>Loop</b>.
-            </p>
-            <div class="tagRow" style="margin-top:10px">
-              <span class="chip" id="nowType">TYPE: MUSIC</span>
-              <span class="chip" id="nowTitle">NOW: Last Christmas</span>
-              <span class="chip" id="nowMode">MODE: Autoplay ON</span>
-            </div>
-          </div>
+      <div class="playerBox" style="margin-top:12px">
+        <iframe
+          id="ytPlayer"
+          title="YouTube Player"
+          src=""
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+      </div>
 
-          <div class="playerBox" style="margin-top:12px">
-            <iframe
-              id="ytPlayer"
-              title="YouTube Player"
-              src=""
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              referrerpolicy="strict-origin-when-cross-origin"
-            ></iframe>
-          </div>
+      <div class="miniBtns">
+        <button class="miniBtn" id="btnAutoplay" type="button">⚡ Autoplay: <span id="apState">ON</span></button>
+        <button class="miniBtn" id="btnLoop" type="button">🔁 Loop: <span id="lpState">OFF</span></button>
+        <button class="miniBtn" id="btnCopyMedia" type="button">🔗 Copy video link</button>
+        <button class="miniBtn" id="btnOpenYT" type="button">▶️ Open on YouTube</button>
+      </div>
 
-          <div class="miniBtns">
-            <button class="miniBtn" id="btnAutoplay" type="button">⚡ Autoplay: <span id="apState">ON</span></button>
-            <button class="miniBtn" id="btnLoop" type="button">🔁 Loop: <span id="lpState">OFF</span></button>
-            <button class="miniBtn" id="btnCopyMedia" type="button">🔗 Copy video link</button>
-            <button class="miniBtn" id="btnOpenYT" type="button">▶️ Open on YouTube</button>
+      <!-- LYRIC / NOTES -->
+      <div class="lyricBox">
+        <div class="lyricHead">
+          <b>📝 Lyrics / Notes (tự dán — lưu riêng từng bài)</b>
+          <span class="lyricHint">Auto-save ✅</span>
+        </div>
+        <div class="lyricBody">
+          <textarea id="lyricText" class="lyricText" placeholder="Dán lyric / ghi chú học tiếng Anh của bài này vào đây... (sẽ tự lưu)"></textarea>
+          <div class="lyricActions">
+            <button class="miniBtn" id="btnSaveLyric" type="button">💾 Save</button>
+            <button class="miniBtn" id="btnClearLyric" type="button">🧹 Clear</button>
+            <button class="miniBtn" id="btnCopyLyric" type="button">📋 Copy lyric/notes</button>
           </div>
-
           <div class="muted2" style="margin-top:10px; font-weight:800; font-size:12px; line-height:1.7">
-            * Tip: Bạn chỉ cần thay <b>videoId</b> ở playlist để đổi bài / đổi video English.
+            * Gợi ý: Anh có thể dán lyric ngắn, hoặc ghi chú từ vựng/cụm từ để học. (Tránh dán quá dài nếu không cần.)
           </div>
         </div>
+      </div>
 
-        <div class="card pad">
-          <div class="item">
-            <h3 style="margin:0 0 6px">🎧 Playlist</h3>
-            <p class="muted" style="margin:0">Gồm: <b>English videos</b> + <b>UK/US music</b> (3 bài bạn yêu cầu).</p>
-          </div>
+      <div class="muted2" style="margin-top:10px; font-weight:800; font-size:12px; line-height:1.7">
+        * Tip: Bạn chỉ cần thay <b>videoId</b> trong JS playlist để đổi bài.
+      </div>
+    </div>
 
-          <div style="height:10px"></div>
+    <!-- RIGHT: PLAYLIST + SEARCH + SCROLL -->
+    <div class="card pad">
+      <div class="item">
+        <h3 style="margin:0 0 6px">🎧 Playlist</h3>
+        <p class="muted" style="margin:0">30 bài nổi tiếng + thanh tìm kiếm, playlist cuộn gọn.</p>
+      </div>
 
+      <div style="height:10px"></div>
+
+      <div class="playlistWrap">
+        <div class="playlistTools">
+          <input class="input" id="mediaSearch" placeholder="🔎 Tìm bài hát... (vd: Despacito, Adele, Ed Sheeran)" />
+          <select class="select" id="mediaType" style="min-width:180px">
+            <option value="all">All</option>
+            <option value="music">Music</option>
+            <option value="english">English</option>
+          </select>
+          <button class="btn" id="btnMediaReset" type="button" style="min-width:160px">
+            <span class="ico">🧽</span><span>Reset</span>
+          </button>
+        </div>
+
+        <div class="playlistScroll">
           <div class="playlist" id="playlist"></div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
 
     <!-- QR -->
     <section id="qr">
@@ -1160,7 +1257,6 @@
         <span class="muted2" style="font-weight:800" data-i18n="qrRight">Tạo QR ngay trên web</span>
       </div>
 
-      <!-- Quick QR cards -->
       <div class="grid split2" style="margin-bottom:16px">
         <div class="card pad">
           <h3 style="margin:0 0 10px;font-size:15px">QR Website</h3>
@@ -1183,7 +1279,6 @@
         </div>
       </div>
 
-      <!-- Generate QR tool -->
       <div class="grid split2">
         <div class="card pad">
           <h3 style="margin:0 0 10px; font-size:15px" data-i18n="qrMake">Tạo QR chia sẻ</h3>
@@ -1332,13 +1427,9 @@
     </footer>
   </main>
 
-  <!-- Back to top -->
   <button class="topBtn" id="topBtn" title="Lên đầu" type="button">↑</button>
-
-  <!-- Toast -->
   <div class="toast" id="toast">Copied!</div>
 
-  <!-- MODAL -->
   <div class="overlay" id="overlay" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true">
       <div class="modalHead">
@@ -1359,7 +1450,6 @@
       facebook: "https://www.facebook.com/langtukid94/"
     };
 
-    // ✅ Số liệu highlights
     const STATS = { projects: 12, ai_topics: 18, posts: 6, certs: 3 };
 
     /********************
@@ -1430,150 +1520,92 @@
      * 3) LANGUAGE TOGGLE (VI/EN)
      ********************/
     const btnLang = document.getElementById("btnLang");
-    const dict = {
-      vi: {
-        role:"Veterinary • AI • App Builder",
-        status:"Online • Sẵn sàng hợp tác",
-        hello:"Xin chào, tôi là",
-        btnCV:"Xem & Tải CV",
-        btnProjects:"Xem dự án",
-        btnProjectsSub:"Filter • Search • Modal",
-        btnShare:"Chia sẻ link",
-        btnShareSub:"Copy URL nhanh",
-
-        aboutTitle:"Giới thiệu chuyên nghiệp", aboutRight:"Tổng quan rõ ràng",
-        aboutMeT:"Tôi là ai?", aboutMeD:"Tôi theo hướng kết hợp giữa kiến thức Thú y và công nghệ để tạo ra giải pháp thực tế. Tôi ưu tiên làm việc có hệ thống, dễ mở rộng, rõ ràng và trình bày chuyên nghiệp.",
-        valueT:"Giá trị tôi mang lại",
-        value1t:"✅ Tối ưu rõ ràng", value1d:"Thiết kế nội dung dễ đọc, cấu trúc rõ ràng, link CV/QR hoạt động đúng.",
-        value2t:"✅ Tính chuyên nghiệp", value2d:"Giao diện “portfolio chuẩn”, có filter/search, modal, blog, gallery, QR generator.",
-        tag1:"Tư duy hệ thống", tag2:"Tối ưu trải nghiệm", tag3:"Kỷ luật & bền bỉ",
-
-        hlTitle:"Highlights", hlRight:"Thông tin nổi bật",
-        statsT:"Thống kê nhanh",
-        s1:"Dự án demo", s2:"Chủ đề AI thú y", s3:"Bài viết", s4:"Chứng chỉ",
-        statsNote:"Số liệu có thể chỉnh trong phần JS cuối file.",
-        focusT:"Trọng tâm",
-        focus1t:"📌 Thú y + Công nghệ", focus1d:"Tập trung tính ứng dụng, tối ưu vận hành, triển khai dễ.",
-        focus2t:"📌 Trình bày chuyên nghiệp", focus2d:"Website có cấu trúc rõ, UX tốt, có tính năng đầy đủ như web doanh nghiệp.",
-
-        skillsTitle:"Kỹ năng", skillsRight:"Thanh đánh giá + mô tả",
-        skillsCore:"Năng lực cốt lõi", skillsMore:"Kỹ năng bổ sung",
-        b1:"Nền tảng Thú y", b2:"AI Tools & Workflow", b3:"Web UI / GitHub Pages", b4:"Giao tiếp tiếng Anh",
-        sm1t:"🧠 Tư duy hệ thống", sm1d:"Tách module rõ, đặt tên chuẩn, link đúng đường dẫn, tránh lỗi 404.",
-        sm2t:"🧩 Thiết kế trải nghiệm", sm2d:"Filter/search dự án, modal, CTA rõ, nút copy nhanh, QR generator.",
-        sm3t:"🛡️ Chất lượng & ổn định", sm3d:"Ưu tiên website chạy mượt, responsive, cấu trúc chuyên nghiệp.",
-
-        tlTitle:"Timeline", tlRight:"Học tập • Công việc • Dự án",
-        tlExp:"Kinh nghiệm / Hành trình",
-        t1t:"Nâng cấp học thuật", t1d:"Tập trung kiến thức chuyên ngành và tài liệu chuẩn, trình bày khoa học.",
-        t2t:"Portfolio / Web cá nhân", t2d:"Xây web chuyên nghiệp: CV PDF, QR, dự án, blog, gallery, contact.",
-        t3t:"Ứng dụng AI thực tế", t3d:"Ứng dụng AI hỗ trợ học tập, tra cứu, chuẩn hóa quy trình và hiệu suất.",
-
-        certTitle:"Chứng chỉ / Thành tựu",
-        c1t:"Luyện tiếng Anh", c1d:"Luyện viết, luyện nói, tăng từ vựng, trình bày chuẩn.",
-        c2t:"AI trong thú y", c2d:"Tổng hợp công cụ AI: chẩn đoán, quản lý bệnh án, hỗ trợ tư vấn.",
-        c3t:"Triển khai Web", c3d:"Deploy GitHub Pages đúng cấu trúc, không lỗi assets/404.",
-
-        projTitle:"Dự án", projRight:"Filter • Search • Modal", projHint:"Nhấp vào 1 dự án để mở modal chi tiết.",
-
-        cvTitle:"CV", cvRight:"Rõ ràng • Xem trực tiếp • Tải nhanh",
-        openCV:"Mở / Tải CV", downloadCV:"Tải về máy", downloadCVSub:"Download trực tiếp",
-        printCV:"In CV", printCVSub:"Mở rồi in",
-        cvView:"Xem CV ngay trên trang",
-
-        galTitle:"Gallery", galRight:"Modal ảnh • Responsive", galHint:"Bạn có thể thay ảnh bằng link thật (hoặc upload ảnh vào repo).",
-        blogTitle:"Blog mini", blogRight:"Bài viết • Gợi ý nội dung",
-
-        qrTitle:"QR", qrRight:"Tạo QR ngay trên web", qrMake:"Tạo QR chia sẻ", qrBtn:"Tạo QR", qrSite:"QR Website", qrVcard:"QR Danh thiếp",
-        qrNote:"QR Website: lấy URL hiện tại. QR Danh thiếp: tạo vCard theo Contact.",
-        qrResult:"Kết quả QR",
-
-        faqTitle:"FAQ", faqRight:"Câu hỏi thường gặp",
-        f1q:"Vì sao trước đây bị lỗi 404 CV?", f1a:"Do link vẫn trỏ “assets/” nhưng bạn đã xóa thư mục assets. Bản này dùng đường dẫn trực tiếp: CV_Trung.pdf.",
-        f2q:"GitHub có phân biệt chữ hoa thường không?", f2a:"Có. “CV_Trung.pdf” khác “cv_trung.pdf”. Phải đúng y hệt tên file.",
-        f3q:"Muốn thay ảnh/giữ đẹp thì làm sao?", f3a:"Chỉ cần thay file avatar.jpg bằng ảnh mới (giữ đúng tên) rồi commit + push.",
-        f4q:"Có thể thêm nhiều trang (multi-page) không?", f4a:"Được. Nhưng hiện tại bạn yêu cầu 1 file duy nhất, nên làm kiểu “nhiều section” trong 1 trang cuộn.",
-        f5q:"Muốn form gửi tin nhắn hoạt động thật thì sao?", f5a:"GitHub Pages không có backend. Bạn có thể dùng Google Form, Formspree, hoặc email mailto.",
-        f6q:"Làm sao kiểm tra nhanh đã deploy chưa?", f6a:"Mở link trực tiếp: /avatar.jpg và /CV_Trung.pdf. Nếu mở được là OK.",
-
-        ctTitle:"Liên hệ", ctRight:"Email • Zalo • Facebook",
-        ctInfo:"Thông tin liên hệ",
-        ctNote:"Bạn có thể dùng QR Danh thiếp ở phần QR sau khi nhập đúng email/zalo/facebook.",
-        ctForm:"Gửi tin nhắn (mailto)", ctFormDesc:"Form này sẽ mở ứng dụng email của bạn để gửi. GitHub Pages không có backend sẵn.",
-        sendMail:"Gửi email", sendMailSub:"Mở Gmail/Outlook",
-      },
-      en: {
-        role:"Veterinary • AI • App Builder",
-        status:"Online • Open to collaborate",
-        hello:"Hi, I'm",
-        btnCV:"View & Download CV",
-        btnProjects:"View projects",
-        btnProjectsSub:"Filter • Search • Modal",
-        btnShare:"Share link",
-        btnShareSub:"Quick copy URL",
-
-        aboutTitle:"Professional introduction", aboutRight:"Clear overview",
-        aboutMeT:"Who am I?", aboutMeD:"I combine Veterinary knowledge and technology to build practical solutions. I prefer structured work, scalability, clarity, and professional presentation.",
-        valueT:"What I deliver",
-        value1t:"✅ Clarity first", value1d:"Readable structure, clean layout, working CV/QR links.",
-        value2t:"✅ Professional features", value2d:"Portfolio-grade UI with filters/search, modal, blog, gallery, QR generator.",
-        tag1:"System thinking", tag2:"UX-focused", tag3:"Disciplined",
-
-        hlTitle:"Highlights", hlRight:"Key points",
-        statsT:"Quick stats",
-        s1:"Demo projects", s2:"AI vet topics", s3:"Posts", s4:"Certificates",
-        statsNote:"You can edit numbers in the JS config at the bottom.",
-        focusT:"Focus areas",
-        focus1t:"📌 Vet + Tech", focus1d:"Practical use-cases, optimized operations, easy deployment.",
-        focus2t:"📌 Professional presentation", focus2d:"Clean structure, strong UX, business-like features.",
-
-        skillsTitle:"Skills", skillsRight:"Skill bars + description",
-        skillsCore:"Core skills", skillsMore:"Additional skills",
-        b1:"Veterinary Fundamentals", b2:"AI Tools & Workflow", b3:"Web UI / GitHub Pages", b4:"English Communication",
-        sm1t:"🧠 System thinking", sm1d:"Clean structure, proper naming, correct paths, avoid 404.",
-        sm2t:"🧩 UX design", sm2d:"Project filter/search, modal, clear CTA, quick copy, QR generator.",
-        sm3t:"🛡️ Quality", sm3d:"Fast, responsive, professional structure.",
-
-        tlTitle:"Timeline", tlRight:"Study • Work • Projects",
-        tlExp:"Experience / Journey",
-        t1t:"Academic improvement", t1d:"Professional formatting, structured knowledge, scientific writing style.",
-        t2t:"Portfolio website", t2d:"Professional web: CV PDF, QR, projects, blog, gallery, contact.",
-        t3t:"Real-world AI usage", t3d:"AI to support learning, lookup, standardize workflows and productivity.",
-
-        certTitle:"Certificates / Achievements",
-        c1t:"English practice", c1d:"Writing, speaking, vocabulary and presentation improvements.",
-        c2t:"AI in veterinary", c2d:"Curating AI tools for diagnosis, records, and assistance.",
-        c3t:"Web deployment", c3d:"GitHub Pages deployment with correct structure (no assets/404).",
-
-        projTitle:"Projects", projRight:"Filter • Search • Modal", projHint:"Click a project to open details modal.",
-
-        cvTitle:"CV", cvRight:"Clear • Embedded • Fast download",
-        openCV:"Open / Download CV", downloadCV:"Download file", downloadCVSub:"Direct download",
-        printCV:"Print CV", printCVSub:"Open then print",
-        cvView:"Preview CV on page",
-
-        galTitle:"Gallery", galRight:"Image modal • Responsive", galHint:"Replace with your real images or upload to the repo.",
-        blogTitle:"Mini blog", blogRight:"Content ideas",
-
-        qrTitle:"QR", qrRight:"Generate QR on-page", qrMake:"Generate sharing QR", qrBtn:"Generate QR", qrSite:"Website QR", qrVcard:"vCard QR",
-        qrNote:"Website QR uses current URL. vCard uses your contact values from config.",
-        qrResult:"QR result",
-
-        faqTitle:"FAQ", faqRight:"Frequently asked questions",
-        f1q:"Why did I get 404 for CV before?", f1a:"Because your link still pointed to “assets/” but the folder was deleted. This uses direct path: CV_Trung.pdf.",
-        f2q:"Is GitHub case-sensitive?", f2a:"Yes. “CV_Trung.pdf” is different from “cv_trung.pdf”. Keep exact filename.",
-        f3q:"How to update avatar easily?", f3a:"Replace avatar.jpg with a new image (keep the same name) then commit + push.",
-        f4q:"Can I make it multi-page?", f4a:"Yes. But you asked for a single file; this is many sections in one scroll page.",
-        f5q:"Can the contact form send messages directly?", f5a:"GitHub Pages has no backend by default. Use Google Form, Formspree, or mailto.",
-        f6q:"How to verify deployment quickly?", f6a:"Open direct links: /avatar.jpg and /CV_Trung.pdf. If they load, you're good.",
-
-        ctTitle:"Contact", ctRight:"Email • Zalo • Facebook",
-        ctInfo:"Contact info",
-        ctNote:"You can generate a vCard QR after you update email/zalo/facebook in config.",
-        ctForm:"Send message (mailto)", ctFormDesc:"This opens your email client to send. GitHub Pages has no backend by default.",
-        sendMail:"Send email", sendMailSub:"Open Gmail/Outlook",
-      }
-    };
+    const dict = { vi:{ role:"Veterinary • AI • App Builder", status:"Online • Sẵn sàng hợp tác", hello:"Xin chào, tôi là",
+      btnCV:"Xem & Tải CV", btnProjects:"Xem dự án", btnProjectsSub:"Filter • Search • Modal",
+      btnShare:"Chia sẻ link", btnShareSub:"Copy URL nhanh",
+      aboutTitle:"Giới thiệu chuyên nghiệp", aboutRight:"Tổng quan rõ ràng",
+      aboutMeT:"Tôi là ai?", aboutMeD:"Tôi theo hướng kết hợp giữa kiến thức Thú y và công nghệ để tạo ra giải pháp thực tế. Tôi ưu tiên làm việc có hệ thống, dễ mở rộng, rõ ràng và trình bày chuyên nghiệp.",
+      valueT:"Giá trị tôi mang lại", value1t:"✅ Tối ưu rõ ràng", value1d:"Thiết kế nội dung dễ đọc, cấu trúc rõ ràng, link CV/QR hoạt động đúng.",
+      value2t:"✅ Tính chuyên nghiệp", value2d:"Giao diện “portfolio chuẩn”, có filter/search, modal, blog, gallery, QR generator.",
+      tag1:"Tư duy hệ thống", tag2:"Tối ưu trải nghiệm", tag3:"Kỷ luật & bền bỉ",
+      hlTitle:"Highlights", hlRight:"Thông tin nổi bật", statsT:"Thống kê nhanh",
+      s1:"Dự án demo", s2:"Chủ đề AI thú y", s3:"Bài viết", s4:"Chứng chỉ", statsNote:"Số liệu có thể chỉnh trong phần JS cuối file.",
+      focusT:"Trọng tâm", focus1t:"📌 Thú y + Công nghệ", focus1d:"Tập trung tính ứng dụng, tối ưu vận hành, triển khai dễ.",
+      focus2t:"📌 Trình bày chuyên nghiệp", focus2d:"Website có cấu trúc rõ, UX tốt, có tính năng đầy đủ như web doanh nghiệp.",
+      skillsTitle:"Kỹ năng", skillsRight:"Thanh đánh giá + mô tả", skillsCore:"Năng lực cốt lõi", skillsMore:"Kỹ năng bổ sung",
+      b1:"Nền tảng Thú y", b2:"AI Tools & Workflow", b3:"Web UI / GitHub Pages", b4:"Giao tiếp tiếng Anh",
+      sm1t:"🧠 Tư duy hệ thống", sm1d:"Tách module rõ, đặt tên chuẩn, link đúng đường dẫn, tránh lỗi 404.",
+      sm2t:"🧩 Thiết kế trải nghiệm", sm2d:"Filter/search dự án, modal, CTA rõ, nút copy nhanh, QR generator.",
+      sm3t:"🛡️ Chất lượng & ổn định", sm3d:"Ưu tiên website chạy mượt, responsive, cấu trúc chuyên nghiệp.",
+      tlTitle:"Timeline", tlRight:"Học tập • Công việc • Dự án", tlExp:"Kinh nghiệm / Hành trình",
+      t1t:"Nâng cấp học thuật", t1d:"Tập trung kiến thức chuyên ngành và tài liệu chuẩn, trình bày khoa học.",
+      t2t:"Portfolio / Web cá nhân", t2d:"Xây web chuyên nghiệp: CV PDF, QR, dự án, blog, gallery, contact.",
+      t3t:"Ứng dụng AI thực tế", t3d:"Ứng dụng AI hỗ trợ học tập, tra cứu, chuẩn hóa quy trình và hiệu suất.",
+      certTitle:"Chứng chỉ / Thành tựu", c1t:"Luyện tiếng Anh", c1d:"Luyện viết, luyện nói, tăng từ vựng, trình bày chuẩn.",
+      c2t:"AI trong thú y", c2d:"Tổng hợp công cụ AI: chẩn đoán, quản lý bệnh án, hỗ trợ tư vấn.",
+      c3t:"Triển khai Web", c3d:"Deploy GitHub Pages đúng cấu trúc, không lỗi assets/404.",
+      projTitle:"Dự án", projRight:"Filter • Search • Modal", projHint:"Nhấp vào 1 dự án để mở modal chi tiết.",
+      cvTitle:"CV", cvRight:"Rõ ràng • Xem trực tiếp • Tải nhanh", openCV:"Mở / Tải CV", downloadCV:"Tải về máy",
+      downloadCVSub:"Download trực tiếp", printCV:"In CV", printCVSub:"Mở rồi in", cvView:"Xem CV ngay trên trang",
+      galTitle:"Gallery", galRight:"Modal ảnh • Responsive", galHint:"Bạn có thể thay ảnh bằng link thật (hoặc upload ảnh vào repo).",
+      blogTitle:"Blog mini", blogRight:"Bài viết • Gợi ý nội dung",
+      qrTitle:"QR", qrRight:"Tạo QR ngay trên web", qrMake:"Tạo QR chia sẻ", qrBtn:"Tạo QR", qrSite:"QR Website", qrVcard:"QR Danh thiếp",
+      qrNote:"QR Website: lấy URL hiện tại. QR Danh thiếp: tạo vCard theo Contact.", qrResult:"Kết quả QR",
+      faqTitle:"FAQ", faqRight:"Câu hỏi thường gặp",
+      f1q:"Vì sao trước đây bị lỗi 404 CV?", f1a:"Do link vẫn trỏ “assets/” nhưng bạn đã xóa thư mục assets. Bản này dùng đường dẫn trực tiếp: CV_Trung.pdf.",
+      f2q:"GitHub có phân biệt chữ hoa thường không?", f2a:"Có. “CV_Trung.pdf” khác “cv_trung.pdf”. Phải đúng y hệt tên file.",
+      f3q:"Muốn thay ảnh/giữ đẹp thì làm sao?", f3a:"Chỉ cần thay file avatar.jpg bằng ảnh mới (giữ đúng tên) rồi commit + push.",
+      f4q:"Có thể thêm nhiều trang (multi-page) không?", f4a:"Được. Nhưng hiện tại bạn yêu cầu 1 file duy nhất, nên làm kiểu “nhiều section” trong 1 trang cuộn.",
+      f5q:"Muốn form gửi tin nhắn hoạt động thật thì sao?", f5a:"GitHub Pages không có backend. Bạn có thể dùng Google Form, Formspree, hoặc email mailto.",
+      f6q:"Làm sao kiểm tra nhanh đã deploy chưa?", f6a:"Mở link trực tiếp: /avatar.jpg và /CV_Trung.pdf. Nếu mở được là OK.",
+      ctTitle:"Liên hệ", ctRight:"Email • Zalo • Facebook", ctInfo:"Thông tin liên hệ",
+      ctNote:"Bạn có thể dùng QR Danh thiếp ở phần QR sau khi nhập đúng email/zalo/facebook.",
+      ctForm:"Gửi tin nhắn (mailto)", ctFormDesc:"Form này sẽ mở ứng dụng email của bạn để gửi. GitHub Pages không có backend sẵn.",
+      sendMail:"Gửi email", sendMailSub:"Mở Gmail/Outlook"
+    },
+    en:{ role:"Veterinary • AI • App Builder", status:"Online • Open to collaborate", hello:"Hi, I'm",
+      btnCV:"View & Download CV", btnProjects:"View projects", btnProjectsSub:"Filter • Search • Modal",
+      btnShare:"Share link", btnShareSub:"Quick copy URL",
+      aboutTitle:"Professional introduction", aboutRight:"Clear overview",
+      aboutMeT:"Who am I?", aboutMeD:"I combine Veterinary knowledge and technology to build practical solutions. I prefer structured work, scalability, clarity, and professional presentation.",
+      valueT:"What I deliver", value1t:"✅ Clarity first", value1d:"Readable structure, clean layout, working CV/QR links.",
+      value2t:"✅ Professional features", value2d:"Portfolio-grade UI with filters/search, modal, blog, gallery, QR generator.",
+      tag1:"System thinking", tag2:"UX-focused", tag3:"Disciplined",
+      hlTitle:"Highlights", hlRight:"Key points", statsT:"Quick stats",
+      s1:"Demo projects", s2:"AI vet topics", s3:"Posts", s4:"Certificates", statsNote:"You can edit numbers in the JS config at the bottom.",
+      focusT:"Focus areas", focus1t:"📌 Vet + Tech", focus1d:"Practical use-cases, optimized operations, easy deployment.",
+      focus2t:"📌 Professional presentation", focus2d:"Clean structure, strong UX, business-like features.",
+      skillsTitle:"Skills", skillsRight:"Skill bars + description", skillsCore:"Core skills", skillsMore:"Additional skills",
+      b1:"Veterinary Fundamentals", b2:"AI Tools & Workflow", b3:"Web UI / GitHub Pages", b4:"English Communication",
+      sm1t:"🧠 System thinking", sm1d:"Clean structure, proper naming, correct paths, avoid 404.",
+      sm2t:"🧩 UX design", sm2d:"Project filter/search, modal, clear CTA, quick copy, QR generator.",
+      sm3t:"🛡️ Quality", sm3d:"Fast, responsive, professional structure.",
+      tlTitle:"Timeline", tlRight:"Study • Work • Projects", tlExp:"Experience / Journey",
+      t1t:"Academic improvement", t1d:"Professional formatting, structured knowledge, scientific writing style.",
+      t2t:"Portfolio website", t2d:"Professional web: CV PDF, QR, projects, blog, gallery, contact.",
+      t3t:"Real-world AI usage", t3d:"AI to support learning, lookup, standardize workflows and productivity.",
+      certTitle:"Certificates / Achievements", c1t:"English practice", c1d:"Writing, speaking, vocabulary and presentation improvements.",
+      c2t:"AI in veterinary", c2d:"Curating AI tools for diagnosis, records, and assistance.",
+      c3t:"Web deployment", c3d:"GitHub Pages deployment with correct structure (no assets/404).",
+      projTitle:"Projects", projRight:"Filter • Search • Modal", projHint:"Click a project to open details modal.",
+      cvTitle:"CV", cvRight:"Clear • Embedded • Fast download", openCV:"Open / Download CV", downloadCV:"Download file", downloadCVSub:"Direct download",
+      printCV:"Print CV", printCVSub:"Open then print", cvView:"Preview CV on page",
+      galTitle:"Gallery", galRight:"Image modal • Responsive", galHint:"Replace with your real images or upload to the repo.",
+      blogTitle:"Mini blog", blogRight:"Content ideas",
+      qrTitle:"QR", qrRight:"Generate QR on-page", qrMake:"Generate sharing QR", qrBtn:"Generate QR", qrSite:"Website QR", qrVcard:"vCard QR",
+      qrNote:"Website QR uses current URL. vCard uses your contact values from config.", qrResult:"QR result",
+      faqTitle:"FAQ", faqRight:"Frequently asked questions",
+      f1q:"Why did I get 404 for CV before?", f1a:"Because your link still pointed to “assets/” but the folder was deleted. This uses direct path: CV_Trung.pdf.",
+      f2q:"Is GitHub case-sensitive?", f2a:"Yes. “CV_Trung.pdf” is different from “cv_trung.pdf”. Keep exact filename.",
+      f3q:"How to update avatar easily?", f3a:"Replace avatar.jpg with a new image (keep the same name) then commit + push.",
+      f4q:"Can I make it multi-page?", f4a:"Yes. But you asked for a single file; this is many sections in one scroll page.",
+      f5q:"Can the contact form send messages directly?", f5a:"GitHub Pages has no backend by default. Use Google Form, Formspree, or mailto.",
+      f6q:"How to verify deployment quickly?", f6a:"Open direct links: /avatar.jpg and /CV_Trung.pdf. If they load, you're good.",
+      ctTitle:"Contact", ctRight:"Email • Zalo • Facebook", ctInfo:"Contact info",
+      ctNote:"You can generate a vCard QR after you update email/zalo/facebook in config.",
+      ctForm:"Send message (mailto)", ctFormDesc:"This opens your email client to send. GitHub Pages has no backend by default.",
+      sendMail:"Send email", sendMailSub:"Open Gmail/Outlook"
+    }};
 
     let lang = localStorage.getItem("lang") || "vi";
     function applyLang(){
@@ -1747,7 +1779,7 @@
     });
 
     /********************
-     * 6) GALLERY
+     * 6) GALLERY (render 1 lần + click modal OK)
      ********************/
     const GALLERY = [
       {title:"Workspace", src:"https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=70"},
@@ -1760,29 +1792,31 @@
       {title:"Presentation", src:"https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=70"},
     ];
     const gal = document.getElementById("gal");
-  gal.innerHTML = GALLERY.map((g,i)=>`
-  <div class="ph" data-i="${i}">
-    <img
-      src="${g.src}"
-      alt="${g.title}"
-      loading="lazy"
-      onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=70';"
-    >
-    <span>${g.title}</span>
-  </div>
-`).join("");
+    const FALLBACK_IMG = "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=70";
 
-    gal.querySelectorAll(".ph").forEach(el=>{
-      el.addEventListener("click", ()=>{
-        const i = Number(el.getAttribute("data-i"));
-        const g = GALLERY[i];
-        openModal("Gallery • " + g.title, `
-          <div style="border-radius:18px; overflow:hidden; border:1px solid var(--line)">
-            <img src="${g.src}" alt="${g.title}" style="width:100%; height:auto;">
-          </div>
-        `);
+    function renderGallery(){
+      gal.innerHTML = GALLERY.map((g,i)=>`
+        <div class="ph" data-i="${i}">
+          <img src="${g.src}" alt="${g.title}" loading="lazy"
+               onerror="this.onerror=null; this.src='${FALLBACK_IMG}';">
+          <span>${g.title}</span>
+        </div>
+      `).join("");
+
+      gal.querySelectorAll(".ph").forEach(el=>{
+        el.addEventListener("click", ()=>{
+          const i = Number(el.getAttribute("data-i"));
+          const g = GALLERY[i];
+          openModal("Gallery • " + g.title, `
+            <div style="border-radius:18px; overflow:hidden">
+              <img src="${g.src}" style="width:100%"
+                   onerror="this.onerror=null; this.src='${FALLBACK_IMG}';">
+            </div>
+          `);
+        });
       });
-    });
+    }
+    renderGallery();
 
     /********************
      * 7) BLOG
@@ -1818,7 +1852,231 @@
     });
 
     /********************
-     * 8) QR GENERATOR
+ * 8) ✅ MEDIA PLAYER (YouTube) — SEARCH + SCROLL + LYRIC NOTES (localStorage)
+ ********************/
+const ytPlayer = document.getElementById("ytPlayer");
+const playlistEl = document.getElementById("playlist");
+const nowTypeEl  = document.getElementById("nowType");
+const nowTitleEl = document.getElementById("nowTitle");
+const nowModeEl  = document.getElementById("nowMode");
+
+const mediaSearch = document.getElementById("mediaSearch");
+const mediaType   = document.getElementById("mediaType");
+const btnMediaReset = document.getElementById("btnMediaReset");
+
+let autoplay = true;
+let loop = false;
+let currentIndex = 0;
+
+// Lyrics/Notes elements
+const lyricText = document.getElementById("lyricText");
+const btnSaveLyric = document.getElementById("btnSaveLyric");
+const btnClearLyric = document.getElementById("btnClearLyric");
+const btnCopyLyric = document.getElementById("btnCopyLyric");
+
+// ✅ 30 bài phổ biến (anh muốn “tỷ view”)
+// (Lưu ý: con số view thay đổi theo thời gian, đây là danh sách bài cực nổi tiếng)
+const MEDIA = [
+  { type:"MUSIC", title:"Despacito — Luis Fonsi ft. Daddy Yankee", meta:"GLOBAL", desc:"Official video.", videoId:"kJQP7kiw5Fk" },
+  { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"US/UK", desc:"Official video.", videoId:"RgKAFK5djSk" },
+  { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"US/UK", desc:"Official video.", videoId:"JGwWNGJdvx8" },
+  { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"US/UK", desc:"Official video.", videoId:"OPf0YbXqDm0" },
+  { type:"MUSIC", title:"Gangnam Style — PSY", meta:"K-POP", desc:"Official video.", videoId:"9bZkp7q19f0" },
+  { type:"MUSIC", title:"Sugar — Maroon 5", meta:"US/UK", desc:"Official video.", videoId:"09R8_2nJtjg" },
+  { type:"MUSIC", title:"Roar — Katy Perry", meta:"US/UK", desc:"Official video.", videoId:"CevxZvSJLk8" },
+  { type:"MUSIC", title:"Sorry — Justin Bieber", meta:"US/UK", desc:"Official video.", videoId:"fRh_vgS2dFE" },
+  { type:"MUSIC", title:"Thinking Out Loud — Ed Sheeran", meta:"US/UK", desc:"Official video.", videoId:"lp-EO5I60KA" },
+  { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"US/UK", desc:"Official video.", videoId:"hT_nvWreIhg" },
+  { type:"MUSIC", title:"Dark Horse — Katy Perry", meta:"US/UK", desc:"Official video.", videoId:"0KSOMA3QBU0" },
+  { type:"MUSIC", title:"Faded — Alan Walker", meta:"EDM", desc:"Official video.", videoId:"60ItHLz5WEA" },
+  { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"US/UK", desc:"Official video.", videoId:"7wtfhZwyrcc" },
+  { type:"MUSIC", title:"Lean On — Major Lazer & DJ Snake", meta:"EDM", desc:"Official video.", videoId:"YqeW9_5kURI" },
+  { type:"MUSIC", title:"Perfect — Ed Sheeran", meta:"US/UK", desc:"Official video.", videoId:"2Vv-BfVoq4g" },
+  { type:"MUSIC", title:"Havana — Camila Cabello", meta:"US/UK", desc:"Official video.", videoId:"HCjNJDNzw8Y" },
+  { type:"MUSIC", title:"Bad Guy — Billie Eilish", meta:"US/UK", desc:"Official video.", videoId:"DyDfgMOUjCI" },
+  { type:"MUSIC", title:"Closer — The Chainsmokers ft. Halsey", meta:"US/UK", desc:"Official video.", videoId:"0zGcUoRlhmw" },
+  { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"US/UK", desc:"Official video.", videoId:"aJOTlE1K90k" },
+  { type:"MUSIC", title:"Cheap Thrills — Sia", meta:"US/UK", desc:"Official video.", videoId:"nYh-n7EOtMA" },
+  { type:"MUSIC", title:"Hello — Adele", meta:"US/UK", desc:"Official video.", videoId:"YQHsXMglC9A" },
+  { type:"MUSIC", title:"All About That Bass — Meghan Trainor", meta:"US/UK", desc:"Official video.", videoId:"7PCkvCPvDXk" },
+  { type:"MUSIC", title:"Waka Waka — Shakira", meta:"GLOBAL", desc:"Official video.", videoId:"pRpeEdMmmQ0" },
+  { type:"MUSIC", title:"Chandelier — Sia", meta:"US/UK", desc:"Official video.", videoId:"2vjPBrBU-TM" },
+  { type:"MUSIC", title:"Love The Way You Lie — Eminem ft. Rihanna", meta:"US/UK", desc:"Official video.", videoId:"uelHwf8o7_U" },
+  { type:"MUSIC", title:"Let Her Go — Passenger", meta:"US/UK", desc:"Official video.", videoId:"RBumgq5yVrA" },
+  { type:"MUSIC", title:"Blank Space — Taylor Swift", meta:"US/UK", desc:"Official video.", videoId:"e-ORhEE9VVg" },
+  { type:"MUSIC", title:"Thunder — Imagine Dragons", meta:"US/UK", desc:"Official video.", videoId:"fKopy74weus" },
+  { type:"MUSIC", title:"On The Floor — Jennifer Lopez ft. Pitbull", meta:"US/UK", desc:"Official video.", videoId:"t4H_Zoh7G5A" },
+  { type:"MUSIC", title:"Dame Tu Cosita — El Chombo", meta:"GLOBAL", desc:"Official video.", videoId:"FzG4uDgje3M" },
+];
+
+function ytEmbedUrl(videoId){
+  const params = new URLSearchParams();
+  params.set("rel","0");
+  params.set("modestbranding","1");
+  params.set("playsinline","1");
+  if(autoplay) params.set("autoplay","1");
+  if(loop){
+    params.set("loop","1");
+    params.set("playlist", videoId);
+  }
+  return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+}
+
+function getLyricKey(videoId){
+  return `media_lyric_${videoId}`;
+}
+
+function loadLyricFor(videoId){
+  const saved = localStorage.getItem(getLyricKey(videoId)) || "";
+  lyricText.value = saved;
+}
+
+function saveLyricFor(videoId){
+  localStorage.setItem(getLyricKey(videoId), lyricText.value || "");
+}
+
+let lyricAutosaveTimer = null;
+lyricText.addEventListener("input", ()=>{
+  if(!MEDIA[currentIndex]) return;
+  clearTimeout(lyricAutosaveTimer);
+  lyricAutosaveTimer = setTimeout(()=>{
+    saveLyricFor(MEDIA[currentIndex].videoId);
+    toast("Saved ✅");
+  }, 550);
+});
+
+btnSaveLyric.addEventListener("click", ()=>{
+  if(!MEDIA[currentIndex]) return;
+  saveLyricFor(MEDIA[currentIndex].videoId);
+  toast("Saved ✅");
+});
+
+btnClearLyric.addEventListener("click", ()=>{
+  if(!MEDIA[currentIndex]) return;
+  lyricText.value = "";
+  saveLyricFor(MEDIA[currentIndex].videoId);
+  toast("Cleared ✅");
+});
+
+btnCopyLyric.addEventListener("click", async ()=>{
+  try{
+    await navigator.clipboard.writeText(lyricText.value || "");
+    toast("Copied ✅");
+  }catch(e){
+    toast("Copy failed");
+  }
+});
+
+function setActiveTrackByIndex(idx){
+  const item = MEDIA[idx];
+  if(!item) return;
+  currentIndex = idx;
+
+  ytPlayer.src = ytEmbedUrl(item.videoId);
+  nowTypeEl.textContent  = `TYPE: ${item.type}`;
+  nowTitleEl.textContent = `NOW: ${item.title}`;
+  nowModeEl.textContent  = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
+
+  document.querySelectorAll(".track").forEach(el=>el.classList.remove("active"));
+  const active = document.querySelector(`.track[data-idx="${idx}"]`);
+  if(active) active.classList.add("active");
+
+  loadLyricFor(item.videoId);
+}
+
+function buildTrackHTML(m, idx){
+  return `
+    <div class="track" data-idx="${idx}">
+      <div class="trackTop">
+        <div class="trackTitle">${m.title}</div>
+        <div class="trackMeta">${m.meta}</div>
+      </div>
+      <p class="trackDesc">${m.desc}</p>
+    </div>
+  `;
+}
+
+function renderPlaylist(){
+  const query = (mediaSearch.value || "").trim().toLowerCase();
+  const typeFilter = (mediaType.value || "all").toLowerCase();
+
+  // Render all tracks but hide those not matching (giữ index chuẩn để click đúng bài)
+  playlistEl.innerHTML = MEDIA.map((m, idx)=>{
+    const okQ = !query ? true : (m.title.toLowerCase().includes(query) || (m.meta||"").toLowerCase().includes(query));
+    const okT = (typeFilter === "all") ? true : (m.type || "").toLowerCase() === typeFilter;
+    const hidden = !(okQ && okT);
+    return `<div style="${hidden ? "display:none" : ""}">${buildTrackHTML(m, idx)}</div>`;
+  }).join("");
+
+  // bind click
+  playlistEl.querySelectorAll(".track").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      const idx = Number(el.getAttribute("data-idx"));
+      setActiveTrackByIndex(idx);
+      toast("Switched ✅");
+    });
+  });
+
+  // highlight current
+  const active = document.querySelector(`.track[data-idx="${currentIndex}"]`);
+  if(active) active.classList.add("active");
+}
+
+renderPlaylist();
+
+// Default: mở bài đầu tiên
+setActiveTrackByIndex(0);
+
+const apState = document.getElementById("apState");
+const lpState = document.getElementById("lpState");
+
+document.getElementById("btnAutoplay").addEventListener("click", ()=>{
+  autoplay = !autoplay;
+  apState.textContent = autoplay ? "ON" : "OFF";
+  ytPlayer.src = ytEmbedUrl(MEDIA[currentIndex].videoId);
+  nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
+  toast("Autoplay " + (autoplay ? "ON" : "OFF"));
+});
+
+document.getElementById("btnLoop").addEventListener("click", ()=>{
+  loop = !loop;
+  lpState.textContent = loop ? "ON" : "OFF";
+  ytPlayer.src = ytEmbedUrl(MEDIA[currentIndex].videoId);
+  nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
+  toast("Loop " + (loop ? "ON" : "OFF"));
+});
+
+document.getElementById("btnCopyMedia").addEventListener("click", async ()=>{
+  const item = MEDIA[currentIndex];
+  if(!item) return;
+  const url = `https://www.youtube.com/watch?v=${item.videoId}`;
+  try{
+    await navigator.clipboard.writeText(url);
+    toast("Copied video link ✅");
+  }catch(e){
+    toast("Copy failed");
+  }
+});
+
+document.getElementById("btnOpenYT").addEventListener("click", ()=>{
+  const item = MEDIA[currentIndex];
+  if(!item) return;
+  window.open(`https://www.youtube.com/watch?v=${item.videoId}`, "_blank", "noopener");
+});
+
+// Search + filter
+mediaSearch.addEventListener("input", renderPlaylist);
+mediaType.addEventListener("change", renderPlaylist);
+
+btnMediaReset.addEventListener("click", ()=>{
+  mediaSearch.value = "";
+  mediaType.value = "all";
+  renderPlaylist();
+  toast("Reset ✅");
+});
+
+    /********************
+     * 9) QR GENERATOR
      ********************/
     const qrBox = document.getElementById("qrBox");
     const qrCaption = document.getElementById("qrCaption");
@@ -1865,7 +2123,6 @@ END:VCARD`;
       makeMainQR(vcf);
     });
 
-    // Quick QR blocks (site/fb/zalo)
     const siteUrl = location.href.split("#")[0];
     document.getElementById("qrSiteText").textContent = siteUrl;
 
@@ -1874,7 +2131,7 @@ END:VCARD`;
     makeQR(document.getElementById("qrZaloBox"), CONTACT.zalo);
 
     /********************
-     * 9) PRINT CV
+     * 10) PRINT CV
      ********************/
     document.getElementById("btnPrint").addEventListener("click", ()=>{
       window.open("CV_Trung.pdf", "_blank", "noopener");
@@ -1882,7 +2139,7 @@ END:VCARD`;
     });
 
     /********************
-     * 10) SEND MAIL (mailto)
+     * 11) SEND MAIL (mailto)
      ********************/
     document.getElementById("btnMail").addEventListener("click", ()=>{
       const name = (document.getElementById("name").value || "").trim();
@@ -1897,7 +2154,7 @@ END:VCARD`;
     });
 
     /********************
-     * 11) NAV SPY + BACK TO TOP
+     * 12) NAV SPY + BACK TO TOP
      ********************/
     const topBtn = document.getElementById("topBtn");
     topBtn.addEventListener("click", ()=> window.scrollTo({top:0, behavior:"smooth"}));
@@ -1922,7 +2179,7 @@ END:VCARD`;
     onScroll();
 
     /********************
-     * 12) SKILL BARS animate when visible
+     * 13) SKILL BARS animate when visible
      ********************/
     const barEls = document.querySelectorAll(".bar");
     const io = new IntersectionObserver((entries)=>{
@@ -1935,276 +2192,6 @@ END:VCARD`;
       });
     }, {threshold: 0.25});
     barEls.forEach(b=>io.observe(b));
-
-    /********************
-     * 13) ✅ MEDIA PLAYER (YouTube)
-     ********************/
-    /********************
- * 13) ✅ MEDIA PLAYER (YouTube) — FIXED
- ********************/
-const ytPlayer = document.getElementById("ytPlayer");
-const playlistEl = document.getElementById("playlist");
-
-const nowTypeEl  = document.getElementById("nowType");
-const nowTitleEl = document.getElementById("nowTitle");
-const nowModeEl  = document.getElementById("nowMode");
-
-let autoplay = true;
-let loop = false;
-let currentItem = null;
-
-// ✅ Base MEDIA (bạn có thể thêm/bớt tùy thích)
-const MEDIA = [
-  // English learning videos (ví dụ)
-  { type:"ENGLISH", title:"English Speaking Practice (Daily Conversation)", meta:"ENGLISH • PRACTICE", desc:"Video luyện speaking (tham khảo).", videoId:"Rk7b2V_ClbY" },
-  { type:"ENGLISH", title:"English Listening Practice (Short Stories)", meta:"ENGLISH • LISTENING", desc:"Video luyện listening (tham khảo).", videoId:"R8bVZqv7BfI" },
-
-  // ✅ 3 bài bạn yêu cầu
-  { type:"MUSIC", title:"Last Christmas — Wham!", meta:"UK/US MUSIC", desc:"Official video.", videoId:"E8gmARGvPlI" },
-  { type:"MUSIC", title:"Let Me Hear Your Voice (声をきかせて) — BIGBANG", meta:"K-POP / JP", desc:"BIGBANG Japan single.", videoId:"oQjcJBGIFsA" },
-  { type:"MUSIC", title:"Lies (거짓말) — BIGBANG", meta:"K-POP", desc:"Official MV.", videoId:"2Cv3phvP8Ro" },
-];
-
-// ✅ ADD MORE UK/US BILLION-VIEW TRACKS (YouTube)
-const MORE_UK_US_BILLION = [
-  { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"UK/US MUSIC • 1B+", desc:"Ed Sheeran (UK) — official video.", videoId:"JGwWNGJdvx8" },
-  { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"UK/US MUSIC • 1B+", desc:"Mark Ronson (UK) x Bruno Mars (US) — official video.", videoId:"OPf0YbXqDm0" },
-  { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"UK/US MUSIC • 1B+", desc:"Wiz Khalifa (US) — official video.", videoId:"RgKAFK5djSk" },
-  { type:"MUSIC", title:"Roar — Katy Perry", meta:"UK/US MUSIC • 1B+", desc:"Katy Perry (US) — official video.", videoId:"CevxZvSJLk8" },
-  { type:"MUSIC", title:"Dark Horse — Katy Perry ft. Juicy J", meta:"UK/US MUSIC • 1B+", desc:"Katy Perry (US) — official video.", videoId:"0KSOMA3QBU0" },
-  { type:"MUSIC", title:"Sugar — Maroon 5", meta:"UK/US MUSIC • 1B+", desc:"Maroon 5 (US) — official video.", videoId:"09R8_2nJtjg" },
-  { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"UK/US MUSIC • 1B+", desc:"OneRepublic (US) — official video.", videoId:"hT_nvWreIhg" },
-  { type:"MUSIC", title:"Shake It Off — Taylor Swift", meta:"UK/US MUSIC • 1B+", desc:"Taylor Swift (US) — official video.", videoId:"kNlX5C3Ubn4" },
-  { type:"MUSIC", title:"Blank Space — Taylor Swift", meta:"UK/US MUSIC • 1B+", desc:"Taylor Swift (US) — official video.", videoId:"e-ORhEE9VVg" },
-  { type:"MUSIC", title:"Hello — Adele", meta:"UK/US MUSIC • 1B+", desc:"Adele (UK) — official video.", videoId:"YQHsXMglC9A" },
-  { type:"MUSIC", title:"Someone Like You — Adele", meta:"UK/US MUSIC • 1B+", desc:"Adele (UK) — official video.", videoId:"hLQl3WQQoQ0" },
-  { type:"MUSIC", title:"Let Her Go — Passenger", meta:"UK/US MUSIC • 1B+", desc:"Passenger (UK) — official video.", videoId:"RBumgq5yVrA" },
-  { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"UK/US MUSIC • 1B+", desc:"Imagine Dragons (US) — official video.", videoId:"7wtfhZwyrcc" },
-  { type:"MUSIC", title:"Thunder — Imagine Dragons", meta:"UK/US MUSIC • 1B+", desc:"Imagine Dragons (US) — official video.", videoId:"fKopy74weus" },
-  { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"UK/US MUSIC • 1B+", desc:"Maroon 5 (US) — official video.", videoId:"aJOTlE1K90k" },
-  { type:"MUSIC", title:"Memories — Maroon 5", meta:"UK/US MUSIC • 1B+", desc:"Maroon 5 (US) — official video.", videoId:"SlPhMPnQ58k" },
-  { type:"MUSIC", title:"All About That Bass — Meghan Trainor", meta:"UK/US MUSIC • 1B+", desc:"Meghan Trainor (US) — official video.", videoId:"7PCkvCPvDXk" },
-  { type:"MUSIC", title:"Closer — The Chainsmokers ft. Halsey", meta:"UK/US MUSIC • 1B+", desc:"The Chainsmokers (US) — official video.", videoId:"0zGcUoRlhmw" },
-];
-
-// ✅ NỐI thêm list lớn vào cuối playlist
-MEDIA.push(...MORE_UK_US_BILLION);
-
-function ytEmbedUrl(videoId){
-  const params = new URLSearchParams();
-  params.set("rel","0");
-  params.set("modestbranding","1");
-  params.set("playsinline","1");
-  if(autoplay) params.set("autoplay","1");
-  if(loop){
-    params.set("loop","1");
-    params.set("playlist", videoId); // loop single video
-  }
-  return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
-}
-
-function setActiveTrack(idx){
-  const item = MEDIA[idx];
-  if(!item) return;
-  currentItem = item;
-
-  ytPlayer.src = ytEmbedUrl(item.videoId);
-
-  nowTypeEl.textContent = `TYPE: ${item.type}`;
-  nowTitleEl.textContent = `NOW: ${item.title}`;
-  nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
-
-  document.querySelectorAll(".track").forEach(el=>el.classList.remove("active"));
-  const active = document.querySelector(`.track[data-idx="${idx}"]`);
-  if(active) active.classList.add("active");
-}
-
-function renderPlaylist(){
-  playlistEl.innerHTML = MEDIA.map((m, idx)=>`
-    <div class="track" data-idx="${idx}">
-      <div class="trackTop">
-        <div class="trackTitle">${m.title}</div>
-        <div class="trackMeta">${m.meta}</div>
-      </div>
-      <p class="trackDesc">${m.desc}</p>
-    </div>
-  `).join("");
-
-  playlistEl.querySelectorAll(".track").forEach(el=>{
-    el.addEventListener("click", ()=>{
-      const idx = Number(el.getAttribute("data-idx"));
-      setActiveTrack(idx);
-      toast("Switched ✅");
-    });
-  });
-}
-renderPlaylist();
-
-// ✅ Default: ưu tiên “Last Christmas”, nếu không có thì bài đầu
-const defaultIdx = MEDIA.findIndex(x => (x.title || "").toLowerCase().includes("last christmas"));
-setActiveTrack(defaultIdx >= 0 ? defaultIdx : 0);
-
-// Controls
-const apState = document.getElementById("apState");
-const lpState = document.getElementById("lpState");
-
-document.getElementById("btnAutoplay").addEventListener("click", ()=>{
-  autoplay = !autoplay;
-  apState.textContent = autoplay ? "ON" : "OFF";
-  if(currentItem) ytPlayer.src = ytEmbedUrl(currentItem.videoId);
-  nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
-  toast("Autoplay " + (autoplay ? "ON" : "OFF"));
-});
-
-document.getElementById("btnLoop").addEventListener("click", ()=>{
-  loop = !loop;
-  lpState.textContent = loop ? "ON" : "OFF";
-  if(currentItem) ytPlayer.src = ytEmbedUrl(currentItem.videoId);
-  nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
-  toast("Loop " + (loop ? "ON" : "OFF"));
-});
-
-document.getElementById("btnCopyMedia").addEventListener("click", async ()=>{
-  if(!currentItem) return;
-  const url = `https://www.youtube.com/watch?v=${currentItem.videoId}`;
-  try{
-    await navigator.clipboard.writeText(url);
-    toast("Copied video link ✅");
-  }catch(e){
-    toast("Copy failed");
-  }
-});
-
-document.getElementById("btnOpenYT").addEventListener("click", ()=>{
-  if(!currentItem) return;
-  window.open(`https://www.youtube.com/watch?v=${currentItem.videoId}`, "_blank", "noopener");
-});
-
-
- // ✅ ADD 20 UK/US BILLION-VIEW TRACKS (YouTube)
-const MORE_UK_US_BILLION = [
-  { type:"MUSIC", title:"Shape of You — Ed Sheeran", meta:"UK/US MUSIC • 1B+", desc:"Ed Sheeran (UK) — official video.", videoId:"JGwWNGJdvx8" },
-  { type:"MUSIC", title:"Uptown Funk — Mark Ronson ft. Bruno Mars", meta:"UK/US MUSIC • 1B+", desc:"Mark Ronson (UK) x Bruno Mars (US) — official video.", videoId:"OPf0YbXqDm0" },
-  { type:"MUSIC", title:"See You Again — Wiz Khalifa ft. Charlie Puth", meta:"UK/US MUSIC • 1B+", desc:"Wiz Khalifa (US) — official video.", videoId:"RgKAFK5djSk" },
-  { type:"MUSIC", title:"Roar — Katy Perry", meta:"UK/US MUSIC • 1B+", desc:"Katy Perry (US) — official video.", videoId:"CevxZvSJLk8" },
-  { type:"MUSIC", title:"Dark Horse — Katy Perry ft. Juicy J", meta:"UK/US MUSIC • 1B+", desc:"Katy Perry (US) — official video.", videoId:"0KSOMA3QBU0" },
-  { type:"MUSIC", title:"Sugar — Maroon 5", meta:"UK/US MUSIC • 1B+", desc:"Maroon 5 (US) — official video.", videoId:"09R8_2nJtjg" },
-  { type:"MUSIC", title:"Counting Stars — OneRepublic", meta:"UK/US MUSIC • 1B+", desc:"OneRepublic (US) — official video.", videoId:"hT_nvWreIhg" },
-
-  { type:"MUSIC", title:"Shake It Off — Taylor Swift", meta:"UK/US MUSIC • 1B+", desc:"Taylor Swift (US) — official video.", videoId:"kNlX5C3Ubn4" },
-  { type:"MUSIC", title:"Blank Space — Taylor Swift", meta:"UK/US MUSIC • 1B+", desc:"Taylor Swift (US) — official video.", videoId:"e-ORhEE9VVg" },
-
-  { type:"MUSIC", title:"Hello — Adele", meta:"UK/US MUSIC • 1B+", desc:"Adele (UK) — official video.", videoId:"YQHsXMglC9A" },
-  { type:"MUSIC", title:"Someone Like You — Adele", meta:"UK/US MUSIC • 1B+", desc:"Adele (UK) — official video.", videoId:"hLQl3WQQoQ0" },
-
-  { type:"MUSIC", title:"Let Her Go — Passenger", meta:"UK/US MUSIC • 1B+", desc:"Passenger (UK) — official video.", videoId:"RBumgq5yVrA" },
-
-  { type:"MUSIC", title:"Believer — Imagine Dragons", meta:"UK/US MUSIC • 1B+", desc:"Imagine Dragons (US) — official video.", videoId:"7wtfhZwyrcc" },
-  { type:"MUSIC", title:"Thunder — Imagine Dragons", meta:"UK/US MUSIC • 1B+", desc:"Imagine Dragons (US) — official video.", videoId:"fKopy74weus" },
-
-  { type:"MUSIC", title:"Girls Like You — Maroon 5 ft. Cardi B", meta:"UK/US MUSIC • 1B+", desc:"Maroon 5 (US) — official video.", videoId:"aJOTlE1K90k" },
-  { type:"MUSIC", title:"Memories — Maroon 5", meta:"UK/US MUSIC • 1B+", desc:"Maroon 5 (US) — official video.", videoId:"SlPhMPnQ58k" },
-
-  { type:"MUSIC", title:"All About That Bass — Meghan Trainor", meta:"UK/US MUSIC • 1B+", desc:"Meghan Trainor (US) — official video.", videoId:"7PCkvCPvDXk" },
-
-  { type:"MUSIC", title:"Closer — The Chainsmokers ft. Halsey", meta:"UK/US MUSIC • 1B+", desc:"The Chainsmokers (US) — official video.", videoId:"0zGcUoRlhmw" },
-];
-
-// 👉 Cách dùng: thêm vào cuối MEDIA hiện tại
-// const MEDIA = [...MEDIA, ...MORE_UK_US_BILLION];
-
-
-    function ytEmbedUrl(videoId){
-      const params = new URLSearchParams();
-      params.set("rel","0");
-      params.set("modestbranding","1");
-      params.set("playsinline","1");
-      if(autoplay) params.set("autoplay","1");
-      if(loop){
-        params.set("loop","1");
-        params.set("playlist", videoId); // loop single video
-      }
-      return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
-    }
-
-    function setActiveTrack(idx){
-      const item = MEDIA[idx];
-      if(!item) return;
-      currentItem = item;
-
-      ytPlayer.src = ytEmbedUrl(item.videoId);
-
-      nowTypeEl.textContent = `TYPE: ${item.type}`;
-      nowTitleEl.textContent = `NOW: ${item.title}`;
-      nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
-
-      document.querySelectorAll(".track").forEach(el=>el.classList.remove("active"));
-      const active = document.querySelector(`.track[data-idx="${idx}"]`);
-      if(active) active.classList.add("active");
-    }
-
-    function renderPlaylist(){
-      playlistEl.innerHTML = MEDIA.map((m, idx)=>`
-        <div class="track" data-idx="${idx}">
-          <div class="trackTop">
-            <div class="trackTitle">${m.title}</div>
-            <div class="trackMeta">${m.meta}</div>
-          </div>
-          <p class="trackDesc">${m.desc}</p>
-        </div>
-      `).join("");
-
-      playlistEl.querySelectorAll(".track").forEach(el=>{
-        el.addEventListener("click", ()=>{
-          const idx = Number(el.getAttribute("data-idx"));
-          setActiveTrack(idx);
-          toast("Switched ✅");
-        });
-      });
-    }
-    renderPlaylist();
-
- // ✅ FIX: chọn Last Christmas nếu có, không thì bài đầu tiên
-const defaultIdx = MEDIA.findIndex(
-  x => (x.title || "").toLowerCase().includes("last christmas")
-);
-setActiveTrack(defaultIdx >= 0 ? defaultIdx : 0);
-    setActiveTrack(2);
-
-    // Controls
-    const apState = document.getElementById("apState");
-    const lpState = document.getElementById("lpState");
-    document.getElementById("btnAutoplay").addEventListener("click", ()=>{
-      autoplay = !autoplay;
-      apState.textContent = autoplay ? "ON" : "OFF";
-      if(currentItem) ytPlayer.src = ytEmbedUrl(currentItem.videoId);
-      nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
-      toast("Autoplay " + (autoplay ? "ON" : "OFF"));
-    });
-    document.getElementById("btnLoop").addEventListener("click", ()=>{
-      loop = !loop;
-      lpState.textContent = loop ? "ON" : "OFF";
-      if(currentItem) ytPlayer.src = ytEmbedUrl(currentItem.videoId);
-      nowModeEl.textContent = `MODE: Autoplay ${autoplay ? "ON" : "OFF"} • Loop ${loop ? "ON" : "OFF"}`;
-      toast("Loop " + (loop ? "ON" : "OFF"));
-    });
-
-    document.getElementById("btnCopyMedia").addEventListener("click", async ()=>{
-      if(!currentItem) return;
-      const url = `https://www.youtube.com/watch?v=${currentItem.videoId}`;
-      try{
-        await navigator.clipboard.writeText(url);
-        toast("Copied video link ✅");
-      }catch(e){
-        toast("Copy failed");
-      }
-    });
-
-    document.getElementById("btnOpenYT").addEventListener("click", ()=>{
-      if(!currentItem) return;
-      window.open(`https://www.youtube.com/watch?v=${currentItem.videoId}`, "_blank", "noopener");
-    });
   </script>
 </body>
 </html>
- 
